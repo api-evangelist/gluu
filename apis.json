@@ -1,0 +1,107 @@
+{
+    "name": "Gluu",
+    "description": "Gluu allows Organizations to safely manage identity security. Gluu supports SAML2.0, OpenID Content, idp shibboleth, idp saml, open source sso, active directory saml. Free Trial Available.",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/10213-gluu.jpg",
+    "tags": [
+        "api management other",
+        "api service provider",
+        "authentication",
+        "have api",
+        "have swagger",
+        "identities",
+        "management"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/gluu\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "Gluu SCIM 2.0 Apis Documentation",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/10213-gluu.jpg",
+            "humanURL": "http:\/\/www.gluu.org\/",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/gluu-scim-2-0-apis-documentation-openapi.json"
+                },
+                {
+                    "type": "x-openapi",
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/gluu-scim-2-0-apis-documentation.json"
+                }
+            ]
+        },
+        {
+            "name": "Gluu",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/10213-gluu.jpg",
+            "humanURL": "http:\/\/www.gluu.org\/",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/gluu-openapi.json"
+                },
+                {
+                    "type": "x-openapi",
+                    "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-evangelist-site\/company\/openapis\/gluu.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Blog",
+            "url": "http:\/\/www.gluu.org\/blog\/"
+        },
+        {
+            "type": "Blog RSS",
+            "url": "http:\/\/www.gluu.org\/blog\/feed"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "https:\/\/crunchbase.com\/organization\/gluu"
+        },
+        {
+            "type": "Email",
+            "url": "sales@gluu.org"
+        },
+        {
+            "type": "Github",
+            "url": "https:\/\/github.com\/GluuFederation"
+        },
+        {
+            "type": "Swagger",
+            "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-definitions\/swagger\/10213-2019-09-03-23-15-04.json"
+        },
+        {
+            "type": "Swagger",
+            "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-definitions\/swagger\/10213-2019-09-03-23-15-14.json"
+        },
+        {
+            "type": "Swagger",
+            "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-definitions\/swagger\/10213-2019-09-03-23-15-59.json"
+        },
+        {
+            "type": "Swagger",
+            "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-definitions\/swagger\/10213-2019-09-03-23-16-06.json"
+        },
+        {
+            "type": "Swagger",
+            "url": "http:\/\/kinlane-productions.s3.amazonaws.com\/api-definitions\/swagger\/10213-2019-09-03-23-17-23.json"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/GluuFederation"
+        },
+        {
+            "type": "Website",
+            "url": "http:\/\/www.gluu.org\/"
+        }
+    ]
+}
