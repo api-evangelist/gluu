@@ -1,0 +1,1247 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "v2",
+        "title": "Gluu SCIM 2.0 Apis Documentation",
+        "description": "SCIM API documentation for Gluu. For more details please visit https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19",
+        "termsOfService": "https:\/\/github.com\/GluuFederation\/"
+    },
+    "servers": [
+        "http:\/\/gluu.org\/api"
+    ],
+    "paths": {
+        "\/scim\/v2\/Bulk": {
+            "post": {
+                "summary": "Bulk Operation",
+                "description": "SCIM Bulk Operation (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.7)",
+                "operationId": "BulkOperation",
+                "deprecated": 0,
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/BulkResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/scim\/v2\/Groups": {
+            "get": {
+                "summary": "List Users",
+                "description": "Returns a list of Groups (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4)",
+                "operationId": "ListGroups",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "sortBy",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "sortOrder",
+                        "in": "query",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/BulkResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create Group",
+                "description": "Create Group (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+                "operationId": "CreateGroup",
+                "deprecated": 0,
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/BulkResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/scim\/v2\/Groups\/{id}": {
+            "get": {
+                "summary": "Find Group by id",
+                "description": "Returns a Group on the basis of provided id as path param (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4.2.1)",
+                "operationId": "GetGroupById",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/BulkResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update Group",
+                "description": "Update Group (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+                "operationId": "UpdateGroup",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/BulkResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete Group",
+                "description": "Delete Group (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+                "operationId": "DeleteGroup",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "\/scim\/v2\/Users": {
+            "get": {
+                "summary": "List Users",
+                "description": "Returns a list of users (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4)",
+                "operationId": "ListUsers",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "sortBy",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "sortOrder",
+                        "in": "query",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/BulkResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create User",
+                "description": "Create User (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+                "operationId": "CreateUser",
+                "deprecated": 0,
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/BulkResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/scim\/v2\/Users\/{uid}": {
+            "get": {
+                "summary": "Find User by id",
+                "description": "Returns a Users on the basis of provided uid as path param (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4.2.1)",
+                "operationId": "GetUserByUid",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "uid",
+                        "in": "path",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/BulkResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update User",
+                "description": "Update User (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+                "operationId": "UpdateUser",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "uid",
+                        "in": "path",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/BulkResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete User",
+                "description": "Delete User (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+                "operationId": "DeleteUser",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "uid",
+                        "in": "path",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "\/v2\/Bulk": {
+            "post": {
+                "summary": "Bulk Operation",
+                "description": "SCIM Bulk Operation (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.7)",
+                "operationId": "BulkOperation",
+                "deprecated": 0,
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/BulkResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/v2\/Groups": {
+            "get": {
+                "summary": "List Users",
+                "description": "Returns a list of Groups (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4)",
+                "operationId": "ListGroups",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "sortBy",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "sortOrder",
+                        "in": "query",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/BulkResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create Group",
+                "description": "Create Group (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+                "operationId": "CreateGroup",
+                "deprecated": 0,
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/BulkResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/v2\/Groups\/{id}": {
+            "get": {
+                "summary": "Find Group by id",
+                "description": "Returns a Group on the basis of provided id as path param (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4.2.1)",
+                "operationId": "GetGroupById",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/BulkResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update Group",
+                "description": "Update Group (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+                "operationId": "UpdateGroup",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/BulkResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete Group",
+                "description": "Delete Group (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+                "operationId": "DeleteGroup",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "\/v2\/Users": {
+            "get": {
+                "summary": "List Users",
+                "description": "Returns a list of users (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4)",
+                "operationId": "ListUsers",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "sortBy",
+                        "in": "query",
+                        "description": ""
+                    },
+                    {
+                        "name": "sortOrder",
+                        "in": "query",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/BulkResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create User",
+                "description": "Create User (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+                "operationId": "CreateUser",
+                "deprecated": 0,
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/BulkResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/v2\/Users\/{uid}": {
+            "get": {
+                "summary": "Find User by id",
+                "description": "Returns a Users on the basis of provided uid as path param (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4.2.1)",
+                "operationId": "GetUserByUid",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "uid",
+                        "in": "path",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/BulkResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update User",
+                "description": "Update User (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+                "operationId": "UpdateUser",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "uid",
+                        "in": "path",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$href": "#\/components\/schemas\/BulkResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete User",
+                "description": "Delete User (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+                "operationId": "DeleteUser",
+                "deprecated": 0,
+                "parameters": [
+                    {
+                        "name": "uid",
+                        "in": "path",
+                        "description": ""
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Address": {
+                "type": "object",
+                "properties": {
+                    "operation": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "primary": {
+                        "description": "",
+                        "type": "boolean"
+                    },
+                    "formatted": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "streetAddress": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "locality": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "region": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "postalCode": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "country": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "$ref": {
+                        "description": "",
+                        "type": "string"
+                    }
+                }
+            },
+            "type": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "description": "",
+                        "type": "string"
+                    }
+                }
+            },
+            "BulkOperation": {
+                "type": "object",
+                "properties": {
+                    "bulkId": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "version": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "method": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "path": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "location": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "data": {
+                        "description": "",
+                        "type": "object"
+                    },
+                    "status": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "response": {
+                        "description": "",
+                        "type": "object"
+                    }
+                }
+            },
+            "data": {
+                "type": "object"
+            },
+            "response": {
+                "type": "object"
+            },
+            "BulkRequest": {
+                "type": "object",
+                "properties": {
+                    "schemas": {
+                        "description": "",
+                        "type": "array"
+                    },
+                    "failOnErrors": {
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "operations": {
+                        "description": "",
+                        "type": "array"
+                    }
+                }
+            },
+            "schemas": {
+                "type": "array"
+            },
+            "operations": {
+                "type": "array"
+            },
+            "BulkResponse": {
+                "type": "object",
+                "properties": {
+                    "schemas": {
+                        "description": "",
+                        "type": "array"
+                    },
+                    "operations": {
+                        "description": "",
+                        "type": "array"
+                    }
+                }
+            },
+            "Email": {
+                "type": "object",
+                "properties": {
+                    "operation": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "display": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "primary": {
+                        "description": "",
+                        "type": "boolean"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "$ref": {
+                        "description": "",
+                        "type": "string"
+                    }
+                }
+            },
+            "Entitlement": {
+                "type": "object",
+                "properties": {
+                    "operation": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "display": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "primary": {
+                        "description": "",
+                        "type": "boolean"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "$ref": {
+                        "description": "",
+                        "type": "string"
+                    }
+                }
+            },
+            "Group": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "externalId": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "meta": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "schemas": {
+                        "description": "",
+                        "type": "array"
+                    },
+                    "displayName": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "members": {
+                        "description": "",
+                        "type": "array"
+                    }
+                }
+            },
+            "meta": {
+                "type": "object",
+                "properties": {
+                    "created": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "lastModified": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "location": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "version": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "attributes": {
+                        "description": "",
+                        "type": "array"
+                    },
+                    "resourceType": {
+                        "description": "",
+                        "type": "string"
+                    }
+                }
+            },
+            "members": {
+                "type": "array"
+            },
+            "GroupRef": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "display": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "$ref": {
+                        "description": "",
+                        "type": "string"
+                    }
+                }
+            },
+            "Im": {
+                "type": "object",
+                "properties": {
+                    "operation": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "display": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "primary": {
+                        "description": "",
+                        "type": "boolean"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "$ref": {
+                        "description": "",
+                        "type": "string"
+                    }
+                }
+            },
+            "ListResponse": {
+                "type": "object",
+                "properties": {
+                    "totalResults": {
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "startIndex": {
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "itemsPerPage": {
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "schemas": {
+                        "description": "",
+                        "type": "array"
+                    },
+                    "resources": {
+                        "description": "",
+                        "type": "array"
+                    }
+                }
+            },
+            "resources": {
+                "type": "array"
+            },
+            "MemberRef": {
+                "type": "object",
+                "properties": {
+                    "operation": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "display": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "$ref": {
+                        "description": "",
+                        "type": "string"
+                    }
+                }
+            },
+            "attributes": {
+                "type": "array"
+            },
+            "Name": {
+                "type": "object",
+                "properties": {
+                    "formatted": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "familyName": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "givenName": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "middleName": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "honorificPrefix": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "honorificSuffix": {
+                        "description": "",
+                        "type": "string"
+                    }
+                }
+            },
+            "PhoneNumber": {
+                "type": "object",
+                "properties": {
+                    "operation": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "display": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "primary": {
+                        "description": "",
+                        "type": "boolean"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "$ref": {
+                        "description": "",
+                        "type": "string"
+                    }
+                }
+            },
+            "Photo": {
+                "type": "object",
+                "properties": {
+                    "operation": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "display": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "primary": {
+                        "description": "",
+                        "type": "boolean"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "$ref": {
+                        "description": "",
+                        "type": "string"
+                    }
+                }
+            },
+            "Resource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "externalId": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "meta": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "schemas": {
+                        "description": "",
+                        "type": "array"
+                    }
+                }
+            },
+            "Role": {
+                "type": "object",
+                "properties": {
+                    "operation": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "display": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "primary": {
+                        "description": "",
+                        "type": "boolean"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "$ref": {
+                        "description": "",
+                        "type": "string"
+                    }
+                }
+            },
+            "User": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "externalId": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "meta": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "schemas": {
+                        "description": "",
+                        "type": "array"
+                    },
+                    "userName": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "Name": {
+                        "description": "",
+                        "type": "object"
+                    },
+                    "name": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "displayName": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "nickName": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "profileUrl": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "title": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "userType": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "preferredLanguage": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "locale": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "timezone": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "active": {
+                        "description": "",
+                        "type": "boolean"
+                    },
+                    "password": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "emails": {
+                        "description": "",
+                        "type": "array"
+                    },
+                    "phoneNumbers": {
+                        "description": "",
+                        "type": "array"
+                    },
+                    "ims": {
+                        "description": "",
+                        "type": "array"
+                    },
+                    "photos": {
+                        "description": "",
+                        "type": "array"
+                    },
+                    "addresses": {
+                        "description": "",
+                        "type": "array"
+                    },
+                    "groups": {
+                        "description": "",
+                        "type": "array"
+                    },
+                    "entitlements": {
+                        "description": "",
+                        "type": "array"
+                    },
+                    "roles": {
+                        "description": "",
+                        "type": "array"
+                    },
+                    "x509Certificates": {
+                        "description": "",
+                        "type": "array"
+                    },
+                    "customAttributes": {
+                        "description": "",
+                        "type": "array"
+                    }
+                }
+            },
+            "emails": {
+                "type": "array"
+            },
+            "phoneNumbers": {
+                "type": "array"
+            },
+            "ims": {
+                "type": "array"
+            },
+            "photos": {
+                "type": "array"
+            },
+            "addresses": {
+                "type": "array"
+            },
+            "groups": {
+                "type": "array"
+            },
+            "entitlements": {
+                "type": "array"
+            },
+            "roles": {
+                "type": "array"
+            },
+            "x509Certificates": {
+                "type": "array"
+            },
+            "X509Certificate": {
+                "type": "object",
+                "properties": {
+                    "operation": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "display": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "primary": {
+                        "description": "",
+                        "type": "boolean"
+                    },
+                    "type": {
+                        "description": "",
+                        "type": ""
+                    },
+                    "$ref": {
+                        "description": "",
+                        "type": "string"
+                    }
+                }
+            },
+            "CustomAttributes": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "values": {
+                        "description": "",
+                        "type": "array"
+                    }
+                }
+            },
+            "values": {
+                "type": "array"
+            },
+            "customAttributes": {
+                "type": "array"
+            }
+        }
+    }
+}
