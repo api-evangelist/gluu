@@ -1,0 +1,703 @@
+{
+    "id": "af3a75a30ef82fdc5d122880ea62effc",
+    "name": "Gluu SCIM 2.0 Apis Documentation",
+    "description": null,
+    "auth": null,
+    "events": null,
+    "variables": [],
+    "order": [],
+    "folders_order": [],
+    "folders": [],
+    "requests": [
+        {
+            "id": "5aa5639e5fc45d7c10c3cd68880ba675",
+            "name": "Bulk Operation",
+            "url": "http:\/\/gluu.org\/api\/scim\/v2\/Bulk",
+            "description": "SCIM Bulk Operation (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.7)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "post",
+            "pathVariableData": [],
+            "queryParams": [],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        },
+        {
+            "id": "5e4fdf74a9946ec40097e23b410898ca",
+            "name": "List Users",
+            "url": "http:\/\/gluu.org\/api\/scim\/v2\/Groups",
+            "description": "Returns a list of Groups (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "filter",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "sortBy",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "sortOrder",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        },
+        {
+            "id": "8f1717ee1f46477b593d4daa411c82d5",
+            "name": "Create Group",
+            "url": "http:\/\/gluu.org\/api\/scim\/v2\/Groups",
+            "description": "Create Group (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "post",
+            "pathVariableData": [],
+            "queryParams": [],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        },
+        {
+            "id": "25dc65c10d41a6fb260ae67847547892",
+            "name": "Find Group by id",
+            "url": "http:\/\/gluu.org\/api\/scim\/v2\/Groups\/{id}",
+            "description": "Returns a Group on the basis of provided id as path param (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4.2.1)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "id",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        },
+        {
+            "id": "e71c80a2cb16fd35e893018c777ac69a",
+            "name": "Update Group",
+            "url": "http:\/\/gluu.org\/api\/scim\/v2\/Groups\/{id}",
+            "description": "Update Group (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "put",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "id",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        },
+        {
+            "id": "d8cea0941c3aac85334a6823b5298160",
+            "name": "Delete Group",
+            "url": "http:\/\/gluu.org\/api\/scim\/v2\/Groups\/{id}",
+            "description": "Delete Group (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "delete",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "id",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        },
+        {
+            "id": "5785d3210d6632ecbfd64ba55becd6f9",
+            "name": "List Users",
+            "url": "http:\/\/gluu.org\/api\/scim\/v2\/Users",
+            "description": "Returns a list of users (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "filter",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "sortBy",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "sortOrder",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        },
+        {
+            "id": "0c150cee143239d650409248c9f13d1a",
+            "name": "Create User",
+            "url": "http:\/\/gluu.org\/api\/scim\/v2\/Users",
+            "description": "Create User (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "post",
+            "pathVariableData": [],
+            "queryParams": [],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        },
+        {
+            "id": "009e140f9f73b1defb2e00da1b93d31f",
+            "name": "Find User by id",
+            "url": "http:\/\/gluu.org\/api\/scim\/v2\/Users\/{uid}",
+            "description": "Returns a Users on the basis of provided uid as path param (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4.2.1)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "uid",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        },
+        {
+            "id": "c1411927870b708b7315d989b14b20db",
+            "name": "Update User",
+            "url": "http:\/\/gluu.org\/api\/scim\/v2\/Users\/{uid}",
+            "description": "Update User (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "put",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "uid",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        },
+        {
+            "id": "5a78b55d2c4fdd951616cd662c42c338",
+            "name": "Delete User",
+            "url": "http:\/\/gluu.org\/api\/scim\/v2\/Users\/{uid}",
+            "description": "Delete User (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "delete",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "uid",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        },
+        {
+            "id": "508fcea6ad95b2b027f9f9143717ce68",
+            "name": "Bulk Operation",
+            "url": "http:\/\/gluu.org\/api\/v2\/Bulk",
+            "description": "SCIM Bulk Operation (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.7)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "post",
+            "pathVariableData": [],
+            "queryParams": [],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        },
+        {
+            "id": "3d59778e9237c7c05679984fe1b4d751",
+            "name": "List Users",
+            "url": "http:\/\/gluu.org\/api\/v2\/Groups",
+            "description": "Returns a list of Groups (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "filter",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "sortBy",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "sortOrder",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        },
+        {
+            "id": "a9ee9ced7844b2968accd3b91bb8bad0",
+            "name": "Create Group",
+            "url": "http:\/\/gluu.org\/api\/v2\/Groups",
+            "description": "Create Group (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "post",
+            "pathVariableData": [],
+            "queryParams": [],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        },
+        {
+            "id": "9b233b949d97d0029b5dfcbc64f987c0",
+            "name": "Find Group by id",
+            "url": "http:\/\/gluu.org\/api\/v2\/Groups\/{id}",
+            "description": "Returns a Group on the basis of provided id as path param (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4.2.1)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "id",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        },
+        {
+            "id": "989df078565aaa1ff6071749b20d05dd",
+            "name": "Update Group",
+            "url": "http:\/\/gluu.org\/api\/v2\/Groups\/{id}",
+            "description": "Update Group (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "put",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "id",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        },
+        {
+            "id": "717f164e5b7e99eeedd9e33004844c36",
+            "name": "Delete Group",
+            "url": "http:\/\/gluu.org\/api\/v2\/Groups\/{id}",
+            "description": "Delete Group (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "delete",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "id",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        },
+        {
+            "id": "b26c49752d14d0df802ae278c4f151be",
+            "name": "List Users",
+            "url": "http:\/\/gluu.org\/api\/v2\/Users",
+            "description": "Returns a list of users (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "filter",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "sortBy",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                },
+                {
+                    "key": "sortOrder",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        },
+        {
+            "id": "a61cbbe571d2d4b0f209cdb428fb97c3",
+            "name": "Create User",
+            "url": "http:\/\/gluu.org\/api\/v2\/Users",
+            "description": "Create User (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "post",
+            "pathVariableData": [],
+            "queryParams": [],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        },
+        {
+            "id": "e083234680f9d01cafaa0043360fef55",
+            "name": "Find User by id",
+            "url": "http:\/\/gluu.org\/api\/v2\/Users\/{uid}",
+            "description": "Returns a Users on the basis of provided uid as path param (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4.2.1)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "get",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "uid",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        },
+        {
+            "id": "be6b148606beeee1df9c5496bd451696",
+            "name": "Update User",
+            "url": "http:\/\/gluu.org\/api\/v2\/Users\/{uid}",
+            "description": "Update User (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "put",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "uid",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        },
+        {
+            "id": "b9bb1f5bcb079d40e6cfd0882a6d2d28",
+            "name": "Delete User",
+            "url": "http:\/\/gluu.org\/api\/v2\/Users\/{uid}",
+            "description": "Delete User (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
+            "data": [],
+            "dataMode": "raw",
+            "headerData": null,
+            "method": "delete",
+            "pathVariableData": [],
+            "queryParams": [
+                {
+                    "key": "uid",
+                    "description": "",
+                    "value": "",
+                    "equals": true,
+                    "enabled": true
+                }
+            ],
+            "auth": null,
+            "events": null,
+            "folder": null,
+            "protocolProfileBehavior": {
+                "disableBodyPruning": true
+            },
+            "responses": [],
+            "currentHelper": null,
+            "helperAttributes": null,
+            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "rawModeData": ""
+        }
+    ]
+}
