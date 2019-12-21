@@ -1,5 +1,5 @@
 {
-    "id": "af3a75a30ef82fdc5d122880ea62effc",
+    "id": "1590f7e5a01eb47b75eadfeaac76dd66",
     "name": "Gluu SCIM 2.0 Apis Documentation",
     "description": null,
     "auth": null,
@@ -10,7 +10,7 @@
     "folders": [],
     "requests": [
         {
-            "id": "5aa5639e5fc45d7c10c3cd68880ba675",
+            "id": "fc25213e349355984a29d87fc0456673",
             "name": "Bulk Operation",
             "url": "http:\/\/gluu.org\/api\/scim\/v2\/Bulk",
             "description": "SCIM Bulk Operation (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.7)",
@@ -29,11 +29,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         },
         {
-            "id": "5e4fdf74a9946ec40097e23b410898ca",
+            "id": "7b2f4779f25f934238a02b46f22fa854",
             "name": "List Users",
             "url": "http:\/\/gluu.org\/api\/scim\/v2\/Groups",
             "description": "Returns a list of Groups (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4)",
@@ -74,11 +74,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         },
         {
-            "id": "8f1717ee1f46477b593d4daa411c82d5",
+            "id": "839c4e572c03c0ebf3ceaf30acda1309",
             "name": "Create Group",
             "url": "http:\/\/gluu.org\/api\/scim\/v2\/Groups",
             "description": "Create Group (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
@@ -97,11 +97,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         },
         {
-            "id": "25dc65c10d41a6fb260ae67847547892",
+            "id": "96004c437471c8e40b950d54c48bb23b",
             "name": "Find Group by id",
             "url": "http:\/\/gluu.org\/api\/scim\/v2\/Groups\/{id}",
             "description": "Returns a Group on the basis of provided id as path param (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4.2.1)",
@@ -128,11 +128,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         },
         {
-            "id": "e71c80a2cb16fd35e893018c777ac69a",
+            "id": "690057cd22164f8f9087e2165ac56b4a",
             "name": "Update Group",
             "url": "http:\/\/gluu.org\/api\/scim\/v2\/Groups\/{id}",
             "description": "Update Group (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
@@ -159,11 +159,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         },
         {
-            "id": "d8cea0941c3aac85334a6823b5298160",
+            "id": "f1a1b3be462a43164e9c00bce58b4d8a",
             "name": "Delete Group",
             "url": "http:\/\/gluu.org\/api\/scim\/v2\/Groups\/{id}",
             "description": "Delete Group (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
@@ -190,11 +190,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         },
         {
-            "id": "5785d3210d6632ecbfd64ba55becd6f9",
+            "id": "f400ddaa746bdee8e6c3c5ca570d132a",
             "name": "List Users",
             "url": "http:\/\/gluu.org\/api\/scim\/v2\/Users",
             "description": "Returns a list of users (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4)",
@@ -235,11 +235,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         },
         {
-            "id": "0c150cee143239d650409248c9f13d1a",
+            "id": "b5c2d5388b8ac7f685e606a9e6724e63",
             "name": "Create User",
             "url": "http:\/\/gluu.org\/api\/scim\/v2\/Users",
             "description": "Create User (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
@@ -258,11 +258,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         },
         {
-            "id": "009e140f9f73b1defb2e00da1b93d31f",
+            "id": "0a4bbfa2ecf10a83d722d2b4e13893ff",
             "name": "Find User by id",
             "url": "http:\/\/gluu.org\/api\/scim\/v2\/Users\/{uid}",
             "description": "Returns a Users on the basis of provided uid as path param (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4.2.1)",
@@ -289,11 +289,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         },
         {
-            "id": "c1411927870b708b7315d989b14b20db",
+            "id": "8b0d7f23431b5913ff3b5548ce70acd6",
             "name": "Update User",
             "url": "http:\/\/gluu.org\/api\/scim\/v2\/Users\/{uid}",
             "description": "Update User (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
@@ -320,11 +320,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         },
         {
-            "id": "5a78b55d2c4fdd951616cd662c42c338",
+            "id": "7b296d2b5be23adcf1c0be33d7e1a00b",
             "name": "Delete User",
             "url": "http:\/\/gluu.org\/api\/scim\/v2\/Users\/{uid}",
             "description": "Delete User (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
@@ -351,11 +351,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         },
         {
-            "id": "508fcea6ad95b2b027f9f9143717ce68",
+            "id": "e487fa0749f15e01a5ade42ef11a5b6f",
             "name": "Bulk Operation",
             "url": "http:\/\/gluu.org\/api\/v2\/Bulk",
             "description": "SCIM Bulk Operation (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.7)",
@@ -374,11 +374,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         },
         {
-            "id": "3d59778e9237c7c05679984fe1b4d751",
+            "id": "79a738bc40b33a4561f19de1927f2de0",
             "name": "List Users",
             "url": "http:\/\/gluu.org\/api\/v2\/Groups",
             "description": "Returns a list of Groups (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4)",
@@ -419,11 +419,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         },
         {
-            "id": "a9ee9ced7844b2968accd3b91bb8bad0",
+            "id": "2bab6545b6dbd643e17d2b33681a4039",
             "name": "Create Group",
             "url": "http:\/\/gluu.org\/api\/v2\/Groups",
             "description": "Create Group (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
@@ -442,11 +442,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         },
         {
-            "id": "9b233b949d97d0029b5dfcbc64f987c0",
+            "id": "de37f015f50a5e386884b587414c8b47",
             "name": "Find Group by id",
             "url": "http:\/\/gluu.org\/api\/v2\/Groups\/{id}",
             "description": "Returns a Group on the basis of provided id as path param (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4.2.1)",
@@ -473,11 +473,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         },
         {
-            "id": "989df078565aaa1ff6071749b20d05dd",
+            "id": "2814177bc7cd0f8e894c3c03a16593ce",
             "name": "Update Group",
             "url": "http:\/\/gluu.org\/api\/v2\/Groups\/{id}",
             "description": "Update Group (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
@@ -504,11 +504,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         },
         {
-            "id": "717f164e5b7e99eeedd9e33004844c36",
+            "id": "ed90e22f4a22dafa89bca33a4b9e66fb",
             "name": "Delete Group",
             "url": "http:\/\/gluu.org\/api\/v2\/Groups\/{id}",
             "description": "Delete Group (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
@@ -535,11 +535,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         },
         {
-            "id": "b26c49752d14d0df802ae278c4f151be",
+            "id": "e80150c2b755fa726094e3c53b805065",
             "name": "List Users",
             "url": "http:\/\/gluu.org\/api\/v2\/Users",
             "description": "Returns a list of users (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4)",
@@ -580,11 +580,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         },
         {
-            "id": "a61cbbe571d2d4b0f209cdb428fb97c3",
+            "id": "14c13a25e045661b018d63c345669aed",
             "name": "Create User",
             "url": "http:\/\/gluu.org\/api\/v2\/Users",
             "description": "Create User (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
@@ -603,11 +603,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         },
         {
-            "id": "e083234680f9d01cafaa0043360fef55",
+            "id": "15e4138d96703d3c5cdefa885691556a",
             "name": "Find User by id",
             "url": "http:\/\/gluu.org\/api\/v2\/Users\/{uid}",
             "description": "Returns a Users on the basis of provided uid as path param (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.4.2.1)",
@@ -634,11 +634,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         },
         {
-            "id": "be6b148606beeee1df9c5496bd451696",
+            "id": "fbc4f88cbb6aa27c9c2a75460fc122dd",
             "name": "Update User",
             "url": "http:\/\/gluu.org\/api\/v2\/Users\/{uid}",
             "description": "Update User (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
@@ -665,11 +665,11 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         },
         {
-            "id": "b9bb1f5bcb079d40e6cfd0882a6d2d28",
+            "id": "9b04cdc156f5b8512cc47df0dad788a2",
             "name": "Delete User",
             "url": "http:\/\/gluu.org\/api\/v2\/Users\/{uid}",
             "description": "Delete User (https:\/\/tools.ietf.org\/html\/draft-ietf-scim-api-19#section-3.3)",
@@ -696,7 +696,7 @@
             "responses": [],
             "currentHelper": null,
             "helperAttributes": null,
-            "collectionId": "af3a75a30ef82fdc5d122880ea62effc",
+            "collectionId": "1590f7e5a01eb47b75eadfeaac76dd66",
             "rawModeData": ""
         }
     ]
