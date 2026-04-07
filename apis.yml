@@ -12,9 +12,9 @@ created: '2025-08-14'
 modified: '2026-03-16'
 position: Consumer
 tags:
-  - Identities
   - Access Management
   - IAM
+  - Identities
 url: >-
   https://raw.githubusercontent.com/api-evangelist/gluu/refs/heads/main/apis.yml
 specificationVersion: '0.19'
@@ -22,9 +22,9 @@ apis:
   - aid: gluu:gluu
     name: Gluu
     tags:
-      - Identities
       - Access Management
       - IAM
+      - Identities
     humanURL: https://gluu.org/
     properties:
       - url: https://gluu.org/
