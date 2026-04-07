@@ -1,15 +1,10 @@
 aid: gluu
 name: Gluu
 description: >-
-  Gluu is a technology company that specializes in providing identity and access
-  management solutions for businesses. Their platform allows organizations to
-  centrally manage the authentication and authorization of users across various
-  applications and systems, ensuring secure access to sensitive data and
-  resources. Gluu's software also enables administrators to easily configure and
-  customize authentication methods, such as multi-factor authentication and
-  single sign-on, to meet their specific security requirements. Overall, Gluu's
-  services help companies streamline their identity management processes and
-  enhance data protection efforts.
+  Gluu is a technology company that specializes in providing identity and access management
+  solutions for businesses. Their platform allows organizations to centrally manage
+  the authentication and authorization of users across various applications and systems,
+  ensuring secure access to sensitive data and resources.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
