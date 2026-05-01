@@ -1,81 +1,97 @@
-# Avalara (avalara)
-Automate compliance with Avalara MCP servers for AI-driven tax workflows and APIs. Have your agent call our agent. 
+# Gluu (gluu)
+Gluu is a technology company that specializes in providing identity and access management solutions for businesses. Their platform allows organizations to centrally manage the authentication and authorization of users across various applications and systems, ensuring secure access to sensitive data and resources.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/avalara/refs/heads/main/apis.yml)
+**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/gluu/refs/heads/main/apis.yml)
 
 ## Scope
 
-- **Type:** Index 
-- **Position:** Consumer 
-- **Access:** 3rd-Party 
+- **Type:** Index
+- **Position:** Consumer
+- **Access:** 3rd-Party
 
 ## Tags:
 
- - Taxes
+ - Access Management, Authentication, Authorization, IAM, Identities, OAuth, OpenID Connect
 
 ## Timestamps
 
-- **Created:** 2025-11-19 
-- **Modified:** 2025-11-20 
+- **Created:** 2025-08-14
+- **Modified:** 2026-04-28
 
 ## APIs
 
-### Avalara
-Automate compliance with Avalara MCP servers for AI-driven tax workflows and APIs. Have your agent call our agent. 
+### Gluu Flex
+Gluu Flex is the commercial, self-hosted enterprise distribution of the Linux Foundation Janssen Project. It provides a cloud-native digital identity platform with OAuth 2.0, OpenID Connect, FIDO, SCIM, and UMA capabilities, deployable via Helm charts with auto-scaling support.
 
-**Human URL:** [ https://developer.avalara.com/]( https://developer.avalara.com/)
-
+**Human URL:** [https://gluu.org/flex/](https://gluu.org/flex/)
 
 #### Tags:
 
- - Taxes
+ - Authentication, Authorization, IAM, OAuth, OpenID Connect
 
 #### Properties
 
-- [Documentation]( https://developer.avalara.com/)
+- [Documentation](https://docs.gluu.org/)
+- [Getting Started](https://docs.gluu.org/head/admin-guide/quick-start/)
+- [GitHubRepository](https://github.com/GluuFederation/flex)
+- [Pricing](https://gluu.org/pricing/)
+
+### Janssen Project
+The Janssen Project is the upstream Linux Foundation open-source identity platform that powers Gluu Flex. It implements OAuth 2.0, OpenID Connect, FIDO 2.0, SCIM, UMA, and CIBA, providing a federated identity provider, authorization server, and FIDO server.
+
+**Human URL:** [https://jans.io/](https://jans.io/)
+
+#### Tags:
+
+ - Authentication, Authorization, Linux Foundation, OAuth, Open Source, OpenID Connect
+
+#### Properties
+
+- [Documentation](https://docs.jans.io/)
+- [GitHubRepository](https://github.com/JanssenProject/jans)
+- [Reference](https://docs.jans.io/head/admin/reference/)
+
+### Cedarling
+Cedarling is an embeddable Policy Decision Point (PDP) built in Rust that runs anywhere and returns authorization decisions in under 50 microseconds based on declarative Cedar access policies. It validates JWT tokens and applies policies to deliver fine-grained authorization.
+
+**Human URL:** [https://gluu.org/cedarling/](https://gluu.org/cedarling/)
+
+#### Tags:
+
+ - Authorization, Cedar, PDP, Policy, Rust
+
+#### Properties
+
+- [Documentation](https://docs.jans.io/head/cedarling/cedarling-overview/)
+- [GitHubRepository](https://github.com/JanssenProject/jans/tree/main/jans-cedarling)
+
+### Agama Lab
+Agama Lab is a developer portal for authoring Cedar schema and policies, building authentication workflows using the Agama domain specific language, and managing hosted Gluu infrastructure.
+
+**Human URL:** [https://gluu.org/agama-lab/](https://gluu.org/agama-lab/)
+
+#### Tags:
+
+ - Authentication, Developer Portal, DSL, Workflows
+
+#### Properties
+
+- [Documentation](https://docs.gluu.org/agama-lab/)
+- [Portal](https://cloud.gluu.org/agama-lab)
 
 ## Common Properties
 
-- [SDKs](https://developer.avalara.com/sdk/)
-- [Community](https://developer.avalara.com/developer-community/)
-- [Blog](https://developer.avalara.com/blogs/)
-- [Support](https://developer.avalara.com/resources/support/)
-- [Contact](https://knowledge.avalara.com/bundle/xti1670300535545/page/contact_avalara_support.html)
-- [AskQuestions](https://developercommunity.avalara.com/s/)
-- [Certifications](https://developer.avalara.com/certification/avatax/)
-- [Webinars](https://www.avalara.com/us/en/learn/webinars.html#developerwebinars)
-- [Learning](https://training.avalara.com/pages/product-training)
-- [Schema](https://developer.avalara.com/elr-usecases/)
-- [Portal](https://developer.avalara.com/)
-- [Explorer](https://developer.avalara.com/api-reference/)
-- [MCPServers](https://developer.avalara.com/mcp-servers/)
-- [Trial](https://developer.avalara.com/freeTrial/)
-- [Guide](https://developer.avalara.com/documentation/)
-- [Integrations](https://www.avalara.com/us/en/products/integrations-browse-all.html)
-- [TermsOfService](https://legal.avalara.com/#siteterms)
-- [PrivacyPolicy](https://legal.avalara.com/dpa#privacynotice)
-- [Customers](https://www.avalara.com/us/en/about/customer-stories.html)
-- [Careers](https://careers.avalara.com/north-america)
-- [Partners](https://www.avalara.com/us/en/partners/partner-programs.html)
-- [Newsroom](https://newsroom.avalara.com/)
-- [WhitePapers](https://www.avalara.com/us/en/learn/whitepapers.html)
-- [Events](https://www.avalara.com/us/en/learn/events.html)
-- [Training](https://training.avalara.com/pages/product-training)
-- [Login](https://www.avalara.com/us/en/signin.html)
-- [Documentation](https://developer.avalara.com/api-reference/)
-- [ChangeLog](https://developer.avalara.com/patch-notes/)
-- [Versioning](https://developer.avalara.com/api-versioning/)
-- [SignUp](https://buy.avalara.com/)
-- [Compliance](https://legal.avalara.com/compliance?_gl=1*1hevp4p*_gcl_au*MTM1NDY3OTg2MC4xNzYzNjY2Njc5LjEzNjM2NTU5NjEuMTc2MzY2ODQ1OC4xNzYzNjY4NzA3)
-- [LinkedIn](https://www.linkedin.com/company/avalara/)
-- [YouTube](https://www.youtube.com/c/Avalara)
-- [PostmanWorkspace](https://www.postman.com/api-evangelist/avalara/overview)
-- [GitHubOrganization](https://github.com/Avalara)
-- [Swagger](https://github.com/Avalara/Swagger)
+- [Website](https://gluu.org/)
+- [Documentation](https://docs.gluu.org/)
+- [Blog](https://gluu.org/blog/)
+- [Support](https://help.gluu.org/)
+- [GitHub Organization](https://github.com/GluuFederation)
+- [Pricing](https://gluu.org/pricing/)
+- [Contact](https://gluu.org/contact/)
+- [Community](https://gluu.org/community/)
 
 ## Maintainers
 
 **FN:** Kin Lane
 
-**Email:** info@apievangelist.com
-
+**Email:** kin@apievangelist.com
