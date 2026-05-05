@@ -1,0 +1,13 @@
+{
+  "repo": "gluu",
+  "feeds": [
+    {
+      "source": "https://gluu.org/blog/",
+      "feed_url": "https://gluu.org/feed/",
+      "saved": 10,
+      "title": "Gluu"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:28:09Z"
+}
