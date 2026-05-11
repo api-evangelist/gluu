@@ -124,6 +124,10 @@ common:
     url: https://gluu.org/contact/
   - type: Community
     url: https://gluu.org/community/
+  - type: Integrations
+    url: https://gluu.org/partners/
+integrations:
+  - name: Gluu
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
