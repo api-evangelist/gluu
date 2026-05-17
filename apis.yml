@@ -42,7 +42,7 @@ apis:
     properties:
       - type: Documentation
         url: https://docs.gluu.org/
-      - type: Getting Started
+      - type: GettingStarted
         url: https://docs.gluu.org/head/admin-guide/quick-start/
       - type: GitHubRepository
         url: https://github.com/GluuFederation/flex
@@ -116,7 +116,7 @@ common:
     url: https://gluu.org/blog/
   - type: Support
     url: https://help.gluu.org/
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/GluuFederation
   - type: Pricing
     url: https://gluu.org/pricing/
