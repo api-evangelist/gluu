@@ -108,6 +108,8 @@ apis:
       - type: Portal
         url: https://cloud.gluu.org/agama-lab
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/gluufederation
   - type: Website
     url: https://gluu.org/
   - type: Documentation
