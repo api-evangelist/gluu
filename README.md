@@ -1,7 +1,8 @@
 # Gluu (gluu)
+
 Gluu is a technology company that specializes in providing identity and access management solutions for businesses. Their platform allows organizations to centrally manage the authentication and authorization of users across various applications and systems, ensuring secure access to sensitive data and resources.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/gluu/refs/heads/main/apis.yml)
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/gluu/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/gluu/refs/heads/main/apis.yml)
 
 ## Scope
 
@@ -9,9 +10,15 @@ Gluu is a technology company that specializes in providing identity and access m
 - **Position:** Consumer
 - **Access:** 3rd-Party
 
-## Tags:
+## Tags
 
- - Access Management, Authentication, Authorization, IAM, Identities, OAuth, OpenID Connect
+- Access Management
+- Authentication
+- Authorization
+- IAM
+- Identities
+- OAuth
+- OpenID Connect
 
 ## Timestamps
 
@@ -21,66 +28,97 @@ Gluu is a technology company that specializes in providing identity and access m
 ## APIs
 
 ### Gluu Flex
+
 Gluu Flex is the commercial, self-hosted enterprise distribution of the Linux Foundation Janssen Project. It provides a cloud-native digital identity platform with OAuth 2.0, OpenID Connect, FIDO, SCIM, and UMA capabilities, deployable via Helm charts with auto-scaling support.
 
-**Human URL:** [https://gluu.org/flex/](https://gluu.org/flex/)
+- **Human URL:** [https://gluu.org/flex/](https://gluu.org/flex/)
+- **Base URL:** `https://docs.gluu.org/`
 
-#### Tags:
+#### Tags
 
- - Authentication, Authorization, IAM, OAuth, OpenID Connect
+- Authentication
+- Authorization
+- IAM
+- OAuth
+- OpenID Connect
 
 #### Properties
 
 - [Documentation](https://docs.gluu.org/)
 - [Getting Started](https://docs.gluu.org/head/admin-guide/quick-start/)
-- [GitHubRepository](https://github.com/GluuFederation/flex)
+- [GitHub Repository](https://github.com/GluuFederation/flex)
 - [Pricing](https://gluu.org/pricing/)
+- [Postman Collection](collections/gluu.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/gluu.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Janssen Project
+
 The Janssen Project is the upstream Linux Foundation open-source identity platform that powers Gluu Flex. It implements OAuth 2.0, OpenID Connect, FIDO 2.0, SCIM, UMA, and CIBA, providing a federated identity provider, authorization server, and FIDO server.
 
-**Human URL:** [https://jans.io/](https://jans.io/)
+- **Human URL:** [https://jans.io/](https://jans.io/)
+- **Base URL:** `https://docs.jans.io/`
 
-#### Tags:
+#### Tags
 
- - Authentication, Authorization, Linux Foundation, OAuth, Open Source, OpenID Connect
+- Authentication
+- Authorization
+- Linux Foundation
+- OAuth
+- Open Source
+- OpenID Connect
 
 #### Properties
 
 - [Documentation](https://docs.jans.io/)
-- [GitHubRepository](https://github.com/JanssenProject/jans)
+- [GitHub Repository](https://github.com/JanssenProject/jans)
 - [Reference](https://docs.jans.io/head/admin/reference/)
+- [Postman Collection](collections/gluu.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/gluu.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Cedarling
+
 Cedarling is an embeddable Policy Decision Point (PDP) built in Rust that runs anywhere and returns authorization decisions in under 50 microseconds based on declarative Cedar access policies. It validates JWT tokens and applies policies to deliver fine-grained authorization.
 
-**Human URL:** [https://gluu.org/cedarling/](https://gluu.org/cedarling/)
+- **Human URL:** [https://gluu.org/cedarling/](https://gluu.org/cedarling/)
 
-#### Tags:
+#### Tags
 
- - Authorization, Cedar, PDP, Policy, Rust
+- Authorization
+- Cedar
+- PDP
+- Policy
+- Rust
 
 #### Properties
 
 - [Documentation](https://docs.jans.io/head/cedarling/cedarling-overview/)
-- [GitHubRepository](https://github.com/JanssenProject/jans/tree/main/jans-cedarling)
+- [GitHub Repository](https://github.com/JanssenProject/jans/tree/main/jans-cedarling)
+- [Postman Collection](collections/gluu.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/gluu.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Agama Lab
+
 Agama Lab is a developer portal for authoring Cedar schema and policies, building authentication workflows using the Agama domain specific language, and managing hosted Gluu infrastructure.
 
-**Human URL:** [https://gluu.org/agama-lab/](https://gluu.org/agama-lab/)
+- **Human URL:** [https://gluu.org/agama-lab/](https://gluu.org/agama-lab/)
 
-#### Tags:
+#### Tags
 
- - Authentication, Developer Portal, DSL, Workflows
+- Authentication
+- Developer Portal
+- DSL
+- Workflows
 
 #### Properties
 
 - [Documentation](https://docs.gluu.org/agama-lab/)
 - [Portal](https://cloud.gluu.org/agama-lab)
+- [Postman Collection](collections/gluu.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/gluu.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ## Common Properties
 
+- [LinkedIn](https://www.linkedin.com/company/gluufederation)
 - [Website](https://gluu.org/)
 - [Documentation](https://docs.gluu.org/)
 - [Blog](https://gluu.org/blog/)
@@ -89,9 +127,9 @@ Agama Lab is a developer portal for authoring Cedar schema and policies, buildin
 - [Pricing](https://gluu.org/pricing/)
 - [Contact](https://gluu.org/contact/)
 - [Community](https://gluu.org/community/)
+- [Integrations](https://gluu.org/partners/)
 
 ## Maintainers
 
 **FN:** Kin Lane
-
 **Email:** kin@apievangelist.com
