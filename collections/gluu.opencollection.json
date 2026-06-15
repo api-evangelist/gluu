@@ -1,0 +1,419 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gluu Flex SCIM 2.0 API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/jans-scim/restv1/v2/Users",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "startIndex",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Query users"
+        },
+        {
+          "info": {
+            "name": "Create a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{host}/jans-scim/restv1/v2/Users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a user"
+        },
+        {
+          "info": {
+            "name": "Search users with a SearchRequest body",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{host}/jans-scim/restv1/v2/Users/.search"
+          },
+          "docs": "Search users with a SearchRequest body"
+        },
+        {
+          "info": {
+            "name": "Get a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/jans-scim/restv1/v2/Users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a user"
+        },
+        {
+          "info": {
+            "name": "Replace a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}/jans-scim/restv1/v2/Users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Replace a user"
+        },
+        {
+          "info": {
+            "name": "Patch a user (RFC 7644)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{host}/jans-scim/restv1/v2/Users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Patch a user (RFC 7644)"
+        },
+        {
+          "info": {
+            "name": "Delete a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{host}/jans-scim/restv1/v2/Users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a user"
+        },
+        {
+          "info": {
+            "name": "Bulk SCIM operations",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{host}/jans-scim/restv1/v2/Bulk"
+          },
+          "docs": "Bulk SCIM operations"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/jans-scim/restv1/v2/Groups",
+            "params": [
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "startIndex",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Query groups"
+        },
+        {
+          "info": {
+            "name": "Create a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{host}/jans-scim/restv1/v2/Groups",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a group"
+        },
+        {
+          "info": {
+            "name": "Search groups with a SearchRequest body",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{host}/jans-scim/restv1/v2/Groups/.search"
+          },
+          "docs": "Search groups with a SearchRequest body"
+        },
+        {
+          "info": {
+            "name": "Get a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/jans-scim/restv1/v2/Groups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a group"
+        },
+        {
+          "info": {
+            "name": "Replace a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}/jans-scim/restv1/v2/Groups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Replace a group"
+        },
+        {
+          "info": {
+            "name": "Patch a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{host}/jans-scim/restv1/v2/Groups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Patch a group"
+        },
+        {
+          "info": {
+            "name": "Delete a group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{host}/jans-scim/restv1/v2/Groups/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a group"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "fido",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query enrolled FIDO devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/jans-scim/restv1/v2/FidoDevices"
+          },
+          "docs": "Query enrolled FIDO devices"
+        },
+        {
+          "info": {
+            "name": "Get a FIDO device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/jans-scim/restv1/v2/FidoDevices/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a FIDO device"
+        },
+        {
+          "info": {
+            "name": "Replace a FIDO device",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}/jans-scim/restv1/v2/FidoDevices/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Replace a FIDO device"
+        },
+        {
+          "info": {
+            "name": "Delete a FIDO device",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{host}/jans-scim/restv1/v2/FidoDevices/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a FIDO device"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the SCIM Service Provider Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/jans-scim/restv1/v2/ServiceProviderConfig"
+          },
+          "docs": "Get the SCIM Service Provider Configuration"
+        },
+        {
+          "info": {
+            "name": "List the SCIM resource types supported by this server",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/jans-scim/restv1/v2/ResourceTypes"
+          },
+          "docs": "List the SCIM resource types supported by this server"
+        },
+        {
+          "info": {
+            "name": "List the SCIM schemas supported by this server",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/jans-scim/restv1/v2/Schemas"
+          },
+          "docs": "List the SCIM schemas supported by this server"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
