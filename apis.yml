@@ -108,6 +108,10 @@ apis:
       - type: Portal
         url: https://cloud.gluu.org/agama-lab
 common:
+  - type: DomainSecurity
+    url: security/gluu-domain-security.yml
+  - type: Authentication
+    url: authentication/gluu-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/gluufederation
   - type: Website
