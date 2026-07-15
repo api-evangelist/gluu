@@ -108,6 +108,8 @@ apis:
       - type: Portal
         url: https://cloud.gluu.org/agama-lab
 common:
+  - type: AgenticAccess
+    url: agentic-access/gluu-agentic-access.yml
   - type: DomainSecurity
     url: security/gluu-domain-security.yml
   - type: Authentication
