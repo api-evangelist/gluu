@@ -1,0 +1,66 @@
+openapi: 3.1.0
+info:
+  title: Gluu Flex SCIM 2.0 discovery API
+  version: '1.0'
+  description: 'SCIM 2.0 (RFC 7644) endpoints exposed by Gluu Flex / Janssen Server for
+
+    cross-domain identity management. The default base path on a Gluu Flex
+
+    deployment is `/jans-scim/restv1`. Authentication uses an OAuth 2.0
+
+    Bearer access token obtained from the embedded authorization server
+
+    with the appropriate SCIM scopes.
+
+    '
+  contact:
+    name: Gluu
+    url: https://docs.gluu.org/
+servers:
+- url: https://{host}/jans-scim/restv1
+  description: Gluu Flex SCIM endpoint
+  variables:
+    host:
+      default: idp.example.com
+security:
+- bearerAuth: []
+tags:
+- name: discovery
+paths:
+  /v2/ServiceProviderConfig:
+    get:
+      tags:
+      - discovery
+      summary: Get the SCIM Service Provider Configuration
+      operationId: getServiceProviderConfig
+      security: []
+      responses:
+        '200':
+          description: ServiceProviderConfig
+  /v2/ResourceTypes:
+    get:
+      tags:
+      - discovery
+      summary: List the SCIM resource types supported by this server
+      operationId: listResourceTypes
+      security: []
+      responses:
+        '200':
+          description: ListResponse
+  /v2/Schemas:
+    get:
+      tags:
+      - discovery
+      summary: List the SCIM schemas supported by this server
+      operationId: listSchemas
+      security: []
+      responses:
+        '200':
+          description: ListResponse
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 access token with SCIM scopes

@@ -1,0 +1,158 @@
+openapi: 3.1.0
+info:
+  title: Gluu Flex SCIM 2.0 discovery users API
+  version: '1.0'
+  description: 'SCIM 2.0 (RFC 7644) endpoints exposed by Gluu Flex / Janssen Server for
+
+    cross-domain identity management. The default base path on a Gluu Flex
+
+    deployment is `/jans-scim/restv1`. Authentication uses an OAuth 2.0
+
+    Bearer access token obtained from the embedded authorization server
+
+    with the appropriate SCIM scopes.
+
+    '
+  contact:
+    name: Gluu
+    url: https://docs.gluu.org/
+servers:
+- url: https://{host}/jans-scim/restv1
+  description: Gluu Flex SCIM endpoint
+  variables:
+    host:
+      default: idp.example.com
+security:
+- bearerAuth: []
+tags:
+- name: users
+paths:
+  /v2/Users:
+    get:
+      tags:
+      - users
+      summary: Query users
+      operationId: searchUsers
+      parameters:
+      - name: filter
+        in: query
+        schema:
+          type: string
+      - name: startIndex
+        in: query
+        schema:
+          type: integer
+      - name: count
+        in: query
+        schema:
+          type: integer
+      - name: sortBy
+        in: query
+        schema:
+          type: string
+      - name: sortOrder
+        in: query
+        schema:
+          type: string
+          enum:
+          - ascending
+          - descending
+      responses:
+        '200':
+          description: ListResponse
+    post:
+      tags:
+      - users
+      summary: Create a user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/scim+json:
+            schema:
+              type: object
+      responses:
+        '201':
+          description: User created
+  /v2/Users/.search:
+    post:
+      tags:
+      - users
+      summary: Search users with a SearchRequest body
+      operationId: searchUsersPost
+      responses:
+        '200':
+          description: ListResponse
+  /v2/Users/{id}:
+    get:
+      tags:
+      - users
+      summary: Get a user
+      operationId: getUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: User
+    put:
+      tags:
+      - users
+      summary: Replace a user
+      operationId: replaceUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: User
+    patch:
+      tags:
+      - users
+      summary: Patch a user (RFC 7644)
+      operationId: patchUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: User
+    delete:
+      tags:
+      - users
+      summary: Delete a user
+      operationId: deleteUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Deleted
+  /v2/Bulk:
+    post:
+      tags:
+      - users
+      summary: Bulk SCIM operations
+      operationId: bulkOperations
+      responses:
+        '200':
+          description: BulkResponse
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 access token with SCIM scopes
