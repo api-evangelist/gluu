@@ -1,0 +1,20 @@
+{
+  "provider": "gluu",
+  "sources": [
+    "gluu-discovery-api-openapi.yml",
+    "gluu-fido-api-openapi.yml",
+    "gluu-groups-api-openapi.yml",
+    "gluu-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "gluu-discovery-api-openapi.yml",
+    "gluu-fido-api-openapi.yml",
+    "gluu-groups-api-openapi.yml",
+    "gluu-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

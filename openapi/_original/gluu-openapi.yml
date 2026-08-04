@@ -1,0 +1,201 @@
+openapi: 3.1.0
+info:
+  title: Gluu Flex SCIM 2.0 API
+  version: "1.0"
+  description: |
+    SCIM 2.0 (RFC 7644) endpoints exposed by Gluu Flex / Janssen Server for
+    cross-domain identity management. The default base path on a Gluu Flex
+    deployment is `/jans-scim/restv1`. Authentication uses an OAuth 2.0
+    Bearer access token obtained from the embedded authorization server
+    with the appropriate SCIM scopes.
+  contact:
+    name: Gluu
+    url: https://docs.gluu.org/
+servers:
+  - url: https://{host}/jans-scim/restv1
+    description: Gluu Flex SCIM endpoint
+    variables:
+      host:
+        default: idp.example.com
+security:
+  - bearerAuth: []
+tags:
+  - name: users
+  - name: groups
+  - name: fido
+  - name: discovery
+paths:
+  /v2/Users:
+    get:
+      tags: [users]
+      summary: Query users
+      operationId: searchUsers
+      parameters:
+        - { name: filter, in: query, schema: { type: string } }
+        - { name: startIndex, in: query, schema: { type: integer } }
+        - { name: count, in: query, schema: { type: integer } }
+        - { name: sortBy, in: query, schema: { type: string } }
+        - { name: sortOrder, in: query, schema: { type: string, enum: [ascending, descending] } }
+      responses: { '200': { description: ListResponse } }
+    post:
+      tags: [users]
+      summary: Create a user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/scim+json:
+            schema: { type: object }
+      responses: { '201': { description: User created } }
+  /v2/Users/.search:
+    post:
+      tags: [users]
+      summary: Search users with a SearchRequest body
+      operationId: searchUsersPost
+      responses: { '200': { description: ListResponse } }
+  /v2/Users/{id}:
+    get:
+      tags: [users]
+      summary: Get a user
+      operationId: getUser
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses: { '200': { description: User } }
+    put:
+      tags: [users]
+      summary: Replace a user
+      operationId: replaceUser
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses: { '200': { description: User } }
+    patch:
+      tags: [users]
+      summary: Patch a user (RFC 7644)
+      operationId: patchUser
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses: { '200': { description: User } }
+    delete:
+      tags: [users]
+      summary: Delete a user
+      operationId: deleteUser
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses: { '204': { description: Deleted } }
+  /v2/Groups:
+    get:
+      tags: [groups]
+      summary: Query groups
+      operationId: searchGroups
+      parameters:
+        - { name: filter, in: query, schema: { type: string } }
+        - { name: startIndex, in: query, schema: { type: integer } }
+        - { name: count, in: query, schema: { type: integer } }
+      responses: { '200': { description: ListResponse } }
+    post:
+      tags: [groups]
+      summary: Create a group
+      operationId: createGroup
+      requestBody:
+        required: true
+        content:
+          application/scim+json:
+            schema: { type: object }
+      responses: { '201': { description: Group created } }
+  /v2/Groups/.search:
+    post:
+      tags: [groups]
+      summary: Search groups with a SearchRequest body
+      operationId: searchGroupsPost
+      responses: { '200': { description: ListResponse } }
+  /v2/Groups/{id}:
+    get:
+      tags: [groups]
+      summary: Get a group
+      operationId: getGroup
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses: { '200': { description: Group } }
+    put:
+      tags: [groups]
+      summary: Replace a group
+      operationId: replaceGroup
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses: { '200': { description: Group } }
+    patch:
+      tags: [groups]
+      summary: Patch a group
+      operationId: patchGroup
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses: { '200': { description: Group } }
+    delete:
+      tags: [groups]
+      summary: Delete a group
+      operationId: deleteGroup
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses: { '204': { description: Deleted } }
+  /v2/FidoDevices:
+    get:
+      tags: [fido]
+      summary: Query enrolled FIDO devices
+      operationId: searchFidoDevices
+      responses: { '200': { description: ListResponse } }
+  /v2/FidoDevices/{id}:
+    get:
+      tags: [fido]
+      summary: Get a FIDO device
+      operationId: getFidoDevice
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses: { '200': { description: FidoDevice } }
+    put:
+      tags: [fido]
+      summary: Replace a FIDO device
+      operationId: replaceFidoDevice
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses: { '200': { description: FidoDevice } }
+    delete:
+      tags: [fido]
+      summary: Delete a FIDO device
+      operationId: deleteFidoDevice
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+      responses: { '204': { description: Deleted } }
+  /v2/Bulk:
+    post:
+      tags: [users]
+      summary: Bulk SCIM operations
+      operationId: bulkOperations
+      responses: { '200': { description: BulkResponse } }
+  /v2/ServiceProviderConfig:
+    get:
+      tags: [discovery]
+      summary: Get the SCIM Service Provider Configuration
+      operationId: getServiceProviderConfig
+      security: []
+      responses: { '200': { description: ServiceProviderConfig } }
+  /v2/ResourceTypes:
+    get:
+      tags: [discovery]
+      summary: List the SCIM resource types supported by this server
+      operationId: listResourceTypes
+      security: []
+      responses: { '200': { description: ListResponse } }
+  /v2/Schemas:
+    get:
+      tags: [discovery]
+      summary: List the SCIM schemas supported by this server
+      operationId: listSchemas
+      security: []
+      responses: { '200': { description: ListResponse } }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth 2.0 access token with SCIM scopes
