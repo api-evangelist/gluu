@@ -157,6 +157,10 @@ apis:
   - type: OpenAPI
     url: openapi/gluu-users-api-openapi.yml
 common:
+  - type: IssueTracker
+    url: https://github.com/GluuFederation/flex/issues
+  - type: Releases
+    url: https://github.com/GluuFederation/flex/releases
   - type: AgenticAccess
     url: agentic-access/gluu-agentic-access.yml
   - type: DomainSecurity
