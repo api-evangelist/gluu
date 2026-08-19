@@ -35,7 +35,7 @@ tags:
   - OpenID Connect
 url: >-
   https://raw.githubusercontent.com/api-evangelist/gluu/refs/heads/main/apis.yml
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: gluu:gluu-flex
   name: Gluu Flex
