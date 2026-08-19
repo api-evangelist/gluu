@@ -1,0 +1,89 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gluu Flex SCIM 2.0 discovery fido API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "fido",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query enrolled FIDO devices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/jans-scim/restv1/v2/FidoDevices"
+          },
+          "docs": "Query enrolled FIDO devices"
+        },
+        {
+          "info": {
+            "name": "Get a FIDO device",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/jans-scim/restv1/v2/FidoDevices/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a FIDO device"
+        },
+        {
+          "info": {
+            "name": "Replace a FIDO device",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{host}/jans-scim/restv1/v2/FidoDevices/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Replace a FIDO device"
+        },
+        {
+          "info": {
+            "name": "Delete a FIDO device",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{host}/jans-scim/restv1/v2/FidoDevices/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a FIDO device"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

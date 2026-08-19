@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Gluu Flex SCIM 2.0 discovery API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "discovery",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the SCIM Service Provider Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/jans-scim/restv1/v2/ServiceProviderConfig"
+          },
+          "docs": "Get the SCIM Service Provider Configuration"
+        },
+        {
+          "info": {
+            "name": "List the SCIM resource types supported by this server",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/jans-scim/restv1/v2/ResourceTypes"
+          },
+          "docs": "List the SCIM resource types supported by this server"
+        },
+        {
+          "info": {
+            "name": "List the SCIM schemas supported by this server",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{host}/jans-scim/restv1/v2/Schemas"
+          },
+          "docs": "List the SCIM schemas supported by this server"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
