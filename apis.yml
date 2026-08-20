@@ -31,6 +31,13 @@ tags:
   - Authorization
   - IAM
   - Identities
+  - OpenID Connect
+tags_raw:
+  - Access Management
+  - Authentication
+  - Authorization
+  - IAM
+  - Identities
   - OAuth
   - OpenID Connect
 url: >-
@@ -46,6 +53,11 @@ apis:
   humanURL: https://gluu.org/flex/
   baseURL: https://docs.gluu.org/
   tags:
+  - Authentication
+  - Authorization
+  - IAM
+  - OpenID Connect
+  tags_raw:
   - Authentication
   - Authorization
   - IAM
@@ -69,6 +81,12 @@ apis:
   humanURL: https://jans.io/
   baseURL: https://docs.jans.io/
   tags:
+  - Authentication
+  - Authorization
+  - Linux Foundation
+  - Open-Source
+  - OpenID Connect
+  tags_raw:
   - Authentication
   - Authorization
   - Linux Foundation
@@ -122,6 +140,8 @@ apis:
   humanURL: https://gluu.org/flex/
   baseURL: https://docs.gluu.org/
   tags:
+  - Discovery
+  tags_raw:
   - discovery
   properties:
   - type: OpenAPI
@@ -132,6 +152,8 @@ apis:
   humanURL: https://gluu.org/flex/
   baseURL: https://docs.gluu.org/
   tags:
+  - FIDO
+  tags_raw:
   - fido
   properties:
   - type: OpenAPI
@@ -142,6 +164,8 @@ apis:
   humanURL: https://gluu.org/flex/
   baseURL: https://docs.gluu.org/
   tags:
+  - Group
+  tags_raw:
   - groups
   properties:
   - type: OpenAPI
@@ -152,6 +176,8 @@ apis:
   humanURL: https://gluu.org/flex/
   baseURL: https://docs.gluu.org/
   tags:
+  - User
+  tags_raw:
   - users
   properties:
   - type: OpenAPI
