@@ -165,7 +165,7 @@ apis:
   humanURL: https://gluu.org/flex/
   baseURL: https://docs.gluu.org/
   tags:
-  - FIDO
+  - fido
   tags_raw:
   - fido
   properties:
