@@ -1,0 +1,22 @@
+generated: '2026-09-12'
+method: searched
+source: https://github.com/JanssenProject/jans
+note: >-
+  Provenance index for the verbatim .proto files in this directory. Each was fetched as-is from the
+  Janssen Project monorepo on 2026-09-12 and is byte-identical to the source; neither was authored or
+  modified by API Evangelist.
+files:
+- file: gluu-jans-lock-audit.proto
+  source: https://raw.githubusercontent.com/JanssenProject/jans/main/jans-lock/lock-server/service/src/main/proto/grpc/audit.proto
+  http_status: 200
+  bytes: 2103
+  package: io.jans.lock.audit
+  service: audit ingestion (HealthEntry, LogEntry, TelemetryEntry) for the Jans Lock server
+- file: gluu-cedarling-lock-audit.proto
+  source: https://raw.githubusercontent.com/JanssenProject/jans/main/jans-cedarling/cedarling/src/lock/proto/audit.proto
+  http_status: 200
+  bytes: 2137
+  package: io.jans.lock.audit
+  note: >-
+    The Cedarling client-side copy of the same contract; it differs from the server copy only by a
+    five-line Apache-2.0 header carrying "Copyright (c) 2024, Gluu, Inc."

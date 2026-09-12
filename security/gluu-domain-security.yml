@@ -1,22 +1,22 @@
-generated: '2026-07-11'
+generated: '2026-09-12'
 method: probed
 source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
 hosts:
 - host: gluu.org
   https: true
   tls_version: TLSv1.3
-  cert_expires: Sep 14 07:15:44 2026 GMT
+  cert_expires: Nov 12 11:36:46 2026 GMT
   hsts: true
   hsts_max_age: 31536000
 - host: docs.gluu.org
   https: true
-  tls_version: TLSv1.3
-  cert_expires: Sep 20 21:39:18 2026 GMT
+  tls_version: TLSv1.2
+  cert_expires: Jan 21 23:59:59 2027 GMT
   hsts: false
 - host: jans.io
   https: true
   tls_version: TLSv1.3
-  cert_expires: Sep 16 05:06:10 2026 GMT
+  cert_expires: Nov 16 02:10:56 2026 GMT
   hsts: true
   hsts_max_age: 31536000
 domains:

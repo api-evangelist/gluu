@@ -1,0 +1,74 @@
+generated: '2026-09-12'
+method: searched
+source: >-
+  https://api.github.com/repos/JanssenProject/jans/releases and
+  https://api.github.com/repos/GluuFederation/flex/releases, read 2026-09-12
+scheme: semver
+detail: >-
+  Two dated changelogs run in lock-step: the Janssen Project monorepo (the upstream components) and the
+  GluuFederation/flex distribution (Janssen + the commercial Admin UI). Each GitHub release carries a full
+  conventional-commit changelog; the same content is rendered at docs.jans.io/stable/CHANGELOG/ and
+  docs.gluu.org/stable/CHANGELOG/. A rolling `nightly` tag is published continuously.
+urls:
+  janssen_releases: https://github.com/JanssenProject/jans/releases
+  flex_releases: https://github.com/GluuFederation/flex/releases
+  janssen_changelog: https://docs.jans.io/stable/CHANGELOG/
+  flex_changelog: https://docs.gluu.org/stable/CHANGELOG/
+current:
+  janssen: 2.4.0
+  gluu_flex: 6.4.0
+  released: '2026-09-07'
+entries:
+- product: janssen
+  version: 2.4.0
+  date: '2026-09-07'
+  breaking: unknown
+  highlights:
+  - Cedarling automatic cleanup via Drop.
+  - FIDO2 retries the MDS TOC download at startup when the blob is unavailable; metrics columns widened.
+  - FIDO2 exposes an effective attestation-mode status endpoint.
+  - Agama transpiler conformance tests for template-override, finish and log codegen.
+  - SLSA provenance uploaded to releases; OpenSSF-reported vulnerable dependencies remediated.
+  - Auth Server KeyGenerator exits non-zero on a JWKS generation error.
+  note: >-
+    Release notes are a conventional-commit list with PR links; the project does not label breaking
+    changes separately, so `breaking` cannot be asserted from the notes alone.
+- product: janssen
+  version: 2.3.0
+  date: '2026-07-30'
+  breaking: unknown
+- product: janssen
+  version: 2.2.0
+  date: '2026-06-22'
+  breaking: unknown
+- product: janssen
+  version: 2.1.0
+  date: '2026-05-12'
+  breaking: unknown
+- product: janssen
+  version: 2.0.0
+  date: '2026-04-22'
+  breaking: likely
+  note: Major version bump; the release body is the largest of the year (39KB of change notes).
+- product: gluu-flex
+  version: 6.4.0
+  date: '2026-09-07'
+  breaking: unknown
+- product: gluu-flex
+  version: 6.3.0
+  date: '2026-08-01'
+  breaking: unknown
+- product: gluu-flex
+  version: admin-ui-5.16.0
+  date: '2026-07-29'
+  breaking: unknown
+  note: The Admin UI ships on its own version line inside the flex repo.
+- product: gluu-flex
+  version: 6.2.0
+  date: '2026-06-28'
+  breaking: unknown
+- product: gluu-flex
+  version: 6.0.0
+  date: '2026-04-23'
+  breaking: likely
+  note: Major version bump, one day after Janssen 2.0.0.

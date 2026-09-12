@@ -1,0 +1,96 @@
+generated: '2026-09-12'
+method: derived
+source: >-
+  openapi/gluu-jans-auth-server-openapi.yml, openapi/gluu-jans-config-api-openapi.yml (+7 plugin specs),
+  openapi/gluu-jans-scim-openapi.yml, openapi/gluu-jans-fido2-openapi.yml,
+  openapi/gluu-jans-lock-server-openapi.yml
+format: not-rfc9457
+format_note: >-
+  No surface returns application/problem+json. The stack ships TWO distinct error envelopes, both
+  defined as real components.schemas in the provider's own specs, and an agent must branch on which
+  service it is talking to.
+summary:
+  specs_scanned: 12
+  error_responses_declared: 850
+  media_types:
+    application/json: 272
+    application/scim+json: 61
+envelopes:
+- id: oauth2-error
+  name: OAuth 2.0 / OpenID Connect error object
+  applies_to:
+  - openapi/gluu-jans-auth-server-openapi.yml
+  media_type: application/json
+  schema: components.schemas.ErrorResponse
+  fields:
+  - name: error
+    required: true
+    description: OAuth 2.0 error code (RFC 6749 §5.2 / OpenID Connect Core).
+  - name: error_description
+    required: true
+    description: Human-readable explanation.
+  - name: details
+    required: false
+    description: Additional detail string.
+  standard: RFC 6749 §5.2
+- id: scim-error
+  name: SCIM 2.0 error response
+  applies_to:
+  - openapi/gluu-jans-scim-openapi.yml
+  media_type: application/scim+json
+  schema: components.schemas.ErrorResponse
+  spec_note: The schema's own description reads "See section 3.12 of RFC 7644".
+  fields:
+  - name: status
+    required: true
+    description: HTTP status code, as a string.
+  - name: schemas
+    required: false
+    description: Always ["urn:ietf:params:scim:api:messages:2.0:Error"].
+  - name: scimType
+    required: false
+    description: SCIM detail error keyword — see table 9 of RFC 7644.
+  - name: detail
+    required: false
+    description: Detailed human-readable message.
+  standard: RFC 7644 §3.12
+status_codes:
+- status: 500
+  count: 322
+  typical_description: Error during request processing endpoint.
+- status: 401
+  count: 243
+  typical_description: Unauthorized — missing, expired or insufficiently scoped access token.
+- status: 400
+  count: 144
+  typical_description: Invalid request.
+- status: 404
+  count: 91
+  typical_description: Invalid parameters provided to endpoint / resource not found.
+- status: 403
+  count: 29
+  typical_description: Invalid parameters provided to endpoint — token lacks the required scope.
+- status: 409
+  count: 7
+  typical_description: Conflict.
+- status: 406
+  count: 7
+  typical_description: >-
+    Not Acceptable — check the query params (e.g. jti or org_id missing from the query string).
+- status: 503
+  count: 3
+  typical_description: Service Unavailable — the FIDO2 metadata service is down.
+- status: 405
+  count: 2
+  typical_description: Introspection of an RPT is not allowed.
+- status: 422
+  count: 2
+  typical_description: Unprocessable entity.
+gaps:
+- >-
+  500 is the single most frequently declared error response (322 of 850). An agent cannot distinguish a
+  retryable server fault from a permanent one from the contract alone.
+- >-
+  No error code registry is published anywhere in the docs — error identity comes from the OAuth `error`
+  string or the SCIM `scimType` keyword, both of which are defined by the IETF specs rather than by Gluu.
+- No application/problem+json (RFC 9457) surface anywhere in the twelve specs.

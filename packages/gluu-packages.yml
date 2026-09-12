@@ -1,0 +1,143 @@
+generated: '2026-09-12'
+method: searched
+source: >-
+  crates.io, pypi.org, registry.npmjs.org, hub.docker.com and the JanssenProject/jans GitHub release
+  assets, queried unauthenticated on 2026-09-12
+note: >-
+  Gluu ships client and embeddable libraries through the Linux Foundation Janssen Project it leads.
+  Java server components are NOT on Maven Central — https://repo1.maven.org/maven2/io/jans/ returns 404;
+  the io.jans coordinates are published to GitHub Packages and maven.jans.io, which have no unauthenticated
+  metadata endpoint, so those entries carry version: null with a note rather than a guess.
+summary:
+  package_count: 12
+  official_count: 12
+  registries:
+  - crates.io
+  - pypi
+  - npm
+  - github-releases
+  - dockerhub
+  - github-packages
+packages:
+- name: cedarling
+  registry: crates.io
+  url: https://crates.io/crates/cedarling
+  language: rust
+  official: true
+  version: 2.4.0
+  published: '2026-09-12'
+  description: >-
+    The Cedarling embeddable Policy Decision Point — evaluates Cedar policies against JWT tokens locally.
+  note: Published by the Janssen Project; source at jans-cedarling/ in JanssenProject/jans.
+- name: cedarling_python
+  registry: pypi
+  url: https://pypi.org/project/cedarling_python/
+  language: python
+  official: true
+  version: 2.4.6
+  published: '2026-09-12'
+  description: Python bindings (PyO3) for the Cedarling PDP.
+  note: author_email "Janssen Project <support@jans.io>"; source jans-cedarling/bindings/cedarling_python.
+- name: '@janssenproject/cedarling_wasm'
+  registry: npm
+  url: https://www.npmjs.com/package/@janssenproject/cedarling_wasm
+  language: javascript
+  official: true
+  version: 2.4.0
+  published: '2026-09-07'
+  description: WebAssembly build of the Cedarling PDP for browser and Node.
+  note: repository git+https://github.com/JanssenProject/jans.git
+- name: '@janssenproject/cedarling'
+  registry: npm
+  url: https://www.npmjs.com/package/@janssenproject/cedarling
+  language: javascript
+  official: true
+  version: 0.0.1
+  published: '2026-08-25'
+  description: Web-native JavaScript SDK for Cedarling authorization.
+  note: First release 2026-08-25; still 0.0.1 — pre-1.0 surface.
+- name: cedarling-java
+  registry: github-releases
+  url: https://github.com/JanssenProject/jans/releases
+  language: java
+  official: true
+  version: 2.4.0
+  published: '2026-09-07'
+  description: Java binding for the Cedarling PDP, shipped as cedarling-java-<version>.jar.
+  note: >-
+    Released as a GitHub release asset, not to Maven Central (repo1.maven.org/maven2/io/jans/ 404).
+- name: cedarling-go
+  registry: github-releases
+  url: https://github.com/JanssenProject/jans/releases
+  language: go
+  official: true
+  version: 2.4.0
+  published: '2026-09-07'
+  description: Go binding for the Cedarling PDP; release carries cedarling-go.intoto.jsonl SLSA provenance.
+- name: jans-cli-tui
+  registry: github-releases
+  url: https://github.com/JanssenProject/jans/releases
+  language: python
+  official: true
+  version: 2.4.0
+  published: '2026-09-07'
+  description: >-
+    Janssen command-line + text UI configuration client, shipped as jans-cli-tui-<platform>.pyz zipapps
+    (linux-macos, ubuntu, suse).
+  note: >-
+    Not on PyPI — https://pypi.org/pypi/jans-cli-tui/json returns 404. Distributed only as a release asset.
+- name: jans-auth-client
+  registry: github-releases
+  url: https://github.com/JanssenProject/jans/releases
+  language: java
+  official: true
+  version: 2.4.0
+  published: '2026-09-07'
+  description: Java OAuth 2.0 / OpenID Connect client library for the Janssen Auth Server.
+- name: io.jans (server artifacts)
+  registry: github-packages
+  url: https://github.com/orgs/JanssenProject/packages
+  language: java
+  official: true
+  version: null
+  published: null
+  note: >-
+    Checked 2026-09-12 — the io.jans group is absent from Maven Central (repo1.maven.org 404, and both
+    search.maven.org and central.sonatype.com return numFound 0). The project publishes these coordinates
+    to GitHub Packages / maven.jans.io, neither of which answers an unauthenticated metadata request, so
+    no version or date can be recorded honestly.
+- name: janssenproject/* container images
+  registry: dockerhub
+  url: https://hub.docker.com/u/janssenproject
+  official: true
+  version: null
+  published: '2023-03-14'
+  description: >-
+    11 Docker Hub repositories (auth-server, config-api, scim, fido2, persistence-loader, certmanager,
+    configurator, monolith, client-api, configuration-manager, loadtesting-jmeter).
+  note: >-
+    DECAY SIGNAL — every Docker Hub repository last pushed 2023-03-14 or earlier while the project shipped
+    v2.4.0 on 2026-09-07. Current images are published to ghcr.io/janssenproject, which has no
+    unauthenticated metadata endpoint; the Docker Hub namespace is stale, not the product.
+- name: scim-node
+  registry: npm
+  url: https://www.npmjs.com/package/scim-node
+  language: javascript
+  official: true
+  version: 2.2.2
+  published: '2020-10-19'
+  description: Node client for the Gluu SCIM 2.0 API.
+  note: >-
+    DECAY SIGNAL — first-party (repository git://github.com/GluuFederation/scim-node.git) but last
+    published 2020-10-19, five years behind the SCIM API it wraps.
+- name: oxd-node
+  registry: npm
+  url: https://www.npmjs.com/package/oxd-node
+  language: javascript
+  official: true
+  version: 3.1.4
+  published: '2019-04-16'
+  description: Node client for oxd, the Gluu Server 4 OAuth client middleware.
+  note: >-
+    DECAY SIGNAL — first-party (GluuFederation/oxd-node) but oxd itself is retired with the Gluu Server 4
+    line; last publish 2019-04-16. Kept for accuracy about what is on the registry, not as a recommendation.

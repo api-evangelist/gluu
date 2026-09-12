@@ -1,0 +1,79 @@
+generated: '2026-09-12'
+method: searched
+source: >-
+  https://github.com/JanssenProject/jans/releases, https://github.com/GluuFederation/flex/releases,
+  https://github.com/JanssenProject/jans/blob/main/.github/SECURITY.md,
+  https://gluu.org/gluu-flex-roadmap/, https://gluu.org/solo/, https://docs.jans.io/stable/CHANGELOG/
+versioning:
+  scheme: semver-product-release
+  detail: >-
+    The URL path does not version (/restv1, /api/v1, SCIM /v2 are stable service prefixes). What versions
+    is the product: Janssen 2.4.0 and Gluu Flex 6.4.0, both released 2026-09-07, each with a versioned
+    docs tree (docs.jans.io/v2.4.0/, docs.gluu.org/v6.4.0/) and a /stable/ alias.
+  current:
+    janssen: 2.4.0
+    gluu_flex: 6.4.0
+    released: '2026-09-07'
+  cadence: >-
+    Roughly monthly minor releases through 2026 (2.0.0 2026-04-22, 2.1.0 2026-05-12, 2.2.0 2026-06-22,
+    2.3.0 2026-07-30, 2.4.0 2026-09-07), plus a rolling `nightly` tag.
+deprecation:
+  policy_published: false
+  sunset_headers: false
+  detail: >-
+    No API deprecation policy, no Sunset/Deprecation header (RFC 8594), and no `deprecated: true` flag on
+    any operation in the twelve first-party specs. The closest published commitment is the Janssen
+    security policy's supported-versions table — ">=1.0.0 supported, <1.0.0 not" with "security updates
+    will typically only be applied to the latest release" — which is a patch-support statement, not a
+    deprecation policy for API surfaces. No Deprecation pointer is emitted in apis.yml for that reason.
+  evidence: https://github.com/JanssenProject/jans/blob/main/.github/SECURITY.md
+  deprecated_operations: []
+status_page:
+  published: false
+  detail: >-
+    No status page exists. status.gluu.org does not resolve to a listener, and https://gluu.org/status/,
+    https://gluu.org/gluu-server-status/ and https://gluu.org/sla/ all return 404. For self-hosted Flex
+    that is expected — there is no Gluu-operated plane to report on — but hosted Gluu Solo advertises a
+    99.9% SLA on every tier with no public uptime reporting behind it.
+  probes:
+  - url: https://status.gluu.org/
+    status: 0
+  - url: https://gluu.org/status/
+    status: 404
+  - url: https://gluu.org/sla/
+    status: 404
+sla:
+  published: true
+  detail: 99.9% uptime, stated per tier on the Gluu Solo pricing table; applies to the hosted product only.
+  source: https://gluu.org/solo/
+roadmap:
+  published: true
+  url: https://gluu.org/gluu-flex-roadmap/
+  status: stale
+  detail: >-
+    The page is live (HTTP 200) but its own content is dated — it plans Q3/Q4 2023 features and carries a
+    last-updated of 29 April 2024, while the product shipped 2.4.0 in September 2026. Current planning is
+    visible in the GitHub milestones and release notes instead.
+  checked: '2026-09-12'
+support:
+  channels:
+  - name: Gluu help centre / knowledge base
+    url: https://help.gluu.org/
+  - name: GitHub Discussions (Janssen)
+    url: https://github.com/JanssenProject/jans/discussions
+    note: Named as info.contact.url in openapi/gluu-jans-auth-server-openapi.yml and the SCIM spec.
+  - name: Gluu support (commercial)
+    url: https://support.gluu.org
+    note: >-
+      Named as info.contact.url in every Config API plugin spec, but the host did not answer a TLS
+      connection on 2026-09-12 (curl exit 7). Recorded, not pointed at.
+  - name: Issue tracker
+    url: https://github.com/GluuFederation/flex/issues
+end_of_life:
+  - product: Gluu Server 4 (oxAuth / oxTrust line)
+    status: maintenance
+    detail: >-
+      The roadmap page states Gluu 4 is "a stable release — meaning no major features are planned"; the
+      oxAuth, oxTrust, oxd and scim repositories in the GluuFederation org last saw a push in 2024-2025,
+      and their npm clients (oxd-node 2019, scim-node 2020) are dormant. No dated end-of-life is published.
+    evidence: https://gluu.org/gluu-flex-roadmap/

@@ -1,0 +1,153 @@
+generated: '2026-09-12'
+method: derived
+source: >-
+  openapi/ (twelve first-party specs) cross-read against
+  https://docs.jans.io/stable/janssen-server/auth-server/endpoints/ and
+  https://docs.jans.io/stable/janssen-server/config-guide/
+note: >-
+  Gluu Flex and the Janssen Server are software a customer deploys, not a multi-tenant SaaS, so several
+  runtime conventions that a hosted API would publish (rate-limit headers, request ids, sandbox keys) are
+  deployment concerns rather than contract concerns. Each is recorded as such rather than as an absence.
+auth:
+  style: oauth2-bearer
+  detail: >-
+    Every administrative surface is protected by OAuth 2.0 client-credentials with fine-grained scopes
+    (162 of them, see scopes/gluu-scopes.yml). The Auth Server's own endpoints use an HTTP bearer scheme.
+    SCIM uses a separate scim_oauth scheme with SCIM-specific scopes.
+  see: authentication/gluu-authentication.yml
+versioning:
+  style: path-and-release
+  detail: >-
+    The API path carries a service version segment (/restv1, /api/v1, SCIM /v2) that has not moved in
+    years; the thing that actually versions is the product release. Docs are published per release at
+    docs.jans.io/<version>/ and docs.gluu.org/<version>/ with /stable/ as the moving alias.
+  current: Janssen 2.4.0 (2026-09-07) · Gluu Flex 6.4.0 (2026-09-07)
+  see: changelog/gluu-changelog.yml
+pagination:
+  style: index-and-limit
+  surfaces:
+  - surface: Janssen Config API
+    params:
+    - limit
+    - startIndex
+    - pattern
+    - sortBy
+    - sortOrder
+    - fieldValuePair
+    note: Ten collection endpoints accept the full set; `pattern` is a server-side search filter.
+  - surface: SCIM 2.0
+    params:
+    - startIndex
+    - count
+    - filter
+    - sortBy
+    - sortOrder
+    - attributes
+    - excludedAttributes
+    standard: RFC 7644 §3.4.2
+    response_fields:
+    - totalResults
+    - itemsPerPage
+    - startIndex
+    - Resources
+  cursor: false
+  note: 1-based index pagination throughout; no opaque cursors anywhere in the twelve specs.
+field_selection:
+  supported: true
+  detail: >-
+    SCIM `attributes` / `excludedAttributes` query parameters select a sparse representation
+    (RFC 7644 §3.9). The Config API has no equivalent — responses are whole objects.
+metadata:
+  supported: partial
+  detail: >-
+    SCIM resources carry the standard `meta` complex attribute (resourceType, created, lastModified,
+    location, version). Config API objects carry `inum` identifiers and per-object custom attributes but
+    no generic metadata bag.
+request_id_tracing:
+  supported: false
+  detail: >-
+    No request-id or correlation-id header is declared in any response in any of the twelve specs (a
+    scan of every declared response found zero `headers:` blocks). Jans Lock collects audit and telemetry
+    entries server-side (/api/v1/audit/log, /api/v1/audit/telemetry) — that is the tracing story, and it
+    is an operator surface, not a per-response header a client can echo back to support.
+error_envelope:
+  shape: two-envelopes
+  detail: OAuth 2.0 error object on the Auth Server; RFC 7644 SCIM error on SCIM. Neither is RFC 9457.
+  see: errors/gluu-problem-types.yml
+rate_limit_signaling:
+  supported: false
+  detail: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header is declared anywhere in the specs, and the docs
+    publish no quota. Throughput on a self-hosted deployment is bounded by the customer's own
+    infrastructure; on hosted Gluu Solo it is bounded by the tier's monthly request allowance, which is a
+    billing limit rather than a per-second signalled limit.
+  see: rate-limits/gluu-rate-limits.yml
+idempotency:
+  supported: false
+  coverage: none
+  mechanism: null
+  detail: >-
+    No Idempotency-Key header, client-supplied request token, or documented replay-safe retry exists on
+    any of the 155 mutating operations (68 POST, 33 PUT, 30 DELETE, 24 PATCH) across the twelve specs.
+    HTTP-level idempotence applies where the verb provides it — PUT and DELETE on an `inum`-addressed
+    Config API object, and SCIM PUT on /Users/{id} (update-user-by-id) — but that is the method's semantics, not a
+    replay-protection mechanism the provider offers. A retried POST /Users (create-user) creates a second user.
+  http_level_idempotent_verbs:
+  - PUT
+  - DELETE
+  agent_guidance: >-
+    An agent must read before it writes on every creating operation, and must not retry a POST on a
+    timeout without first querying for the resource it may already have created.
+reversibility:
+  grade: documented
+  detail: >-
+    Reversal paths exist and are real, but Gluu publishes no window inside which any of them works, so
+    this grades documented rather than verified.
+  write_surfaces:
+  - surface: token issuance
+    action: POST /restv1/token (operationId post-token)
+    reversal: POST /restv1/revoke (operationId post-revoke) — RFC 7009 token revocation
+    window: >-
+      Not stated. Revocation takes effect for the refresh token immediately; already-issued access tokens
+      remain valid until they expire unless the resource server introspects them, which is an RFC 7009
+      property rather than a Gluu commitment.
+    docs: https://docs.jans.io/stable/janssen-server/auth-server/endpoints/
+  - surface: token issuance (fleet-wide)
+    action: any token grant
+    reversal: POST /restv1/global-token-revocation
+    window: Not stated.
+  - surface: dynamic client registration
+    action: POST /restv1/register (operationId post-register)
+    reversal: DELETE /restv1/register (operationId delete-register)
+    window: >-
+      Bounded by the lifetime of the registration_access_token returned at registration — the docs do not
+      state that lifetime.
+  - surface: SCIM user / group creation
+    action: POST /Users (create-user), POST /Groups (create-group)
+    reversal: DELETE /Users/{id} (delete-user-by-id), DELETE /Groups/{id} (delete-group-by-id)
+    window: >-
+      None — deletion is immediate and permanent. There is no soft delete, no trash, and no restore
+      operation anywhere in the SCIM spec, so a SCIM DELETE is the irreversible action on this platform.
+    irreversible: true
+  - surface: UMA resource registration
+    action: POST /restv1/host/rsrc/resource_set
+    reversal: DELETE /restv1/host/rsrc/resource_set/{rsid}
+    window: Not stated.
+  - surface: Admin UI licence
+    action: POST /admin-ui/license/activate
+    reversal: DELETE /admin-ui/license/deleteConfig
+    window: Not stated.
+  agent_guidance: >-
+    Treat SCIM DELETE as unrecoverable and require confirmation before calling it. Token and client
+    lifecycle operations are reversible, but no provider-stated window backs them.
+dry_run_mode:
+  supported: false
+  detail: >-
+    No operation takes a dry-run / validate-only flag. The nearest thing is
+    POST /restv1/ssa/validation, which validates a software statement without consuming it, and
+    POST /restv1/introspection, which inspects a token without acting on it — both narrow.
+bulk:
+  supported: true
+  detail: >-
+    SCIM POST /Bulk (RFC 7644 §3.7) applies many operations in one request; Jans Lock accepts
+    /api/v1/audit/{log,health,telemetry}/bulk. Neither is transactional across members.

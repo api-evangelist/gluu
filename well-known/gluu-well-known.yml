@@ -1,0 +1,139 @@
+generated: '2026-09-12'
+method: probed
+source: live HTTPS probes of every host this record knows (registrable domain + www, docs hosts,
+  console host, help/support hosts, and the upstream Janssen docs host)
+note: >-
+  Every named /.well-known/ path 404s on every Gluu and Janssen host that answers. cloud.gluu.org
+  (the Agama Lab console) is a single-page app whose catch-all returns HTTP 200 with the same 2,448-byte
+  HTML shell for every path, including /.well-known/agent-card.json and /llms.txt — those are recorded
+  as misses, not documents. No WellKnown or SecurityTxt pointer is emitted because no path returned a
+  real document. Gluu Flex and the Janssen Server DO serve /.well-known/openid-configuration,
+  /.well-known/uma2-configuration and /.well-known/authzen-configuration, but only on a customer's own
+  deployment host (the specs describe them at https://{host}/.well-known/openid-configuration); Gluu
+  runs no public multi-tenant identity host of its own to probe.
+summary:
+  hosts_probed: 8
+  documents_found: 0
+  spa_shell_false_positives: 12
+hosts:
+- host: gluu.org
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: www.gluu.org
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: docs.gluu.org
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: jans.io
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: docs.jans.io
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: cloud.gluu.org
+  note: >-
+    SPA catch-all — every path returns HTTP 200 with the identical 2,448-byte Agama Lab HTML shell
+    (Content-Type text/html). Treated as a miss on every path per the pipeline's SPA false-positive rule.
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    result: spa-shell-not-a-document
+  - path: /.well-known/openid-configuration
+    status: 200
+    result: spa-shell-not-a-document
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    result: spa-shell-not-a-document
+  - path: /.well-known/api-catalog
+    status: 200
+    result: spa-shell-not-a-document
+  - path: /.well-known/agent-card.json
+    status: 200
+    result: spa-shell-not-a-document
+  - path: /.well-known/agent.json
+    status: 200
+    result: spa-shell-not-a-document
+- host: help.gluu.org
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: support.gluu.org
+  note: DNS resolves but no TLS listener answered (curl exit 7, recorded as status 0).
+  documents:
+  - path: /.well-known/security.txt
+    status: 0
+  - path: /.well-known/agent-card.json
+    status: 0
+deployment_served_paths:
+  note: >-
+    Served by every Gluu Flex / Janssen Server deployment on the customer's own host, evidenced by the
+    provider's own OpenAPI, not by a probe of a Gluu-operated host.
+  paths:
+  - path: /.well-known/openid-configuration
+    evidence: openapi/gluu-jans-auth-server-openapi.yml
+  - path: /.well-known/authzen-configuration
+    evidence: openapi/gluu-jans-auth-server-openapi.yml
+  - path: /jans-auth/restv1/uma2-configuration
+    evidence: openapi/gluu-jans-auth-server-openapi.yml

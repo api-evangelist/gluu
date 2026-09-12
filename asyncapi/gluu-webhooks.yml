@@ -1,0 +1,101 @@
+generated: '2026-09-12'
+method: derived
+source: openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+asyncapi_spec: null
+asyncapi_note: >-
+  Gluu publishes no AsyncAPI document. A search of the JanssenProject/jans tree (5,000+ paths) found no
+  asyncapi.yaml/json and no event-catalog file, and no /asyncapi path answers on any Gluu or Janssen host.
+  Nothing is fabricated here — this artifact records the webhook surface that does exist, read from the
+  provider's own OpenAPI.
+shape: outbound-webhooks-bound-to-admin-features
+description: >-
+  The Gluu Flex Admin UI plugin ships a first-class webhook system: an operator registers a WebhookEntry
+  (URL, HTTP method, headers, templated request body) and maps it to one or more Admin UI features
+  (AuiFeature). When that feature is exercised — or when the trigger endpoint is called explicitly —
+  every webhook mapped to it fires. This is an administrative event surface, not a tenant-data event bus:
+  there are no user-lifecycle, token-issued or authentication events delivered to subscribers.
+delivery:
+  direction: outbound
+  transport: http
+  configurable_method: true
+  templated_body: true
+  body_note: >-
+    httpRequestBodyString is a template; ShortCodeRequest carries a shortcodeValueMap that substitutes
+    values into it at trigger time.
+  signing: not-documented
+  retries: not-documented
+  replay: not-documented
+management_api:
+  base: /jans-config-api/admin-ui/webhook
+  auth: OAuth 2.0 client credentials with Admin UI scopes (see scopes/gluu-scopes.yml)
+  operations:
+  - operationId: get-all-webhooks
+    method: GET
+    path: /admin-ui/webhook
+    summary: Gets list of webhooks
+  - operationId: post-webhook
+    method: POST
+    path: /admin-ui/webhook
+    summary: Create Webhook
+  - operationId: put-webhook
+    method: PUT
+    path: /admin-ui/webhook
+    summary: Update Webhook
+  - operationId: delete-Webhook-by-inum
+    method: DELETE
+    path: /admin-ui/webhook/{webhookId}
+    summary: Delete Webhook
+  - operationId: get-all-features
+    method: GET
+    path: /admin-ui/webhook/features
+    summary: Gets list of Admin UI features
+  - operationId: get-features-by-webhook-id
+    method: GET
+    path: /admin-ui/webhook/features/{webhookId}
+    summary: Gets list of Admin UI features mapped to webhookId
+  - operationId: get-webhooks-by-feature-id
+    method: GET
+    path: /admin-ui/webhook/{featureId}
+    summary: Gets list of Admin UI Webhooks mapped to featureId
+  - operationId: trigger-webhook
+    method: POST
+    path: /admin-ui/webhook/trigger/{featureId}
+    summary: Trigger webhooks mapped to featureId
+schemas:
+- name: WebhookEntry
+  fields:
+  - inum
+  - displayName
+  - description
+  - url
+  - httpMethod
+  - httpHeaders
+  - httpRequestBody
+  - httpRequestBodyString
+  - auiFeatureIds
+  - jansEnabled
+- name: AuiFeature
+  fields:
+  - auiFeatureId
+  - displayName
+  - jansScope
+  - webhookIdsMapped
+- name: ShortCodeRequest
+  fields:
+  - webhookId
+  - shortcodeValueMap
+event_catalog:
+  note: >-
+    The set of subscribable events is not a fixed published list — it is whatever AuiFeature records the
+    deployment exposes, discoverable at runtime via get-all-features. No static catalogue is published,
+    so none is reproduced here.
+related_streaming_surfaces:
+- name: Jans Lock audit ingestion
+  direction: inbound
+  detail: >-
+    Cedarling PDPs push audit log, health and telemetry entries to the Lock server
+    (/api/v1/audit/log, /health, /telemetry, each with a /bulk variant) over REST, and over gRPC using the
+    audit.proto contract saved in grpc/.
+  specs:
+  - openapi/gluu-jans-lock-server-openapi.yml
+  - grpc/gluu-jans-lock-audit.proto

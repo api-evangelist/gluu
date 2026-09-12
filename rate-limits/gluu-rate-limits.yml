@@ -3,107 +3,47 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
 provider: Gluu
 providerId: gluu
+generated: '2026-09-12'
+method: searched
+source: >-
+  openapi/ (twelve first-party specs, scanned for declared response headers) plus
+  https://gluu.org/solo/ and the Janssen configuration documentation
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - Access Management
-  - Authentication
-  - Authorization
-  - IAM
-  - Identities
-  - OAuth
-  - OpenID Connect
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Gluu API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
+modified: '2026-09-12'
+note: >-
+  This file replaces a 2026-05-04 bulk-sweep scaffold that asserted X-RateLimit-Limit / -Remaining /
+  -Reset headers, a 429 on exhaustion, and free/professional tiers at 10 and 100 requests per minute.
+  None of that is real. Gluu publishes no per-request rate limit and returns no rate-limit header.
+limit_count: 0
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
-responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
-limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Gluu Flex
-      - Janssen Project
-      - Cedarling
-      - Agama Lab
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Gluu Flex
-      - Janssen Project
-      - Cedarling
-      - Agama Lab
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Gluu Flex
-      - Janssen Project
-      - Cedarling
-      - Agama Lab
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Gluu Flex
-      - Janssen Project
-      - Cedarling
-      - Agama Lab
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Gluu Flex
-      - Janssen Project
-      - Cedarling
-      - Agama Lab
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+  published: false
+  detail: >-
+    A scan of every declared response across all twelve first-party specs found zero `headers:` blocks —
+    no X-RateLimit-*, no RateLimit-* (RFC 9239 draft), no Retry-After. An agent gets no runtime signal
+    from this API and must treat throughput as unknown.
+response_codes:
+  throttled: null
+  detail: >-
+    429 is not declared as a response on any operation in any of the twelve specs. The declared error
+    statuses are 400, 401, 403, 404, 405, 406, 409, 422, 500 and 503.
+limits: []
+why_zero:
+  - >-
+    Gluu Flex and the Janssen Server are software the customer deploys and operates. There is no
+    Gluu-operated gateway between the caller and the API, so there is no vendor rate limit to publish —
+    throughput is bounded by the customer's own infrastructure and by whatever ingress policy they place
+    in front of it.
+  - >-
+    Hosted Gluu Solo does meter, but as a monthly request ceiling attached to a price tier, not as a
+    per-second limit with a signalled header. Those ceilings are recorded in plans/gluu-plans-pricing.yml
+    as quotas (25M / 250M / 2.5B requests per month), which is what they are.
+quota_ceilings_see_plans:
+  - product: Gluu Solo Planet
+    requests_per_month: 25000000
+  - product: Gluu Solo Star
+    requests_per_month: 250000000
+  - product: Gluu Solo Galaxy
+    requests_per_month: 2500000000
+agent_guidance: >-
+  Back off on 500 and 503 (the FIDO2 metadata service declares 503 when it is down) and treat 401 as a
+  token problem rather than a throttle. Do not expect Retry-After; there is none.

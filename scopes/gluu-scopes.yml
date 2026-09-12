@@ -1,0 +1,1019 @@
+generated: '2026-09-12'
+method: derived
+source: openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml, openapi/gluu-jans-config-api-fido2-plugin-openapi.yml,
+  openapi/gluu-jans-config-api-link-plugin-openapi.yml, openapi/gluu-jans-config-api-lock-plugin-openapi.yml,
+  openapi/gluu-jans-config-api-metric-plugin-openapi.yml, openapi/gluu-jans-config-api-openapi.yml,
+  openapi/gluu-jans-config-api-scim-plugin-openapi.yml, openapi/gluu-jans-config-api-user-mgt-plugin-openapi.yml,
+  openapi/gluu-jans-lock-server-openapi.yml, openapi/gluu-jans-scim-openapi.yml
+docs: https://docs.jans.io/stable/janssen-server/reference/openapi/
+docs_note: >-
+  The scope registry is published as part of the provider's own OpenAPI contracts rather than as a prose
+  reference page; every scope below is read from a securitySchemes.oauth2 flow in a first-party spec.
+  Janssen scopes are namespaced URLs (https://jans.io/oauth/config/<resource>.<action>) with readonly /
+  write / delete / admin as the action suffixes.
+schemes:
+- name: oauth2
+  source: openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://{op-hostname}/.../token
+- name: oauth2
+  source: openapi/gluu-jans-config-api-fido2-plugin-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://{op-hostname}/.../token
+- name: oauth2
+  source: openapi/gluu-jans-config-api-link-plugin-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://{op-hostname}/.../token
+- name: oauth2
+  source: openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://{op-hostname}/.../token
+- name: oauth2
+  source: openapi/gluu-jans-config-api-metric-plugin-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://{op-hostname}/.../token
+- name: oauth2
+  source: openapi/gluu-jans-config-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://{op-hostname}/.../token
+- name: oauth2
+  source: openapi/gluu-jans-config-api-scim-plugin-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://{op-hostname}/.../token
+- name: oauth2
+  source: openapi/gluu-jans-config-api-user-mgt-plugin-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://{op-hostname}/.../token
+- name: oauth2
+  source: openapi/gluu-jans-lock-server-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://{op-hostname}/.../token
+- name: scim_oauth
+  source: openapi/gluu-jans-scim-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://localhost/jans-auth/restv1/token
+  description: Endpoints protected by a bearer token passed in the Authorization header.
+scopes:
+- scope: https://jans.io/auth/ssa.admin
+  description: Admin for SSA management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/client/authorizations.admin
+  description: Admin for Client Authorizations management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/client/authorizations.delete
+  description: Revoke ClientAuthorizations
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/client/authorizations.readonly
+  description: View ClientAuthorizations
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/acrs.admin
+  description: Admin for ACRS management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/acrs.readonly
+  description: View ACRS related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/acrs.write
+  description: Manage ACRS related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/agama-repo.readonly
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/agama-repo.write
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/agama.admin
+  description: Admin for Agama flow management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/agama.delete
+  description: Delete Agama Flow related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/agama.readonly
+  description: View Agama Flow related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/agama.write
+  description: Manage Agama Flow related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/app-version.readonly
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/asset.admin
+  description: Admin for Jans Assets management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/asset.delete
+  description: Delete Jans Assets
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/asset.readonly
+  description: View Jans Assets
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/asset.write
+  description: Manage Jans Assets
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/attributes.admin
+  description: Admin for Attribute management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/attributes.delete
+  description: Delete attribute related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/attributes.readonly
+  description: View attribute related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/attributes.write
+  description: Manage attribute related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/cache.admin
+  description: Admin for Cache management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/cache.readonly
+  description: View cache related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/cache.write
+  description: Manage cache related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/data.readonly
+  description: View Config-API related data
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/database.admin
+  description: Admin for Database config management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/database.readonly
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/database.write
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/database/ldap.delete
+  description: Delete LDAP database related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/database/ldap.readonly
+  description: View LDAP database related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/database/ldap.write
+  description: Manage LDAP database related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/delete-all
+  description: Super admin delete access to all configuration resources
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-fido2-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-link-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-openapi.yml
+  - openapi/gluu-jans-config-api-scim-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-user-mgt-plugin-openapi.yml
+- scope: https://jans.io/oauth/config/fido2-metrics.readonly
+  description: View fido2 metrics related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-fido2-plugin-openapi.yml
+- scope: https://jans.io/oauth/config/fido2.admin
+  description: Admin to manage fido2 related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-fido2-plugin-openapi.yml
+- scope: https://jans.io/oauth/config/fido2.delete
+  description: Delete fido2 config related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-fido2-plugin-openapi.yml
+- scope: https://jans.io/oauth/config/fido2.readonly
+  description: View fido2 config related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-fido2-plugin-openapi.yml
+- scope: https://jans.io/oauth/config/fido2.write
+  description: Manage fido2 config related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-fido2-plugin-openapi.yml
+- scope: https://jans.io/oauth/config/health.admin
+  description: Admin for Health API management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/jans-link.readonly
+  description: View Jans link configuration related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-link-plugin-openapi.yml
+- scope: https://jans.io/oauth/config/jans-link.write
+  description: Manage Jans link configuration related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-link-plugin-openapi.yml
+- scope: https://jans.io/oauth/config/jwks.admin
+  description: Admin for JWKS management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/jwks.delete
+  description: Delete JWKS related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/jwks.readonly
+  description: View JWKS related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/jwks.write
+  description: Manage JWKS related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/link.admin
+  description: Admin for Jans link configuration related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-link-plugin-openapi.yml
+- scope: https://jans.io/oauth/config/lock.admin
+  description: Lock Admin access to manage all Lock configuration related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+- scope: https://jans.io/oauth/config/logging.admin
+  description: Admin for Logging management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/logging.readonly
+  description: View logging related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/logging.write
+  description: Manage logging related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/message.admin
+  description: Admin for Message management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/message.readonly
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/message.write
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/metric.readonly
+  description: View metric related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-metric-plugin-openapi.yml
+- scope: https://jans.io/oauth/config/openid/clients.admin
+  description: Admin for clients management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/openid/clients.delete
+  description: Delete clients related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/openid/clients.readonly
+  description: View clients related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/openid/clients.write
+  description: Manage clients related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/openid/openid.delete
+  description: Delete OpenID functionality
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/openid/openid.readonly
+  description: View OpenID functionality
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/openid/openid.write
+  description: Manage OpenID functionality
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/organization.admin
+  description: Admin for organization configuration management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/organization.readonly
+  description: View organization configuration information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/organization.write
+  description: Manage organization configuration information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/plugin.admin
+  description: Admin for Plugin management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/plugin.readonly
+  description: View Plugin information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/properties.admin
+  description: Admin for Config-API management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/properties.readonly
+  description: View Config-API related configuration properties
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/properties.write
+  description: Manage Config-API related configuration properties
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/read-all
+  description: Super admin read access to all configuration resources
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-fido2-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-link-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-metric-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-openapi.yml
+  - openapi/gluu-jans-config-api-scim-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-user-mgt-plugin-openapi.yml
+- scope: https://jans.io/oauth/config/scim.admin
+  description: Admin to manage SCIM configuration related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-scim-plugin-openapi.yml
+- scope: https://jans.io/oauth/config/scopes.admin
+  description: Admin for scope management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/scopes.delete
+  description: Delete scope related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/scopes.readonly
+  description: View scope related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/scopes.write
+  description: Manage scope related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/scripts.admin
+  description: Admin for Scripts management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/scripts.delete
+  description: Delete scripts related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/scripts.readonly
+  description: View cache scripts information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/scripts.write
+  description: Manage scripts related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/smtp.admin
+  description: Admin for SMTP management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/smtp.delete
+  description: Delete SMTP related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/smtp.readonly
+  description: View SMTP related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/smtp.write
+  description: Manage SMTP related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/ssa.delete
+  description: Delete SSA details
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/ssa.readonly
+  description: View SSA details
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/ssa.write
+  description: Manage SSA details
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/stats.admin
+  description: Admin for statistic management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/stats.readonly
+  description: View server with basic statistic
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/token.admin
+  description: Admin for Token management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/token.delete
+  description: Delete Token details
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/token.readonly
+  description: View Token details
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/token.write
+  description: Manage Token details
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/uma.admin
+  description: Admin for UMA management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/uma.delete
+  description: Delete UMA functionality
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/uma.readonly
+  description: View UMA functionality
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/uma.write
+  description: Manage UMA functionality
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/config/user.admin
+  description: Admin to manage user related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-user-mgt-plugin-openapi.yml
+- scope: https://jans.io/oauth/config/user.delete
+  description: Delete user related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-user-mgt-plugin-openapi.yml
+- scope: https://jans.io/oauth/config/user.readonly
+  description: View user related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-user-mgt-plugin-openapi.yml
+- scope: https://jans.io/oauth/config/user.write
+  description: Manage user related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-user-mgt-plugin-openapi.yml
+- scope: https://jans.io/oauth/config/write-all
+  description: Super admin write access to all configuration resources
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-fido2-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-link-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-openapi.yml
+  - openapi/gluu-jans-config-api-scim-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-user-mgt-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/delete-all
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/license.admin
+  description: Full administrative access to license related information (super-user level)
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/license.readonly
+  description: View admin-ui license related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/license.write
+  description: Manage admin-ui license related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/properties.readonly
+  description: View Admin UI configuration properties related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/properties.write
+  description: Manage Admin UI configuration properties related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/read-all
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/security.delete
+  description: Delete Admin UI security related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/security.readonly
+  description: View Admin UI security related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/security.write
+  description: Edit Admin UI security related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.admin
+  description: Full administrative access to admin permissions (super-user level)
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.delete
+  description: Delete admin permission related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.readonly
+  description: View admin permission related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.write
+  description: Manage admin permission related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/user/role.admin
+  description: Full administrative access to admin user roles (super-user level)
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/user/role.delete
+  description: Delete admin user role related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/user/role.readonly
+  description: View admin user role related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/user/role.write
+  description: Manage admin user role related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.admin
+  description: Full administrative access to role-permission mappings (super-user level)
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.delete
+  description: Delete role-permission mapping related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.readonly
+  description: View role-permission mapping related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.write
+  description: Manage role-permission mapping related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/webhook.delete
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/webhook.readonly
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/webhook.write
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/adminui/write-all
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/properties.admin
+  description: Admin scope for Auth Server properties
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/properties.readonly
+  description: View Auth Server properties related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/config/properties.write
+  description: Manage Auth Server properties related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/session.admin
+  description: Admin for Session management
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/session.delete
+  description: Delete Session information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/jans-auth-server/session.readonly
+  description: View Session related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: https://jans.io/oauth/lock-config.readonly
+  description: View Lock configuration related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+- scope: https://jans.io/oauth/lock-config.write
+  description: Manage Lock configuration related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+- scope: https://jans.io/oauth/lock/audit.readonly
+  description: View Lock audit related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+- scope: https://jans.io/oauth/lock/audit.write
+  description: View Lock audit related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+- scope: https://jans.io/oauth/lock/health.readonly
+  description: View Lock health related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+- scope: https://jans.io/oauth/lock/health.write
+  description: Manage Lock health related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+  - openapi/gluu-jans-lock-server-openapi.yml
+- scope: https://jans.io/oauth/lock/log.readonly
+  description: View Lock log related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+- scope: https://jans.io/oauth/lock/log.write
+  description: Manage Lock log health related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+  - openapi/gluu-jans-lock-server-openapi.yml
+- scope: https://jans.io/oauth/lock/policy.readonly
+  description: View policy related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-lock-server-openapi.yml
+- scope: https://jans.io/oauth/lock/read-all
+  description: View Lock related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+- scope: https://jans.io/oauth/lock/stat.readonly
+  description: View stat related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-lock-server-openapi.yml
+- scope: https://jans.io/oauth/lock/telemetry.readonly
+  description: View Lock telemetry related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+- scope: https://jans.io/oauth/lock/telemetry.write
+  description: Manage Lock telemetry related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+  - openapi/gluu-jans-lock-server-openapi.yml
+- scope: https://jans.io/oauth/lock/write-all
+  description: View Lock related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+- scope: https://jans.io/scim/all-resources.search
+  description: Access the root .search endpoint
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-scim-openapi.yml
+- scope: https://jans.io/scim/bulk
+  description: Send requests to the bulk endpoint
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-scim-openapi.yml
+- scope: https://jans.io/scim/config.readonly
+  description: View SCIM configuration related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-scim-plugin-openapi.yml
+- scope: https://jans.io/scim/config.write
+  description: Manage SCIM configuration related information
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-scim-plugin-openapi.yml
+- scope: https://jans.io/scim/fido.read
+  description: Query fido resources
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-scim-openapi.yml
+- scope: https://jans.io/scim/fido.write
+  description: Modify fido resources
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-scim-openapi.yml
+- scope: https://jans.io/scim/fido2.read
+  description: Query fido 2 resources
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-scim-openapi.yml
+- scope: https://jans.io/scim/fido2.write
+  description: Modify fido 2 resources
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-scim-openapi.yml
+- scope: https://jans.io/scim/groups.read
+  description: Query group resources
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-scim-openapi.yml
+- scope: https://jans.io/scim/groups.write
+  description: Modify group resources
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-scim-openapi.yml
+- scope: https://jans.io/scim/tokens
+  description: List and revoke user tokens
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-scim-openapi.yml
+- scope: https://jans.io/scim/users.read
+  description: Query user resources
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-scim-openapi.yml
+- scope: https://jans.io/scim/users.write
+  description: Modify user resources
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-scim-openapi.yml
+- scope: jans_stat
+  description: Auth Server Stats Authorization Scope
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-openapi.yml
+- scope: revoke_session
+  sources:
+  - openapi/gluu-jans-config-api-openapi.yml

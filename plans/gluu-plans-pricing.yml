@@ -3,166 +3,150 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
 provider: Gluu
 providerId: gluu
+generated: '2026-09-12'
+method: searched
+source: https://gluu.org/solo/
+sources:
+  - url: https://gluu.org/solo/
+    status: 200
+    what: Published Gluu Solo pricing table — tier, monthly and annual price, request ceiling, SLA.
+  - url: https://gluu.org/flex/
+    status: 200
+    what: >-
+      Gluu Flex pricing statement — "The cost of a Gluu Subscription is based on peak Monthly Active
+      Users" — with no numbers and no pricing page. Sales-gated.
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - Access Management
-  - Authentication
-  - Authorization
-  - IAM
-  - Identities
-  - OAuth
-  - OpenID Connect
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+modified: '2026-09-12'
+note: >-
+  This file replaces a 2026-05-04 bulk-sweep scaffold that invented a Free/Professional/Enterprise ladder
+  with 1,000 and 100,000 request quotas. None of that existed. What Gluu actually publishes is the Solo
+  table below; Gluu Flex is quoted on peak monthly active users with no public number, and the Janssen
+  Project is free open source.
+plan_count: 3
+currency: USD
 plans:
-  - id: gluu-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the Gluu API surface. Intended for evaluation, prototyping, and low-volume
-      integrations. Real limits and pricing must be reconciled with the provider's published plan documentation.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://docs.gluu.org/
-          - https://docs.jans.io/
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://docs.gluu.org/
-          - https://docs.jans.io/
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Gluu Flex
-      - name: Janssen Project
-      - name: Cedarling
-      - name: Agama Lab
-  - id: gluu-pro
-    name: Professional
+  - id: gluu-solo-planet
+    name: Planet
     type: paid
-    description: Production tier for Gluu. Provides higher quotas, priority support, and access to the
-      broader API portfolio. Pricing placeholder; align with the provider's pricing page.
+    product: Gluu Solo
+    description: >-
+      Entry tier of the hosted Gluu Solo identity service, priced per cloud location.
+    price_monthly: '800.00'
+    price_annual: '8000.00'
+    annual_note: Two months free on annual billing.
+    billing_unit: per location
+    currency: USD
     entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
+      - label: Requests per month
+        name: requests
         type: quota
         metric: requests
-        limit: 100000
+        limit: 25000000
         timeFrame: month
-        geo: global
-        domains:
-          - https://docs.gluu.org/
-          - https://docs.jans.io/
         unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://docs.gluu.org/
-          - https://docs.jans.io/
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
+        price: '800.00'
+      - label: Cost per request
+        name: cost_per_request
+        type: price
         metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains:
-          - https://docs.gluu.org/
-          - https://docs.jans.io/
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Gluu Flex
-      - name: Janssen Project
-      - name: Cedarling
-      - name: Agama Lab
-  - id: gluu-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Gluu. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
+        unit: 1
+        price: '0.000012'
+    limits:
+      max_locations: 3
+      vcpu: 4
+      ram_gib: 8
+      replicas_per_location: unlimited
+      automatic_scale: true
+      sla_uptime: '99.9%'
+  - id: gluu-solo-star
+    name: Star
+    type: paid
+    product: Gluu Solo
+    price_monthly: '1500.00'
+    price_annual: '15000.00'
+    annual_note: Two months free on annual billing.
+    billing_unit: per location
+    currency: USD
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
+      - label: Requests per month
+        name: requests
         type: quota
         metric: requests
-        limit: -1
+        limit: 250000000
         timeFrame: month
-        geo: configurable
-        domains:
-          - https://docs.gluu.org/
-          - https://docs.jans.io/
         unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://docs.gluu.org/
-          - https://docs.jans.io/
+        price: '1500.00'
+      - label: Cost per request
+        name: cost_per_request
+        type: price
+        metric: requests
         unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Gluu Flex
-      - name: Janssen Project
-      - name: Cedarling
-      - name: Agama Lab
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+        price: '0.0000022'
+    limits:
+      max_locations: 10
+      vcpu: 4
+      ram_gib: 8
+      replicas_per_location: unlimited
+      automatic_scale: true
+      sla_uptime: '99.9%'
+  - id: gluu-solo-galaxy
+    name: Galaxy
+    type: paid
+    product: Gluu Solo
+    price_monthly: '4000.00'
+    price_annual: '40000.00'
+    annual_note: Two months free on annual billing.
+    billing_unit: per location
+    currency: USD
+    entries:
+      - label: Requests per month
+        name: requests
+        type: quota
+        metric: requests
+        limit: 2500000000
+        timeFrame: month
+        unit: 1
+        price: '4000.00'
+      - label: Cost per request
+        name: cost_per_request
+        type: price
+        metric: requests
+        unit: 1
+        price: '0.0000012'
+    limits:
+      max_locations: 15
+      vcpu: 4
+      ram_gib: 8
+      replicas_per_location: unlimited
+      automatic_scale: true
+      sla_uptime: '99.9%'
+unpriced_products:
+  - product: Gluu Flex
+    model: subscription, quoted
+    basis: peak Monthly Active Users
+    public_price: false
+    detail: >-
+      https://gluu.org/flex/ states the subscription is priced on peak monthly active users and routes to
+      https://gluu.org/booking to schedule a demo. https://gluu.org/pricing/ returns 404. No public number.
+    note: >-
+      The page does publish one commercially meaningful term: if the subscription expires the commercial
+      Admin UI locks, but the authentication service keeps running because the core components are open
+      source.
+  - product: Janssen Project
+    model: free open source
+    public_price: true
+    price: '0.00'
+    detail: Apache-2.0, Linux Foundation; no licence fee. https://github.com/JanssenProject/jans
+  - product: Agama Lab
+    model: not published
+    public_price: false
+    detail: >-
+      No pricing statement on https://gluu.org/agama-lab/; the CTA is "Join Agama Lab" at
+      https://cloud.gluu.org/agama-lab.
+free_trial:
+  published: false
+  detail: >-
+    No free trial is advertised on any pricing surface. The Admin UI plugin contract does carry a
+    GET /admin-ui/license/trial operation, so a trial licence exists as a product mechanism, but Gluu
+    publishes no terms for it.
+  evidence: openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml

@@ -1,0 +1,125 @@
+generated: '2026-09-12'
+method: derived
+source: >-
+  openapi/gluu-jans-scim-openapi.yml (components.schemas $ref graph and id-reference fields) and
+  openapi/gluu-jans-config-api-openapi.yml
+note: >-
+  Two object models sit side by side. The SCIM model is the IETF standard one (RFC 7643) with a Gluu
+  extension; the Config API model is Gluu's own administrative model keyed on `inum` identifiers. They
+  meet at the user: the same person is a SCIM UserResource and a Config API user record.
+identifiers:
+- name: id
+  scope: SCIM resources
+  form: UUID assigned by the server, immutable, carried in meta.location.
+- name: externalId
+  scope: SCIM resources
+  form: >-
+    Identifier owned by the provisioning client (RFC 7643 §3.1) — the join key for an upstream IdP or HR
+    system.
+- name: inum
+  scope: Config API objects
+  form: >-
+    Gluu's own opaque identifier, used as the path segment on Config API object endpoints
+    (e.g. /admin-ui/security/policyStore/{INUM}).
+entities:
+- name: BaseResource
+  abstract: true
+  schema: components.schemas.BaseResource
+  fields:
+  - id
+  - externalId
+  - meta
+  - schemas
+  note: Every SCIM resource extends it; `meta` carries resourceType, created, lastModified and location.
+- name: UserResource
+  schema: components.schemas.UserResource
+  standard_urn: urn:ietf:params:scim:schemas:core:2.0:User
+  extension_urn: urn:ietf:params:scim:schemas:extension:gluu:2.0:User
+  operations:
+  - get-users
+  - create-user
+  - search-user
+  - get-user-by-id
+  - update-user-by-id
+  - patch-user-by-id
+  - delete-user-by-id
+  complex_attributes:
+  - Name
+  - Email
+  - PhoneNumber
+  - Address
+  - Photo
+  - InstantMessagingAddress
+  - Entitlement
+  - Role
+  - X509Certificate
+- name: GroupResource
+  schema: components.schemas.GroupResource
+  standard_urn: urn:ietf:params:scim:schemas:core:2.0:Group
+  fields:
+  - displayName
+  - members
+- name: Fido2DeviceResource
+  schema: components.schemas.Fido2DeviceResource
+  standard_urn: urn:ietf:params:scim:schemas:core:2.0:Fido2Device
+  fields:
+  - userId
+  - displayName
+  - counter
+  - creationDate
+  - status
+  status_enum:
+  - registered
+  - pending
+  - compromised
+  - canceled
+- name: ServiceProviderConfigResponse
+  schema: components.schemas.ServiceProviderConfigResponse
+  note: RFC 7644 §4 discovery document — declares which optional SCIM features this server supports.
+- name: ResourceType
+  schema: components.schemas.ResourceType
+- name: SchemaResource
+  schema: components.schemas.SchemaResource
+  note: Machine-readable attribute definitions, with SchemaAttribute children.
+- name: Client
+  source: openapi/gluu-jans-auth-server-openapi.yml
+  note: >-
+    OAuth client created by dynamic registration (post-register); addressed by client_id and managed with
+    a registration_access_token.
+- name: PolicyStore
+  source: openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+  note: Cedar policy store administered at /admin-ui/security/policyStore/{INUM}, consumed by Cedarling.
+relationships:
+- from: UserResource
+  to: GroupResource
+  kind: has_many
+  via: groups[].value
+  note: >-
+    Read-only on the user side per RFC 7643 — membership is written on the group, not on the user.
+- from: GroupResource
+  to: UserResource
+  kind: has_many
+  via: members[].value
+  ref_field: members[].$ref
+- from: Fido2DeviceResource
+  to: UserResource
+  kind: belongs_to
+  via: userId
+- from: UserResource
+  to: Fido2DeviceResource
+  kind: has_many
+  via: get-fido2-devices / search-fido2-device filtered on userId
+- from: SchemaResource
+  to: SchemaAttribute
+  kind: has_many
+  via: attributes[]
+- from: GroupResource
+  to: Member
+  kind: has_many
+  via: members[]
+- from: UserResource
+  to: TokenMetadata
+  kind: has_many
+  via: user-tokens (GET /UserTokens), revoked with revoke-tokens (DELETE /UserTokens)
+  note: The SCIM spec exposes a user's issued tokens through a dedicated endpoint pair.
+render: null

@@ -1,0 +1,36 @@
+generated: '2026-09-12'
+method: generated
+source: >-
+  Authored from the twelve first-party OpenAPI contracts in openapi/, with every operationId verified
+  against the spec it is attributed to. Gluu publishes no AGENTS.md or skills/ directory of its own —
+  a search of the JanssenProject/jans tree found only jans-cedarling/AGENTS.md, which is contributor
+  guidance for that Rust crate, not a packaged agent skill.
+skills:
+- name: gluu-scim-user-provisioning
+  file: gluu-scim-user-provisioning.md
+  api: gluu:jans-scim-api
+  summary: >-
+    Provision, update and deprovision users and groups over SCIM 2.0, with the search-before-create
+    discipline the absence of idempotency forces and an explicit warning that DELETE is permanent.
+  operations: 11
+- name: gluu-oauth-client-lifecycle
+  file: gluu-oauth-client-lifecycle.md
+  api: gluu:jans-auth-server-api
+  summary: >-
+    Discover, dynamically register a client, run an authorization code flow with PKCE (or PAR), introspect
+    a token, and revoke or delete cleanly.
+  operations: 12
+- name: gluu-fido2-passkey-enrollment
+  file: gluu-fido2-passkey-enrollment.md
+  api: gluu:jans-fido2-api
+  summary: >-
+    Run the WebAuthn attestation and assertion ceremonies, then manage enrolled devices through the SCIM
+    Fido2Device resource — including the half of the ceremony no agent can complete alone.
+  operations: 8
+- name: gluu-admin-webhooks
+  file: gluu-admin-webhooks.md
+  api: gluu:jans-config-api
+  summary: >-
+    Discover Admin UI features at runtime, register and map a templated webhook, verify the mapping both
+    ways before arming it, and disarm rather than delete.
+  operations: 8

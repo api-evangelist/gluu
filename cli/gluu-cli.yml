@@ -1,0 +1,47 @@
+generated: '2026-09-12'
+method: searched
+source: >-
+  https://docs.jans.io/stable/janssen-server/config-guide/config-tools/jans-cli/,
+  https://docs.jans.io/stable/janssen-server/config-guide/config-tools/jans-tui/ and the
+  jans-cli-tui-*.pyz assets on https://github.com/JanssenProject/jans/releases
+name: jans-cli
+description: >-
+  Janssen ships one first-party command-line tool in two faces: `jans-cli`, a scriptable
+  command-line client, and `jans-tui`, an interactive text UI built on the same code. Both are thin,
+  scope-aware front ends to the Janssen Config API — every command is an OAuth-protected Config API call,
+  so the CLI surface tracks openapi/gluu-jans-config-api-openapi.yml rather than being a separate API.
+official: true
+version: 2.4.0
+published: '2026-09-07'
+install:
+- method: release-asset
+  detail: >-
+    Download the platform zipapp from the Janssen release — jans-cli-tui-linux-macos.pyz,
+    jans-cli-tui-linux-ubuntu-X86-64.pyz or jans-cli-tui-linux-suse-X86-64.pyz — and run it with python3.
+  url: https://github.com/JanssenProject/jans/releases
+- method: bundled
+  detail: Installed with the Janssen Server / Gluu Flex setup on the deployment host.
+- method: pypi
+  available: false
+  detail: Not on PyPI — https://pypi.org/pypi/jans-cli-tui/json returns 404 (checked 2026-09-12).
+surface:
+  note: >-
+    The command surface is generated from the Config API's own operation set rather than hand-written, so
+    it is documented as operation groups rather than as a fixed verb list.
+  modes:
+  - name: jans-cli
+    detail: >-
+      Non-interactive mode taking an operation id and a JSON payload — used for scripting and CI against
+      the Config API.
+    docs: https://docs.jans.io/stable/janssen-server/config-guide/config-tools/jans-cli/
+  - name: jans-tui
+    detail: >-
+      Interactive text UI with menus mirroring the Admin UI — Auth Server, FIDO, SCIM, Jans Lock, scripts,
+      SMTP, persistence, logging.
+    docs: https://docs.jans.io/stable/janssen-server/config-guide/config-tools/jans-tui/
+  auth: >-
+    OAuth 2.0 client credentials against the deployment's own Auth Server; the token must carry the
+    scopes for the operation being called (see scopes/gluu-scopes.yml).
+related:
+  packages: packages/gluu-packages.yml
+  api: openapi/gluu-jans-config-api-openapi.yml

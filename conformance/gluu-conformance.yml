@@ -1,0 +1,126 @@
+generated: '2026-09-12'
+method: searched
+source: >-
+  https://docs.jans.io/stable/janssen-server/auth-server/openid-features/ plus the provider's own
+  contracts in openapi/ (endpoint paths, schema URNs and securitySchemes cited per entry)
+note: >-
+  Every entry below is evidenced either by a sentence in Gluu/Janssen's own documentation or by the
+  presence of a named endpoint or schema URN inside a first-party OpenAPI in this repo. Nothing is
+  asserted from a marketing page.
+domain_standard:
+  id: scim2
+  name: SCIM 2.0 — System for Cross-domain Identity Management
+  market: identity and access management / user provisioning
+  conforms: true
+  signature: schema-urn
+  evidence: >-
+    openapi/gluu-jans-scim-openapi.yml declares urn:ietf:params:scim:schemas:core:2.0:User, :Group,
+    :Fido2Device, :ResourceType, :Schema, :ServiceProviderConfig and the
+    urn:ietf:params:scim:api:messages:2.0:{ListResponse,SearchRequest,PatchOp,Error} message URNs, and
+    serves the RFC 7644 discovery triple /ServiceProviderConfig, /ResourceTypes and /Schemas.
+  extension: >-
+    urn:ietf:params:scim:schemas:extension:gluu:2.0:User — a vendor extension declared the way RFC 7643
+    §3.3 provides for, not a departure from the standard.
+  buyer_note: >-
+    An organisation that already speaks SCIM provisions users into Gluu Flex with an off-the-shelf
+    connector (Okta, Entra ID, Workday) and writes no bespoke integration.
+conformance:
+- id: oauth2
+  conforms: true
+  evidence: >-
+    openapi/gluu-jans-auth-server-openapi.yml — /restv1/token, /restv1/authorize, /restv1/introspection
+    (RFC 7662), /restv1/revoke (RFC 7009); every Config API spec applies an oauth2 clientCredentials
+    securityScheme with 162 named scopes.
+- id: oidc
+  conforms: true
+  certified: true
+  evidence: >-
+    https://docs.jans.io/stable/janssen-server/auth-server/openid-features/ states "The Janssen
+    Authentication Server is a fully certified OpenID Provider (OP)" and links http://openid.net/certification/.
+    The contract carries /.well-known/openid-configuration, /restv1/userinfo, /restv1/end_session and
+    /restv1/session_status.
+  features:
+  - OpenID Connect Core 1.0
+  - Discovery
+  - Dynamic Client Registration
+  - Form Post Response Mode
+  - Session Management
+  - Front-Channel Logout
+- id: oidc-dynamic-client-registration
+  conforms: true
+  standard: RFC 7591 / OpenID Connect Dynamic Client Registration 1.0
+  evidence: /restv1/register (POST, PUT, GET, DELETE) in openapi/gluu-jans-auth-server-openapi.yml.
+- id: ciba
+  conforms: true
+  standard: OpenID Connect Client Initiated Backchannel Authentication (CIBA) Core 1.0
+  evidence: >-
+    /restv1/bc-authorize and /restv1/bc-deviceRegistration in openapi/gluu-jans-auth-server-openapi.yml;
+    named as supported at https://docs.jans.io/stable/janssen-server/auth-server/openid-features/.
+- id: uma2
+  conforms: true
+  standard: User-Managed Access 2.0
+  evidence: >-
+    /restv1/uma2-configuration, /restv1/host/rsrc/resource_set, /restv1/host/rsrc_pr, /restv1/rpt/status
+    and /restv1/uma/gather_claims in openapi/gluu-jans-auth-server-openapi.yml.
+- id: par
+  conforms: true
+  standard: RFC 9126 OAuth 2.0 Pushed Authorization Requests
+  evidence: /restv1/par in openapi/gluu-jans-auth-server-openapi.yml.
+- id: ssa
+  conforms: true
+  standard: OAuth 2.0 Software Statement Assertion
+  evidence: /restv1/ssa, /restv1/ssa/jwt and /restv1/ssa/validation in openapi/gluu-jans-auth-server-openapi.yml.
+- id: oauth-status-list
+  conforms: true
+  standard: OAuth 2.0 Token Status List (IETF draft)
+  evidence: /restv1/status_list and /restv1/status_list_aggregation in openapi/gluu-jans-auth-server-openapi.yml.
+- id: global-token-revocation
+  conforms: true
+  standard: OpenID Connect Global Token Revocation
+  evidence: /restv1/global-token-revocation in openapi/gluu-jans-auth-server-openapi.yml.
+- id: authzen
+  conforms: true
+  standard: OpenID AuthZEN Authorization API
+  evidence: >-
+    /.well-known/authzen-configuration and /restv1/evaluation in openapi/gluu-jans-auth-server-openapi.yml.
+- id: fido2
+  conforms: true
+  standard: FIDO2 / W3C WebAuthn
+  evidence: >-
+    openapi/gluu-jans-fido2-openapi.yml serves the full WebAuthn ceremony —
+    /restv1/attestation/options, /restv1/attestation/result, /restv1/assertion/options,
+    /restv1/assertion/result — plus FIDO Metadata Service trust endpoints (/restv1/trust/mds/health).
+- id: cedar
+  conforms: true
+  standard: Cedar policy language (AWS/open source)
+  evidence: >-
+    The Cedarling PDP evaluates Cedar policies; see https://docs.jans.io/stable/cedarling/ and the
+    cedarling crate/PyPI/npm packages recorded in packages/gluu-packages.yml.
+- id: rfc9457
+  conforms: false
+  evidence: >-
+    No surface returns application/problem+json; the stack uses the OAuth error object and the RFC 7644
+    SCIM error envelope instead. See errors/gluu-problem-types.yml.
+- id: pagination
+  conforms: true
+  evidence: >-
+    SCIM cursor/index pagination (startIndex, count, sortBy, sortOrder) per RFC 7644 §3.4.2, and
+    limit/startIndex/pattern query parameters across the Config API. See conventions/gluu-conventions.yml.
+- id: idempotency
+  conforms: false
+  evidence: >-
+    No Idempotency-Key header, replay token or idempotent-retry guidance appears in any of the twelve
+    specs or in the docs. See conventions/gluu-conventions.yml.
+certifications:
+  note: >-
+    Gluu publishes no SOC 2 / ISO 27001 / PCI / HIPAA / FedRAMP attestation on its public site;
+    https://gluu.org/security/ says additional security or compliance information "may be made available
+    to customers upon appropriate request". The OpenID Foundation OP certification above is a protocol
+    conformance certification, not a compliance programme, so no Compliance pointer is emitted.
+  third_party_assessments:
+  - name: OpenSSF Scorecard
+    score: 9.2
+    scorecard_version: v5.3.0
+    target: github.com/JanssenProject/jans
+    evidence: https://api.securityscorecards.dev/projects/github.com/JanssenProject/jans
+    checked: '2026-09-12'

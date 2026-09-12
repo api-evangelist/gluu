@@ -1,14 +1,37 @@
-generated: '2026-07-11'
+generated: '2026-09-12'
 method: derived
-source: openapi/gluu-openapi.yml
+source: openapi/gluu-jans-auth-server-openapi.yml, openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml,
+  openapi/gluu-jans-config-api-fido2-plugin-openapi.yml, openapi/gluu-jans-config-api-link-plugin-openapi.yml,
+  openapi/gluu-jans-config-api-lock-plugin-openapi.yml, openapi/gluu-jans-config-api-metric-plugin-openapi.yml,
+  openapi/gluu-jans-config-api-openapi.yml, openapi/gluu-jans-config-api-scim-plugin-openapi.yml,
+  openapi/gluu-jans-config-api-user-mgt-plugin-openapi.yml, openapi/gluu-jans-lock-server-openapi.yml,
+  openapi/gluu-jans-scim-openapi.yml
 summary:
   types:
   - http
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
 schemes:
-- name: bearerAuth
+- name: bearer
   type: http
   scheme: bearer
-  bearerFormat: JWT
-  description: OAuth 2.0 access token with SCIM scopes
   sources:
-  - openapi/gluu-openapi.yml
+  - openapi/gluu-jans-auth-server-openapi.yml
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://{op-hostname}/.../token
+    scopes: 23
+  sources:
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-fido2-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-link-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-metric-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-openapi.yml
+  - openapi/gluu-jans-config-api-scim-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-user-mgt-plugin-openapi.yml
+  - openapi/gluu-jans-lock-server-openapi.yml
+  - openapi/gluu-jans-scim-openapi.yml

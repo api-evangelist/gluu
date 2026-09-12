@@ -1,0 +1,94 @@
+generated: '2026-09-12'
+method: derived
+source: >-
+  mcp/gluu-mcp.yml (tool set read from demos/janssen-tarp/mcp-server/src/server.ts) bound against
+  openapi/gluu-jans-auth-server-openapi.yml operationIds
+note: >-
+  The MCP surface is three OIDC relying-party tools; the REST surface is 328 operations across twelve
+  first-party specs. Every MCP tool binds cleanly to a real Auth Server operationId, and the divergence
+  runs entirely the other way — practically the whole administrative API has no tool.
+surfaces:
+  openapi:
+  - openapi/gluu-jans-auth-server-openapi.yml
+  - openapi/gluu-jans-config-api-openapi.yml
+  - openapi/gluu-jans-scim-openapi.yml
+  - openapi/gluu-jans-fido2-openapi.yml
+  - openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-fido2-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-user-mgt-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-metric-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-link-plugin-openapi.yml
+  - openapi/gluu-jans-config-api-scim-plugin-openapi.yml
+  graphql: null
+  mcp:
+    url: http://localhost:3001/mcp
+    gated: false
+    note: Self-hosted only; no vendor endpoint exists, so the live tools/list could not be probed remotely.
+crosswalk:
+- tool: registerOIDCClient
+  category: client-management
+  rest:
+  - post-register
+  binding: direct
+  confidence: high
+  note: >-
+    Calls the issuer's registration_endpoint discovered from /.well-known/openid-configuration; on a
+    Janssen Server that is POST /jans-auth/restv1/register (operationId post-register).
+- tool: startAuthFlow
+  category: authentication
+  rest:
+  - get_authorize
+  binding: composite
+  confidence: high
+  note: >-
+    Does not call the endpoint — it builds the authorization URL (PKCE challenge + state + nonce) that a
+    browser then GETs at /restv1/authorize. The bound operation is the destination, not the request.
+- tool: exchangeToken
+  category: authentication
+  rest:
+  - post-token
+  - get-userinfo
+  binding: composite
+  confidence: high
+  note: Exchanges the code at the token endpoint, then calls userinfo with the resulting access token.
+mcp_only: []
+rest_only:
+  note: >-
+    Not enumerated operation by operation — 325 of 328 operations have no MCP tool. The families are
+    listed instead, each naming the spec that holds them.
+  families:
+  - family: Janssen Config API (core)
+    operations: 133
+    spec: openapi/gluu-jans-config-api-openapi.yml
+  - family: Janssen Auth Server (beyond the three bound above)
+    operations: 43
+    spec: openapi/gluu-jans-auth-server-openapi.yml
+  - family: SCIM 2.0 user / group / FIDO device management
+    operations: 29
+    spec: openapi/gluu-jans-scim-openapi.yml
+  - family: Config API Admin-UI plugin (roles, permissions, licence, webhooks, policy store)
+    operations: 38
+    spec: openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+  - family: Config API FIDO2 plugin
+    operations: 22
+    spec: openapi/gluu-jans-config-api-fido2-plugin-openapi.yml
+  - family: Janssen FIDO2 server
+    operations: 21
+    spec: openapi/gluu-jans-fido2-openapi.yml
+  - family: Config API Lock plugin (audit log / health / telemetry)
+    operations: 13
+    spec: openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+  - family: Config API user-mgt, metric, link and SCIM plugins
+    operations: 14
+    spec: openapi/gluu-jans-config-api-user-mgt-plugin-openapi.yml
+  - family: Jans Lock server (policy distribution + audit ingestion)
+    operations: 12
+    spec: openapi/gluu-jans-lock-server-openapi.yml
+coverage:
+  mcp_tools: 3
+  rest_operations: 328
+  tools_bound: 3
+  operations_with_a_tool: 4
+  operations_without_a_tool: 324
+  percent_rest_covered_by_tools: 1.2

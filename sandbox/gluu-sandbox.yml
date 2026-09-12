@@ -1,0 +1,59 @@
+generated: '2026-09-12'
+method: searched
+source: >-
+  https://docs.jans.io/stable/janssen-server/test-debug/, https://docs.jans.io/stable/janssen-server/install/,
+  https://github.com/JanssenProject/jans/tree/main/demos/janssen-tarp, https://cloud.gluu.org/agama-lab
+shape: self-hosted-test-deployment-plus-hosted-console
+note: >-
+  There is no hosted API sandbox with test keys, because there is no hosted API: Gluu Flex and the Janssen
+  Server are software a customer runs. The equivalent of a sandbox here is a disposable local deployment
+  plus first-party test clients. No test credentials, test cards or magic identifiers are published, and
+  none are invented below.
+test_credentials:
+  published: false
+  detail: >-
+    No test-vs-live key prefixes, no published test tokens, no seeded demo accounts. Credentials on a test
+    deployment are the ones its own setup generates. Nothing to record.
+surfaces:
+- name: Agama Lab
+  kind: hosted-console
+  url: https://cloud.gluu.org/agama-lab
+  detail: >-
+    Gluu's hosted developer console — author Agama authentication flows and Cedar schema and policies in
+    the browser, against Gluu-run infrastructure. The closest thing Gluu operates to a try-it surface.
+  auth: account required ("Join Agama Lab" is the only CTA on https://gluu.org/agama-lab/)
+  free: not stated
+- name: Janssen all-in-one / monolith deployment
+  kind: local-test-deployment
+  docs: https://docs.jans.io/stable/janssen-server/install/
+  detail: >-
+    A single-container Janssen Server (docker-jans-all-in-one, docker-jans-monolith in the repo) that
+    brings up Auth Server, Config API, SCIM and FIDO2 together for testing. This is the intended way to
+    exercise the 328 operations in openapi/ without a production cluster.
+- name: Janssen Tarp
+  kind: test-client
+  repo: https://github.com/JanssenProject/jans/tree/main/demos/janssen-tarp
+  detail: >-
+    A first-party OpenID Connect relying-party test site that runs as a Chrome or Firefox extension —
+    register a client, run a flow, inspect the tokens. It also hosts the project's MCP server
+    (see mcp/gluu-mcp.yml).
+- name: Jans Chip
+  kind: test-client
+  detail: >-
+    Sample iOS and Android applications implementing the full OAuth and FIDO security stack — app
+    integrity, client-constrained access tokens, user presence.
+  source: https://github.com/JanssenProject/jans/tree/main/demos/jans-chip (named in the project llms.txt)
+- name: Test and debug guide
+  kind: documentation
+  url: https://docs.jans.io/stable/janssen-server/test-debug/
+  detail: The project's own testing and troubleshooting section.
+- name: Load testing harness
+  kind: tooling
+  detail: janssenproject/loadtesting-jmeter on Docker Hub — a published JMeter harness for the stack.
+  url: https://hub.docker.com/r/janssenproject/loadtesting-jmeter
+  note: Last pushed 2023-03-09; see packages/gluu-packages.yml for the Docker Hub staleness finding.
+time_simulation:
+  supported: false
+  detail: No test clocks or time-travel fixtures. Token lifetimes on a test deployment are configuration.
+fixtures:
+  published: false

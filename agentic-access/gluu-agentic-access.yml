@@ -1,22 +1,29 @@
-generated: '2026-07-15'
+generated: '2026-09-12'
 method: generated
-source: openapi/gluu-openapi.yml
+source: openapi/gluu-jans-auth-server-openapi.yml, openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml,
+  openapi/gluu-jans-config-api-fido2-plugin-openapi.yml, openapi/gluu-jans-config-api-link-plugin-openapi.yml,
+  openapi/gluu-jans-config-api-lock-plugin-openapi.yml, openapi/gluu-jans-config-api-metric-plugin-openapi.yml,
+  openapi/gluu-jans-config-api-openapi.yml, openapi/gluu-jans-config-api-scim-plugin-openapi.yml,
+  openapi/gluu-jans-config-api-user-mgt-plugin-openapi.yml, openapi/gluu-jans-fido2-openapi.yml,
+  openapi/gluu-jans-lock-server-openapi.yml, openapi/gluu-jans-scim-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
-  operations: 22
+  operations: 328
   by_action_class:
-    connected: 9
-    acting: 13
+    connected: 173
+    acting: 155
   by_consequence:
-    read: 9
-    write: 13
-  human_in_the_loop_required: 0
+    read: 173
+    write: 145
+    safety-critical: 7
+    physical: 3
+  human_in_the_loop_required: 7
 operations:
-- path: /v2/Users
+- path: /.well-known/authzen-configuration
   method: get
-  operationId: searchUsers
+  operationId: authzen-configuration
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -24,9 +31,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v2/Users
+- path: /restv1/evaluation
   method: post
-  operationId: createUser
+  operationId: post_access_evaluation
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -40,9 +47,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v2/Users/.search
+- path: /restv1/authorize-challenge
   method: post
-  operationId: searchUsersPost
+  operationId: post_authorize_challenge
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -56,9 +63,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v2/Users/{id}
+- path: /restv1/authorize
   method: get
-  operationId: getUser
+  operationId: get_authorize
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -66,9 +73,177 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v2/Users/{id}
+- path: /restv1/authorize
+  method: post
+  operationId: post_authorize
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /restv1/par
+  method: post
+  operationId: post_par
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /restv1/bc-authorize
+  method: post
+  operationId: bc-authorize
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /restv1/bc-deviceRegistration
+  method: post
+  operationId: bc-deviceRegistration
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /restv1/clientinfo
+  method: get
+  operationId: get_clientinfo
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /restv1/clientinfo
+  method: post
+  operationId: post_clientinfo
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /.well-known/openid-configuration
+  method: post
+  operationId: well-known-gluu-configuration
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /restv1/introspection
+  method: get
+  operationId: get-introspection
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /restv1/introspection
+  method: post
+  operationId: post-introspection
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /restv1/jwks
+  method: get
+  operationId: jwks
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /restv1/jwks/archived
+  method: get
+  operationId: archived-jwk
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /restv1/register
+  method: post
+  operationId: post-register
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /restv1/register
   method: put
-  operationId: replaceUser
+  operationId: put-register
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -82,13 +257,1633 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v2/Users/{id}
+- path: /restv1/register
+  method: get
+  operationId: get-register
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /restv1/register
+  method: delete
+  operationId: delete-register
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /restv1/revoke
+  method: post
+  operationId: revoke
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /restv1/session_status
+  method: get
+  operationId: session_status
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /restv1/status_list_aggregation
+  method: get
+  operationId: get-status-list-aggregation
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /restv1/status_list
+  method: get
+  operationId: get-status-list
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /restv1/global-token-revocation
+  method: post
+  operationId: global-token-revocation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /restv1/end_session
+  method: get
+  operationId: end_session
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /restv1/token
+  method: post
+  operationId: post-token
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /restv1/uma/gather_claims
+  method: get
+  operationId: get-uma-gather_claims
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /restv1/uma/gather_claims
+  method: post
+  operationId: post-uma-gather_claims
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /restv1/uma2-configuration
+  method: get
+  operationId: uma2-configuration
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /restv1/host/rsrc_pr
+  method: post
+  operationId: host-rsrc_pr
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /restv1/host/rsrc/resource_set
+  method: post
+  operationId: post-host-rsrc-resource_set
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: '/restv1/host/rsrc/resource_set/{rsid}:'
+  method: put
+  operationId: put-host-rsrc-resource_set{rsid}
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: '/restv1/host/rsrc/resource_set/{rsid}:'
+  method: get
+  operationId: get-host-rsrc-resource_set
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: '/restv1/host/rsrc/resource_set/{rsid}:'
+  method: delete
+  operationId: delete-host-rsrc-resource_set
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /restv1/host/rsrc/resource_set/{rsid}
+  method: get
+  operationId: get-host-rsrc-resource_set/{rsid}
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /restv1/rpt/status
+  method: get
+  operationId: get-rpt-status
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /restv1/rpt/status
+  method: post
+  operationId: post-rpt-status
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /restv1/uma/scopes{id}
+  method: get
+  operationId: get-uma_scopes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /restv1/userinfo
+  method: get
+  operationId: get-userinfo
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /restv1/userinfo
+  method: post
+  operationId: post-userinfo
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /restv1/internal/stat
+  method: get
+  operationId: get-internal-stat
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /restv1/ssa
+  method: post
+  operationId: post-register-ssa
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /restv1/ssa
+  method: get
+  operationId: get-ssa
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /restv1/ssa
+  method: delete
+  operationId: delete-ssa
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /restv1/ssa/validation
+  method: post
+  operationId: validate-ssa
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /restv1/ssa/jwt
+  method: get
+  operationId: get-jwt-ssa
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /admin-ui/adminUIPermissions
+  method: get
+  operationId: get-all-adminui-permissions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/read-all
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.readonly
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.write
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /admin-ui/adminUIPermissions
+  method: put
+  operationId: edit-adminui-permission
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.write
+    - https://jans.io/oauth/jans-auth-server/config/adminui/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /admin-ui/adminUIPermissions
+  method: post
+  operationId: add-adminui-permission
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.write
+    - https://jans.io/oauth/jans-auth-server/config/adminui/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /admin-ui/adminUIPermissions
+  method: delete
+  operationId: delete-adminui-permission
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/delete-all
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.delete
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /admin-ui/adminUIRolePermissionsMapping
+  method: get
+  operationId: get-all-adminui-role-permissions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/read-all
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.readonly
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.write
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /admin-ui/adminUIRolePermissionsMapping
+  method: put
+  operationId: map-permissions-to-role
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.write
+    - https://jans.io/oauth/jans-auth-server/config/adminui/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /admin-ui/adminUIRolePermissionsMapping
+  method: post
+  operationId: add-role-permissions-mapping
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.write
+    - https://jans.io/oauth/jans-auth-server/config/adminui/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /admin-ui/adminUIRoles
+  method: get
+  operationId: get-all-adminui-roles
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/read-all
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/role.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/role.readonly
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/role.write
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /admin-ui/adminUIRoles
+  method: put
+  operationId: edit-adminui-role
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/role.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/role.write
+    - https://jans.io/oauth/jans-auth-server/config/adminui/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /admin-ui/adminUIRoles
+  method: post
+  operationId: add-adminui-role
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/role.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/role.write
+    - https://jans.io/oauth/jans-auth-server/config/adminui/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /admin-ui/adminUIRoles/{adminUIRole}
+  method: get
+  operationId: get-adminui-role
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/read-all
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/role.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/role.readonly
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/role.write
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /admin-ui/adminUIRoles/{adminUIRole}
+  method: delete
+  operationId: delete-adminui-role
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/delete-all
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/role.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/role.delete
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /admin-ui/config
+  method: get
+  operationId: get-adminui-conf
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/properties.readonly
+    - https://jans.io/oauth/jans-auth-server/config/adminui/properties.write
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /admin-ui/config
+  method: put
+  operationId: edit-adminui-conf
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/properties.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /admin-ui/adminUIRolePermissionsMapping/{adminUIRole}
+  method: get
+  operationId: get-adminui-role-permissions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/read-all
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.readonly
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.write
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /admin-ui/adminUIRolePermissionsMapping/{adminUIRole}
+  method: delete
+  operationId: remove-role-permissions-permission
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/delete-all
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.delete
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /admin-ui/adminUIPermissions/{adminUIPermission}
+  method: get
+  operationId: get-adminui-permission
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/read-all
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.readonly
+    - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.write
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /admin-ui/security/policyStore
+  method: get
+  operationId: get-adminui-policy-store
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/security.readonly
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /admin-ui/security/policyStore
+  method: post
+  operationId: create-adminui-policy-store
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/security.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /admin-ui/security/policyStore/{INUM}
+  method: put
+  operationId: edit-adminui-policy-store
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/security.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /admin-ui/security/policyStore/{INUM}
+  method: delete
+  operationId: delete-adminui-policy-store
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/security.delete
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /admin-ui/security/syncRoleScopesMapping
+  method: post
+  operationId: sync-role-to-scopes-mappings
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/security.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /admin-ui/license/activate
+  method: post
+  operationId: activate-adminui-license
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/license.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/license.write
+    - https://jans.io/oauth/jans-auth-server/config/adminui/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /admin-ui/license/deleteConfig
+  method: delete
+  operationId: license-config-delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/license.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/license.write
+    - https://jans.io/oauth/jans-auth-server/config/adminui/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /admin-ui/license/details
+  method: get
+  operationId: get-adminui-license
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/license.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/license.readonly
+    - https://jans.io/oauth/jans-auth-server/config/adminui/license.write
+    - https://jans.io/oauth/jans-auth-server/config/adminui/read-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /admin-ui/license/isActive
+  method: get
+  operationId: is-license-active
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/license.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/license.readonly
+    - https://jans.io/oauth/jans-auth-server/config/adminui/license.write
+    - https://jans.io/oauth/jans-auth-server/config/adminui/read-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /admin-ui/license/isConfigValid
+  method: get
+  operationId: check-adminui-license-config
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/license.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/license.readonly
+    - https://jans.io/oauth/jans-auth-server/config/adminui/license.write
+    - https://jans.io/oauth/jans-auth-server/config/adminui/read-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /admin-ui/license/retrieve
+  method: get
+  operationId: retrieve-license
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/license.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/license.readonly
+    - https://jans.io/oauth/jans-auth-server/config/adminui/license.write
+    - https://jans.io/oauth/jans-auth-server/config/adminui/read-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /admin-ui/license/ssa
+  method: post
+  operationId: adminui-post-ssa
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/license.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/license.write
+    - https://jans.io/oauth/jans-auth-server/config/adminui/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /admin-ui/license/trial
+  method: get
+  operationId: get-trial-license
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/license.admin
+    - https://jans.io/oauth/jans-auth-server/config/adminui/license.readonly
+    - https://jans.io/oauth/jans-auth-server/config/adminui/license.write
+    - https://jans.io/oauth/jans-auth-server/config/adminui/read-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /admin-ui/webhook
+  method: get
+  operationId: get-all-webhooks
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/webhook.readonly
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /admin-ui/webhook
+  method: put
+  operationId: put-webhook
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/webhook.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /admin-ui/webhook
+  method: post
+  operationId: post-webhook
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/webhook.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /admin-ui/webhook/{webhookId}
+  method: delete
+  operationId: delete-Webhook-by-inum
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/webhook.delete
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /admin-ui/webhook/features
+  method: get
+  operationId: get-all-features
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/webhook.readonly
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /admin-ui/webhook/features/{webhookId}
+  method: get
+  operationId: get-features-by-webhook-id
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/webhook.readonly
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /admin-ui/webhook/{featureId}
+  method: get
+  operationId: get-webhooks-by-feature-id
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/webhook.readonly
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /admin-ui/webhook/trigger/{featureId}
+  method: post
+  operationId: trigger-webhook
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/jans-auth-server/config/adminui/webhook.readonly
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /fido2/fido2-config
+  method: get
+  operationId: get-properties-fido2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.readonly
+    - https://jans.io/oauth/config/fido2.write
+    - https://jans.io/oauth/config/read-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fido2/fido2-config
+  method: put
+  operationId: put-properties-fido2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /fido2/metrics/analytics/adoption
+  method: get
+  operationId: get-fido2-adoption-metrics
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/fido2-metrics.readonly
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fido2/metrics/analytics/attestation-rejections
+  method: get
+  operationId: get-fido2-metrics-analytics-attestation-rejections
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/fido2-metrics.readonly
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fido2/metrics/analytics/devices
+  method: get
+  operationId: get-fido2-metrics-analytics-devices
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/fido2-metrics.readonly
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fido2/metrics/analytics/errors
+  method: get
+  operationId: get-fido2-metrics-analytics-errors
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/fido2-metrics.readonly
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fido2/metrics/aggregations/{aggregationType}
+  method: get
+  operationId: get-fido2-metrics-aggregated
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/fido2-metrics.readonly
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fido2/metrics/aggregations/{aggregationType}/summary
+  method: get
+  operationId: get-fido2-aggregation-summary-metrics
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/fido2-metrics.readonly
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fido2/metrics/entries
+  method: get
+  operationId: get-fido2-metrics
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/fido2-metrics.readonly
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fido2/metrics/entries/user/{userId}
+  method: get
+  operationId: get-fido2-metrics-by-user
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/fido2-metrics.readonly
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fido2/metrics/config
+  method: get
+  operationId: get-fido2-metrics-configuration
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/fido2-metrics.readonly
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fido2/metrics/entries/operation/{operationType}
+  method: get
+  operationId: get-fido2-metrics-by-operation
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/fido2-metrics.readonly
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fido2/metrics/health
+  method: get
+  operationId: get-fido2-metrics-health-check
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/fido2-metrics.readonly
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fido2/metrics/analytics/performance
+  method: get
+  operationId: get-fido2-analytics-performance-metrics
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/fido2-metrics.readonly
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fido2/metrics/analytics/comparison/{aggregationType}
+  method: get
+  operationId: get-fido2-period-over-period-comparison
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/fido2-metrics.readonly
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fido2/metrics/analytics/trends/{aggregationType}
+  method: get
+  operationId: get-fido2-analytics-trends-aggregationType
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/fido2-metrics.readonly
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fido2/registration/id/{jansId}
+  method: get
+  operationId: get-fido2-by-id
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.readonly
+    - https://jans.io/oauth/config/fido2.write
+    - https://jans.io/oauth/config/read-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fido2/registration/id/{jansId}
+  method: delete
+  operationId: delete-fido2-data
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/delete-all
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.delete
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /fido2/registration/entries/{username}
+  method: get
+  operationId: get-registration-entries-fido2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.readonly
+    - https://jans.io/oauth/config/fido2.write
+    - https://jans.io/oauth/config/read-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fido2/registration
+  method: get
+  operationId: search-fido2-registration-data
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.readonly
+    - https://jans.io/oauth/config/fido2.write
+    - https://jans.io/oauth/config/read-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fido2/trust/attestation/config
+  method: get
+  operationId: get-fido2-trust-attestation-config
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.readonly
+    - https://jans.io/oauth/config/fido2.write
+    - https://jans.io/oauth/config/read-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fido2/trust/mds/health
+  method: get
+  operationId: get-fido2-trust-mds-health
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/fido2.admin
+    - https://jans.io/oauth/config/fido2.readonly
+    - https://jans.io/oauth/config/fido2.write
+    - https://jans.io/oauth/config/read-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jans-link/link-config
+  method: get
+  operationId: get-jans-link-properties
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/jans-link.readonly
+    - https://jans.io/oauth/config/jans-link.write
+    - https://jans.io/oauth/config/link.admin
+    - https://jans.io/oauth/config/read-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jans-link/link-config
+  method: put
+  operationId: put-jans-link-properties
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/jans-link.write
+    - https://jans.io/oauth/config/link.admin
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /lock/audit/health/search
+  method: get
+  operationId: request-lock-health-records-event-range
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/lock.admin
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/lock/health.readonly
+    - https://jans.io/oauth/lock/health.write
+    - https://jans.io/oauth/lock/read-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /lock/audit/log/search
+  method: get
+  operationId: request-lock-log-records-event-range
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/lock.admin
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/lock/log.readonly
+    - https://jans.io/oauth/lock/log.write
+    - https://jans.io/oauth/lock/read-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /lock/audit/telemetry/search
+  method: get
+  operationId: request-lock-telemetry-records-event-range
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/lock.admin
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/lock/read-all
+    - https://jans.io/oauth/lock/telemetry.readonly
+    - https://jans.io/oauth/lock/telemetry.write
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /lock/audit/health/bulk
+  method: post
+  operationId: bulk-save-health-data
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/lock.admin
+    - https://jans.io/oauth/config/write-all
+    - https://jans.io/oauth/lock/health.write
+    - https://jans.io/oauth/lock/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /lock/audit/log/bulk
+  method: post
+  operationId: bulk-save-log-data
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/lock.admin
+    - https://jans.io/oauth/config/write-all
+    - https://jans.io/oauth/lock/log.write
+    - https://jans.io/oauth/lock/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /lock/audit/telemetry/bulk
+  method: post
+  operationId: bulk-save-telemetry-data
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/lock.admin
+    - https://jans.io/oauth/config/write-all
+    - https://jans.io/oauth/lock/telemetry.write
+    - https://jans.io/oauth/lock/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /lock/audit/health
+  method: post
+  operationId: save-health-data
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/lock.admin
+    - https://jans.io/oauth/config/write-all
+    - https://jans.io/oauth/lock/health.write
+    - https://jans.io/oauth/lock/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /lock/audit/log
+  method: post
+  operationId: save-log-data
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/lock.admin
+    - https://jans.io/oauth/config/write-all
+    - https://jans.io/oauth/lock/log.write
+    - https://jans.io/oauth/lock/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /lock/audit/telemetry
+  method: post
+  operationId: save-telemetry-data
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/lock.admin
+    - https://jans.io/oauth/config/write-all
+    - https://jans.io/oauth/lock/telemetry.write
+    - https://jans.io/oauth/lock/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /lock/lockConfig
+  method: get
+  operationId: get-lock-properties
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/lock.admin
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    - https://jans.io/oauth/lock-config.readonly
+    - https://jans.io/oauth/lock-config.write
+    - https://jans.io/oauth/lock/read-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /lock/lockConfig
+  method: put
+  operationId: put-lock-properties
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/lock.admin
+    - https://jans.io/oauth/config/write-all
+    - https://jans.io/oauth/lock-config.write
+    - https://jans.io/oauth/lock/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /lock/lockConfig
   method: patch
-  operationId: patchUser
+  operationId: patch-lock-properties
   x-agentic-access:
     action-class: acting
     consequence: write
     subject: required
+    scope:
+    - https://jans.io/oauth/config/lock.admin
+    - https://jans.io/oauth/config/write-all
+    - https://jans.io/oauth/lock-config.write
+    - https://jans.io/oauth/lock/write-all
     audience: null
     token:
       max-ttl: 900
@@ -98,25 +1893,91 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v2/Users/{id}
-  method: delete
-  operationId: deleteUser
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/Groups
+- path: /lock/lockStat
   method: get
-  operationId: searchGroups
+  operationId: get-lock-stat
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/lock.admin
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    - https://jans.io/oauth/lock/read-all
+    - jans_stat
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /metric/aggregations
+  method: get
+  operationId: get-metric-aggregations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/metric.readonly
+    - https://jans.io/oauth/config/read-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /metric/app-types
+  method: get
+  operationId: get-metric-app-types
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/metric.readonly
+    - https://jans.io/oauth/config/read-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /metric/entries
+  method: get
+  operationId: get-metric-entries
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/metric.readonly
+    - https://jans.io/oauth/config/read-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /metric/types
+  method: get
+  operationId: get-metric-types
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/metric.readonly
+    - https://jans.io/oauth/config/read-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/health/app-version
+  method: get
+  operationId: get-app-version
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/app-version.readonly
+    - https://jans.io/oauth/config/health.admin
+    - https://jans.io/oauth/config/read-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/health
+  method: get
+  operationId: get-config-health
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -124,41 +1985,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v2/Groups
-  method: post
-  operationId: createGroup
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/Groups/.search
-  method: post
-  operationId: searchGroupsPost
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v2/Groups/{id}
+- path: /api/v1/health/live
   method: get
-  operationId: getGroup
+  operationId: get-config-health-live
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -166,13 +1995,67 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v2/Groups/{id}
+- path: /api/v1/health/ready
+  method: get
+  operationId: get-config-health-ready
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/health/server-stat
+  method: get
+  operationId: get-server-stat
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/health/service-status
+  method: get
+  operationId: get-service-status
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/data.readonly
+    - https://jans.io/oauth/config/health.admin
+    - https://jans.io/oauth/config/read-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/acrs
+  method: get
+  operationId: get-acrs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/acrs.admin
+    - https://jans.io/oauth/config/acrs.readonly
+    - https://jans.io/oauth/config/acrs.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/acrs
   method: put
-  operationId: replaceGroup
+  operationId: put-acrs
   x-agentic-access:
     action-class: acting
     consequence: write
     subject: required
+    scope:
+    - https://jans.io/oauth/config/acrs.admin
+    - https://jans.io/oauth/config/acrs.write
+    - https://jans.io/oauth/config/write-all
     audience: null
     token:
       max-ttl: 900
@@ -182,13 +2065,453 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v2/Groups/{id}
+- path: /api/v1/agama-deployment/{name}
+  method: get
+  operationId: get-agama-prj-by-name
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/agama.admin
+    - https://jans.io/oauth/config/agama.readonly
+    - https://jans.io/oauth/config/agama.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/agama-deployment/{name}
+  method: post
+  operationId: post-agama-prj
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/agama.admin
+    - https://jans.io/oauth/config/agama.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/agama-deployment/{name}
+  method: delete
+  operationId: delete-agama-prj
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/agama.admin
+    - https://jans.io/oauth/config/agama.delete
+    - https://jans.io/oauth/config/delete-all
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/agama-deployment/configs/{name}
+  method: get
+  operationId: get-agama-prj-configs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/agama.admin
+    - https://jans.io/oauth/config/agama.readonly
+    - https://jans.io/oauth/config/agama.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/agama-deployment/configs/{name}
+  method: put
+  operationId: put-agama-prj
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/agama.admin
+    - https://jans.io/oauth/config/agama.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/agama-deployment
+  method: get
+  operationId: get-agama-prj
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/agama.admin
+    - https://jans.io/oauth/config/agama.readonly
+    - https://jans.io/oauth/config/agama.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/agama-repo/download
+  method: get
+  operationId: get-agama-project
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/agama-repo.readonly
+    - https://jans.io/oauth/config/agama-repo.write
+    - https://jans.io/oauth/config/agama.admin
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/agama-repo
+  method: get
+  operationId: get-agama-repositories
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/agama-repo.readonly
+    - https://jans.io/oauth/config/agama-repo.write
+    - https://jans.io/oauth/config/agama.admin
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/agama/syntax-check/{qname}
+  method: post
+  operationId: agama-syntax-check
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/agama.admin
+    - https://jans.io/oauth/config/agama.readonly
+    - https://jans.io/oauth/config/agama.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/jans-assets/{inum}
+  method: get
+  operationId: get-asset-by-inum
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/asset.admin
+    - https://jans.io/oauth/config/asset.readonly
+    - https://jans.io/oauth/config/asset.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/jans-assets/{inum}
+  method: delete
+  operationId: delete-asset
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/asset.admin
+    - https://jans.io/oauth/config/asset.delete
+    - https://jans.io/oauth/config/delete-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/jans-assets/name/{name}
+  method: get
+  operationId: get-asset-by-name
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/asset.admin
+    - https://jans.io/oauth/config/asset.readonly
+    - https://jans.io/oauth/config/asset.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/jans-assets/asset-dir-mapping
+  method: get
+  operationId: get-asset-dir-mapping
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/asset.admin
+    - https://jans.io/oauth/config/asset.readonly
+    - https://jans.io/oauth/config/asset.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/jans-assets
+  method: get
+  operationId: get-all-assets
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/asset.admin
+    - https://jans.io/oauth/config/asset.readonly
+    - https://jans.io/oauth/config/asset.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/jans-assets/services
+  method: get
+  operationId: get-asset-services
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/asset.admin
+    - https://jans.io/oauth/config/asset.readonly
+    - https://jans.io/oauth/config/asset.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/jans-assets/asset-type
+  method: get
+  operationId: get-asset-types
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/asset.admin
+    - https://jans.io/oauth/config/asset.readonly
+    - https://jans.io/oauth/config/asset.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/jans-assets/service/{service-name}
+  method: post
+  operationId: load-service-asset
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/asset.admin
+    - https://jans.io/oauth/config/asset.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/jans-assets/upload
+  method: put
+  operationId: put-asset
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/asset.admin
+    - https://jans.io/oauth/config/asset.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/jans-assets/upload
+  method: post
+  operationId: post-new-asset
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/asset.admin
+    - https://jans.io/oauth/config/asset.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/attributes
+  method: get
+  operationId: get-attributes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/attributes.admin
+    - https://jans.io/oauth/config/attributes.readonly
+    - https://jans.io/oauth/config/attributes.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/attributes
+  method: put
+  operationId: put-attributes
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/attributes.admin
+    - https://jans.io/oauth/config/attributes.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/attributes
+  method: post
+  operationId: post-attributes
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/attributes.admin
+    - https://jans.io/oauth/config/attributes.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/attributes/{inum}
+  method: get
+  operationId: get-attributes-by-inum
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/attributes.admin
+    - https://jans.io/oauth/config/attributes.readonly
+    - https://jans.io/oauth/config/attributes.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/attributes/{inum}
+  method: delete
+  operationId: delete-attributes-by-inum
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/attributes.admin
+    - https://jans.io/oauth/config/attributes.delete
+    - https://jans.io/oauth/config/delete-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/attributes/{inum}
   method: patch
-  operationId: patchGroup
+  operationId: patch-attributes-by-inum
   x-agentic-access:
     action-class: acting
     consequence: write
     subject: required
+    scope:
+    - https://jans.io/oauth/config/attributes.admin
+    - https://jans.io/oauth/config/attributes.write
+    - https://jans.io/oauth/config/write-all
     audience: null
     token:
       max-ttl: 900
@@ -198,13 +2521,49 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v2/Groups/{id}
-  method: delete
-  operationId: deleteGroup
+- path: /api/v1/audit
+  method: get
+  operationId: get-audit-data
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/logging.admin
+    - https://jans.io/oauth/config/logging.readonly
+    - https://jans.io/oauth/config/logging.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/jans-auth-server/config
+  method: get
+  operationId: get-properties
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    - https://jans.io/oauth/jans-auth-server/config/properties.admin
+    - https://jans.io/oauth/jans-auth-server/config/properties.readonly
+    - https://jans.io/oauth/jans-auth-server/config/properties.write
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/jans-auth-server/config
+  method: patch
+  operationId: patch-properties
   x-agentic-access:
     action-class: acting
     consequence: write
     subject: required
+    scope:
+    - https://jans.io/oauth/config/write-all
+    - https://jans.io/oauth/jans-auth-server/config/properties.admin
+    - https://jans.io/oauth/jans-auth-server/config/properties.write
     audience: null
     token:
       max-ttl: 900
@@ -214,33 +2573,101 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v2/FidoDevices
+- path: /api/v1/jans-auth-server/config/feature-flags
   method: get
-  operationId: searchFidoDevices
+  operationId: get-feature-flag-type
   x-agentic-access:
     action-class: connected
     consequence: read
     subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    - https://jans.io/oauth/jans-auth-server/config/properties.admin
+    - https://jans.io/oauth/jans-auth-server/config/properties.readonly
+    - https://jans.io/oauth/jans-auth-server/config/properties.write
     token:
       max-ttl: 3600
     audit: none
-- path: /v2/FidoDevices/{id}
+- path: /api/v1/jans-auth-server/config/persistence
   method: get
-  operationId: getFidoDevice
+  operationId: get-properties-persistence
   x-agentic-access:
     action-class: connected
     consequence: read
     subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    - https://jans.io/oauth/jans-auth-server/config/properties.admin
+    - https://jans.io/oauth/jans-auth-server/config/properties.readonly
+    - https://jans.io/oauth/jans-auth-server/config/properties.write
     token:
       max-ttl: 3600
     audit: none
-- path: /v2/FidoDevices/{id}
+- path: /api/v1/config/cache
+  method: get
+  operationId: get-config-cache
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/cache.admin
+    - https://jans.io/oauth/config/cache.readonly
+    - https://jans.io/oauth/config/cache.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/config/cache
+  method: patch
+  operationId: patch-config-cache
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/cache.admin
+    - https://jans.io/oauth/config/cache.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/cache/in-memory
+  method: get
+  operationId: get-config-cache-in-memory
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/cache.admin
+    - https://jans.io/oauth/config/cache.readonly
+    - https://jans.io/oauth/config/cache.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/config/cache/in-memory
   method: put
-  operationId: replaceFidoDevice
+  operationId: put-config-cache-in-memory
   x-agentic-access:
     action-class: acting
     consequence: write
     subject: required
+    scope:
+    - https://jans.io/oauth/config/cache.admin
+    - https://jans.io/oauth/config/cache.write
+    - https://jans.io/oauth/config/write-all
     audience: null
     token:
       max-ttl: 900
@@ -250,13 +2677,258 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v2/FidoDevices/{id}
+- path: /api/v1/config/cache/in-memory
+  method: patch
+  operationId: patch-config-cache-in-memory
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/cache.admin
+    - https://jans.io/oauth/config/cache.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/cache/memcached
+  method: get
+  operationId: get-config-cache-memcached
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/cache.admin
+    - https://jans.io/oauth/config/cache.readonly
+    - https://jans.io/oauth/config/cache.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/config/cache/memcached
+  method: put
+  operationId: put-config-cache-memcached
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/cache.admin
+    - https://jans.io/oauth/config/cache.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/cache/memcached
+  method: patch
+  operationId: patch-config-cache-memcached
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/cache.admin
+    - https://jans.io/oauth/config/cache.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/cache/native-persistence
+  method: get
+  operationId: get-config-cache-native-persistence
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/cache.admin
+    - https://jans.io/oauth/config/cache.readonly
+    - https://jans.io/oauth/config/cache.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/config/cache/native-persistence
+  method: put
+  operationId: put-config-cache-native-persistence
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/cache.admin
+    - https://jans.io/oauth/config/cache.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/cache/native-persistence
+  method: patch
+  operationId: patch-config-cache-native-persistence
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/cache.admin
+    - https://jans.io/oauth/config/cache.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/cache/redis
+  method: get
+  operationId: get-config-cache-redis
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/cache.admin
+    - https://jans.io/oauth/config/cache.readonly
+    - https://jans.io/oauth/config/cache.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/config/cache/redis
+  method: put
+  operationId: put-config-cache-redis
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/cache.admin
+    - https://jans.io/oauth/config/cache.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/cache/redis
+  method: patch
+  operationId: patch-config-cache-redis
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/cache.admin
+    - https://jans.io/oauth/config/cache.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/clients/authorizations/{userId}/{clientId}/{username}
   method: delete
-  operationId: deleteFidoDevice
+  operationId: delete-client-authorization
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - https://jans.io/oauth/client/authorizations.admin
+    - https://jans.io/oauth/client/authorizations.delete
+    - https://jans.io/oauth/config/delete-all
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /api/v1/clients/authorizations/{userId}
+  method: get
+  operationId: get-client-authorization
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/client/authorizations.admin
+    - https://jans.io/oauth/client/authorizations.readonly
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/openid/clients
+  method: get
+  operationId: get-oauth-openid-clients
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/openid/clients.admin
+    - https://jans.io/oauth/config/openid/clients.readonly
+    - https://jans.io/oauth/config/openid/clients.write
+    - https://jans.io/oauth/config/openid/openid.readonly
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/openid/clients
+  method: put
+  operationId: put-oauth-openid-client
   x-agentic-access:
     action-class: acting
     consequence: write
     subject: required
+    scope:
+    - https://jans.io/oauth/config/openid/clients.admin
+    - https://jans.io/oauth/config/openid/clients.write
+    - https://jans.io/oauth/config/openid/openid.write
+    - https://jans.io/oauth/config/write-all
     audience: null
     token:
       max-ttl: 900
@@ -266,9 +2938,1558 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v2/Bulk
+- path: /api/v1/openid/clients
   method: post
-  operationId: bulkOperations
+  operationId: post-oauth-openid-client
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/openid/clients.admin
+    - https://jans.io/oauth/config/openid/clients.write
+    - https://jans.io/oauth/config/openid/openid.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/openid/clients/{inum}
+  method: get
+  operationId: get-oauth-openid-clients-by-inum
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/openid/clients.admin
+    - https://jans.io/oauth/config/openid/clients.readonly
+    - https://jans.io/oauth/config/openid/clients.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/openid/clients/{inum}
+  method: delete
+  operationId: delete-oauth-openid-client-by-inum
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/delete-all
+    - https://jans.io/oauth/config/openid/clients.admin
+    - https://jans.io/oauth/config/openid/clients.delete
+    - https://jans.io/oauth/config/openid/openid.delete
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/openid/clients/{inum}
+  method: patch
+  operationId: patch-oauth-openid-client-by-inum
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/openid/clients.admin
+    - https://jans.io/oauth/config/openid/clients.write
+    - https://jans.io/oauth/config/openid/openid.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/api-config
+  method: get
+  operationId: get-config-api-properties
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/properties.admin
+    - https://jans.io/oauth/config/properties.readonly
+    - https://jans.io/oauth/config/properties.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/api-config
+  method: patch
+  operationId: patch-config-api-properties
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/properties.admin
+    - https://jans.io/oauth/config/properties.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/smtp
+  method: get
+  operationId: get-config-smtp
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/smtp.admin
+    - https://jans.io/oauth/config/smtp.readonly
+    - https://jans.io/oauth/config/smtp.write
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/config/smtp
+  method: put
+  operationId: put-config-smtp
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/smtp.admin
+    - https://jans.io/oauth/config/smtp.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/smtp
+  method: post
+  operationId: post-config-smtp
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/smtp.admin
+    - https://jans.io/oauth/config/smtp.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/smtp
+  method: delete
+  operationId: delete-config-smtp
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/delete-all
+    - https://jans.io/oauth/config/smtp.admin
+    - https://jans.io/oauth/config/smtp.delete
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/smtp/test
+  method: post
+  operationId: test-config-smtp
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/smtp.admin
+    - https://jans.io/oauth/config/smtp.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/scripts
+  method: get
+  operationId: get-config-scripts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/scripts.admin
+    - https://jans.io/oauth/config/scripts.readonly
+    - https://jans.io/oauth/config/scripts.write
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/config/scripts
+  method: put
+  operationId: put-config-scripts
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/scripts.admin
+    - https://jans.io/oauth/config/scripts.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/scripts
+  method: post
+  operationId: post-config-scripts
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/scripts.admin
+    - https://jans.io/oauth/config/scripts.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/scripts/{inum}
+  method: delete
+  operationId: delete-config-scripts-by-inum
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/delete-all
+    - https://jans.io/oauth/config/scripts.admin
+    - https://jans.io/oauth/config/scripts.delete
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/scripts/{inum}
+  method: patch
+  operationId: patch-config-scripts-by-inum
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/scripts.admin
+    - https://jans.io/oauth/config/scripts.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/scripts/inum/{inum}
+  method: get
+  operationId: get-config-scripts-by-inum
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/scripts.admin
+    - https://jans.io/oauth/config/scripts.readonly
+    - https://jans.io/oauth/config/scripts.write
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/config/scripts/name/{name}
+  method: get
+  operationId: get-custom-script-by-name
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/scripts.admin
+    - https://jans.io/oauth/config/scripts.readonly
+    - https://jans.io/oauth/config/scripts.write
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/config/scripts/types
+  method: get
+  operationId: get-custom-script-type
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/scripts.admin
+    - https://jans.io/oauth/config/scripts.readonly
+    - https://jans.io/oauth/config/scripts.write
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/config/scripts/script-types
+  method: get
+  operationId: get-custom-script-types
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/scripts.admin
+    - https://jans.io/oauth/config/scripts.readonly
+    - https://jans.io/oauth/config/scripts.write
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/config/scripts/type/{type}
+  method: get
+  operationId: get-config-scripts-by-type
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/scripts.admin
+    - https://jans.io/oauth/config/scripts.readonly
+    - https://jans.io/oauth/config/scripts.write
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/config/database
+  method: get
+  operationId: get-schema
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/database.admin
+    - https://jans.io/oauth/config/database.readonly
+    - https://jans.io/oauth/config/database.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/jans-auth-server/health
+  method: get
+  operationId: get-auth-server-health
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/config/jwks/{kid}
+  method: get
+  operationId: get-jwk-by-kid
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/jwks.admin
+    - https://jans.io/oauth/config/jwks.readonly
+    - https://jans.io/oauth/config/jwks.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/config/jwks/{kid}
+  method: delete
+  operationId: delete-config-jwk-kid
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/jwks.admin
+    - https://jans.io/oauth/config/jwks.delete
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/jwks/{kid}
+  method: patch
+  operationId: patch-config-jwk-kid
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/jwks.admin
+    - https://jans.io/oauth/config/jwks.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/jwks
+  method: get
+  operationId: get-config-jwks
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/jwks.admin
+    - https://jans.io/oauth/config/jwks.readonly
+    - https://jans.io/oauth/config/jwks.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/config/jwks
+  method: put
+  operationId: put-config-jwks
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/jwks.admin
+    - https://jans.io/oauth/config/jwks.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/jwks
+  method: patch
+  operationId: patch-config-jwks
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/jwks.admin
+    - https://jans.io/oauth/config/jwks.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/jwks/key
+  method: post
+  operationId: post-config-jwks-key
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/jwks.admin
+    - https://jans.io/oauth/config/jwks.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/database/ldap
+  method: get
+  operationId: get-config-database-ldap
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/database.admin
+    - https://jans.io/oauth/config/database/ldap.readonly
+    - https://jans.io/oauth/config/database/ldap.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/config/database/ldap
+  method: put
+  operationId: put-config-database-ldap
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/database.admin
+    - https://jans.io/oauth/config/database/ldap.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/database/ldap
+  method: post
+  operationId: post-config-database-ldap
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/database.admin
+    - https://jans.io/oauth/config/database/ldap.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/database/ldap/{name}
+  method: get
+  operationId: get-config-database-ldap-by-name
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/database.admin
+    - https://jans.io/oauth/config/database/ldap.readonly
+    - https://jans.io/oauth/config/database/ldap.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/config/database/ldap/{name}
+  method: delete
+  operationId: delete-config-database-ldap-by-name
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/database.admin
+    - https://jans.io/oauth/config/database/ldap.delete
+    - https://jans.io/oauth/config/delete-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/database/ldap/{name}
+  method: patch
+  operationId: patch-config-database-ldap-by-name
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/database.admin
+    - https://jans.io/oauth/config/database/ldap.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/database/ldap/test
+  method: post
+  operationId: post-config-database-ldap-test
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/database.admin
+    - https://jans.io/oauth/config/database/ldap.readonly
+    - https://jans.io/oauth/config/database/ldap.write
+    - https://jans.io/oauth/config/read-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/logging
+  method: get
+  operationId: get-config-logging
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/logging.admin
+    - https://jans.io/oauth/config/logging.readonly
+    - https://jans.io/oauth/config/logging.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/logging
+  method: put
+  operationId: put-config-logging
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/logging.admin
+    - https://jans.io/oauth/config/logging.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/message
+  method: get
+  operationId: get-config-message
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/message.admin
+    - https://jans.io/oauth/config/message.readonly
+    - https://jans.io/oauth/config/message.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/config/message
+  method: patch
+  operationId: patch-config-message
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/message.admin
+    - https://jans.io/oauth/config/message.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/message/postgres
+  method: get
+  operationId: get-config-message-postgres
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/message.admin
+    - https://jans.io/oauth/config/message.readonly
+    - https://jans.io/oauth/config/message.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/config/message/postgres
+  method: put
+  operationId: put-config-message-postgres
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/message.admin
+    - https://jans.io/oauth/config/message.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/message/postgres
+  method: patch
+  operationId: patch-config-message-postgres
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/message.admin
+    - https://jans.io/oauth/config/message.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/message/redis
+  method: get
+  operationId: get-config-message-redis
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/message.admin
+    - https://jans.io/oauth/config/message.readonly
+    - https://jans.io/oauth/config/message.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/config/message/redis
+  method: put
+  operationId: put-config-message-redis
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/message.admin
+    - https://jans.io/oauth/config/message.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/config/message/redis
+  method: patch
+  operationId: patch-config-message-redis
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/message.admin
+    - https://jans.io/oauth/config/message.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/org
+  method: get
+  operationId: get-organization-config
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/organization.admin
+    - https://jans.io/oauth/config/organization.readonly
+    - https://jans.io/oauth/config/organization.write
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/org
+  method: patch
+  operationId: patch-organization-config
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/organization.admin
+    - https://jans.io/oauth/config/organization.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/plugin
+  method: get
+  operationId: get-plugins
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/plugin.admin
+    - https://jans.io/oauth/config/plugin.readonly
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/plugin/{pluginName}
+  method: get
+  operationId: get-plugin-by-name
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/plugin.admin
+    - https://jans.io/oauth/config/plugin.readonly
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/scopes
+  method: get
+  operationId: get-oauth-scopes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/scopes.admin
+    - https://jans.io/oauth/config/scopes.readonly
+    - https://jans.io/oauth/config/scopes.write
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/scopes
+  method: put
+  operationId: put-oauth-scopes
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/scopes.admin
+    - https://jans.io/oauth/config/scopes.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/scopes
+  method: post
+  operationId: post-oauth-scopes
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/scopes.admin
+    - https://jans.io/oauth/config/scopes.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/scopes/{inum}
+  method: get
+  operationId: get-oauth-scopes-by-inum
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/scopes.admin
+    - https://jans.io/oauth/config/scopes.readonly
+    - https://jans.io/oauth/config/scopes.write
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/scopes/{inum}
+  method: delete
+  operationId: delete-oauth-scopes-by-inum
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/delete-all
+    - https://jans.io/oauth/config/scopes.admin
+    - https://jans.io/oauth/config/scopes.delete
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/scopes/{inum}
+  method: patch
+  operationId: patch-oauth-scopes-by-id
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/scopes.admin
+    - https://jans.io/oauth/config/scopes.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/scopes/creator/{creatorId}
+  method: get
+  operationId: get-scope-by-creator
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/scopes.admin
+    - https://jans.io/oauth/config/scopes.readonly
+    - https://jans.io/oauth/config/scopes.write
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/scopes/type/{type}
+  method: get
+  operationId: get-scope-by-type
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/scopes.admin
+    - https://jans.io/oauth/config/scopes.readonly
+    - https://jans.io/oauth/config/scopes.write
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/jans-auth-server/session/sid/{sid}
+  method: get
+  operationId: get-session-by-id
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    - https://jans.io/oauth/jans-auth-server/session.admin
+    - https://jans.io/oauth/jans-auth-server/session.readonly
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/jans-auth-server/session/sid/{sid}
+  method: delete
+  operationId: delete-session
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/delete-all
+    - https://jans.io/oauth/jans-auth-server/session.admin
+    - https://jans.io/oauth/jans-auth-server/session.delete
+    - revoke_session
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/jans-auth-server/session/user/{userDn}
+  method: delete
+  operationId: revoke-user-session
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/delete-all
+    - https://jans.io/oauth/jans-auth-server/session.admin
+    - https://jans.io/oauth/jans-auth-server/session.delete
+    - revoke_session
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /api/v1/jans-auth-server/session
+  method: get
+  operationId: get-sessions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    - https://jans.io/oauth/jans-auth-server/session.admin
+    - https://jans.io/oauth/jans-auth-server/session.readonly
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/jans-auth-server/session/search
+  method: get
+  operationId: search-session
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/write-all
+    - https://jans.io/oauth/jans-auth-server/session.admin
+    - https://jans.io/oauth/jans-auth-server/session.readonly
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/jans-auth-server/ssa
+  method: delete
+  operationId: revoke-ssa
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - https://jans.io/auth/ssa.admin
+    - https://jans.io/oauth/config/delete-all
+    - https://jans.io/oauth/config/ssa.delete
+    - https://jans.io/oauth/config/ssa.write
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /api/v1/stat
+  method: get
+  operationId: get-stat
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/stats.admin
+    - https://jans.io/oauth/config/stats.readonly
+    - https://jans.io/oauth/config/write-all
+    - jans_stat
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/token/client/{clientId}
+  method: get
+  operationId: get-token-by-client
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/token.admin
+    - https://jans.io/oauth/config/token.readonly
+    - https://jans.io/oauth/config/token.write
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/token/tknCde/{tknCde}
+  method: get
+  operationId: get-token-by-id
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/token.admin
+    - https://jans.io/oauth/config/token.readonly
+    - https://jans.io/oauth/config/token.write
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/token/revoke/{tknCde}
+  method: delete
+  operationId: revoke-token
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/delete-all
+    - https://jans.io/oauth/config/openid/openid.delete
+    - https://jans.io/oauth/config/token.admin
+    - https://jans.io/oauth/config/token.delete
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /api/v1/token/search
+  method: get
+  operationId: search-token
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/token.admin
+    - https://jans.io/oauth/config/token.readonly
+    - https://jans.io/oauth/config/token.write
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/uma/resources
+  method: get
+  operationId: get-oauth-uma-resources
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/uma.admin
+    - https://jans.io/oauth/config/uma.readonly
+    - https://jans.io/oauth/config/uma.write
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/uma/resources
+  method: put
+  operationId: put-oauth-uma-resources
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/uma.admin
+    - https://jans.io/oauth/config/uma.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/uma/resources
+  method: post
+  operationId: post-oauth-uma-resources
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/uma.admin
+    - https://jans.io/oauth/config/uma.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/uma/resources/{id}
+  method: get
+  operationId: get-oauth-uma-resources-by-id
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/uma.admin
+    - https://jans.io/oauth/config/uma.readonly
+    - https://jans.io/oauth/config/uma.write
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/uma/resources/{id}
+  method: delete
+  operationId: delete-oauth-uma-resources-by-id
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/delete-all
+    - https://jans.io/oauth/config/uma.admin
+    - https://jans.io/oauth/config/uma.delete
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/uma/resources/{id}
+  method: patch
+  operationId: patch-oauth-uma-resources-by-id
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/uma.admin
+    - https://jans.io/oauth/config/uma.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/uma/resources/clientId/{clientId}
+  method: get
+  operationId: get-oauth-uma-resources-by-clientid
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/uma.admin
+    - https://jans.io/oauth/config/uma.readonly
+    - https://jans.io/oauth/config/uma.write
+    - https://jans.io/oauth/config/write-all
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /scim/scim-config
+  method: get
+  operationId: get-scim-config
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/scim.admin
+    - https://jans.io/oauth/config/write-all
+    - https://jans.io/scim/config.readonly
+    - https://jans.io/scim/config.write
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /scim/scim-config
+  method: patch
+  operationId: patch-scim-config
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/scim.admin
+    - https://jans.io/oauth/config/write-all
+    - https://jans.io/scim/config.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /mgt/configuser
+  method: get
+  operationId: get-user
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/user.admin
+    - https://jans.io/oauth/config/user.readonly
+    - https://jans.io/oauth/config/user.write
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /mgt/configuser
+  method: put
+  operationId: put-user
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/user.admin
+    - https://jans.io/oauth/config/user.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /mgt/configuser
+  method: post
+  operationId: post-user
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/user.admin
+    - https://jans.io/oauth/config/user.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /mgt/configuser/{inum}
+  method: get
+  operationId: get-user-by-inum
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/config/read-all
+    - https://jans.io/oauth/config/user.admin
+    - https://jans.io/oauth/config/user.readonly
+    - https://jans.io/oauth/config/user.write
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /mgt/configuser/{inum}
+  method: delete
+  operationId: delete-user
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/delete-all
+    - https://jans.io/oauth/config/user.admin
+    - https://jans.io/oauth/config/user.delete
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /mgt/configuser/{inum}
+  method: patch
+  operationId: patch-user-by-inum
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/config/user.admin
+    - https://jans.io/oauth/config/user.write
+    - https://jans.io/oauth/config/write-all
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jans-fido2/restv1/configuration
+  method: get
+  operationId: get-fido2-configuration
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jans-fido2/restv1/assertion/options
+  method: post
+  operationId: options
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -282,9 +4503,57 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /v2/ServiceProviderConfig
+- path: /jans-fido2/restv1/assertion/result
+  method: post
+  operationId: result
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jans-fido2/restv1/attestation/options
+  method: post
+  operationId: attestation-options
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jans-fido2/restv1/attestation/result
+  method: post
+  operationId: attestation-result
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /jans-fido2/restv1/metrics/entries
   method: get
-  operationId: getServiceProviderConfig
+  operationId: get-metrics-entries
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -292,9 +4561,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v2/ResourceTypes
+- path: /jans-fido2/restv1/metrics/entries/user/{userId}
   method: get
-  operationId: listResourceTypes
+  operationId: get-metrics-entries-by-user
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -302,9 +4571,754 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /v2/Schemas
+- path: /jans-fido2/restv1/metrics/entries/operation/{operationType}
   method: get
-  operationId: listSchemas
+  operationId: get-metrics-entries-by-operation
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jans-fido2/restv1/metrics/aggregations/{aggregationType}
+  method: get
+  operationId: get-metrics-aggregations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jans-fido2/restv1/metrics/aggregations/{aggregationType}/summary
+  method: get
+  operationId: get-metrics-aggregation-summary
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jans-fido2/restv1/metrics/analytics/adoption
+  method: get
+  operationId: get-metrics-analytics-adoption
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jans-fido2/restv1/metrics/analytics/performance
+  method: get
+  operationId: get-metrics-analytics-performance
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jans-fido2/restv1/metrics/analytics/devices
+  method: get
+  operationId: get-metrics-analytics-devices
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jans-fido2/restv1/metrics/analytics/errors
+  method: get
+  operationId: get-metrics-analytics-errors
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jans-fido2/restv1/metrics/analytics/attestation-rejections
+  method: get
+  operationId: get-metrics-analytics-attestation-rejections
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jans-fido2/restv1/metrics/analytics/trends/{aggregationType}
+  method: get
+  operationId: get-metrics-analytics-trends
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jans-fido2/restv1/metrics/analytics/comparison/{aggregationType}
+  method: get
+  operationId: get-metrics-analytics-comparison
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jans-fido2/restv1/metrics/config
+  method: get
+  operationId: get-metrics-config
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jans-fido2/restv1/metrics/health
+  method: get
+  operationId: get-metrics-health
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jans-fido2/restv1/trust/attestation/config
+  method: get
+  operationId: get-trust-attestation-config
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /jans-fido2/restv1/trust/mds/health
+  method: get
+  operationId: get-trust-mds-health
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/configuration
+  method: get
+  operationId: getConfiguration
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /.well-known/lock-server-configuration
+  method: get
+  operationId: doGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/audit/health/bulk
+  method: post
+  operationId: processBulkHealthRequest
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/lock/health.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/audit/log/bulk
+  method: post
+  operationId: processBulkLogRequest
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/lock/log.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/audit/telemetry/bulk
+  method: post
+  operationId: processBulkTelemetryRequest
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/lock/telemetry.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/audit/health
+  method: post
+  operationId: processHealthRequest
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/lock/health.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/audit/log
+  method: post
+  operationId: processLogRequest
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/lock/log.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/audit/telemetry
+  method: post
+  operationId: processTelemetryRequest
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/lock/telemetry.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/policy
+  method: get
+  operationId: getPoliciesUriList
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/lock/policy.readonly
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/policy/{uri}
+  method: get
+  operationId: getPolicyByUri
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/lock/policy.readonly
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/internal/stat
+  method: get
+  operationId: statGet
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/oauth/lock/stat.readonly
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/internal/stat
+  method: post
+  operationId: statPost
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/oauth/lock/stat.readonly
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /Groups
+  method: get
+  operationId: get-groups
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/scim/groups.read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /Groups
+  method: post
+  operationId: create-group
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/scim/groups.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /Groups/{id}
+  method: get
+  operationId: get-group-by-id
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/scim/groups.read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /Groups/{id}
+  method: put
+  operationId: update-group-by-id
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/scim/groups.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /Groups/{id}
+  method: delete
+  operationId: delete-group-by-id
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/scim/groups.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /Groups/{id}
+  method: patch
+  operationId: patch-group-by-id
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/scim/groups.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /Groups/.search
+  method: post
+  operationId: search-group
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/scim/groups.read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /Fido2Devices
+  method: get
+  operationId: get-fido2-devices
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/scim/fido2.read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /Fido2Devices/{id}
+  method: get
+  operationId: get-fido2-device-by-id
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/scim/fido2.read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /Fido2Devices/{id}
+  method: put
+  operationId: update-fido2-device-by-id
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/scim/fido2.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /Fido2Devices/{id}
+  method: delete
+  operationId: delete-fido2-device-by-id
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/scim/fido2.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /Fido2Devices/.search
+  method: post
+  operationId: search-fido2-device
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/scim/fido2.read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /Users
+  method: get
+  operationId: get-users
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/scim/users.read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /Users
+  method: post
+  operationId: create-user
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/scim/users.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /Users/{id}
+  method: get
+  operationId: get-user-by-id
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/scim/users.read
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /Users/{id}
+  method: put
+  operationId: update-user-by-id
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/scim/users.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /Users/{id}
+  method: delete
+  operationId: delete-user-by-id
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/scim/users.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /Users/{id}
+  method: patch
+  operationId: patch-user-by-id
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/scim/users.write
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /Users/.search
+  method: post
+  operationId: search-user
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/scim/users.read
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /UserTokens
+  method: get
+  operationId: user-tokens
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/scim/tokens
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /UserTokens
+  method: delete
+  operationId: revoke-tokens
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    scope:
+    - https://jans.io/scim/groups.write
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /UpdatedUsers
+  method: get
+  operationId: updated-users
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    scope:
+    - https://jans.io/scim/tokens
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /.search
+  method: post
+  operationId: search-resources
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/scim/all-resources.search
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /Bulk
+  method: post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    scope:
+    - https://jans.io/scim/bulk
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /ServiceProviderConfig
+  method: get
+  operationId: get-service-provider-config
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /ResourceTypes
+  method: get
+  operationId: get-resource-types
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /ResourceTypes/{resource}
+  method: get
+  operationId: get-resource-type-by-id
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /Schemas
+  method: get
+  operationId: get-schemas
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /Schemas/{uri}
+  method: get
+  operationId: get-schema-by-uri
   x-agentic-access:
     action-class: connected
     consequence: read

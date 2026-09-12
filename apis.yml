@@ -5,7 +5,10 @@ description: >-
   access management solutions for businesses. Their platform allows
   organizations to centrally manage the authentication and authorization of
   users across various applications and systems, ensuring secure access to
-  sensitive data and resources.
+  sensitive data and resources. Gluu leads the Linux Foundation Janssen Project,
+  whose OAuth 2.0 / OpenID Connect authorization server, SCIM 2.0 service,
+  FIDO2 server, Config API and Cedarling policy decision point are the
+  components Gluu packages commercially as Gluu Flex and hosts as Gluu Solo.
 type: Index
 deliveryModel:
   model: unknown
@@ -37,23 +40,31 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/gluu.png
 access: 3rd-Party
 created: '2025-08-14'
-modified: '2026-04-28'
+modified: '2026-09-12'
 position: Consuming
 tags:
   - Access Management
   - Authentication
   - Authorization
+  - Cedar
+  - FIDO2
   - IAM
   - Identities
+  - Open Source
   - OpenID Connect
+  - SCIM
 tags_raw:
   - Access Management
   - Authentication
   - Authorization
+  - Cedar
+  - FIDO2
   - IAM
   - Identities
   - OAuth
+  - Open Source
   - OpenID Connect
+  - SCIM
 url: >-
   https://raw.githubusercontent.com/api-evangelist/gluu/refs/heads/main/apis.yml
 specificationVersion: '0.23'
@@ -65,7 +76,7 @@ apis:
     It provides a cloud-native digital identity platform with OAuth 2.0, OpenID Connect, FIDO, SCIM, and
     UMA capabilities, deployable via Helm charts with auto-scaling support.
   humanURL: https://gluu.org/flex/
-  baseURL: https://docs.gluu.org/
+  baseURL: https://{host}
   tags:
   - Authentication
   - Authorization
@@ -79,13 +90,31 @@ apis:
   - OpenID Connect
   properties:
   - type: Documentation
-    url: https://docs.gluu.org/
+    url: https://docs.gluu.org/stable/
   - type: GettingStarted
-    url: https://docs.gluu.org/head/admin-guide/quick-start/
+    url: https://docs.gluu.org/stable/install/
   - type: GitHubRepository
     url: https://github.com/GluuFederation/flex
+  - type: Roadmap
+    url: https://gluu.org/gluu-flex-roadmap/
+- aid: gluu:gluu-solo
+  name: Gluu Solo
+  description: >-
+    Gluu Solo is Gluu's hosted, serverless SaaS identity provider, running the Janssen stack on Google
+    Cloud with customer-selected geographic locations, published per-location monthly and annual pricing,
+    and a 99.9% SLA on every tier. It is the managed counterpart to the self-hosted Gluu Flex distribution.
+  humanURL: https://gluu.org/solo/
+  baseURL: https://{host}
+  tags:
+  - Authentication
+  - Hosted
+  - IAM
+  - SaaS
+  properties:
   - type: Pricing
-    url: https://gluu.org/pricing/
+    url: https://gluu.org/solo/
+  - type: Plans
+    url: plans/gluu-plans-pricing.yml
 - aid: gluu:janssen-project
   name: Janssen Project
   description: >-
@@ -93,7 +122,7 @@ apis:
     Flex. It implements OAuth 2.0, OpenID Connect, FIDO 2.0, SCIM, UMA, and CIBA, providing a federated
     identity provider, authorization server, and FIDO server.
   humanURL: https://jans.io/
-  baseURL: https://docs.jans.io/
+  baseURL: https://{host}
   tags:
   - Authentication
   - Authorization
@@ -109,18 +138,133 @@ apis:
   - OpenID Connect
   properties:
   - type: Documentation
-    url: https://docs.jans.io/
+    url: https://docs.jans.io/stable/
+  - type: APIReference
+    url: https://docs.jans.io/stable/janssen-server/reference/openapi/
   - type: GitHubRepository
     url: https://github.com/JanssenProject/jans
-  - type: Reference
-    url: https://docs.jans.io/head/admin/reference/
+  - type: LLMsTxt
+    url: llms/gluu-janssen-llms.txt
+- aid: gluu:jans-auth-server-api
+  name: Janssen Auth Server API
+  description: >-
+    The Janssen Authorization Server REST API — a certified OpenID Provider implementing OAuth 2.0,
+    OpenID Connect Core, dynamic client registration, CIBA backchannel authentication, UMA 2.0 resource
+    registration, Pushed Authorization Requests, Software Statement Assertions, token status lists and an
+    AuthZEN configuration endpoint. 46 operations across 33 paths.
+  humanURL: https://docs.jans.io/stable/janssen-server/auth-server/
+  baseURL: https://{host}/jans-auth
+  tags:
+  - Authentication
+  - Authorization
+  - CIBA
+  - OAuth
+  - OpenID Connect
+  - UMA
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-jans-auth-server-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: Overlay
+    url: overlays/gluu-jans-auth-server-overlay.yaml
+- aid: gluu:jans-config-api
+  name: Janssen Config API
+  description: >-
+    The Janssen Config API is the OAuth-protected administrative REST API for every Janssen Server and
+    Gluu Flex component — clients, scopes, custom scripts, Agama flows, attributes, SMTP, persistence,
+    logging, SAML and more. 133 operations across 78 paths in the core spec, plus seven plugin specs
+    covering FIDO2, the Admin UI, user management, Jans Lock audit, metrics, Jans Link and SCIM config.
+  humanURL: https://docs.jans.io/stable/janssen-server/config-guide/
+  baseURL: https://{host}/jans-config-api
+  tags:
+  - Administration
+  - Configuration
+  - IAM
+  - OAuth
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-jans-config-api-openapi.yml
+  - type: OpenAPI
+    url: openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
+  - type: OpenAPI
+    url: openapi/gluu-jans-config-api-fido2-plugin-openapi.yml
+  - type: OpenAPI
+    url: openapi/gluu-jans-config-api-user-mgt-plugin-openapi.yml
+  - type: OpenAPI
+    url: openapi/gluu-jans-config-api-lock-plugin-openapi.yml
+  - type: OpenAPI
+    url: openapi/gluu-jans-config-api-metric-plugin-openapi.yml
+  - type: OpenAPI
+    url: openapi/gluu-jans-config-api-link-plugin-openapi.yml
+  - type: OpenAPI
+    url: openapi/gluu-jans-config-api-scim-plugin-openapi.yml
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: Overlay
+    url: overlays/gluu-jans-config-api-overlay.yaml
+- aid: gluu:jans-scim-api
+  name: Janssen SCIM API
+  description: >-
+    The Janssen SCIM 2.0 service (RFC 7642/7643/7644) for cross-domain identity management — users,
+    groups, FIDO 2 devices, bulk operations, and the ServiceProviderConfig / ResourceTypes / Schemas
+    discovery endpoints. 29 operations across 18 paths, with a Gluu user schema extension.
+  humanURL: https://docs.jans.io/stable/janssen-server/reference/openapi/
+  baseURL: https://{host}/jans-scim/restv1/v2
+  tags:
+  - Groups
+  - Provisioning
+  - SCIM
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-jans-scim-openapi.yml
+  - type: Overlay
+    url: overlays/gluu-jans-scim-overlay.yaml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+- aid: gluu:jans-fido2-api
+  name: Janssen FIDO2 API
+  description: >-
+    The Janssen FIDO2 server API implementing WebAuthn attestation and assertion registration and
+    authentication ceremonies, together with device and metadata management. 21 operations across 21 paths.
+  humanURL: https://docs.jans.io/stable/janssen-server/fido/
+  baseURL: https://{host}/jans-fido2
+  tags:
+  - FIDO2
+  - Passkeys
+  - WebAuthn
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-jans-fido2-openapi.yml
+- aid: gluu:jans-lock-api
+  name: Janssen Lock API
+  description: >-
+    Jans Lock is the enterprise authorization control plane for the Cedarling PDP — it centralises Cedar
+    policy distribution and collects audit logs, health entries and telemetry from every embedded PDP.
+    12 operations across 11 paths, including a /.well-known/lock-server-configuration discovery document.
+  humanURL: https://docs.jans.io/stable/janssen-server/lock/
+  baseURL: https://{host}/jans-lock
+  tags:
+  - Audit
+  - Authorization
+  - Cedar
+  - Policy
+  - Telemetry
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-jans-lock-server-openapi.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
 - aid: gluu:cedarling
   name: Cedarling
   description: >-
     Cedarling is an embeddable Policy Decision Point (PDP) built in Rust that runs anywhere and returns
     authorization decisions in under 50 microseconds based on declarative Cedar access policies. It validates
     JWT tokens and applies policies to deliver fine-grained authorization.
-  humanURL: https://gluu.org/cedarling/
+  humanURL: https://docs.jans.io/stable/cedarling/
   tags:
   - Authorization
   - Cedar
@@ -129,15 +273,20 @@ apis:
   - Rust
   properties:
   - type: Documentation
-    url: https://docs.jans.io/head/cedarling/cedarling-overview/
+    url: https://docs.jans.io/stable/cedarling/
   - type: GitHubRepository
     url: https://github.com/JanssenProject/jans/tree/main/jans-cedarling
+  - type: SDKs
+    url: packages/gluu-packages.yml
+  - type: Protobuf
+    url: grpc/gluu-cedarling-lock-audit.proto
 - aid: gluu:agama-lab
   name: Agama Lab
   description: >-
     Agama Lab is a developer portal for authoring Cedar schema and policies, building authentication workflows
     using the Agama domain specific language, and managing hosted Gluu infrastructure.
   humanURL: https://gluu.org/agama-lab/
+  baseURL: https://cloud.gluu.org/agama-lab
   tags:
   - Authentication
   - Developer Portal
@@ -145,90 +294,103 @@ apis:
   - Workflows
   properties:
   - type: Documentation
-    url: https://docs.gluu.org/agama-lab/
+    url: https://gluu.org/agama/
   - type: Portal
     url: https://cloud.gluu.org/agama-lab
-- aid: gluu:gluu-discovery-api
-  name: Gluu discovery API
-  description: The discovery API from Gluu — 3 operation(s) for discovery.
-  humanURL: https://gluu.org/flex/
-  baseURL: https://docs.gluu.org/
-  tags:
-  - Discovery
-  tags_raw:
-  - discovery
-  properties:
-  - type: OpenAPI
-    url: openapi/gluu-discovery-api-openapi.yml
-- aid: gluu:gluu-fido-api
-  name: Gluu fido API
-  description: The fido API from Gluu — 2 operation(s) for fido.
-  humanURL: https://gluu.org/flex/
-  baseURL: https://docs.gluu.org/
-  tags:
-  - FIDO
-  tags_raw:
-  - fido
-  properties:
-  - type: OpenAPI
-    url: openapi/gluu-fido-api-openapi.yml
-- aid: gluu:gluu-groups-api
-  name: Gluu groups API
-  description: The groups API from Gluu — 3 operation(s) for groups.
-  humanURL: https://gluu.org/flex/
-  baseURL: https://docs.gluu.org/
-  tags:
-  - Group
-  tags_raw:
-  - groups
-  properties:
-  - type: OpenAPI
-    url: openapi/gluu-groups-api-openapi.yml
-- aid: gluu:gluu-users-api
-  name: Gluu users API
-  description: The users API from Gluu — 4 operation(s) for users.
-  humanURL: https://gluu.org/flex/
-  baseURL: https://docs.gluu.org/
-  tags:
-  - User
-  tags_raw:
-  - users
-  properties:
-  - type: OpenAPI
-    url: openapi/gluu-users-api-openapi.yml
+  - type: GettingStarted
+    url: https://gluu.org/quick-start-guide/
 common:
-  - type: IssueTracker
-    url: https://github.com/GluuFederation/flex/issues
-  - type: Releases
-    url: https://github.com/GluuFederation/flex/releases
-  - type: AgenticAccess
-    url: agentic-access/gluu-agentic-access.yml
-  - type: DomainSecurity
-    url: security/gluu-domain-security.yml
-  - type: Authentication
-    url: authentication/gluu-authentication.yml
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/gluufederation
   - type: Website
     url: https://gluu.org/
+  - type: DeveloperPortal
+    url: https://docs.jans.io/stable/
   - type: Documentation
-    url: https://docs.gluu.org/
+    url: https://docs.gluu.org/stable/
+  - type: APIReference
+    url: https://docs.jans.io/stable/janssen-server/reference/openapi/
+  - type: GettingStarted
+    url: https://docs.gluu.org/stable/install/
   - type: Blog
     url: https://gluu.org/blog/
   - type: Support
     url: https://help.gluu.org/
   - type: GitHubOrganization
     url: https://github.com/GluuFederation
+  - type: IssueTracker
+    url: https://github.com/GluuFederation/flex/issues
+  - type: Releases
+    url: https://github.com/GluuFederation/flex/releases
+  - type: ChangeLog
+    url: changelog/gluu-changelog.yml
+  - type: Roadmap
+    url: https://gluu.org/gluu-flex-roadmap/
   - type: Pricing
-    url: https://gluu.org/pricing/
+    url: https://gluu.org/solo/
+  - type: SignUp
+    url: https://cloud.gluu.org/agama-lab
+  - type: TermsOfService
+    url: https://gluu.org/gluu-terms-and-conditions/
+  - type: PrivacyPolicy
+    url: https://gluu.org/gluu-privacy-policy/
+  - type: Security
+    url: https://gluu.org/security/
   - type: Contact
-    url: https://gluu.org/contact/
-  - type: Community
-    url: https://gluu.org/community/
+    url: https://gluu.org/contact-us/
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/gluufederation
   - type: Integrations
     url: https://gluu.org/partners/
+  - type: AgenticAccess
+    url: agentic-access/gluu-agentic-access.yml
+  - type: Authentication
+    url: authentication/gluu-authentication.yml
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Conventions
+    url: conventions/gluu-conventions.yml
+  - type: ErrorCatalog
+    url: errors/gluu-problem-types.yml
+  - type: Conformance
+    url: conformance/gluu-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/gluu-lifecycle.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Packages
+    url: packages/gluu-packages.yml
+  - type: SDKs
+    url: packages/gluu-packages.yml
+  - type: CLI
+    url: cli/gluu-cli.yml
+  - type: Sandbox
+    url: sandbox/gluu-sandbox.yml
+  - type: MCPServer
+    url: mcp/gluu-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/gluu-tool-crosswalk.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: LLMsTxt
+    url: llms/gluu-llms.txt
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/gluu-rate-limits.yml
+  - type: Plans
+    url: plans/gluu-plans-pricing.yml
+  - type: DomainSecurity
+    url: security/gluu-domain-security.yml
+  - type: VulnerabilityDisclosure
+    url: security/gluu-vulnerability-disclosure.yml
 integrations:
   - name: Gluu
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-09-12'
+  status: enriched
+  artifacts_added: 43
+  pass: local-v3

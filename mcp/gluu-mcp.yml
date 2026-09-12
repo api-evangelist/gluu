@@ -1,0 +1,91 @@
+generated: '2026-09-12'
+method: searched
+source: >-
+  https://github.com/JanssenProject/jans/tree/main/demos/janssen-tarp/mcp-server (source, package.json,
+  src/server.ts) and https://github.com/JanssenProject/jans/blob/main/demos/janssen-tarp/docs/ai-agents.md
+name: jans-tarp-mcp-server
+status: published
+maturity: demo
+description: >-
+  The Janssen Project ships one real MCP server: the Janssen Tarp MCP server, which lets an AI assistant
+  inside the Tarp browser extension register an OIDC client and drive an authorization-code flow against
+  any OpenID Provider. It is first-party (Apache-2.0, in the JanssenProject/jans monorepo, documented in
+  the project's own docs) but it lives under demos/ and is not published to any registry — a developer
+  builds and runs it themselves.
+deployment:
+  mode: local-stdio
+  endpoint: null
+  install: "cd janssen-tarp/mcp-server && npm install && npx tsc && node ./dist/server.js"
+  package: https://github.com/JanssenProject/jans/tree/main/demos/janssen-tarp/mcp-server
+  auth: api-key
+  verified: searched
+  transport: streamable-http
+  transport_note: >-
+    Not stdio in the literal MCP sense — the server uses @modelcontextprotocol/sdk
+    StreamableHTTPServerTransport and listens on http://localhost:3001/mcp. It is classified local-stdio
+    because it is a package a human installs and runs on their own machine; there is no vendor-hosted
+    endpoint an agent can reach. The Tarp extension's AI Assistant settings ask for "MCP Server URL"
+    and default it to http://localhost:3001.
+  auth_note: >-
+    The server stores per-LLM-provider API keys of its own via POST /api/keys and requires one on the
+    configured AI provider (OpenAI / Anthropic / Ollama); Ollama is keyless.
+sdk:
+  name: '@modelcontextprotocol/sdk'
+  version_range: ^1.23.0
+  server_version: 1.15.0
+tools:
+- name: registerOIDCClient
+  description: Registers an OIDC client using the provider's dynamic registration endpoint.
+  input_schema_fields:
+  - issuer (url, required)
+  - redirect_uris (array[url], min 1)
+  - scopes (array[string], min 1)
+  - response_types (array[string], min 1)
+  - token_endpoint_auth_method (string)
+  - userinfo_signed_response_alg (string)
+  - jansInclClaimsInIdTkn (string)
+  output_schema_fields:
+  - client_id
+  - client_secret (optional)
+  - registration_client_uri (optional)
+  - registration_access_token (optional)
+- name: startAuthFlow
+  description: Generates an authorization URL for a registered client, with PKCE and state.
+  input_schema_fields:
+  - issuer (url)
+  - client_id
+  - scope
+  - response_type (default "code")
+  - redirect_uri
+  - code_challenge_method (default "S256")
+  - code_challenge
+  - nonce (min length 16)
+  output_schema_fields:
+  - authorization_url
+  - state
+  - expires_in
+- name: exchangeToken
+  description: Exchanges an authorization code for tokens and fetches userinfo.
+  input_schema_fields:
+  - issuer (url)
+  - code
+  - client_id
+  - client_secret (optional)
+  - code_verifier
+  - redirect_uri
+  output_schema_fields:
+  - tokens.access_token / token_type / expires_in / refresh_token / id_token
+  - userinfo
+http_surface:
+  note: Routes registered by src/server.ts alongside the MCP endpoint.
+  routes:
+  - POST /mcp
+  - GET /health
+  - POST /api/keys
+  - GET /api/keys
+  - GET /api/keys/{id}
+limitations:
+- No hosted/remote MCP endpoint — nothing an agent can call without a human first running the server.
+- Not published to npm; the package name janssen-tarp-mcp-server does not exist on registry.npmjs.org.
+- Scope is OIDC relying-party testing, not administration — it exposes none of the 328 operations in
+  the Janssen Config API / SCIM / FIDO2 OpenAPIs.

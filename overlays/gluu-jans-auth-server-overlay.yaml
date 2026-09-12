@@ -1,0 +1,38 @@
+overlay: 1.0.0
+info:
+  title: "API Evangelist enrichment overlay \u2014 Janssen Authorization Server"
+  version: 1.0.0
+extends: openapi/gluu-jans-auth-server-openapi.yml
+x-provenance:
+  generated: '2026-09-12'
+  method: generated
+  source: openapi/gluu-jans-auth-server-openapi.yml (verbatim provider spec) + repo artifacts
+  note: "Non-destructive enhancements only. The provider spec is stored verbatim and is never mutated;\
+    \ this overlay records what API Evangelist added around it \u2014 the deployment-host caveat on servers[],\
+    \ and pointers to the derived conventions, error, scope and data-model artifacts in this repo."
+actions:
+- target: $.info
+  description: Record where this contract came from and that it is stored verbatim.
+  update:
+    x-apievangelist-source: https://github.com/JanssenProject/jans
+    x-apievangelist-docs: https://docs.jans.io/stable/janssen-server/auth-server/endpoints/
+    x-apievangelist-harvested: '2026-09-12'
+- target: $.servers[0]
+  description: The published server URL is an example deployment host (https://jans.local.io/jans-auth),
+    not a callable Gluu-operated endpoint. Gluu Flex and the Janssen Server are software the customer
+    deploys; the real base is the customer host.
+  update:
+    x-apievangelist-host-note: "self-hosted \u2014 substitute the deployment host"
+    x-apievangelist-templated-base: https://{host}/jans-auth
+- target: $
+  description: Link the artifacts derived from this contract.
+  update:
+    x-apievangelist-artifacts:
+      conventions: conventions/gluu-conventions.yml
+      errors: errors/gluu-problem-types.yml
+      authentication: authentication/gluu-authentication.yml
+      scopes: scopes/gluu-scopes.yml
+      conformance: conformance/gluu-conformance.yml
+      data_model: data-model/gluu-data-model.yml
+      agentic_access: agentic-access/gluu-agentic-access.yml
+      skills: skills/_index.yml
