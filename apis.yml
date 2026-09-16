@@ -1,14 +1,11 @@
 aid: gluu
 name: Gluu
-description: >-
-  Gluu is a technology company that specializes in providing identity and
-  access management solutions for businesses. Their platform allows
-  organizations to centrally manage the authentication and authorization of
-  users across various applications and systems, ensuring secure access to
-  sensitive data and resources. Gluu leads the Linux Foundation Janssen Project,
-  whose OAuth 2.0 / OpenID Connect authorization server, SCIM 2.0 service,
-  FIDO2 server, Config API and Cedarling policy decision point are the
-  components Gluu packages commercially as Gluu Flex and hosts as Gluu Solo.
+description: Gluu is a technology company that specializes in providing identity and access management
+  solutions for businesses. Their platform allows organizations to centrally manage the authentication
+  and authorization of users across various applications and systems, ensuring secure access to sensitive
+  data and resources. Gluu leads the Linux Foundation Janssen Project, whose OAuth 2.0 / OpenID Connect
+  authorization server, SCIM 2.0 service, FIDO2 server, Config API and Cedarling policy decision point
+  are the components Gluu packages commercially as Gluu Flex and hosts as Gluu Solo.
 type: Index
 deliveryModel:
   model: unknown
@@ -40,41 +37,41 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/gluu.png
 access: 3rd-Party
 created: '2025-08-14'
-modified: '2026-09-12'
+modified: '2026-09-16'
 position: Consuming
 tags:
-  - Access Management
-  - Authentication
-  - Authorization
-  - Cedar
-  - FIDO2
-  - IAM
-  - Identities
-  - Open Source
-  - OpenID Connect
-  - SCIM
+- Access Management
+- Authentication
+- Authorization
+- Cedar
+- FIDO2
+- IAM
+- Identities
+- Open-Source
+- OpenID Connect
+- SCIM
+- Identity Federation
 tags_raw:
-  - Access Management
-  - Authentication
-  - Authorization
-  - Cedar
-  - FIDO2
-  - IAM
-  - Identities
-  - OAuth
-  - Open Source
-  - OpenID Connect
-  - SCIM
-url: >-
-  https://raw.githubusercontent.com/api-evangelist/gluu/refs/heads/main/apis.yml
+- Access Management
+- Authentication
+- Authorization
+- Cedar
+- FIDO2
+- IAM
+- Identities
+- OAuth
+- Open Source
+- OpenID Connect
+- SCIM
+- Identity Federation
+url: https://raw.githubusercontent.com/api-evangelist/gluu/refs/heads/main/apis.yml
 specificationVersion: '0.23'
 apis:
 - aid: gluu:gluu-flex
   name: Gluu Flex
-  description: >-
-    Gluu Flex is the commercial, self-hosted enterprise distribution of the Linux Foundation Janssen Project.
-    It provides a cloud-native digital identity platform with OAuth 2.0, OpenID Connect, FIDO, SCIM, and
-    UMA capabilities, deployable via Helm charts with auto-scaling support.
+  description: Gluu Flex is the commercial, self-hosted enterprise distribution of the Linux Foundation
+    Janssen Project. It provides a cloud-native digital identity platform with OAuth 2.0, OpenID Connect,
+    FIDO, SCIM, and UMA capabilities, deployable via Helm charts with auto-scaling support.
   humanURL: https://gluu.org/flex/
   baseURL: https://{host}
   tags:
@@ -99,13 +96,18 @@ apis:
     url: https://gluu.org/gluu-flex-roadmap/
 - aid: gluu:gluu-solo
   name: Gluu Solo
-  description: >-
-    Gluu Solo is Gluu's hosted, serverless SaaS identity provider, running the Janssen stack on Google
-    Cloud with customer-selected geographic locations, published per-location monthly and annual pricing,
-    and a 99.9% SLA on every tier. It is the managed counterpart to the self-hosted Gluu Flex distribution.
+  description: Gluu Solo is Gluu's hosted, serverless SaaS identity provider, running the Janssen stack
+    on Google Cloud with customer-selected geographic locations, published per-location monthly and annual
+    pricing, and a 99.9% SLA on every tier. It is the managed counterpart to the self-hosted Gluu Flex
+    distribution.
   humanURL: https://gluu.org/solo/
   baseURL: https://{host}
   tags:
+  - Authentication
+  - Hosted
+  - IAM
+  - Software-as-a-Service
+  tags_raw:
   - Authentication
   - Hosted
   - IAM
@@ -117,10 +119,9 @@ apis:
     url: plans/gluu-plans-pricing.yml
 - aid: gluu:janssen-project
   name: Janssen Project
-  description: >-
-    The Janssen Project is the upstream Linux Foundation open-source identity platform that powers Gluu
-    Flex. It implements OAuth 2.0, OpenID Connect, FIDO 2.0, SCIM, UMA, and CIBA, providing a federated
-    identity provider, authorization server, and FIDO server.
+  description: The Janssen Project is the upstream Linux Foundation open-source identity platform that
+    powers Gluu Flex. It implements OAuth 2.0, OpenID Connect, FIDO 2.0, SCIM, UMA, and CIBA, providing
+    a federated identity provider, authorization server, and FIDO server.
   humanURL: https://jans.io/
   baseURL: https://{host}
   tags:
@@ -145,125 +146,11 @@ apis:
     url: https://github.com/JanssenProject/jans
   - type: LLMsTxt
     url: llms/gluu-janssen-llms.txt
-- aid: gluu:jans-auth-server-api
-  name: Janssen Auth Server API
-  description: >-
-    The Janssen Authorization Server REST API — a certified OpenID Provider implementing OAuth 2.0,
-    OpenID Connect Core, dynamic client registration, CIBA backchannel authentication, UMA 2.0 resource
-    registration, Pushed Authorization Requests, Software Statement Assertions, token status lists and an
-    AuthZEN configuration endpoint. 46 operations across 33 paths.
-  humanURL: https://docs.jans.io/stable/janssen-server/auth-server/
-  baseURL: https://{host}/jans-auth
-  tags:
-  - Authentication
-  - Authorization
-  - CIBA
-  - OAuth
-  - OpenID Connect
-  - UMA
-  properties:
-  - type: OpenAPI
-    url: openapi/gluu-jans-auth-server-openapi.yml
-  - type: Documentation
-    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
-  - type: Overlay
-    url: overlays/gluu-jans-auth-server-overlay.yaml
-- aid: gluu:jans-config-api
-  name: Janssen Config API
-  description: >-
-    The Janssen Config API is the OAuth-protected administrative REST API for every Janssen Server and
-    Gluu Flex component — clients, scopes, custom scripts, Agama flows, attributes, SMTP, persistence,
-    logging, SAML and more. 133 operations across 78 paths in the core spec, plus seven plugin specs
-    covering FIDO2, the Admin UI, user management, Jans Lock audit, metrics, Jans Link and SCIM config.
-  humanURL: https://docs.jans.io/stable/janssen-server/config-guide/
-  baseURL: https://{host}/jans-config-api
-  tags:
-  - Administration
-  - Configuration
-  - IAM
-  - OAuth
-  properties:
-  - type: OpenAPI
-    url: openapi/gluu-jans-config-api-openapi.yml
-  - type: OpenAPI
-    url: openapi/gluu-jans-config-api-admin-ui-plugin-openapi.yml
-  - type: OpenAPI
-    url: openapi/gluu-jans-config-api-fido2-plugin-openapi.yml
-  - type: OpenAPI
-    url: openapi/gluu-jans-config-api-user-mgt-plugin-openapi.yml
-  - type: OpenAPI
-    url: openapi/gluu-jans-config-api-lock-plugin-openapi.yml
-  - type: OpenAPI
-    url: openapi/gluu-jans-config-api-metric-plugin-openapi.yml
-  - type: OpenAPI
-    url: openapi/gluu-jans-config-api-link-plugin-openapi.yml
-  - type: OpenAPI
-    url: openapi/gluu-jans-config-api-scim-plugin-openapi.yml
-  - type: OAuthScopes
-    url: scopes/gluu-scopes.yml
-  - type: Webhooks
-    url: asyncapi/gluu-webhooks.yml
-  - type: Overlay
-    url: overlays/gluu-jans-config-api-overlay.yaml
-- aid: gluu:jans-scim-api
-  name: Janssen SCIM API
-  description: >-
-    The Janssen SCIM 2.0 service (RFC 7642/7643/7644) for cross-domain identity management — users,
-    groups, FIDO 2 devices, bulk operations, and the ServiceProviderConfig / ResourceTypes / Schemas
-    discovery endpoints. 29 operations across 18 paths, with a Gluu user schema extension.
-  humanURL: https://docs.jans.io/stable/janssen-server/reference/openapi/
-  baseURL: https://{host}/jans-scim/restv1/v2
-  tags:
-  - Groups
-  - Provisioning
-  - SCIM
-  - Users
-  properties:
-  - type: OpenAPI
-    url: openapi/gluu-jans-scim-openapi.yml
-  - type: Overlay
-    url: overlays/gluu-jans-scim-overlay.yaml
-  - type: DataModel
-    url: data-model/gluu-data-model.yml
-- aid: gluu:jans-fido2-api
-  name: Janssen FIDO2 API
-  description: >-
-    The Janssen FIDO2 server API implementing WebAuthn attestation and assertion registration and
-    authentication ceremonies, together with device and metadata management. 21 operations across 21 paths.
-  humanURL: https://docs.jans.io/stable/janssen-server/fido/
-  baseURL: https://{host}/jans-fido2
-  tags:
-  - FIDO2
-  - Passkeys
-  - WebAuthn
-  properties:
-  - type: OpenAPI
-    url: openapi/gluu-jans-fido2-openapi.yml
-- aid: gluu:jans-lock-api
-  name: Janssen Lock API
-  description: >-
-    Jans Lock is the enterprise authorization control plane for the Cedarling PDP — it centralises Cedar
-    policy distribution and collects audit logs, health entries and telemetry from every embedded PDP.
-    12 operations across 11 paths, including a /.well-known/lock-server-configuration discovery document.
-  humanURL: https://docs.jans.io/stable/janssen-server/lock/
-  baseURL: https://{host}/jans-lock
-  tags:
-  - Audit
-  - Authorization
-  - Cedar
-  - Policy
-  - Telemetry
-  properties:
-  - type: OpenAPI
-    url: openapi/gluu-jans-lock-server-openapi.yml
-  - type: Protobuf
-    url: grpc/gluu-jans-lock-audit.proto
 - aid: gluu:cedarling
   name: Cedarling
-  description: >-
-    Cedarling is an embeddable Policy Decision Point (PDP) built in Rust that runs anywhere and returns
-    authorization decisions in under 50 microseconds based on declarative Cedar access policies. It validates
-    JWT tokens and applies policies to deliver fine-grained authorization.
+  description: Cedarling is an embeddable Policy Decision Point (PDP) built in Rust that runs anywhere
+    and returns authorization decisions in under 50 microseconds based on declarative Cedar access policies.
+    It validates JWT tokens and applies policies to deliver fine-grained authorization.
   humanURL: https://docs.jans.io/stable/cedarling/
   tags:
   - Authorization
@@ -282,9 +169,8 @@ apis:
     url: grpc/gluu-cedarling-lock-audit.proto
 - aid: gluu:agama-lab
   name: Agama Lab
-  description: >-
-    Agama Lab is a developer portal for authoring Cedar schema and policies, building authentication workflows
-    using the Agama domain specific language, and managing hosted Gluu infrastructure.
+  description: Agama Lab is a developer portal for authoring Cedar schema and policies, building authentication
+    workflows using the Agama domain specific language, and managing hosted Gluu infrastructure.
   humanURL: https://gluu.org/agama-lab/
   baseURL: https://cloud.gluu.org/agama-lab
   tags:
@@ -299,96 +185,1879 @@ apis:
     url: https://cloud.gluu.org/agama-lab
   - type: GettingStarted
     url: https://gluu.org/quick-start-guide/
-common:
-  - type: Website
-    url: https://gluu.org/
-  - type: DeveloperPortal
-    url: https://docs.jans.io/stable/
+- aid: gluu:gluu-access-evaluation-api
+  name: Gluu Access Evaluation API
+  description: The Access Evaluation API from Gluu — 1 operation(s) for access evaluation.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Access Evaluation
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-access-evaluation-api-openapi.yml
   - type: Documentation
-    url: https://docs.gluu.org/stable/
-  - type: APIReference
-    url: https://docs.jans.io/stable/janssen-server/reference/openapi/
-  - type: GettingStarted
-    url: https://docs.gluu.org/stable/install/
-  - type: Blog
-    url: https://gluu.org/blog/
-  - type: Support
-    url: https://help.gluu.org/
-  - type: GitHubOrganization
-    url: https://github.com/GluuFederation
-  - type: IssueTracker
-    url: https://github.com/GluuFederation/flex/issues
-  - type: Releases
-    url: https://github.com/GluuFederation/flex/releases
-  - type: ChangeLog
-    url: changelog/gluu-changelog.yml
-  - type: Roadmap
-    url: https://gluu.org/gluu-flex-roadmap/
-  - type: Pricing
-    url: https://gluu.org/solo/
-  - type: SignUp
-    url: https://cloud.gluu.org/agama-lab
-  - type: TermsOfService
-    url: https://gluu.org/gluu-terms-and-conditions/
-  - type: PrivacyPolicy
-    url: https://gluu.org/gluu-privacy-policy/
-  - type: Security
-    url: https://gluu.org/security/
-  - type: Contact
-    url: https://gluu.org/contact-us/
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/gluufederation
-  - type: Integrations
-    url: https://gluu.org/partners/
-  - type: AgenticAccess
-    url: agentic-access/gluu-agentic-access.yml
-  - type: Authentication
-    url: authentication/gluu-authentication.yml
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
   - type: OAuthScopes
     url: scopes/gluu-scopes.yml
-  - type: Conventions
-    url: conventions/gluu-conventions.yml
-  - type: ErrorCatalog
-    url: errors/gluu-problem-types.yml
-  - type: Conformance
-    url: conformance/gluu-conformance.yml
-  - type: Lifecycle
-    url: lifecycle/gluu-lifecycle.yml
-  - type: DataModel
-    url: data-model/gluu-data-model.yml
-  - type: Packages
-    url: packages/gluu-packages.yml
-  - type: SDKs
-    url: packages/gluu-packages.yml
-  - type: CLI
-    url: cli/gluu-cli.yml
-  - type: Sandbox
-    url: sandbox/gluu-sandbox.yml
-  - type: MCPServer
-    url: mcp/gluu-mcp.yml
-  - type: ToolCrosswalk
-    url: mcp/gluu-tool-crosswalk.yml
-  - type: AgentSkill
-    url: skills/_index.yml
-  - type: LLMsTxt
-    url: llms/gluu-llms.txt
-  - type: Protobuf
-    url: grpc/gluu-jans-lock-audit.proto
   - type: Webhooks
     url: asyncapi/gluu-webhooks.yml
-  - type: RateLimits
-    url: rate-limits/gluu-rate-limits.yml
-  - type: Plans
-    url: plans/gluu-plans-pricing.yml
-  - type: DomainSecurity
-    url: security/gluu-domain-security.yml
-  - type: VulnerabilityDisclosure
-    url: security/gluu-vulnerability-disclosure.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-admin-ui-cedarling-api
+  name: Gluu Admin UI - Cedarling API
+  description: The Admin UI - Cedarling API from Gluu — 3 operation(s) for admin ui - cedarling.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Admin UI - Cedarling
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-admin-ui-cedarling-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-admin-ui-configuration-api
+  name: Gluu Admin UI - Configuration API
+  description: The Admin UI - Configuration API from Gluu — 1 operation(s) for admin ui - configuration.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Admin UI - Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-admin-ui-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-admin-ui-license-api
+  name: Gluu Admin UI - License API
+  description: The Admin UI - License API from Gluu — 8 operation(s) for admin ui - license.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Admin UI - License
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-admin-ui-license-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-admin-ui-permission-api
+  name: Gluu Admin UI - Permission API
+  description: The Admin UI - Permission API from Gluu — 2 operation(s) for admin ui - permission.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Admin UI - Permission
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-admin-ui-permission-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-admin-ui-role-api
+  name: Gluu Admin UI - Role API
+  description: The Admin UI - Role API from Gluu — 2 operation(s) for admin ui - role.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Admin UI - Role
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-admin-ui-role-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-admin-ui-role-permissions-mapping-api
+  name: Gluu Admin UI - Role-Permissions Mapping API
+  description: The Admin UI - Role-Permissions Mapping API from Gluu — 2 operation(s) for admin ui - role-permissions
+    mapping.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Admin UI - Role-Permissions Mapping
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-admin-ui-role-permissions-mapping-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-admin-ui-webhooks-api
+  name: Gluu Admin UI - Webhooks API
+  description: The Admin UI - Webhooks API from Gluu — 6 operation(s) for admin ui - webhooks.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Admin UI - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-admin-ui-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-agama-api
+  name: Gluu Agama API
+  description: The Agama API from Gluu — 5 operation(s) for agama.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Agama
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-agama-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-agama-configuration-api
+  name: Gluu Agama - Configuration API
+  description: The Agama - Configuration API from Gluu — 1 operation(s) for agama - configuration.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Agama - Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-agama-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-archived-jwk-archived-json-web-key-jwk-api
+  name: Gluu Archived JWK - Archived JSON Web Key (JWK) API
+  description: The Archived JWK - Archived JSON Web Key (JWK) API from Gluu — 1 operation(s) for archived
+    jwk - archived json web key (jwk).
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Archived JWK - Archived JSON Web Key (JWK)
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-archived-jwk-archived-json-web-key-jwk-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-attribute-api
+  name: Gluu Attribute API
+  description: The Attribute API from Gluu — 2 operation(s) for attribute.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Attribute
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-attribute-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-auth-server-health-check-api
+  name: Gluu Auth Server Health - Check API
+  description: The Auth Server Health - Check API from Gluu — 1 operation(s) for auth server health -
+    check.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Auth Server Health - Check
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-auth-server-health-check-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-auth-session-management-api
+  name: Gluu Auth - Session Management API
+  description: The Auth - Session Management API from Gluu — 4 operation(s) for auth - session management.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Auth - Session Management
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-auth-session-management-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-authorization-api
+  name: Gluu Authorization API
+  description: The Authorization API from Gluu — 3 operation(s) for authorization.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Authorization
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-authorization-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-authorization-challenge-api
+  name: Gluu Authorization Challenge API
+  description: The Authorization Challenge API from Gluu — 1 operation(s) for authorization challenge.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Authorization Challenge
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-authorization-challenge-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-authzen-access-evaluation-discovery-api
+  name: Gluu AuthZEN Access Evaluation Discovery API
+  description: The AuthZEN Access Evaluation Discovery API from Gluu — 1 operation(s) for authzen access
+    evaluation discovery.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - AuthZEN Access Evaluation Discovery
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-authzen-access-evaluation-discovery-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-bulk-api
+  name: Gluu Bulk API
+  description: The Bulk API from Gluu — 1 operation(s) for bulk.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Bulk
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-bulk-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-cache-configuration-api
+  name: Gluu Cache Configuration API
+  description: The Cache Configuration API from Gluu — 1 operation(s) for cache configuration.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Cache Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-cache-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-cache-configuration-in-memory-api
+  name: Gluu Cache Configuration – in-Memory API
+  description: The Cache Configuration – in-Memory API from Gluu — 1 operation(s) for cache configuration
+    – in-memory.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Cache Configuration – in-Memory
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-cache-configuration-in-memory-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-cache-configuration-memcached-api
+  name: Gluu Cache Configuration – Memcached API
+  description: The Cache Configuration – Memcached API from Gluu — 1 operation(s) for cache configuration
+    – memcached.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Cache Configuration – Memcached
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-cache-configuration-memcached-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-cache-configuration-native-persistence-api
+  name: Gluu Cache Configuration – Native-Persistence API
+  description: The Cache Configuration – Native-Persistence API from Gluu — 1 operation(s) for cache configuration
+    – native-persistence.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Cache Configuration – Native-Persistence
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-cache-configuration-native-persistence-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-cache-configuration-redis-api
+  name: Gluu Cache Configuration – Redis API
+  description: The Cache Configuration – Redis API from Gluu — 1 operation(s) for cache configuration
+    – redis.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Cache Configuration – Redis
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-cache-configuration-redis-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-client-authorization-api
+  name: Gluu Client Authorization API
+  description: The Client Authorization API from Gluu — 2 operation(s) for client authorization.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Client Authorization
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-client-authorization-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-client-info-api
+  name: Gluu Client Info API
+  description: The Client Info API from Gluu — 1 operation(s) for client info.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Client Info
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-client-info-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-client-registration-api
+  name: Gluu Client Registration API
+  description: The Client Registration API from Gluu — 1 operation(s) for client registration.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Client Registration
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-client-registration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-configuration-config-api-api
+  name: Gluu Configuration – Config API
+  description: The Configuration – Config API API from Gluu — 1 operation(s) for configuration – config
+    api.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Configuration – Config API
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-configuration-config-api-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-configuration-jwk-json-web-key-jwk-api
+  name: Gluu Configuration – JWK - JSON Web Key (JWK) API
+  description: The Configuration – JWK - JSON Web Key (JWK) API from Gluu — 3 operation(s) for configuration
+    – jwk - json web key (jwk).
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Configuration – JWK - JSON Web Key (JWK)
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-configuration-jwk-json-web-key-jwk-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-configuration-logging-api
+  name: Gluu Configuration – Logging API
+  description: The Configuration – Logging API from Gluu — 1 operation(s) for configuration – logging.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Configuration – Logging
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-configuration-logging-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-configuration-properties-api
+  name: Gluu Configuration – Properties API
+  description: The Configuration – Properties API from Gluu — 3 operation(s) for configuration – properties.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Configuration – Properties
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-configuration-properties-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-configuration-smtp-api
+  name: Gluu Configuration – SMTP API
+  description: The Configuration – SMTP API from Gluu — 2 operation(s) for configuration – smtp.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Configuration – SMTP
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-configuration-smtp-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-configuration-user-management-api
+  name: Gluu Configuration – User Management API
+  description: The Configuration – User Management API from Gluu — 2 operation(s) for configuration –
+    user management.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Configuration – User Management
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-configuration-user-management-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-custom-scripts-api
+  name: Gluu Custom Scripts API
+  description: The Custom Scripts API from Gluu — 7 operation(s) for custom scripts.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Custom Scripts
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-custom-scripts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-database-api
+  name: Gluu Database API
+  description: The Database API from Gluu — 1 operation(s) for database.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Database
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-database-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-database-ldap-configuration-api
+  name: Gluu Database - LDAP configuration API
+  description: The Database - LDAP configuration API from Gluu — 3 operation(s) for database - ldap configuration.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Database - LDAP configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-database-ldap-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-default-authentication-method-api
+  name: Gluu Default Authentication Method API
+  description: The Default Authentication Method API from Gluu — 1 operation(s) for default authentication
+    method.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Default Authentication Method
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-default-authentication-method-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-discovery-api
+  name: Gluu Discovery API
+  description: Endpoints to facilitate discovery of SCIM service provider features
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - discovery
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-discovery-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-fido2-assertion-api
+  name: Gluu FIDO2 Assertion API
+  description: The FIDO2 Assertion API from Gluu — 2 operation(s) for fido2 assertion.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - FIDO2 Assertion
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-fido2-assertion-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-fido2-attestation-api
+  name: Gluu FIDO2 Attestation API
+  description: The FIDO2 Attestation API from Gluu — 2 operation(s) for fido2 attestation.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - FIDO2 Attestation
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-fido2-attestation-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-fido2-configuration-api
+  name: Gluu Fido2 - Configuration API
+  description: The Fido2 - Configuration API from Gluu — 2 operation(s) for fido2 - configuration.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Fido2 - Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-fido2-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-fido2-devices-api
+  name: Gluu fido2 devices API
+  description: Endpoints for management of Fido2 devices
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - fido2 devices
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-fido2-devices-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-fido2-metrics-api
+  name: Gluu Fido2 - Metrics API
+  description: The Fido2 - Metrics API from Gluu — 28 operation(s) for fido2 - metrics.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Fido2 - Metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-fido2-metrics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-fido2-registration-api
+  name: Gluu Fido2 - Registration API
+  description: The Fido2 - Registration API from Gluu — 3 operation(s) for fido2 - registration.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Fido2 - Registration
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-fido2-registration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-fido2-trust-api
+  name: Gluu Fido2 - Trust API
+  description: The Fido2 - Trust API from Gluu — 4 operation(s) for fido2 - trust.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Fido2 - Trust
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-fido2-trust-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-global-search-api
+  name: Gluu global search API
+  description: Search from service root
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - global search
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-global-search-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-global-token-revocation-api
+  name: Gluu Global Token Revocation API
+  description: The Global Token Revocation API from Gluu — 1 operation(s) for global token revocation.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Global Token Revocation
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-global-token-revocation-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-group-api
+  name: Gluu Group API
+  description: Endpoints for management of Group resources
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - group
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-group-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-health-check-api
+  name: Gluu Health - Check API
+  description: The Health - Check API from Gluu — 6 operation(s) for health - check.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Health - Check
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-health-check-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-internal-statistic-api
+  name: Gluu Internal Statistic API
+  description: The Internal Statistic API from Gluu — 1 operation(s) for internal statistic.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Internal Statistic
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-internal-statistic-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-jans-assets-api
+  name: Gluu Jans Assets API
+  description: The Jans Assets API from Gluu — 8 operation(s) for jans assets.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Jans Assets
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-jans-assets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-jans-link-configuration-api
+  name: Gluu Jans Link - Configuration API
+  description: The Jans Link - Configuration API from Gluu — 1 operation(s) for jans link - configuration.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Jans Link - Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-jans-link-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-jwk-json-web-key-set-jwks-api
+  name: Gluu JWK - JSON Web Key Set (JWKs) API
+  description: The JWK - JSON Web Key Set (JWKs) API from Gluu — 1 operation(s) for jwk - json web key
+    set (jwks).
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - JWK - JSON Web Key Set (JWKs)
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-jwk-json-web-key-set-jwks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-lock-audit-api
+  name: Gluu Lock - Audit API
+  description: The Lock - Audit API from Gluu — 8 operation(s) for lock - audit.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Lock - Audit
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-lock-audit-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-lock-audit-health-api
+  name: Gluu Lock - Audit Health API
+  description: The Lock - Audit Health API from Gluu — 2 operation(s) for lock - audit health.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Lock - Audit Health
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-lock-audit-health-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-lock-audit-log-api
+  name: Gluu Lock - Audit Log API
+  description: The Lock - Audit Log API from Gluu — 2 operation(s) for lock - audit log.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Lock - Audit Log
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-lock-audit-log-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-lock-audit-telemetry-api
+  name: Gluu Lock - Audit Telemetry API
+  description: The Lock - Audit Telemetry API from Gluu — 2 operation(s) for lock - audit telemetry.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Lock - Audit Telemetry
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-lock-audit-telemetry-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-lock-configuration-api
+  name: Gluu Lock - Configuration API
+  description: The Lock - Configuration API from Gluu — 1 operation(s) for lock - configuration.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Lock - Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-lock-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-lock-log-api
+  name: Gluu Lock - Log API
+  description: The Lock - Log API from Gluu — 1 operation(s) for lock - log.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Lock - Log
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-lock-log-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-lock-policy-api
+  name: Gluu Lock - Policy API
+  description: The Lock - Policy API from Gluu — 2 operation(s) for lock - policy.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Lock - Policy
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-lock-policy-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-lock-server-configuration-api
+  name: Gluu Lock - Server Configuration API
+  description: The Lock - Server Configuration API from Gluu — 2 operation(s) for lock - server configuration.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Lock - Server Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-lock-server-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-lock-stat-api
+  name: Gluu Lock - Stat API
+  description: The Lock - Stat API from Gluu — 1 operation(s) for lock - stat.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Lock - Stat
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-lock-stat-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-logs-api
+  name: Gluu Logs API
+  description: The Logs API from Gluu — 1 operation(s) for logs.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Logs
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-logs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-message-configuration-api
+  name: Gluu Message Configuration API
+  description: The Message Configuration API from Gluu — 1 operation(s) for message configuration.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Message Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-message-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-message-configuration-postgres-api
+  name: Gluu Message Configuration – Postgres API
+  description: The Message Configuration – Postgres API from Gluu — 1 operation(s) for message configuration
+    – postgres.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Message Configuration – Postgres
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-message-configuration-postgres-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-message-configuration-redis-api
+  name: Gluu Message Configuration – Redis API
+  description: The Message Configuration – Redis API from Gluu — 1 operation(s) for message configuration
+    – redis.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Message Configuration – Redis
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-message-configuration-redis-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-metric-api
+  name: Gluu Metric API
+  description: The Metric API from Gluu — 4 operation(s) for metric.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Metric
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-metric-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-oauth-openid-connect-clients-api
+  name: Gluu OAuth - OpenID Connect - Clients API
+  description: The OAuth - OpenID Connect - Clients API from Gluu — 2 operation(s) for oauth - openid
+    connect - clients.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - OAuth - OpenID Connect - Clients
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-oauth-openid-connect-clients-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-oauth-scopes-api
+  name: Gluu OAuth - Scopes API
+  description: The OAuth - Scopes API from Gluu — 4 operation(s) for oauth - scopes.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - OAuth - Scopes
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-oauth-scopes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-oauth-uma-resources-api
+  name: Gluu OAuth - UMA Resources API
+  description: The OAuth - UMA Resources API from Gluu — 3 operation(s) for oauth - uma resources.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - OAuth - UMA Resources
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-oauth-uma-resources-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-organization-configuration-api
+  name: Gluu Organization Configuration API
+  description: The Organization Configuration API from Gluu — 1 operation(s) for organization configuration.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Organization Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-organization-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-plugins-api
+  name: Gluu Plugins API
+  description: The Plugins API from Gluu — 2 operation(s) for plugins.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Plugins
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-plugins-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-registration-api
+  name: Gluu Registration API
+  description: The Registration API from Gluu — 2 operation(s) for registration.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Registration
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-registration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-scim-config-management-api
+  name: Gluu SCIM - Config Management API
+  description: The SCIM - Config Management API from Gluu — 1 operation(s) for scim - config management.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - SCIM - Config Management
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-scim-config-management-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-server-configuration-api
+  name: Gluu Server Configuration API
+  description: The Server Configuration API from Gluu — 1 operation(s) for server configuration.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Server Configuration
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-server-configuration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-session-management-api
+  name: Gluu Session Management API
+  description: The Session Management API from Gluu — 2 operation(s) for session management.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Session Management
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-session-management-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-software-statement-assertion-ssa-api
+  name: Gluu Software Statement Assertion (SSA) API
+  description: The Software Statement Assertion (SSA) API from Gluu — 1 operation(s) for software statement
+    assertion (ssa).
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Software Statement Assertion (SSA)
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-software-statement-assertion-ssa-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-ssa-api
+  name: Gluu SSA API
+  description: The SSA API from Gluu — 3 operation(s) for ssa.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - SSA
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-ssa-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-statistics-api
+  name: Gluu Statistics API
+  description: The Statistics API from Gluu — 1 operation(s) for statistics.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Statistics
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-statistics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-statistics-user-api
+  name: Gluu Statistics - User API
+  description: The Statistics - User API from Gluu — 1 operation(s) for statistics - user.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Statistics - User
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-statistics-user-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-status-list-aggregation-api
+  name: Gluu Status List Aggregation API
+  description: The Status List Aggregation API from Gluu — 1 operation(s) for status list aggregation.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Status List Aggregation
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-status-list-aggregation-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-status-list-api
+  name: Gluu Status List API
+  description: The Status List API from Gluu — 1 operation(s) for status list.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Status List
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-status-list-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-token-api
+  name: Gluu Token API
+  description: The Token API from Gluu — 7 operation(s) for token.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Token
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-token-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-token-introspection-api
+  name: Gluu Token Introspection API
+  description: The Token Introspection API from Gluu — 1 operation(s) for token introspection.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - Token Introspection
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-token-introspection-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-uma-2-resource-api
+  name: Gluu UMA 2 Resource API
+  description: The UMA 2 Resource API from Gluu — 3 operation(s) for uma 2 resource.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - UMA 2 Resource
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-uma-2-resource-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-uma-scope-api
+  name: Gluu UMA Scope API
+  description: The UMA Scope API from Gluu — 1 operation(s) for uma scope.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - UMA Scope
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-uma-scope-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-uma-user-managed-access-api
+  name: Gluu UMA (User Managed Access) API
+  description: The UMA (User Managed Access) API from Gluu — 3 operation(s) for uma (user managed access).
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - UMA (User Managed Access)
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-uma-user-managed-access-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-user-api
+  name: Gluu User API
+  description: Endpoints for management of User resources
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - user
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-user-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+- aid: gluu:gluu-user-info-api
+  name: Gluu User Info API
+  description: The User Info API from Gluu — 1 operation(s) for user info.
+  humanURL: https://gluu.org/flex/
+  baseURL: https://{host}
+  tags:
+  - User Info
+  properties:
+  - type: OpenAPI
+    url: openapi/gluu-user-info-api-openapi.yml
+  - type: Documentation
+    url: https://docs.jans.io/stable/janssen-server/auth-server/openid-features/
+  - type: OAuthScopes
+    url: scopes/gluu-scopes.yml
+  - type: Webhooks
+    url: asyncapi/gluu-webhooks.yml
+  - type: DataModel
+    url: data-model/gluu-data-model.yml
+  - type: Protobuf
+    url: grpc/gluu-jans-lock-audit.proto
+common:
+- type: Overlay
+  url: overlays/gluu-jans-auth-server-overlay.yaml
+- type: Overlay
+  url: overlays/gluu-jans-config-api-overlay.yaml
+- type: Overlay
+  url: overlays/gluu-jans-scim-overlay.yaml
+- type: Website
+  url: https://gluu.org/
+- type: DeveloperPortal
+  url: https://docs.jans.io/stable/
+- type: Documentation
+  url: https://docs.gluu.org/stable/
+- type: APIReference
+  url: https://docs.jans.io/stable/janssen-server/reference/openapi/
+- type: GettingStarted
+  url: https://docs.gluu.org/stable/install/
+- type: Blog
+  url: https://gluu.org/blog/
+- type: Support
+  url: https://help.gluu.org/
+- type: GitHubOrganization
+  url: https://github.com/GluuFederation
+- type: IssueTracker
+  url: https://github.com/GluuFederation/flex/issues
+- type: Releases
+  url: https://github.com/GluuFederation/flex/releases
+- type: ChangeLog
+  url: changelog/gluu-changelog.yml
+- type: Roadmap
+  url: https://gluu.org/gluu-flex-roadmap/
+- type: Pricing
+  url: https://gluu.org/solo/
+- type: SignUp
+  url: https://cloud.gluu.org/agama-lab
+- type: TermsOfService
+  url: https://gluu.org/gluu-terms-and-conditions/
+- type: PrivacyPolicy
+  url: https://gluu.org/gluu-privacy-policy/
+- type: Security
+  url: https://gluu.org/security/
+- type: Contact
+  url: https://gluu.org/contact-us/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/gluufederation
+- type: Integrations
+  url: https://gluu.org/partners/
+- type: AgenticAccess
+  url: agentic-access/gluu-agentic-access.yml
+- type: Authentication
+  url: authentication/gluu-authentication.yml
+- type: OAuthScopes
+  url: scopes/gluu-scopes.yml
+- type: Conventions
+  url: conventions/gluu-conventions.yml
+- type: ErrorCatalog
+  url: errors/gluu-problem-types.yml
+- type: Conformance
+  url: conformance/gluu-conformance.yml
+- type: Lifecycle
+  url: lifecycle/gluu-lifecycle.yml
+- type: DataModel
+  url: data-model/gluu-data-model.yml
+- type: Packages
+  url: packages/gluu-packages.yml
+- type: SDKs
+  url: packages/gluu-packages.yml
+- type: CLI
+  url: cli/gluu-cli.yml
+- type: Sandbox
+  url: sandbox/gluu-sandbox.yml
+- type: MCPServer
+  url: mcp/gluu-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/gluu-tool-crosswalk.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/gluu-llms.txt
+- type: Protobuf
+  url: grpc/gluu-jans-lock-audit.proto
+- type: Webhooks
+  url: asyncapi/gluu-webhooks.yml
+- type: RateLimits
+  url: rate-limits/gluu-rate-limits.yml
+- type: Plans
+  url: plans/gluu-plans-pricing.yml
+- type: DomainSecurity
+  url: security/gluu-domain-security.yml
+- type: VulnerabilityDisclosure
+  url: security/gluu-vulnerability-disclosure.yml
 integrations:
-  - name: Gluu
+- name: Gluu
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
 x-enrichment:
   date: '2026-09-12'
   status: enriched
