@@ -45,7 +45,7 @@ tags:
 - Authorization
 - Cedar
 - FIDO2
-- IAM
+- Identity and Access Management
 - Identities
 - Open-Source
 - OpenID Connect
@@ -77,7 +77,7 @@ apis:
   tags:
   - Authentication
   - Authorization
-  - IAM
+  - Identity and Access Management
   - OpenID Connect
   tags_raw:
   - Authentication
@@ -105,7 +105,7 @@ apis:
   tags:
   - Authentication
   - Hosted
-  - IAM
+  - Identity and Access Management
   - Software-as-a-Service
   tags_raw:
   - Authentication
@@ -392,7 +392,8 @@ apis:
     jwk - archived json web key (jwk).
   humanURL: https://gluu.org/flex/
   baseURL: https://{host}
-  tags:
+  tags: []
+  tags_raw:
   - Archived JWK - Archived JSON Web Key (JWK)
   properties:
   - type: OpenAPI
@@ -740,7 +741,8 @@ apis:
     – jwk - json web key (jwk).
   humanURL: https://gluu.org/flex/
   baseURL: https://{host}
-  tags:
+  tags: []
+  tags_raw:
   - Configuration – JWK - JSON Web Key (JWK)
   properties:
   - type: OpenAPI
@@ -822,6 +824,8 @@ apis:
   humanURL: https://gluu.org/flex/
   baseURL: https://{host}
   tags:
+  - Configuration - User Management
+  tags_raw:
   - Configuration – User Management
   properties:
   - type: OpenAPI
@@ -923,6 +927,8 @@ apis:
   humanURL: https://gluu.org/flex/
   baseURL: https://{host}
   tags:
+  - Discovery
+  tags_raw:
   - discovery
   properties:
   - type: OpenAPI
@@ -1083,6 +1089,8 @@ apis:
   humanURL: https://gluu.org/flex/
   baseURL: https://{host}
   tags:
+  - Global Search
+  tags_raw:
   - global search
   properties:
   - type: OpenAPI
@@ -1123,6 +1131,8 @@ apis:
   humanURL: https://gluu.org/flex/
   baseURL: https://{host}
   tags:
+  - Group
+  tags_raw:
   - group
   properties:
   - type: OpenAPI
@@ -1143,6 +1153,8 @@ apis:
   humanURL: https://gluu.org/flex/
   baseURL: https://{host}
   tags:
+  - Health Check
+  tags_raw:
   - Health - Check
   properties:
   - type: OpenAPI
@@ -1223,7 +1235,8 @@ apis:
     set (jwks).
   humanURL: https://gluu.org/flex/
   baseURL: https://{host}
-  tags:
+  tags: []
+  tags_raw:
   - JWK - JSON Web Key Set (JWKs)
   properties:
   - type: OpenAPI
@@ -1506,6 +1519,8 @@ apis:
   humanURL: https://gluu.org/flex/
   baseURL: https://{host}
   tags:
+  - metric
+  tags_raw:
   - Metric
   properties:
   - type: OpenAPI
@@ -1587,6 +1602,8 @@ apis:
   humanURL: https://gluu.org/flex/
   baseURL: https://{host}
   tags:
+  - Organizationconfiguration
+  tags_raw:
   - Organization Configuration
   properties:
   - type: OpenAPI
@@ -1828,6 +1845,8 @@ apis:
   humanURL: https://gluu.org/flex/
   baseURL: https://{host}
   tags:
+  - Tokens
+  tags_raw:
   - Token
   properties:
   - type: OpenAPI
@@ -1928,6 +1947,8 @@ apis:
   humanURL: https://gluu.org/flex/
   baseURL: https://{host}
   tags:
+  - User
+  tags_raw:
   - user
   properties:
   - type: OpenAPI
@@ -1948,6 +1969,8 @@ apis:
   humanURL: https://gluu.org/flex/
   baseURL: https://{host}
   tags:
+  - UserInfo
+  tags_raw:
   - User Info
   properties:
   - type: OpenAPI
