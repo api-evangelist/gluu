@@ -1,0 +1,519 @@
+openapi: 3.2.0
+info:
+  title: SCIM global search API
+  description: 'Janssen SCIM 2.0 server API. Developers can think of SCIM as a REST API with endpoints exposing CRUD functionality
+
+    (create, update, retrieve and delete) for identity management resources such as users, groups, and fido devices.'
+  contact:
+    name: Contact
+    url: https://github.com/JanssenProject/jans/discussions
+  license:
+    name: License
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: OAS Version
+servers:
+- url: https://jans.local.io/jans-scim/restv1/v2
+tags:
+- name: Global Search
+  description: Search from service root
+paths:
+  /.search:
+    post:
+      description: Search (from system root) for one or more resource (see section 3.4.3 of RFC 7644)
+      tags:
+      - Global Search
+      operationId: search-resources
+      security:
+      - scim_oauth:
+        - https://jans.io/scim/all-resources.search
+      requestBody:
+        description: Payload that represents the search criteria
+        content:
+          application/scim+json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+            examples:
+              samplePayload:
+                externalValue: https://raw.githubusercontent.com/JanssenProject/jans/main/jans-scim/client/src/test/resources/multiple/search_post_1.json
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+            examples:
+              samplePayload:
+                externalValue: https://raw.githubusercontent.com/JanssenProject/jans/main/jans-scim/client/src/test/resources/multiple/search_post_1.json
+        required: true
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/GenericListResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericListResponse'
+        400:
+          description: 'Parameter count exceeds the maximum allowed value, the filter supplied was unparsable,
+
+            or invalid schema in search request
+
+            '
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: There was an unexpected failure executing the operation
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-codegen-request-body-name: searchRequest
+      summary: Search resources
+      x-summary-source: derived
+components:
+  schemas:
+    UserResource:
+      description: Represents a user resource. See section 4.1 of RFC 7643
+      allOf:
+      - $ref: '#/components/schemas/BaseResource'
+      - type: object
+        properties:
+          externalId:
+            type: string
+            description: Identifier of the resource useful from the perspective of the provisioning client. See section 3.1 of RFC 7643
+          userName:
+            type: string
+            description: Identifier for the user, typically used by the user to directly authenticate (id and externalId are opaque identifiers generally not known by users)
+          name:
+            $ref: '#/components/schemas/Name'
+          displayName:
+            type: string
+            description: Name of the user suitable for display to end-users
+          nickName:
+            type: string
+            description: Casual way to address the user in real life
+          profileUrl:
+            type: string
+            description: URI pointing to a location representing the User's online profile
+          title:
+            type: string
+            example: Vice President
+          userType:
+            type: string
+            description: Used to identify the relationship between the organization and the user
+            example: Contractor
+          preferredLanguage:
+            type: string
+            description: Preferred language as used in the Accept-Language HTTP header
+            example: en
+          locale:
+            type: string
+            description: Used for purposes of localizing items such as currency and dates
+            example: en-US
+          timezone:
+            type: string
+            example: America/Los_Angeles
+          active:
+            type: boolean
+          password:
+            type: string
+          emails:
+            type: array
+            items:
+              $ref: '#/components/schemas/Email'
+          phoneNumbers:
+            type: array
+            items:
+              $ref: '#/components/schemas/PhoneNumber'
+          ims:
+            type: array
+            items:
+              $ref: '#/components/schemas/InstantMessagingAddress'
+          photos:
+            type: array
+            items:
+              $ref: '#/components/schemas/Photo'
+          addresses:
+            type: array
+            items:
+              $ref: '#/components/schemas/Address'
+          groups:
+            type: array
+            items:
+              $ref: '#/components/schemas/Group'
+          entitlements:
+            type: array
+            items:
+              $ref: '#/components/schemas/Entitlement'
+          roles:
+            type: array
+            items:
+              $ref: '#/components/schemas/Role'
+          x509Certificates:
+            type: array
+            items:
+              $ref: '#/components/schemas/X509Certificate'
+          urn:ietf:params:scim:schemas:extension:gluu:2.0:User:
+            type: object
+            properties: {}
+            description: Extended attributes
+    Entitlement:
+      type: object
+      properties:
+        value:
+          type: string
+          example: Stakeholder
+        display:
+          type: string
+        type:
+          type: string
+        primary:
+          type: boolean
+          description: Denotes if this is the preferred entitlement among others, if any
+      description: Entitlements represent things a user has, like rights. See section 4.1.2 of RFC 7643
+    Meta:
+      type: object
+      properties:
+        resourceType:
+          type: string
+        created:
+          type: string
+        lastModified:
+          type: string
+        location:
+          type: string
+      description: Descriptive information about a resource. See section 3.1 of RFC 7643
+    Name:
+      type: object
+      properties:
+        familyName:
+          type: string
+        givenName:
+          type: string
+        middleName:
+          type: string
+        honorificPrefix:
+          type: string
+          description: A "title" like "Ms.", "Mrs."
+        honorificSuffix:
+          type: string
+          description: Name suffix, like "Junior", "The great", "III"
+        formatted:
+          type: string
+          description: Full name, including all middle names, titles, and suffixes as appropriate
+      description: See section 4.1.1 of RFC 7643
+    SearchRequest:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:api:messages:2.0:SearchRequest
+        attributes:
+          type: array
+          description: A list of attribute names to return in the response
+          items:
+            type: string
+        excludedAttributes:
+          type: array
+          description: When specified, the response will contain a default set of attributes minus those listed here
+          items:
+            type: string
+        filter:
+          type: string
+          description: An expression specifying the search criteria. See section 3.4.2.2 of RFC 7644
+          example: userName eq "jhon" and meta.lastModified gt "2011-05-13T04:42:34Z"
+        sortBy:
+          type: string
+          description: The attribute whose value will be used to order the returned responses
+        sortOrder:
+          type: string
+          description: Order in which the sortBy param is applied. Allowed values are "ascending" and "descending"
+        startIndex:
+          type: integer
+          description: The 1-based index of the first query result
+        count:
+          type: integer
+          description: Specifies the desired maximum number of query results per page
+      description: See section 3.4.3 of RFC 7644
+    BaseResource:
+      type: object
+      properties:
+        schemas:
+          type: array
+          description: URIs that are used to indicate the namespaces of the SCIM schemas that define the attributes present in the current structure
+          items:
+            type: string
+        id:
+          type: string
+          description: A unique identifier for a SCIM resource. See section 3.1 of RFC 7643
+        meta:
+          $ref: '#/components/schemas/Meta'
+    Member:
+      type: object
+      description: Represents a member of a Group resource
+      properties:
+        $ref:
+          type: string
+          description: URI of the SCIM resource
+        type:
+          type: string
+          description: The type of member. Only "User" is allowed
+        display:
+          type: string
+          description: A human readable name, primarily used for display purposes
+        value:
+          type: string
+          description: Identifier (ID) of the resource
+    Photo:
+      type: object
+      properties:
+        value:
+          type: string
+          example: https://pics.nsfw.com/gossow.png
+        display:
+          type: string
+        type:
+          type: string
+          example: thumbnail
+        primary:
+          type: boolean
+          description: Denotes if this is the preferred photo among others, if any
+      description: Points to a resource location representing the user's image. See section 4.1.2 of RFC 7643
+    Email:
+      type: object
+      properties:
+        value:
+          type: string
+          example: gossow@nsfw.com
+        display:
+          type: string
+        type:
+          type: string
+          example: work
+        primary:
+          type: boolean
+          description: Denotes if this is the preferred e-mail among others, if any
+      description: See section 4.1.2 of RFC 7643
+    Fido2DeviceResource:
+      description: Represents a Fido 2 device enrollment
+      allOf:
+      - $ref: '#/components/schemas/BaseResource'
+      - type: object
+        properties:
+          userId:
+            type: string
+            description: Identifies the owner of the enrollment
+          creationDate:
+            type: string
+            description: Date of enrollment in ISO format
+            format: date-time
+          counter:
+            type: integer
+            description: Value used in the Fido 2 endpoints
+          status:
+            type: string
+            enum:
+            - registered
+            - pending
+            - compromised
+            - canceled
+          displayName:
+            type: string
+            description: Device name suitable for display to end-users
+    PhoneNumber:
+      type: object
+      properties:
+        value:
+          type: string
+          example: +1-555-555-8377
+        display:
+          type: string
+        type:
+          type: string
+          example: fax
+        primary:
+          type: boolean
+          description: Denotes if this is the preferred phone number among others, if any
+      description: See section 4.1.2 of RFC 7643
+    Address:
+      type: object
+      properties:
+        formatted:
+          type: string
+          description: Full mailing address, formatted for display or use with a mailing label
+        streetAddress:
+          type: string
+          example: 56 Acacia Avenue
+        locality:
+          type: string
+          description: City or locality of the address
+        region:
+          type: string
+          description: State or region of the address
+        postalCode:
+          type: string
+          description: Zip code
+        country:
+          type: string
+          description: Country expressed in ISO 3166-1 "alpha-2" code format
+          example: UK
+        type:
+          type: string
+          example: home
+        primary:
+          type: boolean
+          description: Denotes if this is the preferred address among others, if any
+      description: Physical mailing address for this user. See section 4.1.2 of RFC 7643
+    ErrorResponse:
+      required:
+      - status
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:api:messages:2.0:Error
+        status:
+          type: string
+          description: HTTP status code as string
+        scimType:
+          type: string
+          description: A detail error keyword. See table 9 of RFC 7644
+        detail:
+          type: string
+          description: A detailed human-readable message of the error
+      description: See section 3.12 of RFC 7644
+    GroupResource:
+      description: Represents a group resource. See section 4.2 of RFC 7643
+      allOf:
+      - $ref: '#/components/schemas/BaseResource'
+      - type: object
+        properties:
+          displayName:
+            type: string
+            description: Group name suitable for display to end-users
+          members:
+            type: array
+            items:
+              $ref: '#/components/schemas/Member'
+    GenericListResponse:
+      allOf:
+      - $ref: '#/components/schemas/BasicListResponse'
+      - type: object
+        properties:
+          Resources:
+            type: array
+            items:
+              $ref: '#/components/schemas/GenericResource'
+    InstantMessagingAddress:
+      type: object
+      properties:
+        value:
+          type: string
+        display:
+          type: string
+        type:
+          type: string
+          example: gtalk
+        primary:
+          type: boolean
+          description: Denotes if this is the preferred messaging addressed among others, if any
+      description: See section 4.1.2 of RFC 7643
+    Group:
+      type: object
+      properties:
+        value:
+          type: string
+          description: Group identifier
+          example: 180ee84f0671b1
+        $ref:
+          type: string
+          description: URI associated to the group
+          example: https://nsfw.com/scim/restv1/v2/Groups/180ee84f0671b1
+        display:
+          type: string
+          example: Cult managers
+        type:
+          type: string
+          description: Describes how the group membership was derived
+          example: direct
+      description: See section 4.1.2 of RFC 7643
+    Role:
+      type: object
+      properties:
+        value:
+          type: string
+          example: Project manager
+        display:
+          type: string
+        type:
+          type: string
+        primary:
+          type: boolean
+          description: Denotes if this is the preferred role among others, if any
+      description: See section 4.1.2 of RFC 7643
+    BasicListResponse:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:api:messages:2.0:ListResponse
+        totalResults:
+          type: integer
+          description: Total number of results returned by the search. The value may be larger than the number of resources returned due to pagination
+        startIndex:
+          type: integer
+          description: The 1-based index of the first result in the current set of search results
+        itemsPerPage:
+          type: integer
+          description: The number of resources returned in a results page
+    GenericResource:
+      oneOf:
+      - $ref: '#/components/schemas/GroupResource'
+      - $ref: '#/components/schemas/UserResource'
+      - $ref: '#/components/schemas/Fido2DeviceResource'
+    X509Certificate:
+      type: object
+      properties:
+        value:
+          type: string
+          description: DER-encoded X.509 certificate
+        display:
+          type: string
+        type:
+          type: string
+        primary:
+          type: boolean
+          description: Denotes if this is the preferred certificate among others, if any
+      description: A certificate associated with the user. See section 4.1.2 of RFC 7643
+  securitySchemes:
+    scim_oauth:
+      type: oauth2
+      description: Endpoints protected by a bearer token passed in the Authorization header.
+      flows:
+        clientCredentials:
+          tokenUrl: https://localhost/jans-auth/restv1/token
+          scopes:
+            https://jans.io/scim/users.read: Query user resources
+            https://jans.io/scim/users.write: Modify user resources
+            https://jans.io/scim/groups.read: Query group resources
+            https://jans.io/scim/groups.write: Modify group resources
+            https://jans.io/scim/fido.read: Query fido resources
+            https://jans.io/scim/fido.write: Modify fido resources
+            https://jans.io/scim/fido2.read: Query fido 2 resources
+            https://jans.io/scim/fido2.write: Modify fido 2 resources
+            https://jans.io/scim/all-resources.search: Access the root .search endpoint
+            https://jans.io/scim/bulk: Send requests to the bulk endpoint
+            https://jans.io/scim/tokens: List and revoke user tokens

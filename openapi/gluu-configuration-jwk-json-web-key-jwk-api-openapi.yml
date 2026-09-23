@@ -1,0 +1,466 @@
+openapi: 3.2.0
+info:
+  title: Jans Config Configuration – JWK - JSON Web Key (JWK) API
+  contact:
+    name: Contact
+    url: https://github.com/JanssenProject/jans/discussions
+  license:
+    name: License
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: OAS Version
+servers:
+- url: https://jans.local.io
+  description: The Jans server
+tags:
+- name: Configuration – JWK - JSON Web Key (JWK)
+paths:
+  /api/v1/config/jwks/{kid}:
+    get:
+      tags:
+      - Configuration – JWK - JSON Web Key (JWK)
+      summary: Get a JSON Web Key based on kid
+      operationId: get-jwk-by-kid
+      parameters:
+      - name: kid
+        in: path
+        description: The unique identifier for the key
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JSONWebKey'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: "{\n    \"kid\": \"1230bfb-276a-44aa-a97d-667b57587108_sig_rs256\",\n    \"kty\": \"RSA\",\n    \"use\": \"sig\",\n    \"alg\": \"RS256\",\n    \"exp\": 1599751946863,\n    \"x5c\": [\n        \"A0GCSqGSIb3DQEBCwUAMCExHzAdBgNVBAMMFm94QXV0aCBDQSBDZXJ0aWZpY2F0ZXMwHhcNMjAwOTA4MTUzMjE3WhcNMjAwOTEwMTUzMjI2WjAhMR8wHQYDVQQDDBZveEF1dGggQ0EgQ2VydGlmaWNhdGVzMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzj1NEHyGk/ywG25py2s/zVVrRggzRO0jE6VOUvqUzsEJwt1aszQ4onFu6vgtjNwq2ZmEFZbw1Jw7dlz4Xrdj12pQlLVuEhyVaTziQp3LvspqxyACHQb8XSKFdKZaa1eBF8PGN5zDN/d+tIrAZYnQS2gH8BoPIuB3Z9AoCLTzifnPvmOwW/e+/Wags/ApZiEfF2Po0InV5NeJAyoIpaGhlwjqqOWXm/GpCASAk9ZD8Ebnmy9RM71zDCgmvq/hPueKnbNTZdQ3TQdzEuSwxbWEHu16v5MbF7QtNzvFSFlllhgwqI2ccEljDbs18j3DUS2B1VTTAr/DLR3SVyCYbKBbRQIDAQABoycwJTAjBgNVHSUEHDAaBggrBgEFBQcDAQYIKwYBBQUHAwIGBFUdJQAwDQYJKoZIhvcNAQELBQADggEBADaqrfVH1FX0FLp99TG9fHOiOMD12vsIPANb9QbIADineFrSvUI3zIX56PpvMT+EApaLPcIYSwG1YziWT1oGDGkfyinofSRGl4JcC63slChUBfjlBZlXTIlc7CJA7CfzO6BW3SvO0GPF0NStCUD9Ou4oOVaIc3XrPzhIAp71cF9iLFnQUK1hiD9NhQUm5v2Nq+sQdjAxSlqigXnc+rB9+V8snCkr9x9q1cysq1ZyCRT55psa53Irqtc50T2PHA6kyzEVW51+yFaZa8z+WMoofr6ndx2DFI7n5+8jFGs9WoP+/zV8E/XK61iy+EdXVjXQYVcArjEzeIahn8QOd/hUcfo=\"\n    ],\n    \"n\": \"EFZbw1Jw7dlz4Xrdj12pQlLVuEhyVaTziQp3LvspqxyACHQb8XSKFdKZaa1eBF8PGN5zDN_d-tIrAZYnQS2gH8BoPIuB3Z9AoCLTzifnPvmOwW_e-_Wags_ApZiEfF2Po0InV5NeJAyoIpaGhlwjqqOWXm_GpCASAk9ZD8Ebnmy9RM71zDCgmvq_hPueKnbNTZdQ3TQdzEuSwxbWEHu16v5MbF7QtNzvFSFlllhgwqI2ccEljDbs18j3DUS2B1VTTAr_DLR3SVyCYbKBbRQ\",\n    \"e\": \"AQAB\"\n}\n"
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/jwks.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/jwks.write
+      - oauth2:
+        - https://jans.io/oauth/config/jwks.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    delete:
+      tags:
+      - Configuration – JWK - JSON Web Key (JWK)
+      summary: Delete a JSON Web Key based on kid
+      operationId: delete-config-jwk-kid
+      parameters:
+      - name: kid
+        in: path
+        description: The unique identifier for the key
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '406':
+          description: Not Acceptable
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/jwks.delete
+      - oauth2:
+        - https://jans.io/oauth/config/jwks.admin
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    patch:
+      tags:
+      - Configuration – JWK - JSON Web Key (JWK)
+      summary: Patch a specific JSON Web Key based on kid
+      operationId: patch-config-jwk-kid
+      parameters:
+      - name: kid
+        in: path
+        description: The unique identifier for the key
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: JsonPatch object
+        content:
+          application/json-patch+json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/JsonPatch'
+            examples:
+              Request json example:
+                description: Request json example
+                value: "[\n    { \"op\": \"replace\", \"path\": \"/use\", \"value\":\"enc\"},\n    { \"op\": \"replace\", \"path\": \"/e\", \"value\":\"Updated_XYZ\"}\n] \n"
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JSONWebKey'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: "{\n    \"kid\": \"1230bfb-276a-44aa-a97d-667b57587108_sig_rs256\",\n    \"kty\": \"RSA\",\n    \"use\": \"enc\",\n    \"alg\": \"RS256\",\n    \"exp\": 1599751946863,\n    \"x5c\": [\n        \"A0GCSqGSIb3DQEBCwUAMCExHzAdBgNVBAMMFm94QXV0aCBDQSBDZXJ0aWZpY2F0ZXMwHhcNMjAwOTA4MTUzMjE3WhcNMjAwOTEwMTUzMjI2WjAhMR8wHQYDVQQDDBZveEF1dGggQ0EgQ2VydGlmaWNhdGVzMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzj1NEHyGk/ywG25py2s/zVVrRggzRO0jE6VOUvqUzsEJwt1aszQ4onFu6vgtjNwq2ZmEFZbw1Jw7dlz4Xrdj12pQlLVuEhyVaTziQp3LvspqxyACHQb8XSKFdKZaa1eBF8PGN5zDN/d+tIrAZYnQS2gH8BoPIuB3Z9AoCLTzifnPvmOwW/e+/Wags/ApZiEfF2Po0InV5NeJAyoIpaGhlwjqqOWXm/GpCASAk9ZD8Ebnmy9RM71zDCgmvq/hPueKnbNTZdQ3TQdzEuSwxbWEHu16v5MbF7QtNzvFSFlllhgwqI2ccEljDbs18j3DUS2B1VTTAr/DLR3SVyCYbKBbRQIDAQABoycwJTAjBgNVHSUEHDAaBggrBgEFBQcDAQYIKwYBBQUHAwIGBFUdJQAwDQYJKoZIhvcNAQELBQADggEBADaqrfVH1FX0FLp99TG9fHOiOMD12vsIPANb9QbIADineFrSvUI3zIX56PpvMT+EApaLPcIYSwG1YziWT1oGDGkfyinofSRGl4JcC63slChUBfjlBZlXTIlc7CJA7CfzO6BW3SvO0GPF0NStCUD9Ou4oOVaIc3XrPzhIAp71cF9iLFnQUK1hiD9NhQUm5v2Nq+sQdjAxSlqigXnc+rB9+V8snCkr9x9q1cysq1ZyCRT55psa53Irqtc50T2PHA6kyzEVW51+yFaZa8z+WMoofr6ndx2DFI7n5+8jFGs9WoP+/zV8E/XK61iy+EdXVjXQYVcArjEzeIahn8QOd/hUcfo=\"\n    ],\n    \"n\": \"EFZbw1Jw7dlz4Xrdj12pQlLVuEhyVaTziQp3LvspqxyACHQb8XSKFdKZaa1eBF8PGN5zDN_d-tIrAZYnQS2gH8BoPIuB3Z9AoCLTzifnPvmOwW_e-_Wags_ApZiEfF2Po0InV5NeJAyoIpaGhlwjqqOWXm_GpCASAk9ZD8Ebnmy9RM71zDCgmvq_hPueKnbNTZdQ3TQdzEuSwxbWEHu16v5MbF7QtNzvFSFlllhgwqI2ccEljDbs18j3DUS2B1VTTAr_DLR3SVyCYbKBbRQ\",\n    \"e\": \"Updated_XYZ\"\n}\n"
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/jwks.write
+      - oauth2:
+        - https://jans.io/oauth/config/jwks.admin
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+  /api/v1/config/jwks:
+    get:
+      tags:
+      - Configuration – JWK - JSON Web Key (JWK)
+      summary: Gets list of JSON Web Key (JWK) used by server
+      operationId: get-config-jwks
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebKeysConfiguration'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: "{\n    \"keys\": [\n        {\n            \"descr\": \"Signature Key: RSA RSASSA-PKCS1-v1_5 using SHA-256\",\n            \"kty\": \"RSA\",\n            \"e\": \"AQAB\",\n            \"use\": \"sig\",\n            \"kid\": \"abc3a91b-dd1b-47b0-b7e7-aaf2ec3b9d5e_sig_rs256\",\n            \"x5c\": [\n                \"E3+Z7Ie9FVpDIqeBo/xI8/q7CCDxCHTtiTQjGS5j/XV4VcPt7i9mrQsajbndCAmynVw==\"\n            ],\n            \"name\": \"id_token RS256 Sign Key\",\n            \"exp\": 1666775666429,\n            \"alg\": \"RS256\",\n            \"n\": \"qzu2jRl6UoTnnUJS6zg7ghavupiUQ3Ux4fAH6H7DCXF-cuOgelBjUj_GLPqz5FeOCnQ\"\n        },\n\t\t{\n            \"descr\": \"Encryption Key: Elliptic Curve Diffie-Hellman Ephemeral Static key agreement using Concat KDF\",\n            \"kty\": \"EC\",\n            \"use\": \"enc\",\n            \"crv\": \"P-256\",\n            \"kid\": \"0870a2b9-1200-42a2-9b12-e2fa89ce3bd0_enc_ecdh-es\",\n            \"x5c\": [\n                \"tE24Ofz3eFhtBAIhAINgdWN86TOOEAUXUr2ijmaAPBgn7mGoeg4c7FfyZTxn\"\n            ],\n            \"name\": \"id_token ECDH-ES Encryption Key\",\n            \"x\": \"NBJAtpZ-jWGjaXDFYgt38\",\n            \"y\": \"7n6oS9y5vN2XrTKMKilo\",\n            \"exp\": 1666775666429,\n            \"alg\": \"ECDH-ES\"\n        }\n    ]\n}\n"
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/jwks.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/jwks.write
+      - oauth2:
+        - https://jans.io/oauth/config/jwks.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    put:
+      tags:
+      - Configuration – JWK - JSON Web Key (JWK)
+      summary: Replaces JSON Web Keys
+      operationId: put-config-jwks
+      requestBody:
+        description: JSON Web Keys object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebKeysConfiguration'
+            examples:
+              Request json example:
+                description: Request json example
+                value: "{\n    \"keys\": [\n        {\n            \"descr\": \"Signature Key: RSA RSASSA-PKCS1-v1_5 using SHA-256\",\n            \"kty\": \"RSA\",\n            \"e\": \"AQAB\",\n            \"use\": \"sig\",\n            \"kid\": \"abc3a91b-dd1b-47b0-b7e7-aaf2ec3b9d5e_sig_rs256\",\n            \"x5c\": [\n                \"E3+Z7Ie9FVpDIqeBo/xI8/q7CCDxCHTtiTQjGS5j/XV4VcPt7i9mrQsajbndCAmynVw==\"\n            ],\n            \"name\": \"id_token RS256 Sign Key\",\n            \"exp\": 1666775666429,\n            \"alg\": \"RS256\",\n            \"n\": \"qzu2jRl6UoTnnUJS6zg7ghavupiUQ3Ux4fAH6H7DCXF-cuOgelBjUj_GLPqz5FeOCnQ\"\n        },\n\t\t{\n            \"descr\": \"Encryption Key: Elliptic Curve Diffie-Hellman Ephemeral Static key agreement using Concat KDF\",\n            \"kty\": \"EC\",\n            \"use\": \"enc\",\n            \"crv\": \"P-256\",\n            \"kid\": \"0870a2b9-1200-42a2-9b12-e2fa89ce3bd0_enc_ecdh-es\",\n            \"x5c\": [\n                \"tE24Ofz3eFhtBAIhAINgdWN86TOOEAUXUr2ijmaAPBgn7mGoeg4c7FfyZTxn\"\n            ],\n            \"name\": \"id_token ECDH-ES Encryption Key\",\n            \"x\": \"NBJAtpZ-jWGjaXDFYgt38\",\n            \"y\": \"7n6oS9y5vN2XrTKMKilo\",\n            \"exp\": 1666775666429,\n            \"alg\": \"ECDH-ES\"\n        }\n    ]\n}\n"
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebKeysConfiguration'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: "{\n    \"keys\": [\n        {\n            \"descr\": \"Signature Key: RSA RSASSA-PKCS1-v1_5 using SHA-256\",\n            \"kty\": \"RSA\",\n            \"e\": \"AQAB\",\n            \"use\": \"sig\",\n            \"kid\": \"abc3a91b-dd1b-47b0-b7e7-aaf2ec3b9d5e_sig_rs256\",\n            \"x5c\": [\n                \"E3+Z7Ie9FVpDIqeBo/xI8/q7CCDxCHTtiTQjGS5j/XV4VcPt7i9mrQsajbndCAmynVw==\"\n            ],\n            \"name\": \"id_token RS256 Sign Key\",\n            \"exp\": 1666775666429,\n            \"alg\": \"RS256\",\n            \"n\": \"qzu2jRl6UoTnnUJS6zg7ghavupiUQ3Ux4fAH6H7DCXF-cuOgelBjUj_GLPqz5FeOCnQ\"\n        },\n\t\t{\n            \"descr\": \"Encryption Key: Elliptic Curve Diffie-Hellman Ephemeral Static key agreement using Concat KDF\",\n            \"kty\": \"EC\",\n            \"use\": \"enc\",\n            \"crv\": \"P-256\",\n            \"kid\": \"0870a2b9-1200-42a2-9b12-e2fa89ce3bd0_enc_ecdh-es\",\n            \"x5c\": [\n                \"tE24Ofz3eFhtBAIhAINgdWN86TOOEAUXUr2ijmaAPBgn7mGoeg4c7FfyZTxn\"\n            ],\n            \"name\": \"id_token ECDH-ES Encryption Key\",\n            \"x\": \"NBJAtpZ-jWGjaXDFYgt38\",\n            \"y\": \"7n6oS9y5vN2XrTKMKilo\",\n            \"exp\": 1666775666429,\n            \"alg\": \"ECDH-ES\"\n        }\n    ]\n}\n"
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/jwks.write
+      - oauth2:
+        - https://jans.io/oauth/config/jwks.admin
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    patch:
+      tags:
+      - Configuration – JWK - JSON Web Key (JWK)
+      summary: Patches JSON Web Keys
+      operationId: patch-config-jwks
+      requestBody:
+        description: JsonPatch object
+        content:
+          application/json-patch+json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/JsonPatch'
+            examples:
+              Request json example:
+                description: Request json example
+                value: "[\n\t{ \"op\": \"add\", \"path\": \"/keys/1\", \"value\":{\n            \"descr\": \"Test Key\",\n            \"kty\": \"EC\",\n            \"use\": \"enc\",\n            \"crv\": \"P-256\",\n            \"kid\": \"1234a2b9-1200-42a2-9b12-e2fa89ce3bd0_enc_ecdh-es\",\n            \"x5c\": [\n                \"tE24Ofz3eFhtBAIhAINgdWN86TOOEAUXUr2ijmaAPBgn7mGoeg4c7FfyZTxn\"\n            ],\n            \"name\": \"test-key\",\n            \"x\": \"NBJAtpZ-jWGjaXDFYgt38\",\n            \"y\": \"7n6oS9y5vN2XrTKMKilo\",\n            \"exp\": 1666775666429,\n            \"alg\": \"ECDH-ES\"\n        }\n\t}\n] \n"
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebKeysConfiguration'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: "{\n    \"keys\": [\n        {\n            \"descr\": \"Signature Key: RSA RSASSA-PKCS1-v1_5 using SHA-256\",\n            \"kty\": \"RSA\",\n            \"e\": \"AQAB\",\n            \"use\": \"sig\",\n            \"kid\": \"abc3a91b-dd1b-47b0-b7e7-aaf2ec3b9d5e_sig_rs256\",\n            \"x5c\": [\n                \"E3+Z7Ie9FVpDIqeBo/xI8/q7CCDxCHTtiTQjGS5j/XV4VcPt7i9mrQsajbndCAmynVw==\"\n            ],\n            \"name\": \"id_token RS256 Sign Key\",\n            \"exp\": 1666775666429,\n            \"alg\": \"RS256\",\n            \"n\": \"qzu2jRl6UoTnnUJS6zg7ghavupiUQ3Ux4fAH6H7DCXF-cuOgelBjUj_GLPqz5FeOCnQ\"\n        },\n\t\t{\n            \"descr\": \"Encryption Key: Elliptic Curve Diffie-Hellman Ephemeral Static key agreement using Concat KDF\",\n            \"kty\": \"EC\",\n            \"use\": \"enc\",\n            \"crv\": \"P-256\",\n            \"kid\": \"0870a2b9-1200-42a2-9b12-e2fa89ce3bd0_enc_ecdh-es\",\n            \"x5c\": [\n                \"tE24Ofz3eFhtBAIhAINgdWN86TOOEAUXUr2ijmaAPBgn7mGoeg4c7FfyZTxn\"\n            ],\n            \"name\": \"id_token ECDH-ES Encryption Key\",\n            \"x\": \"NBJAtpZ-jWGjaXDFYgt38\",\n            \"y\": \"7n6oS9y5vN2XrTKMKilo\",\n            \"exp\": 1666775666429,\n            \"alg\": \"ECDH-ES\"\n        }\n    ]\n}\n"
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/jwks.write
+      - oauth2:
+        - https://jans.io/oauth/config/jwks.admin
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+  /api/v1/config/jwks/key:
+    post:
+      tags:
+      - Configuration – JWK - JSON Web Key (JWK)
+      summary: Configuration – JWK - JSON Web Key (JWK)
+      operationId: post-config-jwks-key
+      requestBody:
+        description: JSONWebKey object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JSONWebKey'
+            examples:
+              Request json example:
+                description: Request json example
+                value: "{\n      \"kty\": \"RSA\",\n      \"e\": \"AQAB\",\n      \"use\": \"sig\",\n      \"crv\": \"\",\n      \"kid\": \"1230bfb-276a-44aa-a97d-667b57587108_sig_rs256\",\n      \"x5c\": [\n        \"A0GCSqGSIb3DQEBCwUAMCExHzAdBgNVBAMMFm94QXV0aCBDQSBDZXJ0aWZpY2F0ZXMwHhcNMjAwOTA4MTUzMjE3WhcNMjAwOTEwMTUzMjI2WjAhMR8wHQYDVQQDDBZveEF1dGggQ0EgQ2VydGlmaWNhdGVzMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzj1NEHyGk/ywG25py2s/zVVrRggzRO0jE6VOUvqUzsEJwt1aszQ4onFu6vgtjNwq2ZmEFZbw1Jw7dlz4Xrdj12pQlLVuEhyVaTziQp3LvspqxyACHQb8XSKFdKZaa1eBF8PGN5zDN/d+tIrAZYnQS2gH8BoPIuB3Z9AoCLTzifnPvmOwW/e+/Wags/ApZiEfF2Po0InV5NeJAyoIpaGhlwjqqOWXm/GpCASAk9ZD8Ebnmy9RM71zDCgmvq/hPueKnbNTZdQ3TQdzEuSwxbWEHu16v5MbF7QtNzvFSFlllhgwqI2ccEljDbs18j3DUS2B1VTTAr/DLR3SVyCYbKBbRQIDAQABoycwJTAjBgNVHSUEHDAaBggrBgEFBQcDAQYIKwYBBQUHAwIGBFUdJQAwDQYJKoZIhvcNAQELBQADggEBADaqrfVH1FX0FLp99TG9fHOiOMD12vsIPANb9QbIADineFrSvUI3zIX56PpvMT+EApaLPcIYSwG1YziWT1oGDGkfyinofSRGl4JcC63slChUBfjlBZlXTIlc7CJA7CfzO6BW3SvO0GPF0NStCUD9Ou4oOVaIc3XrPzhIAp71cF9iLFnQUK1hiD9NhQUm5v2Nq+sQdjAxSlqigXnc+rB9+V8snCkr9x9q1cysq1ZyCRT55psa53Irqtc50T2PHA6kyzEVW51+yFaZa8z+WMoofr6ndx2DFI7n5+8jFGs9WoP+/zV8E/XK61iy+EdXVjXQYVcArjEzeIahn8QOd/hUcfo=\"\n      ],\n      \"exp\": 1599751946863,\n      \"alg\": \"RS256\",\n      \"n\": \"EFZbw1Jw7dlz4Xrdj12pQlLVuEhyVaTziQp3LvspqxyACHQb8XSKFdKZaa1eBF8PGN5zDN_d-tIrAZYnQS2gH8BoPIuB3Z9AoCLTzifnPvmOwW_e-_Wags_ApZiEfF2Po0InV5NeJAyoIpaGhlwjqqOWXm_GpCASAk9ZD8Ebnmy9RM71zDCgmvq_hPueKnbNTZdQ3TQdzEuSwxbWEHu16v5MbF7QtNzvFSFlllhgwqI2ccEljDbs18j3DUS2B1VTTAr_DLR3SVyCYbKBbRQ\"\n    }\n"
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JSONWebKey'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: "{\n    \"kid\": \"1230bfb-276a-44aa-a97d-667b57587108_sig_rs256\",\n    \"kty\": \"RSA\",\n    \"use\": \"sig\",\n    \"alg\": \"RS256\",\n    \"exp\": 1599751946863,\n    \"x5c\": [\n        \"A0GCSqGSIb3DQEBCwUAMCExHzAdBgNVBAMMFm94QXV0aCBDQSBDZXJ0aWZpY2F0ZXMwHhcNMjAwOTA4MTUzMjE3WhcNMjAwOTEwMTUzMjI2WjAhMR8wHQYDVQQDDBZveEF1dGggQ0EgQ2VydGlmaWNhdGVzMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzj1NEHyGk/ywG25py2s/zVVrRggzRO0jE6VOUvqUzsEJwt1aszQ4onFu6vgtjNwq2ZmEFZbw1Jw7dlz4Xrdj12pQlLVuEhyVaTziQp3LvspqxyACHQb8XSKFdKZaa1eBF8PGN5zDN/d+tIrAZYnQS2gH8BoPIuB3Z9AoCLTzifnPvmOwW/e+/Wags/ApZiEfF2Po0InV5NeJAyoIpaGhlwjqqOWXm/GpCASAk9ZD8Ebnmy9RM71zDCgmvq/hPueKnbNTZdQ3TQdzEuSwxbWEHu16v5MbF7QtNzvFSFlllhgwqI2ccEljDbs18j3DUS2B1VTTAr/DLR3SVyCYbKBbRQIDAQABoycwJTAjBgNVHSUEHDAaBggrBgEFBQcDAQYIKwYBBQUHAwIGBFUdJQAwDQYJKoZIhvcNAQELBQADggEBADaqrfVH1FX0FLp99TG9fHOiOMD12vsIPANb9QbIADineFrSvUI3zIX56PpvMT+EApaLPcIYSwG1YziWT1oGDGkfyinofSRGl4JcC63slChUBfjlBZlXTIlc7CJA7CfzO6BW3SvO0GPF0NStCUD9Ou4oOVaIc3XrPzhIAp71cF9iLFnQUK1hiD9NhQUm5v2Nq+sQdjAxSlqigXnc+rB9+V8snCkr9x9q1cysq1ZyCRT55psa53Irqtc50T2PHA6kyzEVW51+yFaZa8z+WMoofr6ndx2DFI7n5+8jFGs9WoP+/zV8E/XK61iy+EdXVjXQYVcArjEzeIahn8QOd/hUcfo=\"\n    ],\n    \"n\": \"EFZbw1Jw7dlz4Xrdj12pQlLVuEhyVaTziQp3LvspqxyACHQb8XSKFdKZaa1eBF8PGN5zDN_d-tIrAZYnQS2gH8BoPIuB3Z9AoCLTzifnPvmOwW_e-_Wags_ApZiEfF2Po0InV5NeJAyoIpaGhlwjqqOWXm_GpCASAk9ZD8Ebnmy9RM71zDCgmvq_hPueKnbNTZdQ3TQdzEuSwxbWEHu16v5MbF7QtNzvFSFlllhgwqI2ccEljDbs18j3DUS2B1VTTAr_DLR3SVyCYbKBbRQ\",\n    \"e\": \"AQAB\"\n}\n"
+        '401':
+          description: Unauthorized
+        '406':
+          description: Not Acceptable
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/jwks.write
+      - oauth2:
+        - https://jans.io/oauth/config/jwks.admin
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+components:
+  schemas:
+    JsonPatch:
+      type: object
+    WebKeysConfiguration:
+      type: object
+      properties:
+        keys:
+          type: array
+          items:
+            $ref: '#/components/schemas/JSONWebKey'
+    JSONWebKey:
+      type: object
+      properties:
+        name:
+          type: string
+        descr:
+          type: string
+        kid:
+          type: string
+        kty:
+          type: string
+          enum:
+          - EC
+          - RSA
+          - OKP
+          - oct
+        use:
+          type: string
+          enum:
+          - sig
+          - enc
+        alg:
+          type: string
+          enum:
+          - RS256
+          - RS384
+          - RS512
+          - ES256
+          - ES256K
+          - ES384
+          - ES512
+          - PS256
+          - PS384
+          - PS512
+          - EdDSA
+          - RSA1_5
+          - RSA-OAEP
+          - RSA-OAEP-256
+          - ECDH-ES
+          - ECDH-ES+A128KW
+          - ECDH-ES+A192KW
+          - ECDH-ES+A256KW
+          - A128KW
+          - A192KW
+          - A256KW
+          - A128GCMKW
+          - A192GCMKW
+          - A256GCMKW
+          - PBES2-HS256+A128KW
+          - PBES2-HS384+A192KW
+          - PBES2-HS512+A256KW
+          - dir
+        exp:
+          type: integer
+          format: int64
+        crv:
+          type: string
+          enum:
+          - P-256
+          - P-256K
+          - P-384
+          - P-521
+          - Ed25519
+          - Ed448
+        x5c:
+          type: array
+          items:
+            type: string
+        n:
+          type: string
+        e:
+          type: string
+        x:
+          type: string
+        y:
+          type: string
+        key_ops_type:
+          type: array
+          items:
+            type: string
+            enum:
+            - KeyOps{value='connect'} CONNECT
+            - KeyOps{value='ssa'} SSA
+            - KeyOps{value='all'} ALL
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://{op-hostname}/.../token
+          scopes:
+            https://jans.io/oauth/jans-auth-server/config/properties.readonly: View Auth Server properties related information
+            https://jans.io/oauth/jans-auth-server/config/properties.write: Manage Auth Server properties related information
+            https://jans.io/oauth/config/attributes.readonly: View attribute related information
+            https://jans.io/oauth/config/attributes.write: Manage attribute related information
+            https://jans.io/oauth/config/attributes.delete: Delete attribute related information
+            https://jans.io/oauth/config/acrs.readonly: View ACRS related information
+            https://jans.io/oauth/config/acrs.write: Manage ACRS related information
+            https://jans.io/oauth/config/database/ldap.readonly: View LDAP database related information
+            https://jans.io/oauth/config/database/ldap.write: Manage LDAP database related information
+            https://jans.io/oauth/config/database/ldap.delete: Delete LDAP database related information
+            https://jans.io/oauth/config/scripts.readonly: View cache scripts information
+            https://jans.io/oauth/config/scripts.write: Manage scripts related information
+            https://jans.io/oauth/config/scripts.delete: Delete scripts related information
+            https://jans.io/oauth/config/cache.readonly: View cache related information
+            https://jans.io/oauth/config/cache.write: Manage cache related information
+            https://jans.io/oauth/config/smtp.readonly: View SMTP related information
+            https://jans.io/oauth/config/smtp.write: Manage SMTP related information
+            https://jans.io/oauth/config/smtp.delete: Delete SMTP related information
+            https://jans.io/oauth/config/logging.readonly: View logging related information
+            https://jans.io/oauth/config/logging.write: Manage logging related information
+            https://jans.io/oauth/config/jwks.readonly: View JWKS related information
+            https://jans.io/oauth/config/jwks.write: Manage JWKS related information
+            https://jans.io/oauth/config/jwks.delete: Delete JWKS related information
+            https://jans.io/oauth/config/openid/clients.readonly: View clients related information
+            https://jans.io/oauth/config/openid/clients.write: Manage clients related information
+            https://jans.io/oauth/config/openid/clients.delete: Delete clients related information
+            https://jans.io/oauth/config/scopes.readonly: View scope related information
+            https://jans.io/oauth/config/scopes.write: Manage scope related information
+            https://jans.io/oauth/config/scopes.delete: Delete scope related information
+            https://jans.io/oauth/config/stats.readonly: View server with basic statistic
+            https://jans.io/oauth/config/organization.readonly: View organization configuration information
+            https://jans.io/oauth/config/organization.write: Manage organization configuration information
+            https://jans.io/oauth/config/agama.readonly: View Agama Flow related information
+            https://jans.io/oauth/config/agama.write: Manage Agama Flow related information
+            https://jans.io/oauth/config/agama.delete: Delete Agama Flow related information
+            https://jans.io/oauth/jans-auth-server/session.readonly: View Session related information
+            https://jans.io/oauth/jans-auth-server/session.delete: Delete Session information
+            https://jans.io/oauth/config/read-all: Super admin read access to all configuration resources
+            https://jans.io/oauth/config/write-all: Super admin write access to all configuration resources
+            https://jans.io/oauth/config/delete-all: Super admin delete access to all configuration resources
+            https://jans.io/oauth/config/openid/openid.readonly: View OpenID functionality
+            https://jans.io/oauth/config/openid/openid.write: Manage OpenID functionality
+            https://jans.io/oauth/config/openid/openid.delete: Delete OpenID functionality
+            https://jans.io/oauth/config/uma.readonly: View UMA functionality
+            https://jans.io/oauth/config/uma.write: Manage UMA functionality
+            https://jans.io/oauth/config/uma.delete: Delete UMA functionality
+            https://jans.io/oauth/config/plugin.readonly: View Plugin information
+            https://jans.io/oauth/config/properties.readonly: View Config-API related configuration properties
+            https://jans.io/oauth/config/properties.write: Manage Config-API related configuration properties
+            https://jans.io/oauth/client/authorizations.readonly: View ClientAuthorizations
+            https://jans.io/oauth/client/authorizations.delete: Revoke ClientAuthorizations
+            https://jans.io/oauth/config/asset.readonly: View Jans Assets
+            https://jans.io/oauth/config/asset.write: Manage Jans Assets
+            https://jans.io/oauth/config/asset.delete: Delete Jans Assets
+            https://jans.io/oauth/config/token.readonly: View Token details
+            https://jans.io/oauth/config/token.write: Manage Token details
+            https://jans.io/oauth/config/token.delete: Delete Token details
+            https://jans.io/oauth/config/data.readonly: View Config-API related data
+            https://jans.io/oauth/config/ssa.readonly: View SSA details
+            https://jans.io/oauth/config/ssa.write: Manage SSA details
+            https://jans.io/oauth/config/ssa.delete: Delete SSA details
+            https://jans.io/oauth/jans-auth-server/config/properties.admin: Admin scope for Auth Server properties
+            https://jans.io/oauth/config/attributes.admin: Admin for Attribute management
+            https://jans.io/oauth/config/acrs.admin: Admin for ACRS management
+            https://jans.io/oauth/config/database.admin: Admin for Database config management
+            https://jans.io/oauth/config/scripts.admin: Admin for Scripts management
+            https://jans.io/oauth/config/cache.admin: Admin for Cache management
+            https://jans.io/oauth/config/message.admin: Admin for Message management
+            https://jans.io/oauth/config/smtp.admin: Admin for SMTP management
+            https://jans.io/oauth/config/logging.admin: Admin for Logging management
+            https://jans.io/oauth/config/jwks.admin: Admin for JWKS management
+            https://jans.io/oauth/config/openid/clients.admin: Admin for clients management
+            https://jans.io/oauth/config/token.admin: Admin for Token management
+            https://jans.io/oauth/config/scopes.admin: Admin for scope management
+            https://jans.io/oauth/config/stats.admin: Admin for statistic management
+            https://jans.io/oauth/config/organization.admin: Admin for organization configuration management
+            https://jans.io/oauth/config/agama.admin: Admin for Agama flow management
+            https://jans.io/oauth/jans-auth-server/session.admin: Admin for Session management
+            https://jans.io/oauth/config/uma.admin: Admin for UMA management
+            https://jans.io/oauth/config/plugin.admin: Admin for Plugin management
+            https://jans.io/oauth/config/properties.admin: Admin for Config-API management
+            https://jans.io/oauth/client/authorizations.admin: Admin for Client Authorizations management
+            https://jans.io/oauth/config/asset.admin: Admin for Jans Assets management
+            https://jans.io/auth/ssa.admin: Admin for SSA management
+            https://jans.io/oauth/config/health.admin: Admin for Health API management

@@ -1,0 +1,92 @@
+openapi: 3.2.0
+info:
+  title: Janssen Authorization Server UMA Scope API
+  description: Janssen Authorization Server - OAuth 2.0 server; OpenID Connect Provider (OP) & UMA Authorization Server (AS)
+  contact:
+    name: Contact
+    url: https://github.com/JanssenProject/jans/discussions
+  license:
+    name: License
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: OAS Version
+servers:
+- url: https://jans.local.io/jans-auth
+tags:
+- name: UMA Scope
+paths:
+  /restv1/uma/scopes{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      description: Resource description ID.
+      schema:
+        type: string
+    get:
+      tags:
+      - UMA Scope
+      summary: Provides UMA Scope description by scope id
+      description: Provides UMA Scope description by scope id.
+      operationId: get-uma_scopes
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: UmaScopeDescription
+                required:
+                - name
+                properties:
+                  description:
+                    type: string
+                    description: A human-readable string describing the resource at length. The authorization server MAY use this description in any user interface it presents to a resource owner, for example, for resource protection monitoring or policy setting.
+                  iconUri:
+                    type: string
+                    description: A URI for a graphic icon representing the scope. The referenced icon MAY be used by the authorization server in any user interface it presents to the resource owner.
+                  name:
+                    type: string
+                    description: A human-readable string describing some scope (extent) of access. This name MAY be used by the authorization server in any user interface it presents to the resource owner.
+        404:
+          description: Invalid parameters provided to endpoint.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - error_description
+                properties:
+                  error:
+                    type: string
+                    format: enum
+                    example:
+                    - not_found
+                  error_description:
+                    type: string
+                  details:
+                    type: string
+        500:
+          description: Invalid parameters provided to endpoint.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - error_description
+                properties:
+                  error:
+                    type: string
+                    format: enum
+                    example:
+                    - server_error
+                  error_description:
+                    type: string
+                  details:
+                    type: string
+components:
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer

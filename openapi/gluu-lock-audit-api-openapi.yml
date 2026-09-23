@@ -1,0 +1,584 @@
+openapi: 3.2.0
+info:
+  title: Jans Config API - Lock Lock - Audit API
+  contact:
+    name: Gluu Support
+    url: https://support.gluu.org
+    email: support@gluu.org
+  license:
+    name: Apache 2.0
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: 1.0.0
+servers:
+- url: https://jans.io/
+  description: The Jans server
+tags:
+- name: Lock - Audit
+paths:
+  /lock/audit/health/search:
+    get:
+      tags:
+      - Lock - Audit
+      summary: Rerquest health records for specific event range
+      operationId: request-lock-health-records-event-range
+      parameters:
+      - name: limit
+        in: query
+        description: Search size - max size of the results to return
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - name: eventStartDate
+        in: query
+        description: Event start date in ISO8601 format
+        required: true
+        schema:
+          type: string
+      - name: eventEndDate
+        in: query
+        description: Event end date in ISO8601 format
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HealthEntry'
+        '400':
+          description: Wrong date range specified
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/lock/health.readonly
+      - oauth2:
+        - https://jans.io/oauth/lock/health.write
+      - oauth2:
+        - https://jans.io/oauth/config/lock.admin
+      - oauth2:
+        - https://jans.io/oauth/lock/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+  /lock/audit/telemetry/search:
+    get:
+      tags:
+      - Lock - Audit
+      summary: Request telemetry records for specific event range
+      description: Rerquest telemetry records for specific event range
+      operationId: request-lock-telemetry-records-event-range
+      parameters:
+      - name: limit
+        in: query
+        description: Search size - max size of the results to return
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - name: eventStartDate
+        in: query
+        description: Event start date in ISO8601 format
+        required: true
+        schema:
+          type: string
+      - name: eventEndDate
+        in: query
+        description: Event end date in ISO8601 format
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TelemetryEntry'
+        '400':
+          description: Wrong date range specified
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/lock/telemetry.readonly
+      - oauth2:
+        - https://jans.io/oauth/lock/telemetry.write
+      - oauth2:
+        - https://jans.io/oauth/config/lock.admin
+      - oauth2:
+        - https://jans.io/oauth/lock/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+  /lock/audit/health/bulk:
+    post:
+      tags:
+      - Lock - Audit
+      summary: Bulk save health data
+      operationId: bulk-save-health-data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/HealthEntry'
+      responses:
+        '200':
+          description: Ok
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/lock/health.write
+      - oauth2:
+        - https://jans.io/oauth/config/lock.admin
+      - oauth2:
+        - https://jans.io/oauth/lock/write-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+  /lock/audit/log/bulk:
+    post:
+      tags:
+      - Lock - Audit
+      summary: Bulk save log data
+      operationId: bulk-save-log-data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/LogEntry'
+      responses:
+        '200':
+          description: Ok
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/lock/log.write
+      - oauth2:
+        - https://jans.io/oauth/config/lock.admin
+      - oauth2:
+        - https://jans.io/oauth/lock/write-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+  /lock/audit/telemetry/bulk:
+    post:
+      tags:
+      - Lock - Audit
+      summary: Bulk save telemetry data
+      operationId: bulk-save-telemetry-data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/TelemetryEntry'
+      responses:
+        '200':
+          description: Ok
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/lock/telemetry.write
+      - oauth2:
+        - https://jans.io/oauth/config/lock.admin
+      - oauth2:
+        - https://jans.io/oauth/lock/write-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+  /lock/audit/health:
+    post:
+      tags:
+      - Lock - Audit
+      summary: Save health data
+      operationId: save-health-data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HealthEntry'
+      responses:
+        '200':
+          description: Ok
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/lock/health.write
+      - oauth2:
+        - https://jans.io/oauth/config/lock.admin
+      - oauth2:
+        - https://jans.io/oauth/lock/write-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+  /lock/audit/log:
+    post:
+      tags:
+      - Lock - Audit
+      summary: Save log data
+      operationId: save-log-data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogEntry'
+      responses:
+        '200':
+          description: Ok
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/lock/log.write
+      - oauth2:
+        - https://jans.io/oauth/config/lock.admin
+      - oauth2:
+        - https://jans.io/oauth/lock/write-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+  /lock/audit/telemetry:
+    post:
+      tags:
+      - Lock - Audit
+      summary: Save telemetry data
+      operationId: save-telemetry-data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TelemetryEntry'
+      responses:
+        '200':
+          description: Ok
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/lock/telemetry.write
+      - oauth2:
+        - https://jans.io/oauth/config/lock.admin
+      - oauth2:
+        - https://jans.io/oauth/lock/write-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+components:
+  schemas:
+    LogEntry:
+      type: object
+      properties:
+        dn:
+          type: string
+        baseDn:
+          type: string
+        inum:
+          type: string
+        creationDate:
+          type: string
+          description: Creation date of the entry
+          format: date-time
+          example: 2026-07-24 15:33:02.937000+00:00
+        eventTime:
+          type: string
+          description: Time when the event occurred
+          format: date-time
+          example: 2026-07-24 15:33:02.937000+00:00
+        service:
+          type: string
+          description: Service name
+          example: Lock Server
+        nodeName:
+          type: string
+          description: Node name or identifier
+          example: 04bbe9ef-a853-417c-a2b8-5328b62936e2
+        eventType:
+          type: string
+          description: Type of event
+          example: Decision
+        severityLevel:
+          type: string
+          description: Severity level
+          example: warning
+          enum:
+          - info
+          - warning
+          - error
+          - critical
+        action:
+          type: string
+          description: Action performed
+          example: Jans::Action::"POST"
+        decisionResult:
+          type: string
+          description: Decision result
+          example: ALLOW
+          enum:
+          - ALLOW
+          - DENY
+        requestedResource:
+          type: string
+          description: Requested resource identifier
+          example: Jans::HTTP_Request::"lock_audit_log_write"
+        principalId:
+          type: string
+          description: Principal (user) identifier
+          example: ACC0001
+        clientId:
+          type: string
+          description: Client identifier
+          example: CLI001
+        jti:
+          type: string
+          description: JWT ID - unique identifier for the token
+          example: 550e8400-e29b-41d4-a716-446655440000
+        contextInformation:
+          type: object
+          additionalProperties:
+            type: string
+            description: Additional context information as key-value pairs
+          description: Additional context information as key-value pairs
+      description: Log audit entry
+    TelemetryEntry:
+      type: object
+      properties:
+        dn:
+          type: string
+        baseDn:
+          type: string
+        inum:
+          type: string
+        creationDate:
+          type: string
+          description: Creation date of the entry
+          format: date-time
+          example: 2026-07-24 15:33:06.872000+00:00
+        service:
+          type: string
+          description: Service name
+          example: Lock Server
+        nodeName:
+          type: string
+          description: Node name or identifier
+          example: 04bbe9ef-a853-417c-a2b8-5328b62936e2
+        status:
+          type: string
+          description: Service status
+          example: running
+        policyStats:
+          type: object
+          additionalProperties:
+            type: integer
+            description: Per-policy evaluation counters as key-value pairs
+            format: int64
+          description: Per-policy evaluation counters as key-value pairs
+        errorCounters:
+          type: object
+          additionalProperties:
+            type: integer
+            description: Error counters broken down by error type
+            format: int64
+          description: Error counters broken down by error type
+        operationalStats:
+          type: object
+          additionalProperties:
+            type: integer
+            description: Operational statistics (requests, decisions, eval times) as key-value pairs
+            format: int64
+          description: Operational statistics (requests, decisions, eval times) as key-value pairs
+        intervalSecs:
+          type: integer
+          description: Telemetry collection interval in seconds
+          format: int64
+          example: 5
+      description: Telemetry audit entry
+    ApiError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+    HealthEntry:
+      type: object
+      properties:
+        dn:
+          type: string
+        baseDn:
+          type: string
+        inum:
+          type: string
+        creationDate:
+          type: string
+          description: Creation date of the entry
+          format: date-time
+          example: 2026-07-24 15:33:06.875000+00:00
+        eventTime:
+          type: string
+          description: Time when the event occurred
+          format: date-time
+          example: 2026-07-24 15:33:06.875000+00:00
+        service:
+          type: string
+          description: Service name
+          example: Lock Server
+        nodeName:
+          type: string
+          description: Node name or identifier
+          example: 04bbe9ef-a853-417c-a2b8-5328b62936e2
+        status:
+          type: string
+          description: Health status
+          example: running
+        engineStatus:
+          type: object
+          additionalProperties:
+            type: string
+      description: Health audit entry
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://{op-hostname}/.../token
+          scopes:
+            https://jans.io/oauth/lock/read-all: View Lock related information
+            https://jans.io/oauth/lock/write-all: View Lock related information
+            https://jans.io/oauth/lock-config.readonly: View Lock configuration related information
+            https://jans.io/oauth/lock-config.write: Manage Lock configuration related information
+            https://jans.io/oauth/lock/audit.readonly: View Lock audit related information
+            https://jans.io/oauth/lock/audit.write: View Lock audit related information
+            https://jans.io/oauth/lock/health.readonly: View Lock health related information
+            https://jans.io/oauth/lock/health.write: Manage Lock health related information
+            https://jans.io/oauth/lock/log.readonly: View Lock log related information
+            https://jans.io/oauth/lock/log.write: Manage Lock log health related information
+            https://jans.io/oauth/lock/telemetry.readonly: View Lock telemetry related information
+            https://jans.io/oauth/lock/telemetry.write: Manage Lock telemetry related information
+            https://jans.io/oauth/config/lock.admin: Lock Admin access to manage all Lock configuration related information
+            https://jans.io/oauth/config/read-all: Super admin read access to all configuration resources
+            https://jans.io/oauth/config/write-all: Super admin write access to all configuration resources
+            https://jans.io/oauth/config/delete-all: Super admin delete access to all configuration resources
+            jans_stat: Auth Server Stats Authorization Scope

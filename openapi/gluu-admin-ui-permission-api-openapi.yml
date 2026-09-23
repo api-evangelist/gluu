@@ -1,0 +1,285 @@
+openapi: 3.2.0
+info:
+  title: Jans Config API - Admin-UI Admin UI - Permission API
+  contact:
+    name: Gluu Support
+    url: https://support.gluu.org
+    email: xxx@gluu.org
+  license:
+    name: Apache 2.0
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: 1.0.0
+servers:
+- url: https://jans.io/
+  description: The Jans server
+tags:
+- name: Admin UI - Permission
+paths:
+  /admin-ui/adminUIPermissions:
+    get:
+      tags:
+      - Admin UI - Permission
+      summary: Get all admin ui permissions
+      operationId: get-all-adminui-permissions
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdminPermission'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.readonly
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.write
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.admin
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/read-all
+    put:
+      tags:
+      - Admin UI - Permission
+      summary: Edit admin ui permissions
+      operationId: edit-adminui-permission
+      requestBody:
+        description: AdminPermission object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminPermission'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdminPermission'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.write
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.admin
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/write-all
+    post:
+      tags:
+      - Admin UI - Permission
+      summary: Add admin ui permissions
+      operationId: add-adminui-permission
+      requestBody:
+        description: AdminPermission object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminPermission'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdminPermission'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.write
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.admin
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/write-all
+    delete:
+      tags:
+      - Admin UI - Permission
+      summary: Delete admin ui permission
+      operationId: delete-adminui-permission
+      requestBody:
+        description: AdminPermission object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminPermission'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdminPermission'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.delete
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.admin
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/delete-all
+  /admin-ui/adminUIPermissions/{adminUIPermission}:
+    get:
+      tags:
+      - Admin UI - Permission
+      summary: Get admin ui permission by permission-name
+      operationId: get-adminui-permission
+      parameters:
+      - name: adminUIPermission
+        in: path
+        description: Admin UI Permission
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdminPermission'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.readonly
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.write
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.admin
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/read-all
+components:
+  schemas:
+    JsonNode:
+      type: object
+    GenericResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        responseMessage:
+          type: string
+        responseCode:
+          type: integer
+          format: int32
+        responseObject:
+          $ref: '#/components/schemas/JsonNode'
+        responseBytes:
+          type: string
+          format: byte
+    AdminPermission:
+      type: object
+      properties:
+        tag:
+          type: string
+        permission:
+          type: string
+        description:
+          type: string
+        defaultPermissionInToken:
+          type: boolean
+        essentialPermissionInAdminUI:
+          type: boolean
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://{op-hostname}/.../token
+          scopes:
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/role.readonly: View admin user role related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/role.write: Manage admin user role related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/role.delete: Delete admin user role related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.readonly: View admin permission related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.write: Manage admin permission related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.delete: Delete admin permission related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.readonly: View role-permission mapping related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.write: Manage role-permission mapping related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.delete: Delete role-permission mapping related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/license.readonly: View admin-ui license related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/license.write: Manage admin-ui license related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/license.admin: Full administrative access to license related information (super-user level)
+            https://jans.io/oauth/jans-auth-server/config/adminui/security.readonly: View Admin UI security related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/security.write: Edit Admin UI security related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/security.delete: Delete Admin UI security related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/properties.readonly: View Admin UI configuration properties related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/properties.write: Manage Admin UI configuration properties related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/role.admin: Full administrative access to admin user roles (super-user level)
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.admin: Full administrative access to admin permissions (super-user level)
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.admin: Full administrative access to role-permission mappings (super-user level)
+            https://jans.io/oauth/config/read-all: Super admin read access to all configuration resources
+            https://jans.io/oauth/config/write-all: Super admin write access to all configuration resources
+            https://jans.io/oauth/config/delete-all: Super admin delete access to all configuration resources

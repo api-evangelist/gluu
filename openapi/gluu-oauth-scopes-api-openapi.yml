@@ -1,0 +1,1064 @@
+openapi: 3.2.0
+info:
+  title: Jans Config OAuth - Scopes API
+  contact:
+    name: Contact
+    url: https://github.com/JanssenProject/jans/discussions
+  license:
+    name: License
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: OAS Version
+servers:
+- url: https://jans.local.io
+  description: The Jans server
+tags:
+- name: OAuth - Scopes
+paths:
+  /api/v1/scopes:
+    get:
+      tags:
+      - OAuth - Scopes
+      summary: Gets list of Scopes
+      operationId: get-oauth-scopes
+      parameters:
+      - name: type
+        in: query
+        description: Scope type
+        schema:
+          type: string
+          default: ''
+      - name: limit
+        in: query
+        description: Search size - max size of the results to return
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - name: pattern
+        in: query
+        description: Search pattern
+        schema:
+          type: string
+          default: ''
+      - name: startIndex
+        in: query
+        description: The 1-based index of the first query result
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: sortBy
+        in: query
+        description: Attribute whose value will be used to order the returned response
+        schema:
+          type: string
+          default: inum
+      - name: sortOrder
+        in: query
+        description: Order in which the sortBy param is applied. Allowed values are "ascending" and "descending"
+        schema:
+          type: string
+          default: ascending
+      - name: withAssociatedClients
+        in: query
+        description: Boolean fag to indicate if clients associated with the scope are to be returned
+        schema:
+          type: boolean
+          default: false
+      - name: fieldValuePair
+        in: query
+        description: Field and value pair for seraching
+        schema:
+          type: string
+          default: ''
+        examples:
+          Field value example:
+            description: Field value example
+            value: scopeType=spontaneous,defaultScope=true
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResult'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: "{\n    \"start\": 0,\n    \"totalEntriesCount\": 79,\n    \"entriesCount\": 2,\n    \"entries\": [\n        {\n            \"dn\": \"inum=F0C4,ou=scopes,o=jans\",\n            \"inum\": \"F0C4\",\n            \"displayName\": \"authenticate_openid_connect\",\n            \"id\": \"openid\",\n            \"description\": \"Authenticate using OpenID Connect.\",\n            \"scopeType\": \"openid\",\n            \"defaultScope\": true,\n            \"attributes\": {\n                \"showInConfigurationEndpoint\": true\n            },\n            \"creationDate\": \"2022-10-27T20:51:17\",\n            \"umaType\": false,\n            \"baseDn\": \"inum=F0C4,ou=scopes,o=jans\"\n        },\n        {\n            \"dn\": \"inum=43F1,ou=scopes,o=jans\",\n            \"inum\": \"43F1\",\n            \"displayName\": \"view_profile\",\n            \"id\": \"profile\",\n            \"description\": \"View your basic profile info.\",\n            \"scopeType\": \"openid\",\n            \"claims\": [\n                \"inum=2B29,ou=attributes,o=jans\",\n                \"inum=0C85,ou=attributes,o=jans\",\n                \"inum=B4B0,ou=attributes,o=jans\",\n                \"inum=A0E8,ou=attributes,o=jans\",\n                \"inum=5EC6,ou=attributes,o=jans\",\n                \"inum=B52A,ou=attributes,o=jans\",\n                \"inum=64A0,ou=attributes,o=jans\",\n                \"inum=EC3A,ou=attributes,o=jans\",\n                \"inum=3B47,ou=attributes,o=jans\",\n                \"inum=3692,ou=attributes,o=jans\",\n                \"inum=98FC,ou=attributes,o=jans\",\n                \"inum=A901,ou=attributes,o=jans\",\n                \"inum=36D9,ou=attributes,o=jans\",\n                \"inum=BE64,ou=attributes,o=jans\",\n                \"inum=6493,ou=attributes,o=jans\",\n                \"inum=4CF1,ou=attributes,o=jans\",\n                \"inum=29DA,ou=attributes,o=jans\"\n            ],\n            \"defaultScope\": true,\n            \"attributes\": {\n                \"showInConfigurationEndpoint\": true\n            },\n            \"creationDate\": \"2022-10-27T20:51:17\",\n            \"umaType\": false,\n            \"baseDn\": \"inum=43F1,ou=scopes,o=jans\"\n        }\n    ]\n}\n"
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/scopes.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/scopes.write
+      - oauth2:
+        - https://jans.io/oauth/config/scopes.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    put:
+      tags:
+      - OAuth - Scopes
+      summary: Update Scope
+      operationId: put-oauth-scopes
+      requestBody:
+        description: Scope object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Scope'
+            examples:
+              Request json example:
+                description: Request json example
+                value: "{\n    \"dn\": \"inum=9c4c6027-86b8-4afc-a68f-6b50579e6d21,ou=scopes,o=jans\",\n    \"inum\": \"9c4c6027-86b8-4afc-a68f-6b50579e6d21\",\n    \"displayName\": \"Test Display Scope 5\",\n    \"id\": \"Scope5\",\n    \"iconUrl\": \"http://google.com\",\n    \"description\": \"TEST Description for Scope 5\",\n    \"scopeType\": \"spontaneous\",\n    \"defaultScope\": false,\n    \"umaAuthorizationPolicies\": [\n        \"inum=2DAF-F9A5,ou=scripts,o=jans\",\n        \"inum=2DAF-F995,ou=scripts,o=jans\"\n    ],\n    \"attributes\": {\n        \"showInConfigurationEndpoint\": true\n    },\n    \"creatorId\": \"2000.99b53b02-dfa1-42cd-aaef-b940d58bb03f\",\n    \"creatorType\": \"user\",\n    \"creationDate\": \"2022-10-27T21:09:45\",\n    \"umaType\": false,\n    \"baseDn\": \"inum=9c4c6027-86b8-4afc-a68f-6b50579e6d21,ou=scopes,o=jans\"\n}\n"
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scope'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: "{\n    \"dn\": \"inum=9c4c6027-86b8-4afc-a68f-6b50579e6d21,ou=scopes,o=jans\",\n    \"inum\": \"9c4c6027-86b8-4afc-a68f-6b50579e6d21\",\n    \"displayName\": \"Test Display Scope 5\",\n    \"id\": \"Scope5\",\n    \"iconUrl\": \"http://google.com\",\n    \"description\": \"TEST Description for Scope 5\",\n    \"scopeType\": \"spontaneous\",\n    \"defaultScope\": false,\n    \"umaAuthorizationPolicies\": [\n        \"inum=2DAF-F9A5,ou=scripts,o=jans\",\n        \"inum=2DAF-F995,ou=scripts,o=jans\"\n    ],\n    \"attributes\": {\n        \"showInConfigurationEndpoint\": true\n    },\n    \"creatorId\": \"2000.99b53b02-dfa1-42cd-aaef-b940d58bb03f\",\n    \"creatorType\": \"user\",\n    \"creationDate\": \"2022-10-27T21:09:45\",\n    \"umaType\": false,\n    \"baseDn\": \"inum=9c4c6027-86b8-4afc-a68f-6b50579e6d21,ou=scopes,o=jans\"\n}\n"
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/scopes.write
+      - oauth2:
+        - https://jans.io/oauth/config/scopes.admin
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    post:
+      tags:
+      - OAuth - Scopes
+      summary: Create Scope
+      operationId: post-oauth-scopes
+      requestBody:
+        description: Scope object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Scope'
+            examples:
+              Request json example:
+                description: Request json example
+                value: "{\n    \"claims\": [],\n    \"dynamicScopeScripts\": [],\n    \"defaultScope\": false,\n    \"attributes\": {\n        \"spontaneousClientScopes\": [],\n        \"showInConfigurationEndpoint\": true\n    },\n    \"id\": \"Scope5\",\n    \"displayName\": \"Test Display Scope 5\",\n    \"description\": \"TEST Description for Scope 5\",\n    \"scopeType\": \"spontaneous\",\n    \"iconUrl\": \"http://google.com\",\n    \"umaAuthorizationPolicies\": [\n        \"inum=2DAF-F9A5,ou=scripts,o=jans\",\n        \"inum=2DAF-F995,ou=scripts,o=jans\"\n    ],\n    \"creatorType\": \"user\",\n    \"creatorId\": \"2000.99b53b02-dfa1-42cd-aaef-b940d58bb03f\"\n}\n"
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scope'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: "{\n    \"dn\": \"inum=9c4c6027-86b8-4afc-a68f-6b50579e6d21,ou=scopes,o=jans\",\n    \"inum\": \"9c4c6027-86b8-4afc-a68f-6b50579e6d21\",\n    \"displayName\": \"Test Display Scope 5\",\n    \"id\": \"Scope5\",\n    \"iconUrl\": \"http://google.com\",\n    \"description\": \"TEST Description for Scope 5\",\n    \"scopeType\": \"spontaneous\",\n    \"defaultScope\": false,\n    \"umaAuthorizationPolicies\": [\n        \"inum=2DAF-F9A5,ou=scripts,o=jans\",\n        \"inum=2DAF-F995,ou=scripts,o=jans\"\n    ],\n    \"attributes\": {\n        \"showInConfigurationEndpoint\": true\n    },\n    \"creatorId\": \"2000.99b53b02-dfa1-42cd-aaef-b940d58bb03f\",\n    \"creatorType\": \"user\",\n    \"creationDate\": \"2022-10-27T21:09:45\",\n    \"umaType\": false,\n    \"baseDn\": \"inum=9c4c6027-86b8-4afc-a68f-6b50579e6d21,ou=scopes,o=jans\"\n}\n"
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/scopes.write
+      - oauth2:
+        - https://jans.io/oauth/config/scopes.admin
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+  /api/v1/scopes/{inum}:
+    get:
+      tags:
+      - OAuth - Scopes
+      summary: Get Scope by Inum
+      operationId: get-oauth-scopes-by-inum
+      parameters:
+      - name: inum
+        in: path
+        description: Scope identifier
+        required: true
+        schema:
+          type: string
+      - name: withAssociatedClients
+        in: query
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomScope'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: "{\n    \"dn\": \"inum=764C,ou=scopes,o=jans\",\n    \"inum\": \"764C\",\n    \"displayName\": \"view_email_address\",\n    \"id\": \"email\",\n    \"description\": \"View your email address.\",\n    \"scopeType\": \"openid\",\n    \"claims\": [\n        \"inum=8F88,ou=attributes,o=jans\",\n        \"inum=CAE3,ou=attributes,o=jans\"\n    ],\n    \"defaultScope\": true,\n    \"attributes\": {\n        \"showInConfigurationEndpoint\": true\n    },\n    \"creationDate\": \"2022-10-27T20:58:29\",\n    \"clients\": [\n        {\n            \"dn\": \"inum=2000.7810d591-69d3-458c-9309-4268085fe71c,ou=clients,o=jans\",\n            \"deletable\": false,\n            \"clientSecret\": \"ec0mQbx1udmSEs6flUXquA==\",\n            \"frontChannelLogoutUri\": \"http://localhost:4100/logout\",\n            \"frontChannelLogoutSessionRequired\": false,\n            \"redirectUris\": [\n                \"https://jans.server2/admin\",\n                \"http://localhost:4100\"\n            ],\n            \"responseTypes\": [\n                \"code\"\n            ],\n            \"grantTypes\": [\n                \"authorization_code\",\n                \"refresh_token\",\n                \"client_credentials\",\n                \"urn:ietf:params:oauth:grant-type:device_code\"\n            ],\n            \"applicationType\": \"web\",\n            \"clientName\": {\n                \"values\": {\n                    \"\": \"Jans Role Based Client\"\n                },\n                \"value\": \"Jans Role Based Client\",\n                \"languageTags\": [\n                    \"\"\n                ]\n            },\n            \"logoUri\": {},\n            \"clientUri\": {},\n            \"policyUri\": {},\n            \"tosUri\": {},\n            \"subjectType\": \"pairwise\",\n            \"idTokenSignedResponseAlg\": \"RS256\",\n            \"userInfoSignedResponseAlg\": \"RS256\",\n            \"tokenEndpointAuthMethod\": \"client_secret_basic\",\n            \"postLogoutRedirectUris\": [\n                \"http://localhost:4100\",\n                \"https://jans.server2/admin\"\n            ],\n            \"scopes\": [\n                \"inum=C4F7,ou=scopes,o=jans\",\n                \"inum=C4F6,ou=scopes,o=jans\",\n                \"inum=43F1,ou=scopes,o=jans\",\n                \"inum=764C,ou=scopes,o=jans\",\n                \"inum=F0C4,ou=scopes,o=jans\"\n            ],\n            \"trustedClient\": false,\n            \"persistClientAuthorizations\": true,\n            \"includeClaimsInIdToken\": false,\n            \"accessTokenLifetime\": 2592000,\n            \"customAttributes\": [\n                {\n                    \"name\": \"displayName\",\n                    \"multiValued\": false,\n                    \"values\": [\n                        \"Jans Role Based Client\"\n                    ],\n                    \"value\": \"Jans Role Based Client\",\n                    \"displayValue\": \"Jans Role Based Client\"\n                }\n            ],\n            \"customObjectClasses\": [\n                \"top\"\n            ],\n            \"rptAsJwt\": false,\n            \"accessTokenAsJwt\": true,\n            \"accessTokenSigningAlg\": \"RS256\",\n            \"disabled\": false,\n            \"attributes\": {\n                \"runIntrospectionScriptBeforeJwtCreation\": true,\n                \"keepClientAuthorizationAfterExpiration\": false,\n                \"allowSpontaneousScopes\": false,\n                \"backchannelLogoutSessionRequired\": false,\n                \"introspectionScripts\": [\n                    \"inum=A44E-4F3D,ou=scripts,o=jans\"\n                ],\n                \"parLifetime\": 600,\n                \"requirePar\": false,\n                \"jansDefaultPromptLogin\": false\n            },\n            \"tokenBindingSupported\": false,\n            \"authenticationMethod\": \"client_secret_basic\",\n            \"displayName\": \"Jans Role Based Client\",\n            \"baseDn\": \"inum=2000.7810d591-69d3-458c-9309-4268085fe71c,ou=clients,o=jans\",\n            \"inum\": \"2000.7810d591-69d3-458c-9309-4268085fe71c\"\n        },\n        {\n            \"dn\": \"inum=FF81-2D39,ou=clients,o=jans\",\n            \"clientSecret\": \"n7/ZG1jOL6RMR/USOmTAsg==\",\n            \"frontChannelLogoutSessionRequired\": false,\n            \"redirectUris\": [\n                \"https://jans.server2/jans-auth-rp/home.htm\",\n                \"https://client.example.com/cb\",\n                \"https://client.example.com/cb1\",\n                \"https://client.example.com/cb2\"\n            ],\n            \"claimRedirectUris\": [\n                \"https://jans.server2/jans-auth/restv1/uma/gather_claims\"\n            ],\n            \"responseTypes\": [\n                \"token\",\n                \"code\",\n                \"id_token\"\n            ],\n            \"grantTypes\": [\n                \"authorization_code\",\n                \"implicit\",\n                \"refresh_token\",\n                \"client_credentials\"\n            ],\n            \"applicationType\": \"web\",\n            \"clientName\": {\n                \"values\": {\n                    \"\": \"Jans Test Client (don't remove)\"\n                },\n                \"value\": \"Jans Test Client (don't remove)\",\n                \"languageTags\": [\n                    \"\"\n                ]\n            },\n            \"logoUri\": {},\n            \"clientUri\": {},\n            \"policyUri\": {},\n            \"tosUri\": {},\n            \"subjectType\": \"public\",\n            \"idTokenSignedResponseAlg\": \"RS256\",\n            \"tokenEndpointAuthMethod\": \"client_secret_basic\",\n            \"scopes\": [\n                \"inum=F0C4,ou=scopes,o=jans\",\n                \"inum=10B2,ou=scopes,o=jans\",\n                \"inum=764C,ou=scopes,o=jans\",\n                \"inum=43F1,ou=scopes,o=jans\",\n                \"inum=341A,ou=scopes,o=jans\",\n                \"inum=6D99,ou=scopes,o=jans\"\n            ],\n            \"trustedClient\": true,\n            \"persistClientAuthorizations\": false,\n            \"includeClaimsInIdToken\": false,\n            \"customAttributes\": [\n                {\n                    \"name\": \"displayName\",\n                    \"multiValued\": false,\n                    \"values\": [\n                        \"Jans Test Client (don't remove)\"\n                    ],\n                    \"value\": \"Jans Test Client (don't remove)\",\n                    \"displayValue\": \"Jans Test Client (don't remove)\"\n                }\n            ],\n            \"customObjectClasses\": [\n                \"top\"\n            ],\n            \"rptAsJwt\": false,\n            \"accessTokenAsJwt\": false,\n            \"disabled\": false,\n            \"attributes\": {\n                \"runIntrospectionScriptBeforeJwtCreation\": false,\n                \"keepClientAuthorizationAfterExpiration\": false,\n                \"allowSpontaneousScopes\": false,\n                \"backchannelLogoutSessionRequired\": false,\n                \"parLifetime\": 600,\n                \"requirePar\": false,\n                \"jansDefaultPromptLogin\": false\n            },\n            \"tokenBindingSupported\": false,\n            \"authenticationMethod\": \"client_secret_basic\",\n            \"displayName\": \"Jans Test Client (don't remove)\",\n            \"baseDn\": \"inum=FF81-2D39,ou=clients,o=jans\",\n            \"inum\": \"FF81-2D39\"\n        },\n        {\n            \"dn\": \"inum=b3c1d295-42e5-425e-b021-7b2fd3206437,ou=clients,o=jans\",\n            \"deletable\": false,\n            \"clientSecret\": \"5LIyGKo7kTLfWxBi0wSVAbxpB98Q70/Fr2NWMHnpEOiWHLFAQXwqNQ==\",\n            \"frontChannelLogoutSessionRequired\": false,\n            \"redirectUris\": [\n                \"https://abc,com\"\n            ],\n            \"responseTypes\": [\n                \"code\"\n            ],\n            \"grantTypes\": [\n                \"refresh_token\",\n                \"authorization_code\"\n            ],\n            \"applicationType\": \"web\",\n            \"clientName\": {\n                \"values\": {\n                    \"\": \"test1234\"\n                },\n                \"value\": \"test1234\",\n                \"languageTags\": [\n                    \"\"\n                ]\n            },\n            \"logoUri\": {},\n            \"clientUri\": {},\n            \"policyUri\": {},\n            \"tosUri\": {},\n            \"subjectType\": \"public\",\n            \"tokenEndpointAuthMethod\": \"client_secret_basic\",\n            \"scopes\": [\n                \"inum=764C,ou=scopes,o=jans\",\n                \"inum=43F1,ou=scopes,o=jans\",\n                \"inum=C17A,ou=scopes,o=jans\"\n            ],\n            \"trustedClient\": false,\n            \"persistClientAuthorizations\": false,\n            \"includeClaimsInIdToken\": false,\n            \"customAttributes\": [\n                {\n                    \"name\": \"displayName\",\n                    \"multiValued\": false,\n                    \"values\": [\n                        \"test1234\"\n                    ],\n                    \"value\": \"test1234\",\n                    \"displayValue\": \"test1234\"\n                }\n            ],\n            \"customObjectClasses\": [\n                \"top\",\n                \"jansClntCustomAttributes\"\n            ],\n            \"rptAsJwt\": false,\n            \"accessTokenAsJwt\": false,\n            \"disabled\": false,\n            \"attributes\": {\n                \"runIntrospectionScriptBeforeJwtCreation\": false,\n                \"keepClientAuthorizationAfterExpiration\": false,\n                \"allowSpontaneousScopes\": false,\n                \"backchannelLogoutSessionRequired\": false,\n                \"parLifetime\": 600,\n                \"requirePar\": false,\n                \"jansDefaultPromptLogin\": false\n            },\n            \"backchannelUserCodeParameter\": false,\n            \"description\": \"test1234\",\n            \"tokenBindingSupported\": false,\n            \"authenticationMethod\": \"client_secret_basic\",\n            \"displayName\": \"test1234\",\n            \"baseDn\": \"inum=b3c1d295-42e5-425e-b021-7b2fd3206437,ou=clients,o=jans\",\n            \"inum\": \"b3c1d295-42e5-425e-b021-7b2fd3206437\"\n        },\n        {\n            \"dn\": \"inum=1bb91a73-6899-440f-ac27-c04429671522,ou=clients,o=jans\",\n            \"deletable\": false,\n            \"clientSecret\": \"Xi1+z0Ey8UDbtxsRYL3HAeneTCIEndWVeWEzS4dB2Is0iyupSjXr1w==\",\n            \"frontChannelLogoutSessionRequired\": false,\n            \"redirectUris\": [\n                \"https://abc,com\"\n            ],\n            \"responseTypes\": [\n                \"code\"\n            ],\n            \"grantTypes\": [\n                \"refresh_token\",\n                \"authorization_code\"\n            ],\n            \"applicationType\": \"web\",\n            \"clientName\": {\n                \"values\": {\n                    \"\": \"test12345\"\n                },\n                \"value\": \"test12345\",\n                \"languageTags\": [\n                    \"\"\n                ]\n            },\n            \"logoUri\": {},\n            \"clientUri\": {},\n            \"policyUri\": {},\n            \"tosUri\": {},\n            \"subjectType\": \"public\",\n            \"tokenEndpointAuthMethod\": \"client_secret_basic\",\n            \"scopes\": [\n                \"inum=764C,ou=scopes,o=jans\",\n                \"inum=43F1,ou=scopes,o=jans\",\n                \"inum=C17A,ou=scopes,o=jans\"\n            ],\n            \"trustedClient\": false,\n            \"persistClientAuthorizations\": false,\n            \"includeClaimsInIdToken\": false,\n            \"customAttributes\": [\n                {\n                    \"name\": \"displayName\",\n                    \"multiValued\": false,\n                    \"values\": [\n                        \"test12345\"\n                    ],\n                    \"value\": \"test12345\",\n                    \"displayValue\": \"test12345\"\n                }\n            ],\n            \"customObjectClasses\": [\n                \"top\",\n                \"jansClntCustomAttributes\"\n            ],\n            \"rptAsJwt\": false,\n            \"accessTokenAsJwt\": false,\n            \"disabled\": false,\n            \"attributes\": {\n                \"runIntrospectionScriptBeforeJwtCreation\": false,\n                \"keepClientAuthorizationAfterExpiration\": false,\n                \"allowSpontaneousScopes\": false,\n                \"backchannelLogoutSessionRequired\": false,\n                \"parLifetime\": 600,\n                \"requirePar\": false,\n                \"jansDefaultPromptLogin\": false\n            },\n            \"backchannelUserCodeParameter\": false,\n            \"description\": \"test12345\",\n            \"tokenBindingSupported\": false,\n            \"authenticationMethod\": \"client_secret_basic\",\n            \"displayName\": \"test12345\",\n            \"baseDn\": \"inum=1bb91a73-6899-440f-ac27-c04429671522,ou=clients,o=jans\",\n            \"inum\": \"1bb91a73-6899-440f-ac27-c04429671522\"\n        }\n    ],\n    \"umaType\": false,\n    \"baseDn\": \"inum=764C,ou=scopes,o=jans\"\n}\n"
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/scopes.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/scopes.write
+      - oauth2:
+        - https://jans.io/oauth/config/scopes.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    delete:
+      tags:
+      - OAuth - Scopes
+      summary: Delete Scope
+      operationId: delete-oauth-scopes-by-inum
+      parameters:
+      - name: inum
+        in: path
+        description: Scope identifier
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/scopes.delete
+      - oauth2:
+        - https://jans.io/oauth/config/scopes.admin
+      - oauth2:
+        - https://jans.io/oauth/config/delete-all
+    patch:
+      tags:
+      - OAuth - Scopes
+      summary: Patch Scope
+      operationId: patch-oauth-scopes-by-id
+      parameters:
+      - name: inum
+        in: path
+        description: Scope identifier
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: String representing patch-document.
+        content:
+          application/json-patch+json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/JsonPatch'
+            examples:
+              Request json example:
+                description: Request json example
+                value: '
+
+                  [{ "op": "replace", "path": "/umaAuthorizationPolicies", "value": ["inum=2DAF-F995,ou=scripts,o=jans"] }]
+
+                  '
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scope'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: "{\n    \"dn\": \"inum=9c4c6027-86b8-4afc-a68f-6b50579e6d21,ou=scopes,o=jans\",\n    \"inum\": \"9c4c6027-86b8-4afc-a68f-6b50579e6d21\",\n    \"displayName\": \"Test Display Scope 5\",\n    \"id\": \"Scope5\",\n    \"iconUrl\": \"http://google.com\",\n    \"description\": \"TEST Description for Scope 5\",\n    \"scopeType\": \"spontaneous\",\n    \"defaultScope\": false,\n    \"umaAuthorizationPolicies\": [\n        \"inum=2DAF-F9A5,ou=scripts,o=jans\",\n        \"inum=2DAF-F995,ou=scripts,o=jans\"\n    ],\n    \"attributes\": {\n        \"showInConfigurationEndpoint\": true\n    },\n    \"creatorId\": \"2000.99b53b02-dfa1-42cd-aaef-b940d58bb03f\",\n    \"creatorType\": \"user\",\n    \"creationDate\": \"2022-10-27T21:09:45\",\n    \"umaType\": false,\n    \"baseDn\": \"inum=9c4c6027-86b8-4afc-a68f-6b50579e6d21,ou=scopes,o=jans\"\n}\n"
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/scopes.write
+      - oauth2:
+        - https://jans.io/oauth/config/scopes.admin
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+  /api/v1/scopes/creator/{creatorId}:
+    get:
+      tags:
+      - OAuth - Scopes
+      summary: Get Scope by creatorId
+      operationId: get-scope-by-creator
+      parameters:
+      - name: creatorId
+        in: path
+        description: Id of the scope creator. If creator is client then client_id if user then user_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomScope'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: "{\n    \"dn\": \"inum=764C,ou=scopes,o=jans\",\n    \"inum\": \"764C\",\n    \"displayName\": \"view_email_address\",\n    \"id\": \"email\",\n    \"description\": \"View your email address.\",\n    \"scopeType\": \"openid\",\n    \"claims\": [\n        \"inum=8F88,ou=attributes,o=jans\",\n        \"inum=CAE3,ou=attributes,o=jans\"\n    ],\n    \"defaultScope\": true,\n    \"attributes\": {\n        \"showInConfigurationEndpoint\": true\n    },\n    \"creationDate\": \"2022-10-27T20:58:29\",\n    \"clients\": [\n        {\n            \"dn\": \"inum=2000.7810d591-69d3-458c-9309-4268085fe71c,ou=clients,o=jans\",\n            \"deletable\": false,\n            \"clientSecret\": \"ec0mQbx1udmSEs6flUXquA==\",\n            \"frontChannelLogoutUri\": \"http://localhost:4100/logout\",\n            \"frontChannelLogoutSessionRequired\": false,\n            \"redirectUris\": [\n                \"https://jans.server2/admin\",\n                \"http://localhost:4100\"\n            ],\n            \"responseTypes\": [\n                \"code\"\n            ],\n            \"grantTypes\": [\n                \"authorization_code\",\n                \"refresh_token\",\n                \"client_credentials\",\n                \"urn:ietf:params:oauth:grant-type:device_code\"\n            ],\n            \"applicationType\": \"web\",\n            \"clientName\": {\n                \"values\": {\n                    \"\": \"Jans Role Based Client\"\n                },\n                \"value\": \"Jans Role Based Client\",\n                \"languageTags\": [\n                    \"\"\n                ]\n            },\n            \"logoUri\": {},\n            \"clientUri\": {},\n            \"policyUri\": {},\n            \"tosUri\": {},\n            \"subjectType\": \"pairwise\",\n            \"idTokenSignedResponseAlg\": \"RS256\",\n            \"userInfoSignedResponseAlg\": \"RS256\",\n            \"tokenEndpointAuthMethod\": \"client_secret_basic\",\n            \"postLogoutRedirectUris\": [\n                \"http://localhost:4100\",\n                \"https://jans.server2/admin\"\n            ],\n            \"scopes\": [\n                \"inum=C4F7,ou=scopes,o=jans\",\n                \"inum=C4F6,ou=scopes,o=jans\",\n                \"inum=43F1,ou=scopes,o=jans\",\n                \"inum=764C,ou=scopes,o=jans\",\n                \"inum=F0C4,ou=scopes,o=jans\"\n            ],\n            \"trustedClient\": false,\n            \"persistClientAuthorizations\": true,\n            \"includeClaimsInIdToken\": false,\n            \"accessTokenLifetime\": 2592000,\n            \"customAttributes\": [\n                {\n                    \"name\": \"displayName\",\n                    \"multiValued\": false,\n                    \"values\": [\n                        \"Jans Role Based Client\"\n                    ],\n                    \"value\": \"Jans Role Based Client\",\n                    \"displayValue\": \"Jans Role Based Client\"\n                }\n            ],\n            \"customObjectClasses\": [\n                \"top\"\n            ],\n            \"rptAsJwt\": false,\n            \"accessTokenAsJwt\": true,\n            \"accessTokenSigningAlg\": \"RS256\",\n            \"disabled\": false,\n            \"attributes\": {\n                \"runIntrospectionScriptBeforeJwtCreation\": true,\n                \"keepClientAuthorizationAfterExpiration\": false,\n                \"allowSpontaneousScopes\": false,\n                \"backchannelLogoutSessionRequired\": false,\n                \"introspectionScripts\": [\n                    \"inum=A44E-4F3D,ou=scripts,o=jans\"\n                ],\n                \"parLifetime\": 600,\n                \"requirePar\": false,\n                \"jansDefaultPromptLogin\": false\n            },\n            \"tokenBindingSupported\": false,\n            \"authenticationMethod\": \"client_secret_basic\",\n            \"displayName\": \"Jans Role Based Client\",\n            \"baseDn\": \"inum=2000.7810d591-69d3-458c-9309-4268085fe71c,ou=clients,o=jans\",\n            \"inum\": \"2000.7810d591-69d3-458c-9309-4268085fe71c\"\n        },\n        {\n            \"dn\": \"inum=FF81-2D39,ou=clients,o=jans\",\n            \"clientSecret\": \"n7/ZG1jOL6RMR/USOmTAsg==\",\n            \"frontChannelLogoutSessionRequired\": false,\n            \"redirectUris\": [\n                \"https://jans.server2/jans-auth-rp/home.htm\",\n                \"https://client.example.com/cb\",\n                \"https://client.example.com/cb1\",\n                \"https://client.example.com/cb2\"\n            ],\n            \"claimRedirectUris\": [\n                \"https://jans.server2/jans-auth/restv1/uma/gather_claims\"\n            ],\n            \"responseTypes\": [\n                \"token\",\n                \"code\",\n                \"id_token\"\n            ],\n            \"grantTypes\": [\n                \"authorization_code\",\n                \"implicit\",\n                \"refresh_token\",\n                \"client_credentials\"\n            ],\n            \"applicationType\": \"web\",\n            \"clientName\": {\n                \"values\": {\n                    \"\": \"Jans Test Client (don't remove)\"\n                },\n                \"value\": \"Jans Test Client (don't remove)\",\n                \"languageTags\": [\n                    \"\"\n                ]\n            },\n            \"logoUri\": {},\n            \"clientUri\": {},\n            \"policyUri\": {},\n            \"tosUri\": {},\n            \"subjectType\": \"public\",\n            \"idTokenSignedResponseAlg\": \"RS256\",\n            \"tokenEndpointAuthMethod\": \"client_secret_basic\",\n            \"scopes\": [\n                \"inum=F0C4,ou=scopes,o=jans\",\n                \"inum=10B2,ou=scopes,o=jans\",\n                \"inum=764C,ou=scopes,o=jans\",\n                \"inum=43F1,ou=scopes,o=jans\",\n                \"inum=341A,ou=scopes,o=jans\",\n                \"inum=6D99,ou=scopes,o=jans\"\n            ],\n            \"trustedClient\": true,\n            \"persistClientAuthorizations\": false,\n            \"includeClaimsInIdToken\": false,\n            \"customAttributes\": [\n                {\n                    \"name\": \"displayName\",\n                    \"multiValued\": false,\n                    \"values\": [\n                        \"Jans Test Client (don't remove)\"\n                    ],\n                    \"value\": \"Jans Test Client (don't remove)\",\n                    \"displayValue\": \"Jans Test Client (don't remove)\"\n                }\n            ],\n            \"customObjectClasses\": [\n                \"top\"\n            ],\n            \"rptAsJwt\": false,\n            \"accessTokenAsJwt\": false,\n            \"disabled\": false,\n            \"attributes\": {\n                \"runIntrospectionScriptBeforeJwtCreation\": false,\n                \"keepClientAuthorizationAfterExpiration\": false,\n                \"allowSpontaneousScopes\": false,\n                \"backchannelLogoutSessionRequired\": false,\n                \"parLifetime\": 600,\n                \"requirePar\": false,\n                \"jansDefaultPromptLogin\": false\n            },\n            \"tokenBindingSupported\": false,\n            \"authenticationMethod\": \"client_secret_basic\",\n            \"displayName\": \"Jans Test Client (don't remove)\",\n            \"baseDn\": \"inum=FF81-2D39,ou=clients,o=jans\",\n            \"inum\": \"FF81-2D39\"\n        },\n        {\n            \"dn\": \"inum=b3c1d295-42e5-425e-b021-7b2fd3206437,ou=clients,o=jans\",\n            \"deletable\": false,\n            \"clientSecret\": \"5LIyGKo7kTLfWxBi0wSVAbxpB98Q70/Fr2NWMHnpEOiWHLFAQXwqNQ==\",\n            \"frontChannelLogoutSessionRequired\": false,\n            \"redirectUris\": [\n                \"https://abc,com\"\n            ],\n            \"responseTypes\": [\n                \"code\"\n            ],\n            \"grantTypes\": [\n                \"refresh_token\",\n                \"authorization_code\"\n            ],\n            \"applicationType\": \"web\",\n            \"clientName\": {\n                \"values\": {\n                    \"\": \"test1234\"\n                },\n                \"value\": \"test1234\",\n                \"languageTags\": [\n                    \"\"\n                ]\n            },\n            \"logoUri\": {},\n            \"clientUri\": {},\n            \"policyUri\": {},\n            \"tosUri\": {},\n            \"subjectType\": \"public\",\n            \"tokenEndpointAuthMethod\": \"client_secret_basic\",\n            \"scopes\": [\n                \"inum=764C,ou=scopes,o=jans\",\n                \"inum=43F1,ou=scopes,o=jans\",\n                \"inum=C17A,ou=scopes,o=jans\"\n            ],\n            \"trustedClient\": false,\n            \"persistClientAuthorizations\": false,\n            \"includeClaimsInIdToken\": false,\n            \"customAttributes\": [\n                {\n                    \"name\": \"displayName\",\n                    \"multiValued\": false,\n                    \"values\": [\n                        \"test1234\"\n                    ],\n                    \"value\": \"test1234\",\n                    \"displayValue\": \"test1234\"\n                }\n            ],\n            \"customObjectClasses\": [\n                \"top\",\n                \"jansClntCustomAttributes\"\n            ],\n            \"rptAsJwt\": false,\n            \"accessTokenAsJwt\": false,\n            \"disabled\": false,\n            \"attributes\": {\n                \"runIntrospectionScriptBeforeJwtCreation\": false,\n                \"keepClientAuthorizationAfterExpiration\": false,\n                \"allowSpontaneousScopes\": false,\n                \"backchannelLogoutSessionRequired\": false,\n                \"parLifetime\": 600,\n                \"requirePar\": false,\n                \"jansDefaultPromptLogin\": false\n            },\n            \"backchannelUserCodeParameter\": false,\n            \"description\": \"test1234\",\n            \"tokenBindingSupported\": false,\n            \"authenticationMethod\": \"client_secret_basic\",\n            \"displayName\": \"test1234\",\n            \"baseDn\": \"inum=b3c1d295-42e5-425e-b021-7b2fd3206437,ou=clients,o=jans\",\n            \"inum\": \"b3c1d295-42e5-425e-b021-7b2fd3206437\"\n        },\n        {\n            \"dn\": \"inum=1bb91a73-6899-440f-ac27-c04429671522,ou=clients,o=jans\",\n            \"deletable\": false,\n            \"clientSecret\": \"Xi1+z0Ey8UDbtxsRYL3HAeneTCIEndWVeWEzS4dB2Is0iyupSjXr1w==\",\n            \"frontChannelLogoutSessionRequired\": false,\n            \"redirectUris\": [\n                \"https://abc,com\"\n            ],\n            \"responseTypes\": [\n                \"code\"\n            ],\n            \"grantTypes\": [\n                \"refresh_token\",\n                \"authorization_code\"\n            ],\n            \"applicationType\": \"web\",\n            \"clientName\": {\n                \"values\": {\n                    \"\": \"test12345\"\n                },\n                \"value\": \"test12345\",\n                \"languageTags\": [\n                    \"\"\n                ]\n            },\n            \"logoUri\": {},\n            \"clientUri\": {},\n            \"policyUri\": {},\n            \"tosUri\": {},\n            \"subjectType\": \"public\",\n            \"tokenEndpointAuthMethod\": \"client_secret_basic\",\n            \"scopes\": [\n                \"inum=764C,ou=scopes,o=jans\",\n                \"inum=43F1,ou=scopes,o=jans\",\n                \"inum=C17A,ou=scopes,o=jans\"\n            ],\n            \"trustedClient\": false,\n            \"persistClientAuthorizations\": false,\n            \"includeClaimsInIdToken\": false,\n            \"customAttributes\": [\n                {\n                    \"name\": \"displayName\",\n                    \"multiValued\": false,\n                    \"values\": [\n                        \"test12345\"\n                    ],\n                    \"value\": \"test12345\",\n                    \"displayValue\": \"test12345\"\n                }\n            ],\n            \"customObjectClasses\": [\n                \"top\",\n                \"jansClntCustomAttributes\"\n            ],\n            \"rptAsJwt\": false,\n            \"accessTokenAsJwt\": false,\n            \"disabled\": false,\n            \"attributes\": {\n                \"runIntrospectionScriptBeforeJwtCreation\": false,\n                \"keepClientAuthorizationAfterExpiration\": false,\n                \"allowSpontaneousScopes\": false,\n                \"backchannelLogoutSessionRequired\": false,\n                \"parLifetime\": 600,\n                \"requirePar\": false,\n                \"jansDefaultPromptLogin\": false\n            },\n            \"backchannelUserCodeParameter\": false,\n            \"description\": \"test12345\",\n            \"tokenBindingSupported\": false,\n            \"authenticationMethod\": \"client_secret_basic\",\n            \"displayName\": \"test12345\",\n            \"baseDn\": \"inum=1bb91a73-6899-440f-ac27-c04429671522,ou=clients,o=jans\",\n            \"inum\": \"1bb91a73-6899-440f-ac27-c04429671522\"\n        }\n    ],\n    \"umaType\": false,\n    \"baseDn\": \"inum=764C,ou=scopes,o=jans\"\n}\n"
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/scopes.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/scopes.write
+      - oauth2:
+        - https://jans.io/oauth/config/scopes.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+  /api/v1/scopes/type/{type}:
+    get:
+      tags:
+      - OAuth - Scopes
+      summary: Get Scope by type
+      operationId: get-scope-by-type
+      parameters:
+      - name: type
+        in: path
+        description: Type of the scope
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomScope'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: "{\n    \"dn\": \"inum=764C,ou=scopes,o=jans\",\n    \"inum\": \"764C\",\n    \"displayName\": \"view_email_address\",\n    \"id\": \"email\",\n    \"description\": \"View your email address.\",\n    \"scopeType\": \"openid\",\n    \"claims\": [\n        \"inum=8F88,ou=attributes,o=jans\",\n        \"inum=CAE3,ou=attributes,o=jans\"\n    ],\n    \"defaultScope\": true,\n    \"attributes\": {\n        \"showInConfigurationEndpoint\": true\n    },\n    \"creationDate\": \"2022-10-27T20:58:29\",\n    \"clients\": [\n        {\n            \"dn\": \"inum=2000.7810d591-69d3-458c-9309-4268085fe71c,ou=clients,o=jans\",\n            \"deletable\": false,\n            \"clientSecret\": \"ec0mQbx1udmSEs6flUXquA==\",\n            \"frontChannelLogoutUri\": \"http://localhost:4100/logout\",\n            \"frontChannelLogoutSessionRequired\": false,\n            \"redirectUris\": [\n                \"https://jans.server2/admin\",\n                \"http://localhost:4100\"\n            ],\n            \"responseTypes\": [\n                \"code\"\n            ],\n            \"grantTypes\": [\n                \"authorization_code\",\n                \"refresh_token\",\n                \"client_credentials\",\n                \"urn:ietf:params:oauth:grant-type:device_code\"\n            ],\n            \"applicationType\": \"web\",\n            \"clientName\": {\n                \"values\": {\n                    \"\": \"Jans Role Based Client\"\n                },\n                \"value\": \"Jans Role Based Client\",\n                \"languageTags\": [\n                    \"\"\n                ]\n            },\n            \"logoUri\": {},\n            \"clientUri\": {},\n            \"policyUri\": {},\n            \"tosUri\": {},\n            \"subjectType\": \"pairwise\",\n            \"idTokenSignedResponseAlg\": \"RS256\",\n            \"userInfoSignedResponseAlg\": \"RS256\",\n            \"tokenEndpointAuthMethod\": \"client_secret_basic\",\n            \"postLogoutRedirectUris\": [\n                \"http://localhost:4100\",\n                \"https://jans.server2/admin\"\n            ],\n            \"scopes\": [\n                \"inum=C4F7,ou=scopes,o=jans\",\n                \"inum=C4F6,ou=scopes,o=jans\",\n                \"inum=43F1,ou=scopes,o=jans\",\n                \"inum=764C,ou=scopes,o=jans\",\n                \"inum=F0C4,ou=scopes,o=jans\"\n            ],\n            \"trustedClient\": false,\n            \"persistClientAuthorizations\": true,\n            \"includeClaimsInIdToken\": false,\n            \"accessTokenLifetime\": 2592000,\n            \"customAttributes\": [\n                {\n                    \"name\": \"displayName\",\n                    \"multiValued\": false,\n                    \"values\": [\n                        \"Jans Role Based Client\"\n                    ],\n                    \"value\": \"Jans Role Based Client\",\n                    \"displayValue\": \"Jans Role Based Client\"\n                }\n            ],\n            \"customObjectClasses\": [\n                \"top\"\n            ],\n            \"rptAsJwt\": false,\n            \"accessTokenAsJwt\": true,\n            \"accessTokenSigningAlg\": \"RS256\",\n            \"disabled\": false,\n            \"attributes\": {\n                \"runIntrospectionScriptBeforeJwtCreation\": true,\n                \"keepClientAuthorizationAfterExpiration\": false,\n                \"allowSpontaneousScopes\": false,\n                \"backchannelLogoutSessionRequired\": false,\n                \"introspectionScripts\": [\n                    \"inum=A44E-4F3D,ou=scripts,o=jans\"\n                ],\n                \"parLifetime\": 600,\n                \"requirePar\": false,\n                \"jansDefaultPromptLogin\": false\n            },\n            \"tokenBindingSupported\": false,\n            \"authenticationMethod\": \"client_secret_basic\",\n            \"displayName\": \"Jans Role Based Client\",\n            \"baseDn\": \"inum=2000.7810d591-69d3-458c-9309-4268085fe71c,ou=clients,o=jans\",\n            \"inum\": \"2000.7810d591-69d3-458c-9309-4268085fe71c\"\n        },\n        {\n            \"dn\": \"inum=FF81-2D39,ou=clients,o=jans\",\n            \"clientSecret\": \"n7/ZG1jOL6RMR/USOmTAsg==\",\n            \"frontChannelLogoutSessionRequired\": false,\n            \"redirectUris\": [\n                \"https://jans.server2/jans-auth-rp/home.htm\",\n                \"https://client.example.com/cb\",\n                \"https://client.example.com/cb1\",\n                \"https://client.example.com/cb2\"\n            ],\n            \"claimRedirectUris\": [\n                \"https://jans.server2/jans-auth/restv1/uma/gather_claims\"\n            ],\n            \"responseTypes\": [\n                \"token\",\n                \"code\",\n                \"id_token\"\n            ],\n            \"grantTypes\": [\n                \"authorization_code\",\n                \"implicit\",\n                \"refresh_token\",\n                \"client_credentials\"\n            ],\n            \"applicationType\": \"web\",\n            \"clientName\": {\n                \"values\": {\n                    \"\": \"Jans Test Client (don't remove)\"\n                },\n                \"value\": \"Jans Test Client (don't remove)\",\n                \"languageTags\": [\n                    \"\"\n                ]\n            },\n            \"logoUri\": {},\n            \"clientUri\": {},\n            \"policyUri\": {},\n            \"tosUri\": {},\n            \"subjectType\": \"public\",\n            \"idTokenSignedResponseAlg\": \"RS256\",\n            \"tokenEndpointAuthMethod\": \"client_secret_basic\",\n            \"scopes\": [\n                \"inum=F0C4,ou=scopes,o=jans\",\n                \"inum=10B2,ou=scopes,o=jans\",\n                \"inum=764C,ou=scopes,o=jans\",\n                \"inum=43F1,ou=scopes,o=jans\",\n                \"inum=341A,ou=scopes,o=jans\",\n                \"inum=6D99,ou=scopes,o=jans\"\n            ],\n            \"trustedClient\": true,\n            \"persistClientAuthorizations\": false,\n            \"includeClaimsInIdToken\": false,\n            \"customAttributes\": [\n                {\n                    \"name\": \"displayName\",\n                    \"multiValued\": false,\n                    \"values\": [\n                        \"Jans Test Client (don't remove)\"\n                    ],\n                    \"value\": \"Jans Test Client (don't remove)\",\n                    \"displayValue\": \"Jans Test Client (don't remove)\"\n                }\n            ],\n            \"customObjectClasses\": [\n                \"top\"\n            ],\n            \"rptAsJwt\": false,\n            \"accessTokenAsJwt\": false,\n            \"disabled\": false,\n            \"attributes\": {\n                \"runIntrospectionScriptBeforeJwtCreation\": false,\n                \"keepClientAuthorizationAfterExpiration\": false,\n                \"allowSpontaneousScopes\": false,\n                \"backchannelLogoutSessionRequired\": false,\n                \"parLifetime\": 600,\n                \"requirePar\": false,\n                \"jansDefaultPromptLogin\": false\n            },\n            \"tokenBindingSupported\": false,\n            \"authenticationMethod\": \"client_secret_basic\",\n            \"displayName\": \"Jans Test Client (don't remove)\",\n            \"baseDn\": \"inum=FF81-2D39,ou=clients,o=jans\",\n            \"inum\": \"FF81-2D39\"\n        },\n        {\n            \"dn\": \"inum=b3c1d295-42e5-425e-b021-7b2fd3206437,ou=clients,o=jans\",\n            \"deletable\": false,\n            \"clientSecret\": \"5LIyGKo7kTLfWxBi0wSVAbxpB98Q70/Fr2NWMHnpEOiWHLFAQXwqNQ==\",\n            \"frontChannelLogoutSessionRequired\": false,\n            \"redirectUris\": [\n                \"https://abc,com\"\n            ],\n            \"responseTypes\": [\n                \"code\"\n            ],\n            \"grantTypes\": [\n                \"refresh_token\",\n                \"authorization_code\"\n            ],\n            \"applicationType\": \"web\",\n            \"clientName\": {\n                \"values\": {\n                    \"\": \"test1234\"\n                },\n                \"value\": \"test1234\",\n                \"languageTags\": [\n                    \"\"\n                ]\n            },\n            \"logoUri\": {},\n            \"clientUri\": {},\n            \"policyUri\": {},\n            \"tosUri\": {},\n            \"subjectType\": \"public\",\n            \"tokenEndpointAuthMethod\": \"client_secret_basic\",\n            \"scopes\": [\n                \"inum=764C,ou=scopes,o=jans\",\n                \"inum=43F1,ou=scopes,o=jans\",\n                \"inum=C17A,ou=scopes,o=jans\"\n            ],\n            \"trustedClient\": false,\n            \"persistClientAuthorizations\": false,\n            \"includeClaimsInIdToken\": false,\n            \"customAttributes\": [\n                {\n                    \"name\": \"displayName\",\n                    \"multiValued\": false,\n                    \"values\": [\n                        \"test1234\"\n                    ],\n                    \"value\": \"test1234\",\n                    \"displayValue\": \"test1234\"\n                }\n            ],\n            \"customObjectClasses\": [\n                \"top\",\n                \"jansClntCustomAttributes\"\n            ],\n            \"rptAsJwt\": false,\n            \"accessTokenAsJwt\": false,\n            \"disabled\": false,\n            \"attributes\": {\n                \"runIntrospectionScriptBeforeJwtCreation\": false,\n                \"keepClientAuthorizationAfterExpiration\": false,\n                \"allowSpontaneousScopes\": false,\n                \"backchannelLogoutSessionRequired\": false,\n                \"parLifetime\": 600,\n                \"requirePar\": false,\n                \"jansDefaultPromptLogin\": false\n            },\n            \"backchannelUserCodeParameter\": false,\n            \"description\": \"test1234\",\n            \"tokenBindingSupported\": false,\n            \"authenticationMethod\": \"client_secret_basic\",\n            \"displayName\": \"test1234\",\n            \"baseDn\": \"inum=b3c1d295-42e5-425e-b021-7b2fd3206437,ou=clients,o=jans\",\n            \"inum\": \"b3c1d295-42e5-425e-b021-7b2fd3206437\"\n        },\n        {\n            \"dn\": \"inum=1bb91a73-6899-440f-ac27-c04429671522,ou=clients,o=jans\",\n            \"deletable\": false,\n            \"clientSecret\": \"Xi1+z0Ey8UDbtxsRYL3HAeneTCIEndWVeWEzS4dB2Is0iyupSjXr1w==\",\n            \"frontChannelLogoutSessionRequired\": false,\n            \"redirectUris\": [\n                \"https://abc,com\"\n            ],\n            \"responseTypes\": [\n                \"code\"\n            ],\n            \"grantTypes\": [\n                \"refresh_token\",\n                \"authorization_code\"\n            ],\n            \"applicationType\": \"web\",\n            \"clientName\": {\n                \"values\": {\n                    \"\": \"test12345\"\n                },\n                \"value\": \"test12345\",\n                \"languageTags\": [\n                    \"\"\n                ]\n            },\n            \"logoUri\": {},\n            \"clientUri\": {},\n            \"policyUri\": {},\n            \"tosUri\": {},\n            \"subjectType\": \"public\",\n            \"tokenEndpointAuthMethod\": \"client_secret_basic\",\n            \"scopes\": [\n                \"inum=764C,ou=scopes,o=jans\",\n                \"inum=43F1,ou=scopes,o=jans\",\n                \"inum=C17A,ou=scopes,o=jans\"\n            ],\n            \"trustedClient\": false,\n            \"persistClientAuthorizations\": false,\n            \"includeClaimsInIdToken\": false,\n            \"customAttributes\": [\n                {\n                    \"name\": \"displayName\",\n                    \"multiValued\": false,\n                    \"values\": [\n                        \"test12345\"\n                    ],\n                    \"value\": \"test12345\",\n                    \"displayValue\": \"test12345\"\n                }\n            ],\n            \"customObjectClasses\": [\n                \"top\",\n                \"jansClntCustomAttributes\"\n            ],\n            \"rptAsJwt\": false,\n            \"accessTokenAsJwt\": false,\n            \"disabled\": false,\n            \"attributes\": {\n                \"runIntrospectionScriptBeforeJwtCreation\": false,\n                \"keepClientAuthorizationAfterExpiration\": false,\n                \"allowSpontaneousScopes\": false,\n                \"backchannelLogoutSessionRequired\": false,\n                \"parLifetime\": 600,\n                \"requirePar\": false,\n                \"jansDefaultPromptLogin\": false\n            },\n            \"backchannelUserCodeParameter\": false,\n            \"description\": \"test12345\",\n            \"tokenBindingSupported\": false,\n            \"authenticationMethod\": \"client_secret_basic\",\n            \"displayName\": \"test12345\",\n            \"baseDn\": \"inum=1bb91a73-6899-440f-ac27-c04429671522,ou=clients,o=jans\",\n            \"inum\": \"1bb91a73-6899-440f-ac27-c04429671522\"\n        }\n    ],\n    \"umaType\": false,\n    \"baseDn\": \"inum=764C,ou=scopes,o=jans\"\n}\n"
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/scopes.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/scopes.write
+      - oauth2:
+        - https://jans.io/oauth/config/scopes.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+components:
+  schemas:
+    Scope:
+      type: object
+      properties:
+        dn:
+          type: string
+        expirationDate:
+          type: string
+          format: date-time
+        deletable:
+          type: boolean
+        inum:
+          type: string
+        displayName:
+          type: string
+        id:
+          type: string
+        iconUrl:
+          type: string
+        description:
+          type: string
+        scopeType:
+          type: string
+          enum:
+          - openid
+          - dynamic
+          - uma
+          - spontaneous
+          - oauth
+        claims:
+          type: array
+          items:
+            type: string
+        defaultScope:
+          type: boolean
+        groupClaims:
+          type: boolean
+        dynamicScopeScripts:
+          type: array
+          items:
+            type: string
+        umaAuthorizationPolicies:
+          type: array
+          items:
+            type: string
+        attributes:
+          $ref: '#/components/schemas/ScopeAttributes'
+        creatorId:
+          type: string
+        creatorType:
+          type: string
+          enum:
+          - none
+          - client
+          - user
+          - auto
+        creationDate:
+          type: string
+          format: date-time
+        creatorAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        umaType:
+          type: boolean
+        baseDn:
+          type: string
+    ScopeAttributes:
+      type: object
+      properties:
+        spontaneousClientScopes:
+          type: array
+          items:
+            type: string
+        showInConfigurationEndpoint:
+          type: boolean
+    CustomScope:
+      type: object
+      properties:
+        dn:
+          type: string
+        expirationDate:
+          type: string
+          format: date-time
+        deletable:
+          type: boolean
+        inum:
+          type: string
+        displayName:
+          type: string
+        id:
+          type: string
+        iconUrl:
+          type: string
+        description:
+          type: string
+        scopeType:
+          type: string
+          enum:
+          - openid
+          - dynamic
+          - uma
+          - spontaneous
+          - oauth
+        claims:
+          type: array
+          items:
+            type: string
+        defaultScope:
+          type: boolean
+        groupClaims:
+          type: boolean
+        dynamicScopeScripts:
+          type: array
+          items:
+            type: string
+        umaAuthorizationPolicies:
+          type: array
+          items:
+            type: string
+        attributes:
+          $ref: '#/components/schemas/ScopeAttributes'
+        creatorId:
+          type: string
+        creatorType:
+          type: string
+          enum:
+          - none
+          - client
+          - user
+          - auto
+        creationDate:
+          type: string
+          format: date-time
+        creatorAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        clients:
+          type: array
+          items:
+            $ref: '#/components/schemas/Client'
+        umaType:
+          type: boolean
+        baseDn:
+          type: string
+    PagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            type: object
+    ClientAttributes:
+      type: object
+      properties:
+        cimdExpired:
+          type: boolean
+        tlsClientAuthSubjectDn:
+          type: string
+        runIntrospectionScriptBeforeJwtCreation:
+          type: boolean
+        keepClientAuthorizationAfterExpiration:
+          type: boolean
+        allowSpontaneousScopes:
+          type: boolean
+        spontaneousScopes:
+          type: array
+          items:
+            type: string
+        spontaneousScopeScriptDns:
+          type: array
+          items:
+            type: string
+        updateTokenScriptDns:
+          type: array
+          items:
+            type: string
+        logoutStatusJwtScriptDns:
+          type: array
+          items:
+            type: string
+        parScriptDns:
+          type: array
+          items:
+            type: string
+        txTokenScriptDns:
+          type: array
+          items:
+            type: string
+        backchannelLogoutUri:
+          type: array
+          items:
+            type: string
+        backchannelLogoutSessionRequired:
+          type: boolean
+        additionalAudience:
+          type: array
+          items:
+            type: string
+        postAuthnScripts:
+          type: array
+          items:
+            type: string
+        tokenExchangeScripts:
+          type: array
+          items:
+            type: string
+        idJagScripts:
+          type: array
+          items:
+            type: string
+        consentGatheringScripts:
+          type: array
+          items:
+            type: string
+        introspectionScripts:
+          type: array
+          items:
+            type: string
+        rptClaimsScripts:
+          type: array
+          items:
+            type: string
+        ropcScripts:
+          type: array
+          items:
+            type: string
+        parLifetime:
+          type: integer
+          format: int32
+        requirePar:
+          type: boolean
+        dpopBoundAccessToken:
+          type: boolean
+        jansAuthSignedRespAlg:
+          type: string
+        jansAuthEncRespAlg:
+          type: string
+        jansAuthEncRespEnc:
+          type: string
+        jansSubAttr:
+          type: string
+        redirectUrisRegex:
+          type: string
+        jansAuthorizedAcr:
+          type: array
+          items:
+            type: string
+        jansDefaultPromptLogin:
+          type: boolean
+        txTokenLifetime:
+          type: integer
+          format: int32
+        idTokenLifetime:
+          type: integer
+          format: int32
+        allowOfflineAccessWithoutConsent:
+          type: boolean
+        requirePkce:
+          type: boolean
+        minimumAcrLevel:
+          type: integer
+          format: int32
+        minimumAcrLevelAutoresolve:
+          type: boolean
+        additionalTokenEndpointAuthMethods:
+          type: array
+          items:
+            type: string
+        minimumAcrPriorityList:
+          type: array
+          items:
+            type: string
+        requestedLifetime:
+          type: integer
+          format: int32
+        evidence:
+          type: string
+        introspectionSignedResponseAlg:
+          type: string
+        introspectionEncryptedResponseAlg:
+          type: string
+        introspectionEncryptedResponseEnc:
+          type: string
+        txTokenSignedResponseAlg:
+          type: string
+        txTokenEncryptedResponseAlg:
+          type: string
+        txTokenEncryptedResponseEnc:
+          type: string
+        logoutStatusJwtSignedResponseAlg:
+          type: string
+        authorizationDetailsTypes:
+          type: array
+          items:
+            type: string
+        cimdClient:
+          type: boolean
+        cimdOriginalClientId:
+          type: string
+        cimdExpiresAt:
+          type: integer
+          format: int64
+        spiffeId:
+          type: string
+        spiffeBundleEndpoint:
+          type: string
+    Client:
+      type: object
+      properties:
+        dn:
+          type: string
+        expirationDate:
+          type: string
+          format: date-time
+        deletable:
+          type: boolean
+        clientSecret:
+          type: string
+        frontChannelLogoutUri:
+          type: string
+        frontChannelLogoutSessionRequired:
+          type: boolean
+        registrationAccessToken:
+          type: string
+        clientIdIssuedAt:
+          type: string
+          format: date-time
+        clientSecretExpiresAt:
+          type: string
+          format: date-time
+        redirectUris:
+          type: array
+          items:
+            type: string
+        claimRedirectUris:
+          type: array
+          items:
+            type: string
+        responseTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - code
+            - token
+            - id_token
+        grantTypes:
+          type: array
+          items:
+            type: string
+            enum:
+            - none
+            - authorization_code
+            - implicit
+            - password
+            - client_credentials
+            - refresh_token
+            - urn:ietf:params:oauth:grant-type:uma-ticket
+            - urn:ietf:params:oauth:grant-type:token-exchange
+            - urn:openid:params:grant-type:ciba
+            - urn:ietf:params:oauth:grant-type:device_code
+            - urn:ietf:params:oauth:grant-type:jwt-bearer
+        applicationType:
+          type: string
+          enum:
+          - native
+          - web
+        contacts:
+          type: array
+          items:
+            type: string
+        idTokenTokenBindingCnf:
+          type: string
+        clientName:
+          type: string
+        logoUri:
+          type: string
+        clientUri:
+          type: string
+        policyUri:
+          type: string
+        tosUri:
+          type: string
+        clientNameLocalized:
+          $ref: '#/components/schemas/LocalizedString'
+        logoUriLocalized:
+          $ref: '#/components/schemas/LocalizedString'
+        clientUriLocalized:
+          $ref: '#/components/schemas/LocalizedString'
+        policyUriLocalized:
+          $ref: '#/components/schemas/LocalizedString'
+        tosUriLocalized:
+          $ref: '#/components/schemas/LocalizedString'
+        jwksUri:
+          type: string
+        jwks:
+          type: string
+        sectorIdentifierUri:
+          type: string
+        subjectType:
+          type: string
+          enum:
+          - pairwise
+          - public
+        idTokenSignedResponseAlg:
+          type: string
+        idTokenEncryptedResponseAlg:
+          type: string
+        idTokenEncryptedResponseEnc:
+          type: string
+        userInfoSignedResponseAlg:
+          type: string
+        userInfoEncryptedResponseAlg:
+          type: string
+        userInfoEncryptedResponseEnc:
+          type: string
+        requestObjectSigningAlg:
+          type: string
+        requestObjectEncryptionAlg:
+          type: string
+        requestObjectEncryptionEnc:
+          type: string
+        tokenEndpointAuthMethod:
+          type: string
+          format: enum
+          enum:
+          - client_secret_basic
+          - client_secret_post
+          - client_secret_jwt
+          - private_key_jwt
+          - access_token
+          - tls_client_auth
+          - self_signed_tls_client_auth
+          - spiffe_jwt
+          - none
+        tokenEndpointAuthSigningAlg:
+          type: string
+        defaultMaxAge:
+          type: integer
+          format: int32
+        defaultAcrValues:
+          type: array
+          items:
+            type: string
+        initiateLoginUri:
+          type: string
+        postLogoutRedirectUris:
+          type: array
+          items:
+            type: string
+        requestUris:
+          type: array
+          items:
+            type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        claims:
+          type: array
+          items:
+            type: string
+        trustedClient:
+          type: boolean
+        lastAccessTime:
+          type: string
+          format: date-time
+        lastLogonTime:
+          type: string
+          format: date-time
+        persistClientAuthorizations:
+          type: boolean
+        includeClaimsInIdToken:
+          type: boolean
+        refreshTokenLifetime:
+          type: integer
+          format: int32
+        accessTokenLifetime:
+          type: integer
+          format: int32
+        customAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomObjectAttribute'
+        customObjectClasses:
+          type: array
+          items:
+            type: string
+        rptAsJwt:
+          type: boolean
+        accessTokenAsJwt:
+          type: boolean
+        accessTokenSigningAlg:
+          type: string
+        disabled:
+          type: boolean
+        authorizedOrigins:
+          type: array
+          items:
+            type: string
+        softwareId:
+          type: string
+        softwareVersion:
+          type: string
+        softwareStatement:
+          type: string
+        attributes:
+          $ref: '#/components/schemas/ClientAttributes'
+        backchannelTokenDeliveryMode:
+          type: string
+          enum:
+          - poll
+          - ping
+          - push
+        backchannelClientNotificationEndpoint:
+          type: string
+        backchannelAuthenticationRequestSigningAlg:
+          type: string
+          enum:
+          - RS256
+          - RS384
+          - RS512
+          - ES256
+          - ES384
+          - ES512
+          - PS256
+          - PS384
+          - PS512
+        backchannelUserCodeParameter:
+          type: boolean
+        description:
+          type: string
+        organization:
+          type: string
+        groups:
+          type: array
+          items:
+            type: string
+        ttl:
+          type: integer
+          format: int32
+        displayName:
+          type: string
+        baseDn:
+          type: string
+        inum:
+          type: string
+    LocalizedString:
+      type: object
+      properties:
+        values:
+          type: object
+          additionalProperties:
+            type: string
+    JsonPatch:
+      type: object
+    CustomObjectAttribute:
+      type: object
+      properties:
+        name:
+          type: string
+        multiValued:
+          type: boolean
+        values:
+          type: array
+          items:
+            type: object
+        value:
+          type: object
+        displayValue:
+          type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://{op-hostname}/.../token
+          scopes:
+            https://jans.io/oauth/jans-auth-server/config/properties.readonly: View Auth Server properties related information
+            https://jans.io/oauth/jans-auth-server/config/properties.write: Manage Auth Server properties related information
+            https://jans.io/oauth/config/attributes.readonly: View attribute related information
+            https://jans.io/oauth/config/attributes.write: Manage attribute related information
+            https://jans.io/oauth/config/attributes.delete: Delete attribute related information
+            https://jans.io/oauth/config/acrs.readonly: View ACRS related information
+            https://jans.io/oauth/config/acrs.write: Manage ACRS related information
+            https://jans.io/oauth/config/database/ldap.readonly: View LDAP database related information
+            https://jans.io/oauth/config/database/ldap.write: Manage LDAP database related information
+            https://jans.io/oauth/config/database/ldap.delete: Delete LDAP database related information
+            https://jans.io/oauth/config/scripts.readonly: View cache scripts information
+            https://jans.io/oauth/config/scripts.write: Manage scripts related information
+            https://jans.io/oauth/config/scripts.delete: Delete scripts related information
+            https://jans.io/oauth/config/cache.readonly: View cache related information
+            https://jans.io/oauth/config/cache.write: Manage cache related information
+            https://jans.io/oauth/config/smtp.readonly: View SMTP related information
+            https://jans.io/oauth/config/smtp.write: Manage SMTP related information
+            https://jans.io/oauth/config/smtp.delete: Delete SMTP related information
+            https://jans.io/oauth/config/logging.readonly: View logging related information
+            https://jans.io/oauth/config/logging.write: Manage logging related information
+            https://jans.io/oauth/config/jwks.readonly: View JWKS related information
+            https://jans.io/oauth/config/jwks.write: Manage JWKS related information
+            https://jans.io/oauth/config/jwks.delete: Delete JWKS related information
+            https://jans.io/oauth/config/openid/clients.readonly: View clients related information
+            https://jans.io/oauth/config/openid/clients.write: Manage clients related information
+            https://jans.io/oauth/config/openid/clients.delete: Delete clients related information
+            https://jans.io/oauth/config/scopes.readonly: View scope related information
+            https://jans.io/oauth/config/scopes.write: Manage scope related information
+            https://jans.io/oauth/config/scopes.delete: Delete scope related information
+            https://jans.io/oauth/config/stats.readonly: View server with basic statistic
+            https://jans.io/oauth/config/organization.readonly: View organization configuration information
+            https://jans.io/oauth/config/organization.write: Manage organization configuration information
+            https://jans.io/oauth/config/agama.readonly: View Agama Flow related information
+            https://jans.io/oauth/config/agama.write: Manage Agama Flow related information
+            https://jans.io/oauth/config/agama.delete: Delete Agama Flow related information
+            https://jans.io/oauth/jans-auth-server/session.readonly: View Session related information
+            https://jans.io/oauth/jans-auth-server/session.delete: Delete Session information
+            https://jans.io/oauth/config/read-all: Super admin read access to all configuration resources
+            https://jans.io/oauth/config/write-all: Super admin write access to all configuration resources
+            https://jans.io/oauth/config/delete-all: Super admin delete access to all configuration resources
+            https://jans.io/oauth/config/openid/openid.readonly: View OpenID functionality
+            https://jans.io/oauth/config/openid/openid.write: Manage OpenID functionality
+            https://jans.io/oauth/config/openid/openid.delete: Delete OpenID functionality
+            https://jans.io/oauth/config/uma.readonly: View UMA functionality
+            https://jans.io/oauth/config/uma.write: Manage UMA functionality
+            https://jans.io/oauth/config/uma.delete: Delete UMA functionality
+            https://jans.io/oauth/config/plugin.readonly: View Plugin information
+            https://jans.io/oauth/config/properties.readonly: View Config-API related configuration properties
+            https://jans.io/oauth/config/properties.write: Manage Config-API related configuration properties
+            https://jans.io/oauth/client/authorizations.readonly: View ClientAuthorizations
+            https://jans.io/oauth/client/authorizations.delete: Revoke ClientAuthorizations
+            https://jans.io/oauth/config/asset.readonly: View Jans Assets
+            https://jans.io/oauth/config/asset.write: Manage Jans Assets
+            https://jans.io/oauth/config/asset.delete: Delete Jans Assets
+            https://jans.io/oauth/config/token.readonly: View Token details
+            https://jans.io/oauth/config/token.write: Manage Token details
+            https://jans.io/oauth/config/token.delete: Delete Token details
+            https://jans.io/oauth/config/data.readonly: View Config-API related data
+            https://jans.io/oauth/config/ssa.readonly: View SSA details
+            https://jans.io/oauth/config/ssa.write: Manage SSA details
+            https://jans.io/oauth/config/ssa.delete: Delete SSA details
+            https://jans.io/oauth/jans-auth-server/config/properties.admin: Admin scope for Auth Server properties
+            https://jans.io/oauth/config/attributes.admin: Admin for Attribute management
+            https://jans.io/oauth/config/acrs.admin: Admin for ACRS management
+            https://jans.io/oauth/config/database.admin: Admin for Database config management
+            https://jans.io/oauth/config/scripts.admin: Admin for Scripts management
+            https://jans.io/oauth/config/cache.admin: Admin for Cache management
+            https://jans.io/oauth/config/message.admin: Admin for Message management
+            https://jans.io/oauth/config/smtp.admin: Admin for SMTP management
+            https://jans.io/oauth/config/logging.admin: Admin for Logging management
+            https://jans.io/oauth/config/jwks.admin: Admin for JWKS management
+            https://jans.io/oauth/config/openid/clients.admin: Admin for clients management
+            https://jans.io/oauth/config/token.admin: Admin for Token management
+            https://jans.io/oauth/config/scopes.admin: Admin for scope management
+            https://jans.io/oauth/config/stats.admin: Admin for statistic management
+            https://jans.io/oauth/config/organization.admin: Admin for organization configuration management
+            https://jans.io/oauth/config/agama.admin: Admin for Agama flow management
+            https://jans.io/oauth/jans-auth-server/session.admin: Admin for Session management
+            https://jans.io/oauth/config/uma.admin: Admin for UMA management
+            https://jans.io/oauth/config/plugin.admin: Admin for Plugin management
+            https://jans.io/oauth/config/properties.admin: Admin for Config-API management
+            https://jans.io/oauth/client/authorizations.admin: Admin for Client Authorizations management
+            https://jans.io/oauth/config/asset.admin: Admin for Jans Assets management
+            https://jans.io/auth/ssa.admin: Admin for SSA management
+            https://jans.io/oauth/config/health.admin: Admin for Health API management

@@ -1,0 +1,169 @@
+openapi: 3.2.0
+info:
+  title: Janssen Authorization Server Client Info API
+  description: Janssen Authorization Server - OAuth 2.0 server; OpenID Connect Provider (OP) & UMA Authorization Server (AS)
+  contact:
+    name: Contact
+    url: https://github.com/JanssenProject/jans/discussions
+  license:
+    name: License
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: OAS Version
+servers:
+- url: https://jans.local.io/jans-auth
+tags:
+- name: Client Info
+paths:
+  /restv1/clientinfo:
+    get:
+      tags:
+      - Client Info
+      summary: To get Claims details about the registered client
+      description: The ClientInfo Endpoint is an OAuth 2.0 Protected Resource that returns Claims about the registered client.
+      operationId: get_clientinfo
+      parameters:
+      - name: access_token
+        in: query
+        schema:
+          type: string
+          description: Client-specific access token.
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: ClientInfoResponse
+                description: Client details in response.
+                type: object
+                properties:
+                  displayName:
+                    type: string
+                  inum:
+                    type: string
+                    description: XRI i-number
+                  jansAppType:
+                    type: string
+                    description: Appication type
+                  jansIdTokenSignedResponseAlg:
+                    type: string
+                    description: ID Token Signed Response Algorithm
+                  jansRedirectURI:
+                    type: array
+                    description: Array of redirect URIs values used in the Authorization
+                    items:
+                      type: string
+                  oxId:
+                    type: string
+                    example: null
+                    description: Attribute Scope Id
+                  custom_attributes:
+                    type: array
+                    items:
+                      type: string
+        400:
+          description: Invalid Request are provided to endpoint.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - error_description
+                properties:
+                  error:
+                    type: string
+                    format: enum
+                    example:
+                    - invalid_request
+                    - invalid_token
+                  error_description:
+                    type: string
+                  details:
+                    type: string
+    post:
+      tags:
+      - Client Info
+      summary: To get Claims details about the registered client
+      description: The ClientInfo Endpoint is an OAuth 2.0 Protected Resource that returns Claims about the registered client.
+      operationId: post_clientinfo
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+              - access_token
+              properties:
+                access_token:
+                  type: string
+                  description: Client-specific access token.
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: ClientInfoResponse
+                description: Client details in response.
+                type: object
+                properties:
+                  displayName:
+                    type: string
+                  inum:
+                    type: string
+                    description: XRI i-number
+                  jansAppType:
+                    type: string
+                    description: Appication type
+                  jansIdTokenSignedResponseAlg:
+                    type: string
+                    description: ID Token Signed Response Algorithm
+                  jansRedirectURI:
+                    type: array
+                    description: Array of redirect URIs values used in the Authorization
+                    items:
+                      type: string
+                  oxId:
+                    type: string
+                    example: null
+                    description: Attribute Scope Id
+                  custom_attributes:
+                    type: array
+                    items:
+                      type: string
+        400:
+          description: Invalid Request are provided to endpoint.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - error_description
+                properties:
+                  error:
+                    type: string
+                    format: enum
+                    example:
+                    - invalid_request
+                    - invalid_token
+                  error_description:
+                    type: string
+                  details:
+                    type: string
+components:
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer

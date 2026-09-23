@@ -1,0 +1,1510 @@
+openapi: 3.2.0
+info:
+  title: Jans Config Configuration – Properties API
+  contact:
+    name: Contact
+    url: https://github.com/JanssenProject/jans/discussions
+  license:
+    name: License
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: OAS Version
+servers:
+- url: https://jans.local.io
+  description: The Jans server
+tags:
+- name: Configuration – Properties
+paths:
+  /api/v1/jans-auth-server/config:
+    get:
+      tags:
+      - Configuration – Properties
+      summary: Gets all Jans authorization server configuration properties
+      description: Gets all Jans authorization server configuration properties.
+      operationId: get-properties
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppConfiguration'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/properties.readonly
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/properties.write
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/properties.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    patch:
+      tags:
+      - Configuration – Properties
+      summary: Partially modifies Jans authorization server Application configuration…
+      description: Partially modifies Jans authorization server AppConfiguration properties.
+      operationId: patch-properties
+      requestBody:
+        description: String representing patch-document.
+        content:
+          application/json-patch+json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/JsonPatch'
+            examples:
+              Request json example:
+                description: Request json example
+                value: '[
+
+                  {"op":"add","path":"/authenticationFilters","value":[{}]},
+
+                  {"op":"replace","path":"/useNestedJwtDuringEncryption","value":"true"},
+
+                  {"op":"add","path":"/loggingLevel","value":"TRACE"}
+
+                  ]
+
+                  '
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppConfiguration'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/properties.write
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/properties.admin
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+  /api/v1/jans-auth-server/config/feature-flags:
+    get:
+      tags:
+      - Configuration – Properties
+      summary: Returns feature flags type configured for Jans authorization server
+      description: Returns feature flags type configured for Jans authorization server.
+      operationId: get-feature-flag-type
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/properties.readonly
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/properties.write
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/properties.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+  /api/v1/jans-auth-server/config/persistence:
+    get:
+      tags:
+      - Configuration – Properties
+      summary: Returns persistence type configured for Jans authorization server
+      description: Returns persistence type configured for Jans authorization server.
+      operationId: get-properties-persistence
+      responses:
+        '200':
+          description: Jans Authorization Server persistence type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersistenceConfiguration'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: "{\n    \"persistenceType\": \"ldap\"\n}\n"
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/properties.readonly
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/properties.write
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/properties.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+components:
+  schemas:
+    AppConfiguration:
+      type: object
+      properties:
+        issuer:
+          type: string
+        baseEndpoint:
+          type: string
+        authorizationEndpoint:
+          type: string
+        authorizationChallengeEndpoint:
+          type: string
+        tokenEndpoint:
+          type: string
+        tokenRevocationEndpoint:
+          type: string
+        userInfoEndpoint:
+          type: string
+        clientInfoEndpoint:
+          type: string
+        checkSessionIFrame:
+          type: string
+        endSessionEndpoint:
+          type: string
+        jwksUri:
+          type: string
+        archivedJwksUri:
+          type: string
+        registrationEndpoint:
+          type: string
+        openIdDiscoveryEndpoint:
+          type: string
+        openIdConfigurationEndpoint:
+          type: string
+        idGenerationEndpoint:
+          type: string
+        introspectionEndpoint:
+          type: string
+        parEndpoint:
+          type: string
+        includeRequestedClaimsInIdToken:
+          type: boolean
+        allowClientAssertionAudWithoutStrictIssuerMatch:
+          type: boolean
+        requirePar:
+          type: boolean
+        parForbidPublicClient:
+          type: boolean
+        jwtGrantAllowUserByUidInAssertion:
+          type: boolean
+        deviceAuthzEndpoint:
+          type: string
+        mtlsAuthorizationEndpoint:
+          type: string
+        mtlsAuthorizationChallengeEndpoint:
+          type: string
+        mtlsTokenEndpoint:
+          type: string
+        mtlsTokenRevocationEndpoint:
+          type: string
+        mtlsUserInfoEndpoint:
+          type: string
+        mtlsClientInfoEndpoint:
+          type: string
+        mtlsCheckSessionIFrame:
+          type: string
+        mtlsEndSessionEndpoint:
+          type: string
+        mtlsJwksUri:
+          type: string
+        mtlsRegistrationEndpoint:
+          type: string
+        mtlsIdGenerationEndpoint:
+          type: string
+        mtlsIntrospectionEndpoint:
+          type: string
+        mtlsParEndpoint:
+          type: string
+        mtlsDeviceAuthzEndpoint:
+          type: string
+        accessEvaluationAllowBasicClientAuthorization:
+          type: boolean
+        accessEvaluationScriptName:
+          type: string
+        accessEvaluationDiscoveryCacheLifetimeInMinutes:
+          type: integer
+          format: int32
+        requireRequestObjectEncryption:
+          type: boolean
+        requirePkce:
+          type: boolean
+        allowAllValueForRevokeEndpoint:
+          type: boolean
+        allowRevokeForOtherClients:
+          type: boolean
+        skipSessionAuthnTimeCheckDuringPromptLogin:
+          type: boolean
+        sessionAuthnTimeCheckDuringPromptLoginThresholdMs:
+          type: integer
+          format: int32
+        sectorIdentifierCacheLifetimeInMinutes:
+          type: integer
+          format: int32
+        archivedJwkLifetimeInSeconds:
+          type: integer
+          format: int32
+        uppercaseResponseKeysInAccountAccessConsent:
+          type: boolean
+        umaConfigurationEndpoint:
+          type: string
+        umaRptAsJwt:
+          type: boolean
+        umaRptLifetime:
+          type: integer
+          format: int32
+        umaTicketLifetime:
+          type: integer
+          format: int32
+        umaPctLifetime:
+          type: integer
+          format: int32
+        umaResourceLifetime:
+          type: integer
+          format: int32
+        umaAddScopesAutomatically:
+          type: boolean
+        umaValidateClaimToken:
+          type: boolean
+        umaGrantAccessIfNoPolicies:
+          type: boolean
+        umaRestrictResourceToAssociatedClient:
+          type: boolean
+        statTimerIntervalInSeconds:
+          type: integer
+          format: int32
+        statAuthorizationScope:
+          type: string
+        allowSpontaneousScopes:
+          type: boolean
+        spontaneousScopeLifetime:
+          type: integer
+          format: int32
+        statusListBitSize:
+          type: integer
+          format: int32
+        statusListResponseJwtSignatureAlgorithm:
+          type: string
+        statusListResponseJwtLifetime:
+          type: integer
+          format: int32
+        statusListIndexAllocationBlockSize:
+          type: integer
+          format: int32
+        openidSubAttribute:
+          type: string
+        publicSubjectIdentifierPerClientEnabled:
+          type: boolean
+        subjectIdentifiersPerClientSupported:
+          type: array
+          items:
+            type: string
+        applyXFrameOptionsHeaderIfUriContainsAny:
+          type: array
+          items:
+            type: string
+        xframeOptionsHeaderValue:
+          type: string
+          enum:
+          - SAMEORIGIN
+          - DENY
+        responseTypesSupported:
+          uniqueItems: true
+          type: array
+          items:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              enum:
+              - code
+              - token
+              - id_token
+        responseModesSupported:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+            - query
+            - fragment
+            - form_post
+            - query.jwt
+            - fragment.jwt
+            - form_post.jwt
+            - jwt
+        grantTypesSupported:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+            - none
+            - authorization_code
+            - implicit
+            - password
+            - client_credentials
+            - refresh_token
+            - urn:ietf:params:oauth:grant-type:uma-ticket
+            - urn:ietf:params:oauth:grant-type:token-exchange
+            - urn:openid:params:grant-type:ciba
+            - urn:ietf:params:oauth:grant-type:device_code
+            - urn:ietf:params:oauth:grant-type:jwt-bearer
+        subjectTypesSupported:
+          type: array
+          items:
+            type: string
+        defaultSubjectType:
+          type: string
+        authorizationSigningAlgValuesSupported:
+          type: array
+          items:
+            type: string
+        authorizationEncryptionAlgValuesSupported:
+          type: array
+          items:
+            type: string
+        authorizationEncryptionEncValuesSupported:
+          type: array
+          items:
+            type: string
+        userInfoSigningAlgValuesSupported:
+          type: array
+          items:
+            type: string
+        userInfoEncryptionAlgValuesSupported:
+          type: array
+          items:
+            type: string
+        userInfoEncryptionEncValuesSupported:
+          type: array
+          items:
+            type: string
+        introspectionSigningAlgValuesSupported:
+          type: array
+          items:
+            type: string
+        introspectionEncryptionAlgValuesSupported:
+          type: array
+          items:
+            type: string
+        introspectionEncryptionEncValuesSupported:
+          type: array
+          items:
+            type: string
+        logoutStatusJwtSigningAlgValuesSupported:
+          type: array
+          items:
+            type: string
+        txTokenSigningAlgValuesSupported:
+          type: array
+          items:
+            type: string
+        txTokenEncryptionAlgValuesSupported:
+          type: array
+          items:
+            type: string
+        txTokenEncryptionEncValuesSupported:
+          type: array
+          items:
+            type: string
+        idTokenSigningAlgValuesSupported:
+          type: array
+          items:
+            type: string
+        idTokenEncryptionAlgValuesSupported:
+          type: array
+          items:
+            type: string
+        idTokenEncryptionEncValuesSupported:
+          type: array
+          items:
+            type: string
+        accessTokenSigningAlgValuesSupported:
+          type: array
+          items:
+            type: string
+        forceSignedRequestObject:
+          type: boolean
+        requestObjectSigningAlgValuesSupported:
+          type: array
+          items:
+            type: string
+        requestObjectEncryptionAlgValuesSupported:
+          type: array
+          items:
+            type: string
+        requestObjectEncryptionEncValuesSupported:
+          type: array
+          items:
+            type: string
+        tokenEndpointAuthMethodsSupported:
+          type: array
+          items:
+            type: string
+        tokenEndpointAuthSigningAlgValuesSupported:
+          type: array
+          items:
+            type: string
+        dynamicRegistrationCustomAttributes:
+          type: array
+          items:
+            type: string
+        dynamicRegistrationDefaultCustomAttributes:
+          $ref: '#/components/schemas/JsonNode'
+        displayValuesSupported:
+          type: array
+          items:
+            type: string
+        claimTypesSupported:
+          type: array
+          items:
+            type: string
+        jwksAlgorithmsSupported:
+          type: array
+          items:
+            type: string
+        serviceDocumentation:
+          type: string
+        claimsLocalesSupported:
+          type: array
+          items:
+            type: string
+        idTokenTokenBindingCnfValuesSupported:
+          type: array
+          items:
+            type: string
+        uiLocalesSupported:
+          type: array
+          items:
+            type: string
+        claimsParameterSupported:
+          type: boolean
+        requestParameterSupported:
+          type: boolean
+        requestUriParameterSupported:
+          type: boolean
+        requestUriHashVerificationEnabled:
+          type: boolean
+        requireRequestUriRegistration:
+          type: boolean
+        requestUriBlockList:
+          type: array
+          items:
+            type: string
+        opPolicyUri:
+          type: string
+        opTosUri:
+          type: string
+        clientPeriodicUpdateTimerInterval:
+          type: integer
+          format: int32
+        authorizationCodeLifetime:
+          type: integer
+          format: int32
+        refreshTokenLifetime:
+          type: integer
+          format: int32
+        txTokenLifetime:
+          type: integer
+          format: int32
+        idTokenLifetime:
+          type: integer
+          format: int32
+        idTokenFilterClaimsBasedOnAccessToken:
+          type: boolean
+        saveTokensInCache:
+          type: boolean
+        saveTokensInCacheAndDontSaveInPersistence:
+          type: boolean
+        accessTokenLifetime:
+          type: integer
+          format: int32
+        userInfoLifetime:
+          type: integer
+          format: int32
+        keyRegenerationEnabled:
+          type: boolean
+        keyRegenerationInterval:
+          type: integer
+          format: int32
+        defaultSignatureAlgorithm:
+          type: string
+        jansOpenIdConnectVersion:
+          type: string
+        jansId:
+          type: string
+        dynamicRegistrationExpirationTime:
+          type: integer
+          format: int32
+        dynamicRegistrationPersistClientAuthorizations:
+          type: boolean
+        trustedClientEnabled:
+          type: boolean
+        skipAuthorizationForOpenIdScopeAndPairwiseId:
+          type: boolean
+        dynamicRegistrationScopesParamEnabled:
+          type: boolean
+        dynamicRegistrationPasswordGrantTypeEnabled:
+          type: boolean
+        dynamicRegistrationAllowedPasswordGrantScopes:
+          type: array
+          items:
+            type: string
+        dynamicRegistrationCustomObjectClass:
+          type: string
+        personCustomObjectClassList:
+          type: array
+          items:
+            type: string
+        persistIdToken:
+          type: boolean
+        persistRefreshToken:
+          type: boolean
+        allowPostLogoutRedirectWithoutValidation:
+          type: boolean
+        invalidateSessionCookiesAfterAuthorizationFlow:
+          type: boolean
+        returnClientSecretOnRead:
+          type: boolean
+        rotateClientRegistrationAccessTokenOnUsage:
+          type: boolean
+        rejectJwtWithNoneAlg:
+          type: boolean
+        expirationNotificatorEnabled:
+          type: boolean
+        useNestedJwtDuringEncryption:
+          type: boolean
+        expirationNotificatorMapSizeLimit:
+          type: integer
+          format: int32
+        expirationNotificatorIntervalInSeconds:
+          type: integer
+          format: int32
+        redirectUrisRegexEnabled:
+          type: boolean
+        useHighestLevelScriptIfAcrScriptNotFound:
+          type: boolean
+        acrMappings:
+          type: object
+          additionalProperties:
+            type: string
+        acrToConsentScriptNameMapping:
+          type: object
+          additionalProperties:
+            type: string
+        acrToAgamaConsentFlowMapping:
+          type: object
+          additionalProperties:
+            type: string
+        authenticationFiltersEnabled:
+          type: boolean
+        clientAuthenticationFiltersEnabled:
+          type: boolean
+        clientRegDefaultToCodeFlowWithRefresh:
+          type: boolean
+        grantTypesAndResponseTypesAutofixEnabled:
+          type: boolean
+        authenticationFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthenticationFilter'
+        clientAuthenticationFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClientAuthenticationFilter'
+        corsConfigurationFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/CorsConfigurationFilter'
+        sessionIdUnusedLifetime:
+          type: integer
+          format: int32
+        sessionIdUnauthenticatedUnusedLifetime:
+          type: integer
+          format: int32
+        sessionIdPersistOnPromptNone:
+          type: boolean
+        sessionIdRequestParameterEnabled:
+          type: boolean
+        changeSessionIdOnAuthentication:
+          type: boolean
+        sessionIdPersistInCache:
+          type: boolean
+        sessionIdUserClaimsInAttributes:
+          type: array
+          items:
+            type: string
+        includeSidInResponse:
+          type: boolean
+        includeRefreshTokenLifetimeInTokenResponse:
+          type: boolean
+        disablePromptLogin:
+          type: boolean
+        disablePromptConsent:
+          type: boolean
+        runAllUpdateTokenScripts:
+          type: boolean
+        logoutStatusJwtLifetime:
+          type: integer
+          format: int32
+        sessionIdCookieLifetime:
+          type: integer
+          format: int32
+        sessionIdLifetime:
+          type: integer
+          format: int32
+        activeSessionAuthorizationScope:
+          type: string
+        configurationUpdateInterval:
+          type: integer
+          format: int32
+        logNotFoundEntityAsError:
+          type: boolean
+        enableClientGrantTypeUpdate:
+          type: boolean
+        grantTypesSupportedByDynamicRegistration:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+            - none
+            - authorization_code
+            - implicit
+            - password
+            - client_credentials
+            - refresh_token
+            - urn:ietf:params:oauth:grant-type:uma-ticket
+            - urn:ietf:params:oauth:grant-type:token-exchange
+            - urn:openid:params:grant-type:ciba
+            - urn:ietf:params:oauth:grant-type:device_code
+            - urn:ietf:params:oauth:grant-type:jwt-bearer
+        cssLocation:
+          type: string
+        jsLocation:
+          type: string
+        imgLocation:
+          type: string
+        metricReporterInterval:
+          type: integer
+          format: int32
+        metricReporterKeepDataDays:
+          type: integer
+          format: int32
+        pairwiseIdType:
+          type: string
+        pairwiseCalculationKey:
+          type: string
+        pairwiseCalculationSalt:
+          type: string
+        shareSubjectIdBetweenClientsWithSameSectorId:
+          type: boolean
+        useOpenidSubAttributeValueForPairwiseLocalAccountId:
+          type: boolean
+        webKeysStorage:
+          type: string
+          enum:
+          - keystore
+          - pkcs11
+        dnName:
+          type: string
+        keyStoreFile:
+          type: string
+        keyStoreSecret:
+          type: string
+        keySelectionStrategy:
+          type: string
+          enum:
+          - OLDER
+          - NEWER
+          - FIRST
+        keyAlgsAllowedForGeneration:
+          type: array
+          items:
+            type: string
+        keySignWithSameKeyButDiffAlg:
+          type: boolean
+        staticKid:
+          type: string
+        staticDecryptionKid:
+          type: string
+        introspectionAccessTokenMustHaveUmaProtectionScope:
+          type: boolean
+        introspectionAccessTokenMustHaveIntrospectionScope:
+          type: boolean
+        introspectionSkipAuthorization:
+          type: boolean
+        introspectionRestrictBasicAuthnToOwnTokens:
+          type: boolean
+        endSessionWithAccessToken:
+          type: boolean
+        disablePromptCreate:
+          type: boolean
+        cookieDomain:
+          type: string
+        enabledOAuthAuditLogging:
+          type: boolean
+        jmsBrokerURISet:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        jmsUserName:
+          type: string
+        jmsPassword:
+          type: string
+        externalUriWhiteList:
+          type: array
+          items:
+            type: string
+        clientWhiteList:
+          type: array
+          items:
+            type: string
+        clientBlackList:
+          type: array
+          items:
+            type: string
+        legacyIdTokenClaims:
+          type: boolean
+        customHeadersWithAuthorizationResponse:
+          type: boolean
+        frontChannelLogoutSessionSupported:
+          type: boolean
+        loggingLevel:
+          type: string
+        loggingLayout:
+          type: string
+        updateUserLastLogonTime:
+          type: boolean
+        updateClientAccessTime:
+          type: boolean
+        logClientIdOnClientAuthentication:
+          type: boolean
+        logClientNameOnClientAuthentication:
+          type: boolean
+        disableJdkLogger:
+          type: boolean
+        disableExternalLoggerConfiguration:
+          type: boolean
+        authorizationRequestCustomAllowedParameters:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthorizationRequestCustomParameter'
+        openidScopeBackwardCompatibility:
+          type: boolean
+        disableU2fEndpoint:
+          type: boolean
+        authorizationChallengeSessionLifetimeInSeconds:
+          type: integer
+          format: int32
+        rotateDeviceSecret:
+          type: boolean
+        idJagTrustedIdpIssuers:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/TrustedIssuerConfig'
+        idJagLifetime:
+          type: integer
+          format: int32
+        idJagIssueRefreshToken:
+          type: boolean
+        returnDeviceSecretFromAuthzEndpoint:
+          type: boolean
+        dcrForbidExpirationTimeInRequest:
+          type: boolean
+        dcrSignatureValidationEnabled:
+          type: boolean
+        dcrSignatureValidationSharedSecret:
+          type: string
+        dcrSignatureValidationSoftwareStatementJwksURIClaim:
+          type: string
+        dcrSignatureValidationSoftwareStatementJwksClaim:
+          type: string
+        dcrSignatureValidationJwks:
+          type: string
+        dcrSignatureValidationJwksUri:
+          type: string
+        dcrAuthorizationWithClientCredentials:
+          type: boolean
+        dcrAuthorizationWithMTLS:
+          type: boolean
+        dcrAttestationEvidenceRequired:
+          type: boolean
+        trustedSsaIssuers:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/TrustedIssuerConfig'
+        useLocalCache:
+          type: boolean
+        fapiCompatibility:
+          type: boolean
+        forceIdTokenHintPresence:
+          type: boolean
+        rejectEndSessionIfIdTokenExpired:
+          type: boolean
+        allowEndSessionWithUnmatchedSid:
+          type: boolean
+        forceOfflineAccessScopeToEnableRefreshToken:
+          type: boolean
+        errorReasonEnabled:
+          type: boolean
+        removeRefreshTokensForClientOnLogout:
+          type: boolean
+        skipRefreshTokenDuringRefreshing:
+          type: boolean
+        refreshTokenExtendLifetimeOnRotation:
+          type: boolean
+        allowBlankValuesInDiscoveryResponse:
+          type: boolean
+        checkUserPresenceOnRefreshToken:
+          type: boolean
+        consentGatheringScriptBackwardCompatibility:
+          type: boolean
+        introspectionScriptBackwardCompatibility:
+          type: boolean
+        introspectionResponseScopesBackwardCompatibility:
+          type: boolean
+        softwareStatementValidationType:
+          type: string
+        softwareStatementValidationClaimName:
+          type: string
+        authenticationProtectionConfiguration:
+          $ref: '#/components/schemas/AuthenticationProtectionConfiguration'
+        errorHandlingMethod:
+          type: string
+          enum:
+          - internal
+          - remote
+        disableAuthnForMaxAgeZero:
+          type: boolean
+        keepAuthenticatorAttributesOnAcrChange:
+          type: boolean
+        deviceAuthzRequestExpiresIn:
+          type: integer
+          format: int32
+        deviceAuthzTokenPollInterval:
+          type: integer
+          format: int32
+        deviceAuthzResponseTypeToProcessAuthz:
+          type: string
+        deviceAuthzAcr:
+          type: string
+        backchannelClientId:
+          type: string
+        backchannelRedirectUri:
+          type: string
+        backchannelAuthenticationEndpoint:
+          type: string
+        backchannelDeviceRegistrationEndpoint:
+          type: string
+        backchannelTokenDeliveryModesSupported:
+          type: array
+          items:
+            type: string
+        backchannelAuthenticationRequestSigningAlgValuesSupported:
+          type: array
+          items:
+            type: string
+        backchannelUserCodeParameterSupported:
+          type: boolean
+        backchannelBindingMessagePattern:
+          type: string
+        backchannelAuthenticationResponseExpiresIn:
+          type: integer
+          format: int32
+        backchannelAuthenticationResponseInterval:
+          type: integer
+          format: int32
+        backchannelLoginHintClaims:
+          type: array
+          items:
+            type: string
+        cibaEndUserNotificationConfig:
+          $ref: '#/components/schemas/CIBAEndUserNotificationConfig'
+        backchannelRequestsProcessorJobIntervalSec:
+          type: integer
+          format: int32
+        backchannelRequestsProcessorJobChunkSize:
+          type: integer
+          format: int32
+        cibaGrantLifeExtraTimeSec:
+          type: integer
+          format: int32
+        cibaMaxExpirationTimeAllowedSec:
+          type: integer
+          format: int32
+        dpopSigningAlgValuesSupported:
+          type: array
+          items:
+            type: string
+        dpopTimeframe:
+          type: integer
+          format: int32
+        dpopJtiCacheTime:
+          type: integer
+          format: int32
+        dpopUseNonce:
+          type: boolean
+        dpopNonceCacheTime:
+          type: integer
+          format: int32
+        dpopJktForceForAuthorizationCode:
+          type: boolean
+        allowIdTokenWithoutImplicitGrantType:
+          type: boolean
+        forceRopcInAuthorizationEndpoint:
+          type: boolean
+        discoveryCacheLifetimeInMinutes:
+          type: integer
+          format: int32
+        discoveryAllowedKeys:
+          type: array
+          items:
+            type: string
+        discoveryDenyKeys:
+          type: array
+          items:
+            type: string
+        featureFlags:
+          type: array
+          items:
+            type: string
+            enum:
+            - unknown
+            - health_check
+            - userinfo
+            - clientinfo
+            - id_generation
+            - registration
+            - introspection
+            - revoke_token
+            - global_token_revocation
+            - status_list
+            - logout_status_jwt
+            - active_session
+            - end_session
+            - status_session
+            - jans_configuration
+            - ciba
+            - uma
+            - u2f
+            - device_authz
+            - metric
+            - stat
+            - par
+            - access_evaluation
+            - rate_limit
+            - ssa
+            - client_id_metadata_document
+            - identity_assertion_authz_grant
+            - spiffe_client_auth
+        httpLoggingEnabled:
+          type: boolean
+        httpLoggingExcludePaths:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        externalLoggerConfiguration:
+          type: string
+        agamaConfiguration:
+          $ref: '#/components/schemas/EngineConfig'
+        dcrSsaValidationConfigs:
+          type: array
+          items:
+            $ref: '#/components/schemas/SsaValidationConfig'
+        rateLimitConfiguration:
+          $ref: '#/components/schemas/RateLimitConfig'
+        ssaConfiguration:
+          $ref: '#/components/schemas/SsaConfiguration'
+        blockWebviewAuthorizationEnabled:
+          type: boolean
+        authorizationChallengeDefaultAcr:
+          type: string
+        authorizationChallengeShouldGenerateSession:
+          type: boolean
+        dateFormatterPatterns:
+          type: object
+          additionalProperties:
+            type: string
+        httpLoggingResponseBodyContent:
+          type: boolean
+        skipAuthenticationFilterOptionsMethod:
+          type: boolean
+        lockMessageConfig:
+          $ref: '#/components/schemas/LockMessageConfig'
+        connectionServiceConfiguration:
+          $ref: '#/components/schemas/ConnectionServiceConfiguration'
+        cimdSchemeAllowlist:
+          type: array
+          items:
+            type: string
+        cimdDomainAllowlist:
+          type: array
+          items:
+            type: string
+        cimdDomainBlocklist:
+          type: array
+          items:
+            type: string
+        cimdBlockPrivateIp:
+          type: boolean
+        cimdMaxResponseSize:
+          type: integer
+          format: int32
+        cimdConnectTimeoutMs:
+          type: integer
+          format: int32
+        cimdReadTimeoutMs:
+          type: integer
+          format: int32
+        cimdTtlMinutes:
+          type: integer
+          format: int32
+        cimdMaxTtlMinutes:
+          type: integer
+          format: int32
+        authorizationResponseIssParameterSupported:
+          type: boolean
+        spiffeTrustDomains:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpiffeTrustDomainConfiguration'
+        spiffeBundleMaxResponseSize:
+          type: integer
+          format: int32
+        spiffeBundleConnectTimeoutMs:
+          type: integer
+          format: int32
+        spiffeBundleReadTimeoutMs:
+          type: integer
+          format: int32
+        fapi:
+          type: boolean
+        allResponseTypesSupported:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+            enum:
+            - code
+            - token
+            - id_token
+    SsaValidationConfig:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - NONE
+          - SSA
+          - DCR
+        displayName:
+          type: string
+        description:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        allowedClaims:
+          type: array
+          items:
+            type: string
+        jwks:
+          type: string
+        jwksUri:
+          type: string
+        issuers:
+          type: array
+          items:
+            type: string
+        configurationEndpoint:
+          type: string
+        configurationEndpointClaim:
+          type: string
+        sharedSecret:
+          type: string
+    PersistenceConfiguration:
+      type: object
+      properties:
+        databaseName:
+          type: string
+          description: Connection object's current catalog name.
+        schemaName:
+          type: string
+          description: Schema name.
+        productName:
+          type: string
+          description: Name of database product.
+        productVersion:
+          type: string
+          description: Version number of this database product.
+        driverName:
+          type: string
+          description: Name of this JDBC driver.
+        driverVersion:
+          type: string
+          description: JDBC driver version number.
+    AuthenticationProtectionConfiguration:
+      type: object
+      properties:
+        attemptExpiration:
+          type: integer
+          format: int32
+        maximumAllowedAttemptsWithoutDelay:
+          type: integer
+          format: int32
+        delayTime:
+          type: integer
+          format: int32
+        bruteForceProtectionEnabled:
+          type: boolean
+    SpiffeTrustDomainConfiguration:
+      type: object
+      properties:
+        trustDomain:
+          type: string
+        bundleEndpointUrl:
+          type: string
+        bundleCacheLifetimeInMinutes:
+          type: integer
+          format: int32
+    AuthenticationFilter:
+      required:
+      - baseDn
+      - filter
+      type: object
+      properties:
+        filter:
+          type: string
+        bind:
+          type: boolean
+        bindPasswordAttribute:
+          type: string
+          xml:
+            name: bind-password-attribute
+        baseDn:
+          type: string
+          xml:
+            name: base-dn
+    SsaConfiguration:
+      type: object
+      properties:
+        ssaEndpoint:
+          type: string
+        ssaCustomAttributes:
+          type: array
+          items:
+            type: string
+        ssaSigningAlg:
+          type: string
+        ssaExpirationInDays:
+          type: integer
+          format: int32
+        ssaMapSoftwareRolesToScopes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    CIBAEndUserNotificationConfig:
+      type: object
+      properties:
+        apiKey:
+          type: string
+        authDomain:
+          type: string
+        databaseURL:
+          type: string
+        projectId:
+          type: string
+        storageBucket:
+          type: string
+        messagingSenderId:
+          type: string
+        appId:
+          type: string
+        notificationUrl:
+          type: string
+        notificationKey:
+          type: string
+        publicVapidKey:
+          type: string
+    JsonNode:
+      type: object
+    LockMessageConfig:
+      type: object
+      properties:
+        enableTokenMessages:
+          type: boolean
+        tokenMessagesChannel:
+          type: string
+    RateLimitRule:
+      type: object
+      properties:
+        path:
+          type: string
+        methods:
+          type: array
+          items:
+            type: string
+        requestCount:
+          type: integer
+          format: int32
+        periodInSeconds:
+          type: integer
+          format: int32
+        keyExtractors:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyExtractor'
+        wellFormed:
+          type: boolean
+    EngineConfig:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        rootDir:
+          type: string
+        templatesPath:
+          type: string
+        scriptsPath:
+          type: string
+        maxItemsLoggedInCollections:
+          type: integer
+          format: int32
+        disableTCHV:
+          type: boolean
+        pageMismatchErrorPage:
+          type: string
+        interruptionErrorPage:
+          type: string
+        crashErrorPage:
+          type: string
+        finishedFlowPage:
+          type: string
+        startEndUrlMapping:
+          type: object
+          additionalProperties:
+            type: string
+        serializeRules:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        defaultResponseHeaders:
+          type: object
+          additionalProperties:
+            type: string
+    ClientAuthenticationFilter:
+      required:
+      - baseDn
+      - filter
+      type: object
+      properties:
+        filter:
+          type: string
+        bind:
+          type: boolean
+        bindPasswordAttribute:
+          type: string
+          xml:
+            name: bind-password-attribute
+        baseDn:
+          type: string
+          xml:
+            name: base-dn
+    AuthorizationRequestCustomParameter:
+      type: object
+      properties:
+        paramName:
+          type: string
+        returnInResponse:
+          type: boolean
+    CorsConfigurationFilter:
+      type: object
+      properties:
+        filterName:
+          type: string
+        corsEnabled:
+          type: boolean
+        corsAllowedOrigins:
+          type: string
+        corsAllowedMethods:
+          type: string
+        corsAllowedHeaders:
+          type: string
+        corsExposedHeaders:
+          type: string
+        corsSupportCredentials:
+          type: boolean
+        corsLoggingEnabled:
+          type: boolean
+        corsPreflightMaxAge:
+          type: integer
+          format: int32
+        corsRequestDecorate:
+          type: boolean
+      description: CORS configuration filter properties.
+    KeyExtractor:
+      type: object
+      properties:
+        source:
+          type: string
+          enum:
+          - body
+          - header
+          - query
+          - unknown
+        parameterNames:
+          type: array
+          items:
+            type: string
+        wellFormed:
+          type: boolean
+    ConnectionServiceConfiguration:
+      type: object
+      properties:
+        maxTotal:
+          type: integer
+          format: int32
+        maxPerRoute:
+          type: integer
+          format: int32
+        validateAfterInactivity:
+          type: integer
+          format: int32
+    TrustedIssuerConfig:
+      type: object
+      properties:
+        automaticallyGrantedScopes:
+          type: array
+          items:
+            type: string
+    JsonPatch:
+      type: object
+    RateLimitConfig:
+      type: object
+      properties:
+        rateLimitRules:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateLimitRule'
+        rateLoggingEnabled:
+          type: boolean
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://{op-hostname}/.../token
+          scopes:
+            https://jans.io/oauth/jans-auth-server/config/properties.readonly: View Auth Server properties related information
+            https://jans.io/oauth/jans-auth-server/config/properties.write: Manage Auth Server properties related information
+            https://jans.io/oauth/config/attributes.readonly: View attribute related information
+            https://jans.io/oauth/config/attributes.write: Manage attribute related information
+            https://jans.io/oauth/config/attributes.delete: Delete attribute related information
+            https://jans.io/oauth/config/acrs.readonly: View ACRS related information
+            https://jans.io/oauth/config/acrs.write: Manage ACRS related information
+            https://jans.io/oauth/config/database/ldap.readonly: View LDAP database related information
+            https://jans.io/oauth/config/database/ldap.write: Manage LDAP database related information
+            https://jans.io/oauth/config/database/ldap.delete: Delete LDAP database related information
+            https://jans.io/oauth/config/scripts.readonly: View cache scripts information
+            https://jans.io/oauth/config/scripts.write: Manage scripts related information
+            https://jans.io/oauth/config/scripts.delete: Delete scripts related information
+            https://jans.io/oauth/config/cache.readonly: View cache related information
+            https://jans.io/oauth/config/cache.write: Manage cache related information
+            https://jans.io/oauth/config/smtp.readonly: View SMTP related information
+            https://jans.io/oauth/config/smtp.write: Manage SMTP related information
+            https://jans.io/oauth/config/smtp.delete: Delete SMTP related information
+            https://jans.io/oauth/config/logging.readonly: View logging related information
+            https://jans.io/oauth/config/logging.write: Manage logging related information
+            https://jans.io/oauth/config/jwks.readonly: View JWKS related information
+            https://jans.io/oauth/config/jwks.write: Manage JWKS related information
+            https://jans.io/oauth/config/jwks.delete: Delete JWKS related information
+            https://jans.io/oauth/config/openid/clients.readonly: View clients related information
+            https://jans.io/oauth/config/openid/clients.write: Manage clients related information
+            https://jans.io/oauth/config/openid/clients.delete: Delete clients related information
+            https://jans.io/oauth/config/scopes.readonly: View scope related information
+            https://jans.io/oauth/config/scopes.write: Manage scope related information
+            https://jans.io/oauth/config/scopes.delete: Delete scope related information
+            https://jans.io/oauth/config/stats.readonly: View server with basic statistic
+            https://jans.io/oauth/config/organization.readonly: View organization configuration information
+            https://jans.io/oauth/config/organization.write: Manage organization configuration information
+            https://jans.io/oauth/config/agama.readonly: View Agama Flow related information
+            https://jans.io/oauth/config/agama.write: Manage Agama Flow related information
+            https://jans.io/oauth/config/agama.delete: Delete Agama Flow related information
+            https://jans.io/oauth/jans-auth-server/session.readonly: View Session related information
+            https://jans.io/oauth/jans-auth-server/session.delete: Delete Session information
+            https://jans.io/oauth/config/read-all: Super admin read access to all configuration resources
+            https://jans.io/oauth/config/write-all: Super admin write access to all configuration resources
+            https://jans.io/oauth/config/delete-all: Super admin delete access to all configuration resources
+            https://jans.io/oauth/config/openid/openid.readonly: View OpenID functionality
+            https://jans.io/oauth/config/openid/openid.write: Manage OpenID functionality
+            https://jans.io/oauth/config/openid/openid.delete: Delete OpenID functionality
+            https://jans.io/oauth/config/uma.readonly: View UMA functionality
+            https://jans.io/oauth/config/uma.write: Manage UMA functionality
+            https://jans.io/oauth/config/uma.delete: Delete UMA functionality
+            https://jans.io/oauth/config/plugin.readonly: View Plugin information
+            https://jans.io/oauth/config/properties.readonly: View Config-API related configuration properties
+            https://jans.io/oauth/config/properties.write: Manage Config-API related configuration properties
+            https://jans.io/oauth/client/authorizations.readonly: View ClientAuthorizations
+            https://jans.io/oauth/client/authorizations.delete: Revoke ClientAuthorizations
+            https://jans.io/oauth/config/asset.readonly: View Jans Assets
+            https://jans.io/oauth/config/asset.write: Manage Jans Assets
+            https://jans.io/oauth/config/asset.delete: Delete Jans Assets
+            https://jans.io/oauth/config/token.readonly: View Token details
+            https://jans.io/oauth/config/token.write: Manage Token details
+            https://jans.io/oauth/config/token.delete: Delete Token details
+            https://jans.io/oauth/config/data.readonly: View Config-API related data
+            https://jans.io/oauth/config/ssa.readonly: View SSA details
+            https://jans.io/oauth/config/ssa.write: Manage SSA details
+            https://jans.io/oauth/config/ssa.delete: Delete SSA details
+            https://jans.io/oauth/jans-auth-server/config/properties.admin: Admin scope for Auth Server properties
+            https://jans.io/oauth/config/attributes.admin: Admin for Attribute management
+            https://jans.io/oauth/config/acrs.admin: Admin for ACRS management
+            https://jans.io/oauth/config/database.admin: Admin for Database config management
+            https://jans.io/oauth/config/scripts.admin: Admin for Scripts management
+            https://jans.io/oauth/config/cache.admin: Admin for Cache management
+            https://jans.io/oauth/config/message.admin: Admin for Message management
+            https://jans.io/oauth/config/smtp.admin: Admin for SMTP management
+            https://jans.io/oauth/config/logging.admin: Admin for Logging management
+            https://jans.io/oauth/config/jwks.admin: Admin for JWKS management
+            https://jans.io/oauth/config/openid/clients.admin: Admin for clients management
+            https://jans.io/oauth/config/token.admin: Admin for Token management
+            https://jans.io/oauth/config/scopes.admin: Admin for scope management
+            https://jans.io/oauth/config/stats.admin: Admin for statistic management
+            https://jans.io/oauth/config/organization.admin: Admin for organization configuration management
+            https://jans.io/oauth/config/agama.admin: Admin for Agama flow management
+            https://jans.io/oauth/jans-auth-server/session.admin: Admin for Session management
+            https://jans.io/oauth/config/uma.admin: Admin for UMA management
+            https://jans.io/oauth/config/plugin.admin: Admin for Plugin management
+            https://jans.io/oauth/config/properties.admin: Admin for Config-API management
+            https://jans.io/oauth/client/authorizations.admin: Admin for Client Authorizations management
+            https://jans.io/oauth/config/asset.admin: Admin for Jans Assets management
+            https://jans.io/auth/ssa.admin: Admin for SSA management
+            https://jans.io/oauth/config/health.admin: Admin for Health API management

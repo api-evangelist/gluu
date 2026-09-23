@@ -1,0 +1,62 @@
+openapi: 3.2.0
+info:
+  title: Janssen Authorization Server AuthZEN Access Evaluation…
+  description: Janssen Authorization Server - OAuth 2.0 server; OpenID Connect Provider (OP) & UMA Authorization Server (AS)
+  contact:
+    name: Contact
+    url: https://github.com/JanssenProject/jans/discussions
+  license:
+    name: License
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: OAS Version
+servers:
+- url: https://jans.local.io/jans-auth
+tags:
+- name: AuthZEN Access Evaluation Discovery
+paths:
+  /.well-known/authzen-configuration:
+    get:
+      tags:
+      - AuthZEN Access Evaluation Discovery
+      summary: Gets Access Evaluation configuration data
+      description: Gets Access Evaluation configuration data.
+      operationId: authzen-configuration
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                description: AuthZEN Access Evaluation Discovery
+                required:
+                - access_evaluation_v1_endpoint
+                properties:
+                  access_evaluation_v1_endpoint:
+                    type: string
+                    description: URL of the Access Evaluation endpoint.
+                    example: https://sample.com/jans-auth/restv1/evaluate
+        500:
+          description: Error during request processing endpoint.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - error_description
+                properties:
+                  error:
+                    type: string
+                    format: enum
+                    example:
+                    - server_error
+                  error_description:
+                    type: string
+                  details:
+                    type: string
+components:
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer

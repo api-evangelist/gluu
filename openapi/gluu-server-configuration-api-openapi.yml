@@ -1,0 +1,100 @@
+openapi: 3.2.0
+info:
+  title: Janssen Authorization Server Server Configuration API
+  description: Janssen Authorization Server - OAuth 2.0 server; OpenID Connect Provider (OP) & UMA Authorization Server (AS)
+  contact:
+    name: Contact
+    url: https://github.com/JanssenProject/jans/discussions
+  license:
+    name: License
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: OAS Version
+servers:
+- url: https://jans.local.io/jans-auth
+tags:
+- name: Server Configuration
+paths:
+  /.well-known/openid-configuration:
+    post:
+      tags:
+      - Server Configuration
+      summary: Gets Janssen Server configuration data that contains non-standard OpenID…
+      description: Gets Janssen Server configuration data that contains non-standard OpenID Connect discovery metadata.
+      operationId: well-known-gluu-configuration
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: GluuConfigurationResponse
+                description: Client GluuAttribute by Dn(Distinguished Name) based on Authorization Scope.
+                required:
+                - introspection_endpoint
+                type: object
+                properties:
+                  id_generation_endpoint:
+                    type: string
+                  introspection_endpoint:
+                    type: string
+                    description: URL of the Introspection endpoint.
+                  access_evaluation_v1_endpoint:
+                    type: string
+                    description: URL of the Access Evaluation endpoint.
+                    example: https://sample.com/jans-auth/restv1/evaluate
+                  auth_level_mapping:
+                    type: object
+                    additionalProperties:
+                      type: string
+                      description: Additional Custom Acr's map object
+                  scope_to_claims_mapping:
+                    type: object
+                    additionalProperties:
+                      type: string
+                      description: Scope map object
+                  authorization_details_types_supported:
+                    type: array
+                    description: Array of string. Each string represents supported type of authorization details.
+                    items:
+                      type: string
+                  identity_chaining_requested_token_types_supported:
+                    type: array
+                    description: Array of token type URIs that the AS supports as requested_token_type in a token exchange request when the IDENTITY_ASSERTION_AUTHZ_GRANT feature is enabled. Contains urn:ietf:params:oauth:token-type:id-jag when ID-JAG is enabled.
+                    items:
+                      type: string
+                    example:
+                    - urn:ietf:params:oauth:token-type:id-jag
+                  authorization_grant_profiles_supported:
+                    type: array
+                    description: Array of grant profile URIs supported by this AS as Resource AS. Contains urn:ietf:params:oauth:grant-profile:id-jag when ID-JAG is enabled.
+                    items:
+                      type: string
+                    example:
+                    - urn:ietf:params:oauth:grant-profile:id-jag
+        500:
+          $ref: '#/components/responses/InternalServerError'
+components:
+  responses:
+    InternalServerError:
+      description: Internal error occured. Please check log file for details.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      required:
+      - error
+      - error_description
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        details:
+          type: string
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer

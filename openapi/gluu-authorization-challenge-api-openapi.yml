@@ -1,0 +1,137 @@
+openapi: 3.2.0
+info:
+  title: Janssen Authorization Server Authorization Challenge API
+  description: Janssen Authorization Server - OAuth 2.0 server; OpenID Connect Provider (OP) & UMA Authorization Server (AS)
+  contact:
+    name: Contact
+    url: https://github.com/JanssenProject/jans/discussions
+  license:
+    name: License
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: OAS Version
+servers:
+- url: https://jans.local.io/jans-auth
+tags:
+- name: Authorization Challenge
+paths:
+  /restv1/authorize-challenge:
+    post:
+      tags:
+      - Authorization Challenge
+      summary: The Authorization Challenge Endpoint performs Authentication of the End-User by…
+      description: The Authorization Challenge Endpoint performs Authentication of the End-User by native application to obtain an authorization code.
+      operationId: post_authorize_challenge
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+              - client_id
+              properties:
+                client_id:
+                  type: string
+                  description: OAuth 2.0 Client Identifier valid at the Authorization Server.
+                scope:
+                  type: string
+                  description: OpenID Connect requests MUST contain the openid scope value. If the openid scope value is not present, the behavior is entirely unspecified. Other scope values MAY be present.
+                auth_session:
+                  type: string
+                  description: If the client has previously obtained a auth session
+                use_auth_session:
+                  type: boolean
+                  description: If return back in response auth_session. By default AS does not return auth_session
+                state:
+                  type: string
+                  description: Opaque value used to maintain state between the request and the callback.
+                nonce:
+                  type: string
+                  description: String value used to associate a Client session with an ID Token, and to mitigate replay attacks.
+                login_hint:
+                  type: string
+                  description: Hint to the Authorization Server about the login identifier the End-User might use to log in (if necessary).
+                acr_values:
+                  type: string
+                  description: Requested Authentication Context Class Reference values. Space-separated string that specifies the acr values that the Authorization Server is being requested to use for processing this Authentication Request, with the values appearing in order of preference.
+                amr_values:
+                  type: string
+                  description: AMR Values.
+                request_session_id:
+                  type: string
+                  description: Request session id.
+                session_id:
+                  type: string
+                  description: Session id of this call.
+                origin_headers:
+                  type: string
+                  description: Origin headers. Used in custom workflows.
+                custom_response_headers:
+                  type: string
+                  description: Custom Response Headers.
+                logout_status_jwt:
+                  type: string
+                  description: Possible values are true or false. Returns back Logout Status JWT if send logout_status_jwt=true and authorization is successful.
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: AuthorizationChallengeResponse
+                description: Authorization Challenge Response
+                required:
+                - authorization_code
+                type: object
+                properties:
+                  authorization_code:
+                    type: string
+                    description: Authorization Code
+                    example: uY29tL2F1dGhlbnRpY
+                  logout_status_jwt:
+                    type: string
+                    description: Logout Status JWT
+                    example: eyJraWQiOiJjb25uZWN0XzA3ZjQ3ZmRkLTg0NTYtNDMzOC1iYTRmLWNhNmU0NDBmYjljOV9zaWdfcnMyNTYiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9
+        400:
+          $ref: '#/components/responses/InvalidRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+components:
+  responses:
+    InternalServerError:
+      description: Internal error occured. Please check log file for details.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized access request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InvalidRequest:
+      description: Invalid parameters are provided to endpoint.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      required:
+      - error
+      - error_description
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        details:
+          type: string
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer

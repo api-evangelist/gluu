@@ -1,0 +1,414 @@
+openapi: 3.2.0
+info:
+  title: Janssen Authorization Server UMA 2 Resource API
+  description: Janssen Authorization Server - OAuth 2.0 server; OpenID Connect Provider (OP) & UMA Authorization Server (AS)
+  contact:
+    name: Contact
+    url: https://github.com/JanssenProject/jans/discussions
+  license:
+    name: License
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: OAS Version
+servers:
+- url: https://jans.local.io/jans-auth
+tags:
+- name: UMA 2 Resource
+paths:
+  /restv1/host/rsrc/resource_set:
+    post:
+      tags:
+      - UMA 2 Resource
+      summary: Adds a new resource description
+      description: Adds a new resource description.
+      operationId: post-host-rsrc-resource_set
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: Client Authorization details that contains the access token along with other details.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: UmaResource
+              description: Resource description
+              type: object
+              required:
+              - resource_scopes
+              properties:
+                name:
+                  type: string
+                  description: A human-readable string describing a set of one or more resources. This name MAY be used by the authorization server in its resource owner user interface for the resource owner.
+                icon_uri:
+                  type: string
+                  description: A URI for a graphic icon representing the resource set. The referenced icon MAY be used by the authorization server in its resource owner user interface for the resource owner.
+                  example: http://www.example.com/icons/sharesocial.png
+                type:
+                  type: string
+                  description: A string uniquely identifying the semantics of the resource set. For example, if the resource set consists of a single resource that is an identity claim that leverages standardized claim semantics for \"verified email address\", the value of this property could be an identifying URI for this claim.
+                resource_scopes:
+                  type: array
+                  items:
+                    type: string
+                  description: An array of strings, any of which MAY be a URI, indicating the available scopes for this resource set. URIs MUST resolve to scope descriptions as defined in Section 2.1. Published scope descriptions MAY reside anywhere on the web; a resource server is not required to self-host scope descriptions and may wish to point to standardized scope descriptions residing elsewhere. It is the resource server's responsibility to ensure that scope description documents are accessible to authorization servers through GET calls to support any user interface requirements. The resource server and authorization server are presumed to have separately negotiated any required interpretation of scope handling not conveyed through scope descriptions.
+                  example: \"read-public\", \"post-updates"\,\"read-private"\
+                scope_expression:
+                  type: string
+                description:
+                  type: string
+                  description: A human-readable string describing the resource
+                iat:
+                  type: integer
+                  description: number of seconds since January 1 1970 UTC, indicating when the token was issued at
+                  format: int64
+                  example: 1535709072
+                exp:
+                  type: integer
+                  description: number of seconds since January 1 1970 UTC, indicating when this token will expire.
+                  format: int64
+                  example: 1419356238
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: UmaResourceResponse
+                description: UmaResourceResponse Resource created.
+                type: object
+                required:
+                - _id
+                properties:
+                  _id:
+                    type: string
+                    description: UMA Resource identifier
+                    example: KX3A-39WE
+                  user_access_policy_uri:
+                    type: string
+                    example: http://as.example.com/rs/222/resource/22/policy
+        500:
+          description: Invalid parameters provided to endpoint.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - error_description
+                properties:
+                  error:
+                    type: string
+                    format: enum
+                    example:
+                    - server_error
+                  error_description:
+                    type: string
+                  details:
+                    type: string
+  '/restv1/host/rsrc/resource_set/{rsid}:':
+    parameters:
+    - name: rsid
+      in: path
+      required: true
+      description: Resource ID.
+      schema:
+        type: string
+    put:
+      tags:
+      - UMA 2 Resource
+      summary: Updates a previously registered resource
+      description: Updates a previously registered resource.
+      operationId: put-host-rsrc-resource_set{rsid}
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: UmaResource
+              description: Resource description
+              type: object
+              required:
+              - resource_scopes
+              properties:
+                name:
+                  type: string
+                  description: A human-readable string describing a set of one or more resources. This name MAY be used by the authorization server in its resource owner user interface for the resource owner.
+                icon_uri:
+                  type: string
+                  description: A URI for a graphic icon representing the resource set. The referenced icon MAY be used by the authorization server in its resource owner user interface for the resource owner.
+                  example: http://www.example.com/icons/sharesocial.png
+                type:
+                  type: string
+                  description: A string uniquely identifying the semantics of the resource set. For example, if the resource set consists of a single resource that is an identity claim that leverages standardized claim semantics for \"verified email address\", the value of this property could be an identifying URI for this claim.
+                resource_scopes:
+                  type: array
+                  items:
+                    type: string
+                  description: An array of strings, any of which MAY be a URI, indicating the available scopes for this resource set. URIs MUST resolve to scope descriptions as defined in Section 2.1. Published scope descriptions MAY reside anywhere on the web; a resource server is not required to self-host scope descriptions and may wish to point to standardized scope descriptions residing elsewhere. It is the resource server's responsibility to ensure that scope description documents are accessible to authorization servers through GET calls to support any user interface requirements. The resource server and authorization server are presumed to have separately negotiated any required interpretation of scope handling not conveyed through scope descriptions.
+                  example: \"read-public\", \"post-updates"\,\"read-private"\
+                scope_expression:
+                  type: string
+                description:
+                  type: string
+                  description: A human-readable string describing the resource
+                iat:
+                  type: integer
+                  description: number of seconds since January 1 1970 UTC, indicating when the token was issued at
+                  format: int64
+                  example: 1535709072
+                exp:
+                  type: integer
+                  description: number of seconds since January 1 1970 UTC, indicating when this token will expire.
+                  format: int64
+                  example: 1419356238
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: UmaResourceResponse
+                description: UmaResourceResponse Resource created.
+                type: object
+                required:
+                - _id
+                properties:
+                  _id:
+                    type: string
+                    description: UMA Resource identifier
+                    example: KX3A-39WE
+                  user_access_policy_uri:
+                    type: string
+                    example: http://as.example.com/rs/222/resource/22/policy
+        404:
+          description: Invalid parameters provided to endpoint.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - error_description
+                properties:
+                  error:
+                    type: string
+                    format: enum
+                    example:
+                    - not_found
+                  error_description:
+                    type: string
+                  details:
+                    type: string
+        500:
+          description: Invalid parameters provided to endpoint.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - error_description
+                properties:
+                  error:
+                    type: string
+                    format: enum
+                    example:
+                    - server_error
+                  error_description:
+                    type: string
+                  details:
+                    type: string
+    get:
+      tags:
+      - UMA 2 Resource
+      summary: Lists all previously registered resource
+      description: Lists all previously registered resource.
+      operationId: get-host-rsrc-resource_set
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: scope
+        in: query
+        description: Scope uri.
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: Uma Resource indetifiers
+                description: Uma Resource details
+                type: array
+                items:
+                  type: string
+                  description: List of resource identifers
+                  example:
+                  - '11'
+                  - '22'
+        500:
+          description: Invalid parameters provided to endpoint.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - error_description
+                properties:
+                  error:
+                    type: string
+                    format: enum
+                    example:
+                    - server_error
+                  error_description:
+                    type: string
+                  details:
+                    type: string
+    delete:
+      tags:
+      - UMA 2 Resource
+      summary: Deletes a previously registered resource
+      description: Deletes a previously registered resource.
+      operationId: delete-host-rsrc-resource_set
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: rsid
+        in: path
+        required: true
+        description: Resource ID
+        schema:
+          type: string
+      responses:
+        204:
+          description: OK
+          content: {}
+        500:
+          description: Invalid parameters provided to endpoint.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - error_description
+                properties:
+                  error:
+                    type: string
+                    format: enum
+                    example:
+                    - server_error
+                  error_description:
+                    type: string
+                  details:
+                    type: string
+  /restv1/host/rsrc/resource_set/{rsid}:
+    get:
+      tags:
+      - UMA 2 Resource
+      summary: Reads a previously registered resource
+      description: Reads a previously registered resource.
+      operationId: get-host-rsrc-resource_set/{rsid}
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: Client Authorization details that contains the access token along with other details.
+        schema:
+          type: string
+      - name: rsid
+        in: path
+        required: true
+        description: Resource description ID.
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: UmaResourceWithId
+                description: Uma Resource details
+                type: object
+                required:
+                - _id
+                - iat
+                - exp
+                properties:
+                  _id:
+                    type: string
+                    description: UMA Resource identifier
+                    example: KX3A-39WE
+                  name:
+                    type: string
+                    description: A human-readable string describing a set of one or more resources. This name MAY be used by the authorization server in its resource owner user interface for the resource owner.
+                  uri:
+                    type: string
+                    description: A human-readable string describing the resource
+                  type:
+                    type: string
+                    description: A string uniquely identifying the semantics of the resource set. For example, if the resource set consists of a single resource that is an identity claim that leverages standardized claim semantics for \"verified email address\", the value of this property could be an identifying URI for this claim.
+                  scopes:
+                    type: array
+                    items:
+                      type: string
+                    description: An array of strings, any of which MAY be a URI, indicating the available scopes for this resource set. URIs MUST resolve to scope descriptions as defined in Section 2.1. Published scope descriptions MAY reside anywhere on the web; a resource server is not required to self-host scope descriptions and may wish to point to standardized scope descriptions residing elsewhere. It is the resource server's responsibility to ensure that scope description documents are accessible to authorization servers through GET calls to support any user interface requirements. The resource server and authorization server are presumed to have separately negotiated any required interpretation of scope handling not conveyed through scope descriptions.
+                  scope_expression:
+                    type: string
+                  description:
+                    type: string
+                    description: A human-readable string describing the resource
+                  icon_uri:
+                    type: string
+                    description: A URI for a graphic icon representing the resource set. The referenced icon MAY be used by the authorization server in its resource owner user interface for the resource owner.
+                    example: http://www.example.com/icons/sharesocial.png
+                  iat:
+                    type: integer
+                    description: number of seconds since January 1 1970 UTC, indicating when the token was issued at
+                    format: int64
+                    example: 1535709072
+                  exp:
+                    type: integer
+                    description: number of seconds since January 1 1970 UTC, indicating when this token will expire.
+                    format: int64
+                    example: 1419356238
+        500:
+          description: Invalid parameters provided to endpoint.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - error_description
+                properties:
+                  error:
+                    type: string
+                    format: enum
+                    example:
+                    - server_error
+                  error_description:
+                    type: string
+                  details:
+                    type: string
+components:
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer

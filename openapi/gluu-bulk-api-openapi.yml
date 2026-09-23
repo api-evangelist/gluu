@@ -1,0 +1,158 @@
+openapi: 3.2.0
+info:
+  title: SCIM Bulk API
+  description: 'Janssen SCIM 2.0 server API. Developers can think of SCIM as a REST API with endpoints exposing CRUD functionality
+
+    (create, update, retrieve and delete) for identity management resources such as users, groups, and fido devices.'
+  contact:
+    name: Contact
+    url: https://github.com/JanssenProject/jans/discussions
+  license:
+    name: License
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: OAS Version
+servers:
+- url: https://jans.local.io/jans-scim/restv1/v2
+tags:
+- name: Bulk
+paths:
+  /Bulk:
+    post:
+      description: Send several resource operations in a single request (see section 3.7 of RFC 7644)
+      security:
+      - scim_oauth:
+        - https://jans.io/scim/bulk
+      requestBody:
+        description: Payload describing the operations to perform
+        content:
+          application/scim+json:
+            schema:
+              $ref: '#/components/schemas/BulkRequest'
+            examples:
+              samplePayload:
+                externalValue: https://raw.githubusercontent.com/JanssenProject/jans/main/jans-scim/client/src/test/resources/multiple/users_bulk_1.json
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkRequest'
+            examples:
+              samplePayload:
+                externalValue: https://raw.githubusercontent.com/JanssenProject/jans/main/jans-scim/client/src/test/resources/multiple/users_bulk_1.json
+        required: true
+      responses:
+        200:
+          description: 'Successful operation. Every individual operation will report its own output status.
+
+            Reponses are only included for failed operations.
+
+            '
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/BulkData'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkData'
+        500:
+          description: There was an unexpected failure executing the operation
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-codegen-request-body-name: request
+      tags:
+      - Bulk
+      summary: Create bulk
+      x-summary-source: derived
+      operationId: postBulk
+      x-operation-id-source: derived
+components:
+  schemas:
+    BulkOperation:
+      type: object
+      properties:
+        method:
+          type: string
+          example: PUT
+        bulkId:
+          type: string
+          description: 'Used to bind the id generated for a created resource (via POST) to a named variable for later reuse
+
+            '
+        path:
+          type: string
+          description: Path of the endpoint the operation uses relative to the server root, eg. /Users
+        data:
+          type: object
+          properties: {}
+          description: Payload associated to this operation
+        location:
+          type: string
+          description: Used in responses of POST operations
+        response:
+          type: object
+          properties: {}
+        status:
+          type: string
+      description: See section 3.7 of RFC 7644
+    BulkData:
+      type: object
+      description: Used to encapsulate one or more succesive SCIM operations in a single request
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+        Operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/BulkOperation'
+    BulkRequest:
+      allOf:
+      - $ref: '#/components/schemas/BulkData'
+      - type: object
+        properties:
+          failOnErrors:
+            type: integer
+            description: The number of errors that can be accepted before the Bulk request is terminated and a response is returned
+    ErrorResponse:
+      required:
+      - status
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:api:messages:2.0:Error
+        status:
+          type: string
+          description: HTTP status code as string
+        scimType:
+          type: string
+          description: A detail error keyword. See table 9 of RFC 7644
+        detail:
+          type: string
+          description: A detailed human-readable message of the error
+      description: See section 3.12 of RFC 7644
+  securitySchemes:
+    scim_oauth:
+      type: oauth2
+      description: Endpoints protected by a bearer token passed in the Authorization header.
+      flows:
+        clientCredentials:
+          tokenUrl: https://localhost/jans-auth/restv1/token
+          scopes:
+            https://jans.io/scim/users.read: Query user resources
+            https://jans.io/scim/users.write: Modify user resources
+            https://jans.io/scim/groups.read: Query group resources
+            https://jans.io/scim/groups.write: Modify group resources
+            https://jans.io/scim/fido.read: Query fido resources
+            https://jans.io/scim/fido.write: Modify fido resources
+            https://jans.io/scim/fido2.read: Query fido 2 resources
+            https://jans.io/scim/fido2.write: Modify fido 2 resources
+            https://jans.io/scim/all-resources.search: Access the root .search endpoint
+            https://jans.io/scim/bulk: Send requests to the bulk endpoint
+            https://jans.io/scim/tokens: List and revoke user tokens

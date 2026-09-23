@@ -1,0 +1,415 @@
+openapi: 3.2.0
+info:
+  title: Jans Config API - Fido2 Fido2 - Registration API
+  contact:
+    name: Gluu Support
+    url: https://support.gluu.org
+    email: xxx@gluu.org
+  license:
+    name: Apache 2.0
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: 1.0.0
+servers:
+- url: https://jans.io/
+  description: The Jans server
+tags:
+- name: Fido2 - Registration
+paths:
+  /fido2/registration/id/{jansId}:
+    get:
+      tags:
+      - Fido2 - Registration
+      summary: Fetch Fido2RegistrationEntry by Id
+      description: Fetch Fido2RegistrationEntry by Id.
+      operationId: get-fido2-by-id
+      parameters:
+      - name: jansId
+        in: path
+        description: Fido2Registration identifier
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fido2RegistrationEntry'
+              examples:
+                Response example:
+                  description: Response example
+                  value: "{\n    \"dn\": \"jansId=6e196a5d-122b-4f06-8ff8-6f41b32bc2a6,ou=fido2_register,o=jans\",\n    \"id\": \"6e196a5d-122b-4f06-8ff8-6f41b32bc2a6\",\n    \"challange\": \"CCkCZgre81B-6SYCzzfLqSReF4b7enbibnp487AEPkU\",\n    \"challengeHash\": 76195,\n    \"creationDate\": \"2024-09-25T17:13:51\",\n    \"userInum\": \"1e73f801-22c2-4c19-a757-f96a87a5c713\",\n    \"rpId\": \"admin-ui-test.gluu.org\",\n    \"deletable\": false,\n    \"publicKeyId\": \"RaA1BFgMwgKXFSVYJ4qPab0Dz_Y4zntWH0Wq21Uz6c8\",\n    \"publicKeyIdHash\": 75217,\n    \"registrationData\": {\n        \"createdDate\": \"2024-09-25T17:13:51\",\n        \"updatedDate\": \"2024-09-25T17:15:43\",\n        \"createdBy\": \"admin\",\n        \"updatedBy\": \"admin\",\n        \"username\": \"admin\",\n        \"domain\": \"admin-ui-test.gluu.org\",\n        \"userId\": \"fEJVrzv_s5p5_SCUjiVofbS01eKJwybVIFoRcE-Vl6Y\",\n        \"challenge\": \"CCkCZgre81B-6SYCzzfLqSReF4b7enbibnp487AEPkU\",\n        \"attenstationRequest\": \"{\\\"attestation\\\":\\\"direct\\\",\\\"displayName\\\":\\\"admin\\\",\\\"authenticatorSelection\\\":{\\\"authenticatorAttachment\\\":\\\"platform\\\",\\\"userVerification\\\":\\\"discouraged\\\",\\\"requireResidentKey\\\":\\\"false\\\"},\\\"username\\\":\\\"admin\\\"}\",\n        \"attenstationResponse\": \"{\\\"type\\\":\\\"public-key\\\",\\\"id\\\":\\\"RaA1BFgMwgKXFSVYJ4qPab0Dz_Y4zntWH0Wq21Uz6c8\\\",\\\"response\\\":{\\\"attestationObject\\\":\\\"o2NmbXRmcGFja2VkZ2F0dFN0bXSiY2FsZyZjc2lnWEcwRQIhANoBaaelHNJkCSnrmxSeixWKyCsA-IYW19LAv7IQoRcnAiAaQw6Rjc1By7RdA00k6qzDtOwLCoPvBTFACAL9nr6tPWhhdXRoRGF0YVikjZHVp5tBCFVmGadN9klm_j50zRn-V4OMG9wljvmxv3dFAAAAAK3OAAI1vMYKZIsLJfHwVQMAIEWgNQRYDMIClxUlWCeKj2m9A8_2OM57Vh9FqttVM-nPpQECAyYgASFYIMyALzgwTY7Oe3rzssnlBfrwk5TuZ1a-cKkEuRIYE0-tIlgghEQR51yw4l1fQLjvYi4ydFdOvC5rHkVrk-xxcuwcotE\\\",\\\"clientDataJSON\\\":\\\"eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiQ0NrQ1pncmU4MUItNlNZQ3p6ZkxxU1JlRjRiN2VuYmlibnA0ODdBRVBrVSIsIm9yaWdpbiI6Imh0dHBzOi8vYWRtaW4tdWktdGVzdC5nbHV1Lm9yZyIsImNyb3NzT3JpZ2luIjpmYWxzZX0\\\"},\\\"clientExtensionResults\\\":{}}\",\n        \"uncompressedECPoint\": \"pQECAyYgASFYIMyALzgwTY7Oe3rzssnlBfrwk5TuZ1a-cKkEuRIYE0-tIlgghEQR51yw4l1fQLjvYi4ydFdOvC5rHkVrk-xxcuwcotE\",\n        \"publicKeyId\": \"RaA1BFgMwgKXFSVYJ4qPab0Dz_Y4zntWH0Wq21Uz6c8\",\n        \"type\": \"public-key\",\n        \"status\": \"registered\",\n        \"counter\": 0,\n        \"attestationType\": \"packed\",\n        \"signatureAlgorithm\": 0,\n        \"applicationId\": \"admin-ui-test.gluu.org\"\n    },\n    \"counter\": 0,\n    \"registrationStatus\": \"registered\",\n    \"baseDn\": \"jansId=6e196a5d-122b-4f06-8ff8-6f41b32bc2a6,ou=fido2_register,o=jans\"\n}\n"
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.write
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+    delete:
+      tags:
+      - Fido2 - Registration
+      summary: Delete Fido2 Device Data based on device UID
+      operationId: delete-fido2-data
+      parameters:
+      - name: jansId
+        in: path
+        description: Fido2Registration Unique identifier.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.delete
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.admin
+      - oauth2:
+        - https://jans.io/oauth/config/delete-all
+  /fido2/registration/entries/{username}:
+    get:
+      tags:
+      - Fido2 - Registration
+      summary: Get details of connected FIDO2 devices registered to user
+      operationId: get-registration-entries-fido2
+      parameters:
+      - name: username
+        in: path
+        description: User name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fido2RegistrationEntryPagedResult'
+              examples:
+                Response example:
+                  description: Response example
+                  value: "{\n    \"start\": 0,\n    \"totalEntriesCount\": 2,\n    \"entriesCount\": 2,\n    \"entries\": [\n        {\n            \"dn\": \"jansId=50b1c565-cb63-4d1c-9e60-b25c7ed15807,ou=fido2_register,inum=4e138215-42c6-43b2-a138-e98d282421a3,ou=people,o=jans\",\n            \"id\": \"50b1c565-cb63-4d1c-9e60-b25c7ed15807\",\n            \"challange\": \"uKQWXt4bowi2DM8EWtuFWOhMZLh9Fqw7r-4LWFcFY2I\",\n            \"challengeHash\": 73147,\n            \"creationDate\": \"2024-09-25T17:32:00\",\n            \"userInum\": \"4e138215-42c6-43b2-a138-e98d282421a3\",\n            \"rpId\": \"admin-ui-test.gluu.org\",\n            \"deletable\": false,\n            \"publicKeyId\": \"TTtrcadQOUwPKVRBccLNJw3PnNw\",\n            \"publicKeyIdHash\": 31071,\n            \"registrationData\": {\n                \"createdDate\": \"2024-09-25T17:32:00\",\n                \"updatedDate\": \"2024-09-25T17:34:53\",\n                \"createdBy\": \"arnab\",\n                \"updatedBy\": \"arnab\",\n                \"username\": \"arnab\",\n                \"domain\": \"admin-ui-test.gluu.org\",\n                \"userId\": \"EZ-odnHs9EDWdY52OikD--lqjvFAHqJdZctqnxu0Kao\",\n                \"challenge\": \"uKQWXt4bowi2DM8EWtuFWOhMZLh9Fqw7r-4LWFcFY2I\",\n                \"attenstationRequest\": \"{\\\"attestation\\\":\\\"direct\\\",\\\"displayName\\\":\\\"arnab\\\",\\\"authenticatorSelection\\\":{\\\"authenticatorAttachment\\\":\\\"platform\\\",\\\"userVerification\\\":\\\"discouraged\\\",\\\"requireResidentKey\\\":\\\"false\\\"},\\\"username\\\":\\\"arnab\\\"}\",\n                \"attenstationResponse\": \"{\\\"type\\\":\\\"public-key\\\",\\\"id\\\":\\\"TTtrcadQOUwPKVRBccLNJw3PnNw\\\",\\\"response\\\":{\\\"attestationObject\\\":\\\"o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YViYjZHVp5tBCFVmGadN9klm_j50zRn-V4OMG9wljvmxv3ddAAAAAPv8MAcVTk7MjAtuAgVX170AFE07a3GnUDlMDylUQXHCzScNz5zcpQECAyYgASFYIEAey21gffFOf4PAHS2YtXE2mShi8LDXhHg5zouLceaXIlggvCyrOjHhY_KvPDCKmssmF1g8YbEn_fXRAfHf-cfVros\\\",\\\"clientDataJSON\\\":\\\"eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoidUtRV1h0NGJvd2kyRE04RVd0dUZXT2hNWkxoOUZxdzdyLTRMV0ZjRlkySSIsIm9yaWdpbiI6Imh0dHBzOi8vYWRtaW4tdWktdGVzdC5nbHV1Lm9yZyIsImNyb3NzT3JpZ2luIjpmYWxzZX0\\\"},\\\"clientExtensionResults\\\":{}}\",\n                \"uncompressedECPoint\": \"pQECAyYgASFYIEAey21gffFOf4PAHS2YtXE2mShi8LDXhHg5zouLceaXIlggvCyrOjHhY_KvPDCKmssmF1g8YbEn_fXRAfHf-cfVros\",\n                \"publicKeyId\": \"TTtrcadQOUwPKVRBccLNJw3PnNw\",\n                \"type\": \"public-key\",\n                \"status\": \"registered\",\n                \"counter\": 0,\n                \"attestationType\": \"none\",\n                \"signatureAlgorithm\": 0,\n                \"applicationId\": \"admin-ui-test.gluu.org\"\n            },\n            \"counter\": 0,\n            \"registrationStatus\": \"registered\",\n            \"baseDn\": \"jansId=50b1c565-cb63-4d1c-9e60-b25c7ed15807,ou=fido2_register,inum=4e138215-42c6-43b2-a138-e98d282421a3,ou=people,o=jans\"\n        },\n        {\n            \"dn\": \"jansId=6e196a5d-122b-4f06-8ff8-6f41b32bc2a6,ou=fido2_register,inum=1e73f801-22c2-4c19-a757-f96a87a5c713,ou=people,o=jans\",\n            \"id\": \"6e196a5d-122b-4f06-8ff8-6f41b32bc2a6\",\n            \"challange\": \"CCkCZgre81B-6SYCzzfLqSReF4b7enbibnp487AEPkU\",\n            \"challengeHash\": 76195,\n            \"creationDate\": \"2024-09-25T17:13:51\",\n            \"userInum\": \"1e73f801-22c2-4c19-a757-f96a87a5c713\",\n            \"rpId\": \"admin-ui-test.gluu.org\",\n            \"deletable\": false,\n            \"publicKeyId\": \"RaA1BFgMwgKXFSVYJ4qPab0Dz_Y4zntWH0Wq21Uz6c8\",\n            \"publicKeyIdHash\": 75217,\n            \"registrationData\": {\n                \"createdDate\": \"2024-09-25T17:13:51\",\n                \"updatedDate\": \"2024-09-25T17:15:43\",\n                \"createdBy\": \"admin\",\n                \"updatedBy\": \"admin\",\n                \"username\": \"admin\",\n                \"domain\": \"admin-ui-test.gluu.org\",\n                \"userId\": \"fEJVrzv_s5p5_SCUjiVofbS01eKJwybVIFoRcE-Vl6Y\",\n                \"challenge\": \"CCkCZgre81B-6SYCzzfLqSReF4b7enbibnp487AEPkU\",\n                \"attenstationRequest\": \"{\\\"attestation\\\":\\\"direct\\\",\\\"displayName\\\":\\\"admin\\\",\\\"authenticatorSelection\\\":{\\\"authenticatorAttachment\\\":\\\"platform\\\",\\\"userVerification\\\":\\\"discouraged\\\",\\\"requireResidentKey\\\":\\\"false\\\"},\\\"username\\\":\\\"admin\\\"}\",\n                \"attenstationResponse\": \"{\\\"type\\\":\\\"public-key\\\",\\\"id\\\":\\\"RaA1BFgMwgKXFSVYJ4qPab0Dz_Y4zntWH0Wq21Uz6c8\\\",\\\"response\\\":{\\\"attestationObject\\\":\\\"o2NmbXRmcGFja2VkZ2F0dFN0bXSiY2FsZyZjc2lnWEcwRQIhANoBaaelHNJkCSnrmxSeixWKyCsA-IYW19LAv7IQoRcnAiAaQw6Rjc1By7RdA00k6qzDtOwLCoPvBTFACAL9nr6tPWhhdXRoRGF0YVikjZHVp5tBCFVmGadN9klm_j50zRn-V4OMG9wljvmxv3dFAAAAAK3OAAI1vMYKZIsLJfHwVQMAIEWgNQRYDMIClxUlWCeKj2m9A8_2OM57Vh9FqttVM-nPpQECAyYgASFYIMyALzgwTY7Oe3rzssnlBfrwk5TuZ1a-cKkEuRIYE0-tIlgghEQR51yw4l1fQLjvYi4ydFdOvC5rHkVrk-xxcuwcotE\\\",\\\"clientDataJSON\\\":\\\"eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiQ0NrQ1pncmU4MUItNlNZQ3p6ZkxxU1JlRjRiN2VuYmlibnA0ODdBRVBrVSIsIm9yaWdpbiI6Imh0dHBzOi8vYWRtaW4tdWktdGVzdC5nbHV1Lm9yZyIsImNyb3NzT3JpZ2luIjpmYWxzZX0\\\"},\\\"clientExtensionResults\\\":{}}\",\n                \"uncompressedECPoint\": \"pQECAyYgASFYIMyALzgwTY7Oe3rzssnlBfrwk5TuZ1a-cKkEuRIYE0-tIlgghEQR51yw4l1fQLjvYi4ydFdOvC5rHkVrk-xxcuwcotE\",\n                \"publicKeyId\": \"RaA1BFgMwgKXFSVYJ4qPab0Dz_Y4zntWH0Wq21Uz6c8\",\n                \"type\": \"public-key\",\n                \"status\": \"registered\",\n                \"counter\": 0,\n                \"attestationType\": \"packed\",\n                \"signatureAlgorithm\": 0,\n                \"applicationId\": \"admin-ui-test.gluu.org\"\n            },\n            \"counter\": 0,\n            \"registrationStatus\": \"registered\",\n            \"baseDn\": \"jansId=6e196a5d-122b-4f06-8ff8-6f41b32bc2a6,ou=fido2_register,inum=1e73f801-22c2-4c19-a757-f96a87a5c713,ou=people,o=jans\"\n        }\n    ]\n}\n"
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.write
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+  /fido2/registration:
+    get:
+      tags:
+      - Fido2 - Registration
+      summary: Get a list of Fido2RegistrationEntry
+      description: Get a list of Fido2RegistrationEntry.
+      operationId: search-fido2-registration-data
+      parameters:
+      - name: limit
+        in: query
+        description: Search size - max size of the results to return
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - name: pattern
+        in: query
+        description: Search pattern
+        schema:
+          type: string
+          default: ''
+      - name: startIndex
+        in: query
+        description: The 1-based index of the first query result
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: sortBy
+        in: query
+        description: Data whose value will be used to order the returned response
+        schema:
+          type: string
+          default: jansId
+      - name: sortOrder
+        in: query
+        description: Order in which the sortBy param is applied. Allowed values are "ascending" and "descending"
+        schema:
+          type: string
+          default: ascending
+      - name: fieldValuePair
+        in: query
+        description: Field and value pair for seraching
+        schema:
+          type: string
+          default: ''
+        examples:
+          Field value example:
+            description: Field value example
+            value: mail=abc@mail.com,jansStatus=true
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fido2RegistrationEntryPagedResult'
+              examples:
+                Response example:
+                  description: Response example
+                  value: "{\n    \"start\": 0,\n    \"totalEntriesCount\": 2,\n    \"entriesCount\": 2,\n    \"entries\": [\n        {\n            \"dn\": \"jansId=50b1c565-cb63-4d1c-9e60-b25c7ed15807,ou=fido2_register,inum=4e138215-42c6-43b2-a138-e98d282421a3,ou=people,o=jans\",\n            \"id\": \"50b1c565-cb63-4d1c-9e60-b25c7ed15807\",\n            \"challange\": \"uKQWXt4bowi2DM8EWtuFWOhMZLh9Fqw7r-4LWFcFY2I\",\n            \"challengeHash\": 73147,\n            \"creationDate\": \"2024-09-25T17:32:00\",\n            \"userInum\": \"4e138215-42c6-43b2-a138-e98d282421a3\",\n            \"rpId\": \"admin-ui-test.gluu.org\",\n            \"deletable\": false,\n            \"publicKeyId\": \"TTtrcadQOUwPKVRBccLNJw3PnNw\",\n            \"publicKeyIdHash\": 31071,\n            \"registrationData\": {\n                \"createdDate\": \"2024-09-25T17:32:00\",\n                \"updatedDate\": \"2024-09-25T17:34:53\",\n                \"createdBy\": \"arnab\",\n                \"updatedBy\": \"arnab\",\n                \"username\": \"arnab\",\n                \"domain\": \"admin-ui-test.gluu.org\",\n                \"userId\": \"EZ-odnHs9EDWdY52OikD--lqjvFAHqJdZctqnxu0Kao\",\n                \"challenge\": \"uKQWXt4bowi2DM8EWtuFWOhMZLh9Fqw7r-4LWFcFY2I\",\n                \"attenstationRequest\": \"{\\\"attestation\\\":\\\"direct\\\",\\\"displayName\\\":\\\"arnab\\\",\\\"authenticatorSelection\\\":{\\\"authenticatorAttachment\\\":\\\"platform\\\",\\\"userVerification\\\":\\\"discouraged\\\",\\\"requireResidentKey\\\":\\\"false\\\"},\\\"username\\\":\\\"arnab\\\"}\",\n                \"attenstationResponse\": \"{\\\"type\\\":\\\"public-key\\\",\\\"id\\\":\\\"TTtrcadQOUwPKVRBccLNJw3PnNw\\\",\\\"response\\\":{\\\"attestationObject\\\":\\\"o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YViYjZHVp5tBCFVmGadN9klm_j50zRn-V4OMG9wljvmxv3ddAAAAAPv8MAcVTk7MjAtuAgVX170AFE07a3GnUDlMDylUQXHCzScNz5zcpQECAyYgASFYIEAey21gffFOf4PAHS2YtXE2mShi8LDXhHg5zouLceaXIlggvCyrOjHhY_KvPDCKmssmF1g8YbEn_fXRAfHf-cfVros\\\",\\\"clientDataJSON\\\":\\\"eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoidUtRV1h0NGJvd2kyRE04RVd0dUZXT2hNWkxoOUZxdzdyLTRMV0ZjRlkySSIsIm9yaWdpbiI6Imh0dHBzOi8vYWRtaW4tdWktdGVzdC5nbHV1Lm9yZyIsImNyb3NzT3JpZ2luIjpmYWxzZX0\\\"},\\\"clientExtensionResults\\\":{}}\",\n                \"uncompressedECPoint\": \"pQECAyYgASFYIEAey21gffFOf4PAHS2YtXE2mShi8LDXhHg5zouLceaXIlggvCyrOjHhY_KvPDCKmssmF1g8YbEn_fXRAfHf-cfVros\",\n                \"publicKeyId\": \"TTtrcadQOUwPKVRBccLNJw3PnNw\",\n                \"type\": \"public-key\",\n                \"status\": \"registered\",\n                \"counter\": 0,\n                \"attestationType\": \"none\",\n                \"signatureAlgorithm\": 0,\n                \"applicationId\": \"admin-ui-test.gluu.org\"\n            },\n            \"counter\": 0,\n            \"registrationStatus\": \"registered\",\n            \"baseDn\": \"jansId=50b1c565-cb63-4d1c-9e60-b25c7ed15807,ou=fido2_register,inum=4e138215-42c6-43b2-a138-e98d282421a3,ou=people,o=jans\"\n        },\n        {\n            \"dn\": \"jansId=6e196a5d-122b-4f06-8ff8-6f41b32bc2a6,ou=fido2_register,inum=1e73f801-22c2-4c19-a757-f96a87a5c713,ou=people,o=jans\",\n            \"id\": \"6e196a5d-122b-4f06-8ff8-6f41b32bc2a6\",\n            \"challange\": \"CCkCZgre81B-6SYCzzfLqSReF4b7enbibnp487AEPkU\",\n            \"challengeHash\": 76195,\n            \"creationDate\": \"2024-09-25T17:13:51\",\n            \"userInum\": \"1e73f801-22c2-4c19-a757-f96a87a5c713\",\n            \"rpId\": \"admin-ui-test.gluu.org\",\n            \"deletable\": false,\n            \"publicKeyId\": \"RaA1BFgMwgKXFSVYJ4qPab0Dz_Y4zntWH0Wq21Uz6c8\",\n            \"publicKeyIdHash\": 75217,\n            \"registrationData\": {\n                \"createdDate\": \"2024-09-25T17:13:51\",\n                \"updatedDate\": \"2024-09-25T17:15:43\",\n                \"createdBy\": \"admin\",\n                \"updatedBy\": \"admin\",\n                \"username\": \"admin\",\n                \"domain\": \"admin-ui-test.gluu.org\",\n                \"userId\": \"fEJVrzv_s5p5_SCUjiVofbS01eKJwybVIFoRcE-Vl6Y\",\n                \"challenge\": \"CCkCZgre81B-6SYCzzfLqSReF4b7enbibnp487AEPkU\",\n                \"attenstationRequest\": \"{\\\"attestation\\\":\\\"direct\\\",\\\"displayName\\\":\\\"admin\\\",\\\"authenticatorSelection\\\":{\\\"authenticatorAttachment\\\":\\\"platform\\\",\\\"userVerification\\\":\\\"discouraged\\\",\\\"requireResidentKey\\\":\\\"false\\\"},\\\"username\\\":\\\"admin\\\"}\",\n                \"attenstationResponse\": \"{\\\"type\\\":\\\"public-key\\\",\\\"id\\\":\\\"RaA1BFgMwgKXFSVYJ4qPab0Dz_Y4zntWH0Wq21Uz6c8\\\",\\\"response\\\":{\\\"attestationObject\\\":\\\"o2NmbXRmcGFja2VkZ2F0dFN0bXSiY2FsZyZjc2lnWEcwRQIhANoBaaelHNJkCSnrmxSeixWKyCsA-IYW19LAv7IQoRcnAiAaQw6Rjc1By7RdA00k6qzDtOwLCoPvBTFACAL9nr6tPWhhdXRoRGF0YVikjZHVp5tBCFVmGadN9klm_j50zRn-V4OMG9wljvmxv3dFAAAAAK3OAAI1vMYKZIsLJfHwVQMAIEWgNQRYDMIClxUlWCeKj2m9A8_2OM57Vh9FqttVM-nPpQECAyYgASFYIMyALzgwTY7Oe3rzssnlBfrwk5TuZ1a-cKkEuRIYE0-tIlgghEQR51yw4l1fQLjvYi4ydFdOvC5rHkVrk-xxcuwcotE\\\",\\\"clientDataJSON\\\":\\\"eyJ0eXBlIjoid2ViYXV0aG4uY3JlYXRlIiwiY2hhbGxlbmdlIjoiQ0NrQ1pncmU4MUItNlNZQ3p6ZkxxU1JlRjRiN2VuYmlibnA0ODdBRVBrVSIsIm9yaWdpbiI6Imh0dHBzOi8vYWRtaW4tdWktdGVzdC5nbHV1Lm9yZyIsImNyb3NzT3JpZ2luIjpmYWxzZX0\\\"},\\\"clientExtensionResults\\\":{}}\",\n                \"uncompressedECPoint\": \"pQECAyYgASFYIMyALzgwTY7Oe3rzssnlBfrwk5TuZ1a-cKkEuRIYE0-tIlgghEQR51yw4l1fQLjvYi4ydFdOvC5rHkVrk-xxcuwcotE\",\n                \"publicKeyId\": \"RaA1BFgMwgKXFSVYJ4qPab0Dz_Y4zntWH0Wq21Uz6c8\",\n                \"type\": \"public-key\",\n                \"status\": \"registered\",\n                \"counter\": 0,\n                \"attestationType\": \"packed\",\n                \"signatureAlgorithm\": 0,\n                \"applicationId\": \"admin-ui-test.gluu.org\"\n            },\n            \"counter\": 0,\n            \"registrationStatus\": \"registered\",\n            \"baseDn\": \"jansId=6e196a5d-122b-4f06-8ff8-6f41b32bc2a6,ou=fido2_register,inum=1e73f801-22c2-4c19-a757-f96a87a5c713,ou=people,o=jans\"\n        }\n    ]\n}\n"
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.write
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+components:
+  schemas:
+    ApiError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+    Fido2RegistrationEntryPagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Fido2RegistrationEntry'
+    Fido2RegistrationData:
+      type: object
+      properties:
+        createdDate:
+          type: string
+          format: date-time
+        updatedDate:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        updatedBy:
+          type: string
+        username:
+          type: string
+        origin:
+          type: string
+        userId:
+          type: string
+        challenge:
+          type: string
+        attestationRequest:
+          type: string
+        attestationResponse:
+          type: string
+        uncompressedECPoint:
+          type: string
+        publicKeyId:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+          enum:
+          - pending
+          - registered
+          - compromised
+          - canceled
+        counter:
+          type: integer
+          format: int32
+        attestationType:
+          type: string
+        signatureAlgorithm:
+          type: integer
+          format: int32
+        rpId:
+          type: string
+        backupStateFlag:
+          type: boolean
+        backupEligibilityFlag:
+          type: boolean
+        attestedCredentialDataFlag:
+          type: boolean
+        extensionDataFlag:
+          type: boolean
+        userVerifiedFlag:
+          type: boolean
+        userPresentFlag:
+          type: boolean
+        attestationTrusted:
+          type: boolean
+        authentictatorAttachment:
+          type: string
+        credId:
+          type: string
+        transports:
+          type: array
+          items:
+            type: string
+    Fido2DeviceData:
+      type: object
+      properties:
+        uuid:
+          type: string
+        token:
+          type: string
+          writeOnly: true
+        type:
+          type: string
+        platform:
+          type: string
+        name:
+          type: string
+        os_name:
+          type: string
+        os_version:
+          type: string
+        custom_data:
+          type: object
+          additionalProperties:
+            type: string
+        push_token:
+          type: string
+    Fido2RegistrationEntry:
+      type: object
+      properties:
+        dn:
+          type: string
+        id:
+          type: string
+        challange:
+          type: string
+        challengeHash:
+          type: integer
+          format: int32
+        creationDate:
+          type: string
+          format: date-time
+        userInum:
+          type: string
+        rpId:
+          type: string
+        sessionStateId:
+          type: string
+        expirationDate:
+          type: string
+          format: date-time
+        deletable:
+          type: boolean
+        ttl:
+          type: integer
+          format: int32
+        displayName:
+          type: string
+        publicKeyId:
+          type: string
+        publicKeyIdHash:
+          type: integer
+          format: int32
+        registrationData:
+          $ref: '#/components/schemas/Fido2RegistrationData'
+        counter:
+          type: integer
+          format: int32
+        registrationStatus:
+          type: string
+          enum:
+          - pending
+          - registered
+          - compromised
+          - canceled
+        deviceNotificationConf:
+          $ref: '#/components/schemas/Fido2DeviceNotificationConf'
+        deviceData:
+          $ref: '#/components/schemas/Fido2DeviceData'
+        expiration:
+          type: integer
+          format: int32
+          writeOnly: true
+        baseDn:
+          type: string
+    Fido2DeviceNotificationConf:
+      type: object
+      properties:
+        sns_endpoint_arn:
+          type: string
+        sns_endpoint_arn_remove:
+          type: string
+        sns_endpoint_arn_history:
+          type: array
+          items:
+            type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://{op-hostname}/.../token
+          scopes:
+            https://jans.io/oauth/config/fido2.readonly: View fido2 config related information
+            https://jans.io/oauth/config/fido2.write: Manage fido2 config related information
+            https://jans.io/oauth/config/fido2.delete: Delete fido2 config related information
+            https://jans.io/oauth/config/fido2-metrics.readonly: View fido2 metrics related information
+            https://jans.io/oauth/config/fido2.admin: Admin to manage fido2 related information
+            https://jans.io/oauth/config/read-all: Super admin for viewing application resource information
+            https://jans.io/oauth/config/write-all: Super admin for updating application resource information
+            https://jans.io/oauth/config/delete-all: Super admin for deleting application resource information

@@ -1,0 +1,109 @@
+openapi: 3.2.0
+info:
+  title: Janssen Authorization Server Client Registration API
+  description: Janssen Authorization Server - OAuth 2.0 server; OpenID Connect Provider (OP) & UMA Authorization Server (AS)
+  contact:
+    name: Contact
+    url: https://github.com/JanssenProject/jans/discussions
+  license:
+    name: License
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: OAS Version
+servers:
+- url: https://jans.local.io/jans-auth
+tags:
+- name: Client Registration
+paths:
+  /restv1/register:
+    delete:
+      tags:
+      - Client Registration
+      summary: Deletes the client info for a previously registered client
+      description: The Client Registration Endpoint removes the Client Metadata for a previously registered client.
+      operationId: delete-register
+      parameters:
+      - name: client_id
+        in: query
+        required: true
+        description: Client ID that identifies client.
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        description: Authorization header carrying \"registration_access_token\" issued before as a Bearer token
+        schema:
+          type: string
+      responses:
+        204:
+          description: OK
+          content: {}
+        400:
+          description: Invalid parameters provided to endpoint.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - error_description
+                properties:
+                  error:
+                    type: string
+                    format: enum
+                    example:
+                    - invalid_token
+                    - invalid_client_metadata
+                    - access_denied
+                  error_description:
+                    type: string
+                  details:
+                    type: string
+        401:
+          description: Invalid parameters provided to endpoint.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - error
+                - error_description
+                properties:
+                  error:
+                    type: string
+                    format: enum
+                    example:
+                    - invalid_token
+                    - invalid_client_metadata
+                    - access_denied
+                  error_description:
+                    type: string
+                  details:
+                    type: string
+        500:
+          $ref: '#/components/responses/InternalServerError'
+components:
+  responses:
+    InternalServerError:
+      description: Internal error occured. Please check log file for details.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      required:
+      - error
+      - error_description
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        details:
+          type: string
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer

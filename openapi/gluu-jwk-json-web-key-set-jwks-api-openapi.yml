@@ -1,0 +1,102 @@
+openapi: 3.2.0
+info:
+  title: Janssen Authorization Server JWK - JSON Web Key Set (JWKs)…
+  description: Janssen Authorization Server - OAuth 2.0 server; OpenID Connect Provider (OP) & UMA Authorization Server (AS)
+  contact:
+    name: Contact
+    url: https://github.com/JanssenProject/jans/discussions
+  license:
+    name: License
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: OAS Version
+servers:
+- url: https://jans.local.io/jans-auth
+tags:
+- name: JWK - JSON Web Key Set (JWKs)
+paths:
+  /restv1/jwks:
+    get:
+      tags:
+      - JWK - JSON Web Key Set (JWKs)
+      summary: A JSON Web Key (JWK) used by server.
+      description: Provides list of JWK used by server.
+      operationId: jwks
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: WebKeysConfiguration
+                required:
+                - keys
+                type: object
+                description: JSON Web Key Set (JWKS) - A JSON object that represents a set of JWKs. The JSON object MUST have a keys member, which is an array of JWKs.
+                properties:
+                  keys:
+                    type: array
+                    description: List of JSON Web Key (JWK) - A JSON object that represents a cryptographic key. The members of the object represent properties of the key, including its value.
+                    items:
+                      $ref: '#/components/schemas/JsonWebKey'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+components:
+  responses:
+    InternalServerError:
+      description: Internal error occured. Please check log file for details.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      required:
+      - error
+      - error_description
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        details:
+          type: string
+    JsonWebKey:
+      required:
+      - alg
+      - exp
+      - kid
+      - kty
+      - use
+      - x5c
+      type: object
+      properties:
+        kid:
+          type: string
+        kty:
+          type: string
+        use:
+          type: string
+        alg:
+          type: string
+        crv:
+          type: string
+        exp:
+          type: integer
+          format: int64
+        x5c:
+          type: array
+          items:
+            type: string
+        n:
+          type: string
+        e:
+          type: string
+        x:
+          type: string
+        y:
+          type: string
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer

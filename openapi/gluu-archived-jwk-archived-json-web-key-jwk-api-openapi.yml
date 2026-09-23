@@ -1,0 +1,121 @@
+openapi: 3.2.0
+info:
+  title: Janssen Authorization Server Archived JWK - Archived JSON…
+  description: Janssen Authorization Server - OAuth 2.0 server; OpenID Connect Provider (OP) & UMA Authorization Server (AS)
+  contact:
+    name: Contact
+    url: https://github.com/JanssenProject/jans/discussions
+  license:
+    name: License
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: OAS Version
+servers:
+- url: https://jans.local.io/jans-auth
+tags:
+- name: Archived JWK - Archived JSON Web Key (JWK)
+paths:
+  /restv1/jwks/archived:
+    get:
+      tags:
+      - Archived JWK - Archived JSON Web Key (JWK)
+      summary: An archived JSON Web Key (JWK) used by server.
+      description: Provides archived JWK used by server.
+      operationId: archived-jwk
+      parameters:
+      - name: kid
+        in: query
+        description: Key ID.
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: JsonWebKey
+                type: object
+                description: JSON Web Key (JWK) - A JSON object that represents a JWK.
+                $ref: '#/components/schemas/JsonWebKey'
+        400:
+          description: Error codes for archived jwk endpoint.
+          content:
+            application/json:
+              schema:
+                title: Error
+                type: object
+                required:
+                - error
+                - error_description
+                properties:
+                  error:
+                    type: string
+                    format: enum
+                    example:
+                    - invalid_request
+                  error_description:
+                    type: string
+                  details:
+                    type: string
+        500:
+          $ref: '#/components/responses/InternalServerError'
+components:
+  responses:
+    InternalServerError:
+      description: Internal error occured. Please check log file for details.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      required:
+      - error
+      - error_description
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        details:
+          type: string
+    JsonWebKey:
+      required:
+      - alg
+      - exp
+      - kid
+      - kty
+      - use
+      - x5c
+      type: object
+      properties:
+        kid:
+          type: string
+        kty:
+          type: string
+        use:
+          type: string
+        alg:
+          type: string
+        crv:
+          type: string
+        exp:
+          type: integer
+          format: int64
+        x5c:
+          type: array
+          items:
+            type: string
+        n:
+          type: string
+        e:
+          type: string
+        x:
+          type: string
+        y:
+          type: string
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer

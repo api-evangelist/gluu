@@ -1,0 +1,81 @@
+openapi: 3.2.0
+info:
+  title: Janssen Authorization Server Global Token Revocation API
+  description: Janssen Authorization Server - OAuth 2.0 server; OpenID Connect Provider (OP) & UMA Authorization Server (AS)
+  contact:
+    name: Contact
+    url: https://github.com/JanssenProject/jans/discussions
+  license:
+    name: License
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: OAS Version
+servers:
+- url: https://jans.local.io/jans-auth
+tags:
+- name: Global Token Revocation
+paths:
+  /restv1/global-token-revocation:
+    post:
+      tags:
+      - Global Token Revocation
+      summary: Global Token Revocation
+      description: Revoke all tokens for user (requires global_token_revocation scope).
+      operationId: global-token-revocation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sub_id:
+                  type: object
+                  properties:
+                    format:
+                      type: string
+                      description: any user attribute that identifies user. E.g. uid or mail.
+                      example: uid
+                    id:
+                      type: string
+                      example: 46dkfde5
+                  required:
+                  - format
+                  - id
+      responses:
+        204:
+          description: OK - Returned if request was processed successfully. Means user is correctly idendified and AS cleared tokens and sessions associated with it.
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+components:
+  responses:
+    InternalServerError:
+      description: Internal error occured. Please check log file for details.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized access request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      required:
+      - error
+      - error_description
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        details:
+          type: string
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer

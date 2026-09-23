@@ -1,0 +1,403 @@
+openapi: 3.2.0
+info:
+  title: Jans Config API - Admin-UI Admin UI - License API
+  contact:
+    name: Gluu Support
+    url: https://support.gluu.org
+    email: xxx@gluu.org
+  license:
+    name: Apache 2.0
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: 1.0.0
+servers:
+- url: https://jans.io/
+  description: The Jans server
+tags:
+- name: Admin UI - License
+paths:
+  /admin-ui/license/activate:
+    post:
+      tags:
+      - Admin UI - License
+      summary: Activate license using license-key
+      operationId: activate-adminui-license
+      requestBody:
+        description: LicenseRequest object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LicenseRequest'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/license.write
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/license.admin
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/write-all
+  /admin-ui/license/deleteConfig:
+    delete:
+      tags:
+      - Admin UI - License
+      summary: Delete license details in admin-ui configuration
+      operationId: license-config-delete
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/license.write
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/license.admin
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/write-all
+  /admin-ui/license/details:
+    get:
+      tags:
+      - Admin UI - License
+      summary: Get admin ui license details
+      operationId: get-adminui-license
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/license.readonly
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/license.write
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/license.admin
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/read-all
+  /admin-ui/license/isActive:
+    get:
+      tags:
+      - Admin UI - License
+      summary: Check if admin-ui license is active
+      operationId: is-license-active
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/license.readonly
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/license.write
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/license.admin
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/read-all
+  /admin-ui/license/isConfigValid:
+    get:
+      tags:
+      - Admin UI - License
+      summary: Is license configuration valid
+      operationId: check-adminui-license-config
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/license.readonly
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/license.write
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/license.admin
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/read-all
+  /admin-ui/license/retrieve:
+    get:
+      tags:
+      - Admin UI - License
+      summary: Retrieve license from SCAN
+      operationId: retrieve-license
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/license.readonly
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/license.write
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/license.admin
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/read-all
+  /admin-ui/license/ssa:
+    post:
+      tags:
+      - Admin UI - License
+      summary: Save SSA in configuration
+      operationId: adminui-post-ssa
+      requestBody:
+        description: SSARequest object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SSARequest'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/license.write
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/license.admin
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/write-all
+  /admin-ui/license/trial:
+    get:
+      tags:
+      - Admin UI - License
+      summary: Generate trial license
+      operationId: get-trial-license
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/license.readonly
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/license.write
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/license.admin
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/read-all
+components:
+  schemas:
+    SSARequest:
+      type: object
+      properties:
+        ssa:
+          type: string
+    JsonNode:
+      type: object
+    GenericResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        responseMessage:
+          type: string
+        responseCode:
+          type: integer
+          format: int32
+        responseObject:
+          $ref: '#/components/schemas/JsonNode'
+        responseBytes:
+          type: string
+          format: byte
+    LicenseResponse:
+      type: object
+      properties:
+        licenseEnabled:
+          type: boolean
+        productName:
+          type: string
+        productCode:
+          type: string
+        licenseType:
+          type: string
+        maxActivations:
+          type: integer
+          format: int32
+        licenseKey:
+          type: string
+        licenseActive:
+          type: boolean
+        validityPeriod:
+          type: string
+        companyName:
+          type: string
+        customerEmail:
+          type: string
+        customerFirstName:
+          type: string
+        customerLastName:
+          type: string
+        licenseMAUThreshold:
+          type: integer
+          format: int64
+        licenseExpired:
+          type: boolean
+    LicenseRequest:
+      type: object
+      properties:
+        licenseKey:
+          type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://{op-hostname}/.../token
+          scopes:
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/role.readonly: View admin user role related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/role.write: Manage admin user role related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/role.delete: Delete admin user role related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.readonly: View admin permission related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.write: Manage admin permission related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.delete: Delete admin permission related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.readonly: View role-permission mapping related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.write: Manage role-permission mapping related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.delete: Delete role-permission mapping related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/license.readonly: View admin-ui license related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/license.write: Manage admin-ui license related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/license.admin: Full administrative access to license related information (super-user level)
+            https://jans.io/oauth/jans-auth-server/config/adminui/security.readonly: View Admin UI security related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/security.write: Edit Admin UI security related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/security.delete: Delete Admin UI security related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/properties.readonly: View Admin UI configuration properties related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/properties.write: Manage Admin UI configuration properties related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/role.admin: Full administrative access to admin user roles (super-user level)
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.admin: Full administrative access to admin permissions (super-user level)
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.admin: Full administrative access to role-permission mappings (super-user level)
+            https://jans.io/oauth/config/read-all: Super admin read access to all configuration resources
+            https://jans.io/oauth/config/write-all: Super admin write access to all configuration resources
+            https://jans.io/oauth/config/delete-all: Super admin delete access to all configuration resources

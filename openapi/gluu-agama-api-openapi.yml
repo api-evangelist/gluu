@@ -1,0 +1,535 @@
+openapi: 3.2.0
+info:
+  title: Jans Config Agama API
+  contact:
+    name: Contact
+    url: https://github.com/JanssenProject/jans/discussions
+  license:
+    name: License
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: OAS Version
+servers:
+- url: https://jans.local.io
+  description: The Jans server
+tags:
+- name: Agama
+paths:
+  /api/v1/agama-deployment/{name}:
+    get:
+      tags:
+      - Agama
+      summary: Retrieve details of a single deployment by name
+      description: Retrieve details of a single deployment by name.
+      operationId: get-agama-prj-by-name
+      parameters:
+      - name: name
+        in: path
+        description: Agama project name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Agama project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: ''
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/agama.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/agama.write
+      - oauth2:
+        - https://jans.io/oauth/config/agama.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    post:
+      tags:
+      - Agama
+      summary: Add or replace an Agama project to the server
+      description: Add or replace an Agama project to the server.
+      operationId: post-agama-prj
+      parameters:
+      - name: name
+        in: path
+        description: Agama project name
+        required: true
+        schema:
+          type: string
+      - name: autoconfigure
+        in: query
+        description: 'Boolean value to indicating to auto configure the project '
+        schema:
+          type: string
+      requestBody:
+        description: Agama gama file
+        content:
+          application/zip:
+            schema:
+              type: string
+              format: byte
+      responses:
+        '202':
+          description: Agama project accepted
+          content:
+            application/zip:
+              schema:
+                type: string
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: ''
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '409':
+          description: Conflict
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/agama.write
+      - oauth2:
+        - https://jans.io/oauth/config/agama.admin
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    delete:
+      tags:
+      - Agama
+      summary: Undeploy an Agama project from the server
+      description: Undeploy an Agama project from the server.
+      operationId: delete-agama-prj
+      parameters:
+      - name: name
+        in: path
+        description: Agama project name
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/agama.delete
+      - oauth2:
+        - https://jans.io/oauth/config/agama.admin
+      - oauth2:
+        - https://jans.io/oauth/config/delete-all
+  /api/v1/agama-deployment/configs/{name}:
+    get:
+      tags:
+      - Agama
+      summary: Retrieve the configurations associated to flows that belong to the project of…
+      description: Retrieve the configurations associated to flows that belong to the project of interest. The project must have been already processed fully.
+      operationId: get-agama-prj-configs
+      parameters:
+      - name: name
+        in: path
+        description: Agama project name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Agama projects configs
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: ''
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/agama.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/agama.write
+      - oauth2:
+        - https://jans.io/oauth/config/agama.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    put:
+      tags:
+      - Agama
+      summary: Set or replace the configurations associated to flows that belong to the…
+      description: Set or replace the configurations associated to flows that belong to the project. The project must have been already processed fully.
+      operationId: put-agama-prj
+      parameters:
+      - name: name
+        in: path
+        description: Agama project name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: 'JSON object with configurations associated to flows '
+        content:
+          application/json:
+            schema:
+              type: string
+            examples:
+              Request example:
+                description: Request example
+                value: "{\n  \"org.gluu.agama.ldap.pw.main\": {\n    \"lockConfig\": {\n      \"MAX_LOGIN_ATTEMPT\": 6,\n      \"ENABLE_LOCK\": true,\n      \"LOCK_EXP_TIME\": 180\n    },\n    \"useInternalLdapConfig\": false,\n    \"serversConfig\": [\n      {\n        \"configId\": \"ad_1\",\n        \"bindDN\": \"cn=directory manager\",\n        \"bindPassword\": \"encoded_password/plain_passowrd\",\n        \"servers\": [\n          \"localhost:1389\"\n        ],\n        \"maxConnections\": 3,\n        \"useSSL\": false,\n        \"baseDNs\": [\n          \"ou=people,o=jans\"\n        ],\n        \"loginAttributes\": [\n          \"uid\"\n        ],\n        \"localLoginAttributes\": [\n          \"uid\"\n        ]\n      }\n    ]\n  }\n}\n"
+      responses:
+        '200':
+          description: JSON object with properties values correspond to a boolean indicating the success of the update for the given flow.
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: '{"org.gluu.agama.ldap.pw.main"=true}
+
+                    '
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '409':
+          description: Conflict
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/agama.write
+      - oauth2:
+        - https://jans.io/oauth/config/agama.admin
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+  /api/v1/agama-deployment:
+    get:
+      tags:
+      - Agama
+      summary: Retrieve the list of projects deployed currently
+      description: Retrieve the list of projects deployed currently.
+      operationId: get-agama-prj
+      parameters:
+      - name: start
+        in: query
+        description: Start index for the result
+        schema:
+          type: integer
+          format: int32
+      - name: count
+        in: query
+        description: Search size - count of the results to return
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Agama projects
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResult'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: ''
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/agama.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/agama.write
+      - oauth2:
+        - https://jans.io/oauth/config/agama.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+  /api/v1/agama-repo/download:
+    get:
+      tags:
+      - Agama
+      summary: Download agama project
+      description: Download agama project.
+      operationId: get-agama-project
+      parameters:
+      - name: downloadLink
+        in: query
+        description: Agama project download Link
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Agama project
+          content:
+            text/plain:
+              schema:
+                type: string
+                format: binary
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/agama-repo.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/agama-repo.write
+      - oauth2:
+        - https://jans.io/oauth/config/agama.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+  /api/v1/agama-repo:
+    get:
+      tags:
+      - Agama
+      summary: Gets all agama repositories
+      description: Gets all agama repositories.
+      operationId: get-agama-repositories
+      responses:
+        '200':
+          description: Agama repositories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonNode'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: ''
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/agama-repo.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/agama-repo.write
+      - oauth2:
+        - https://jans.io/oauth/config/agama.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+components:
+  schemas:
+    DeploymentDetails:
+      type: object
+      properties:
+        folders:
+          type: array
+          items:
+            type: string
+        libs:
+          type: array
+          items:
+            type: string
+        error:
+          type: string
+        autoconfigure:
+          type: boolean
+        flowsError:
+          type: object
+          additionalProperties:
+            type: string
+        projectMetadata:
+          $ref: '#/components/schemas/ProjectMetadata'
+    ProjectMetadata:
+      type: object
+      properties:
+        projectName:
+          type: string
+        author:
+          type: string
+        type:
+          type: string
+        description:
+          type: string
+        version:
+          type: string
+        configs:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: object
+        noDirectLaunch:
+          type: array
+          items:
+            type: string
+    JsonNode:
+      type: object
+    Deployment:
+      type: object
+      properties:
+        dn:
+          type: string
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        taskActive:
+          type: boolean
+        finishedAt:
+          type: string
+          format: date-time
+        assets:
+          type: string
+        details:
+          $ref: '#/components/schemas/DeploymentDetails'
+        baseDn:
+          type: string
+    PagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            type: object
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://{op-hostname}/.../token
+          scopes:
+            https://jans.io/oauth/jans-auth-server/config/properties.readonly: View Auth Server properties related information
+            https://jans.io/oauth/jans-auth-server/config/properties.write: Manage Auth Server properties related information
+            https://jans.io/oauth/config/attributes.readonly: View attribute related information
+            https://jans.io/oauth/config/attributes.write: Manage attribute related information
+            https://jans.io/oauth/config/attributes.delete: Delete attribute related information
+            https://jans.io/oauth/config/acrs.readonly: View ACRS related information
+            https://jans.io/oauth/config/acrs.write: Manage ACRS related information
+            https://jans.io/oauth/config/database/ldap.readonly: View LDAP database related information
+            https://jans.io/oauth/config/database/ldap.write: Manage LDAP database related information
+            https://jans.io/oauth/config/database/ldap.delete: Delete LDAP database related information
+            https://jans.io/oauth/config/scripts.readonly: View cache scripts information
+            https://jans.io/oauth/config/scripts.write: Manage scripts related information
+            https://jans.io/oauth/config/scripts.delete: Delete scripts related information
+            https://jans.io/oauth/config/cache.readonly: View cache related information
+            https://jans.io/oauth/config/cache.write: Manage cache related information
+            https://jans.io/oauth/config/smtp.readonly: View SMTP related information
+            https://jans.io/oauth/config/smtp.write: Manage SMTP related information
+            https://jans.io/oauth/config/smtp.delete: Delete SMTP related information
+            https://jans.io/oauth/config/logging.readonly: View logging related information
+            https://jans.io/oauth/config/logging.write: Manage logging related information
+            https://jans.io/oauth/config/jwks.readonly: View JWKS related information
+            https://jans.io/oauth/config/jwks.write: Manage JWKS related information
+            https://jans.io/oauth/config/jwks.delete: Delete JWKS related information
+            https://jans.io/oauth/config/openid/clients.readonly: View clients related information
+            https://jans.io/oauth/config/openid/clients.write: Manage clients related information
+            https://jans.io/oauth/config/openid/clients.delete: Delete clients related information
+            https://jans.io/oauth/config/scopes.readonly: View scope related information
+            https://jans.io/oauth/config/scopes.write: Manage scope related information
+            https://jans.io/oauth/config/scopes.delete: Delete scope related information
+            https://jans.io/oauth/config/stats.readonly: View server with basic statistic
+            https://jans.io/oauth/config/organization.readonly: View organization configuration information
+            https://jans.io/oauth/config/organization.write: Manage organization configuration information
+            https://jans.io/oauth/config/agama.readonly: View Agama Flow related information
+            https://jans.io/oauth/config/agama.write: Manage Agama Flow related information
+            https://jans.io/oauth/config/agama.delete: Delete Agama Flow related information
+            https://jans.io/oauth/jans-auth-server/session.readonly: View Session related information
+            https://jans.io/oauth/jans-auth-server/session.delete: Delete Session information
+            https://jans.io/oauth/config/read-all: Super admin read access to all configuration resources
+            https://jans.io/oauth/config/write-all: Super admin write access to all configuration resources
+            https://jans.io/oauth/config/delete-all: Super admin delete access to all configuration resources
+            https://jans.io/oauth/config/openid/openid.readonly: View OpenID functionality
+            https://jans.io/oauth/config/openid/openid.write: Manage OpenID functionality
+            https://jans.io/oauth/config/openid/openid.delete: Delete OpenID functionality
+            https://jans.io/oauth/config/uma.readonly: View UMA functionality
+            https://jans.io/oauth/config/uma.write: Manage UMA functionality
+            https://jans.io/oauth/config/uma.delete: Delete UMA functionality
+            https://jans.io/oauth/config/plugin.readonly: View Plugin information
+            https://jans.io/oauth/config/properties.readonly: View Config-API related configuration properties
+            https://jans.io/oauth/config/properties.write: Manage Config-API related configuration properties
+            https://jans.io/oauth/client/authorizations.readonly: View ClientAuthorizations
+            https://jans.io/oauth/client/authorizations.delete: Revoke ClientAuthorizations
+            https://jans.io/oauth/config/asset.readonly: View Jans Assets
+            https://jans.io/oauth/config/asset.write: Manage Jans Assets
+            https://jans.io/oauth/config/asset.delete: Delete Jans Assets
+            https://jans.io/oauth/config/token.readonly: View Token details
+            https://jans.io/oauth/config/token.write: Manage Token details
+            https://jans.io/oauth/config/token.delete: Delete Token details
+            https://jans.io/oauth/config/data.readonly: View Config-API related data
+            https://jans.io/oauth/config/ssa.readonly: View SSA details
+            https://jans.io/oauth/config/ssa.write: Manage SSA details
+            https://jans.io/oauth/config/ssa.delete: Delete SSA details
+            https://jans.io/oauth/jans-auth-server/config/properties.admin: Admin scope for Auth Server properties
+            https://jans.io/oauth/config/attributes.admin: Admin for Attribute management
+            https://jans.io/oauth/config/acrs.admin: Admin for ACRS management
+            https://jans.io/oauth/config/database.admin: Admin for Database config management
+            https://jans.io/oauth/config/scripts.admin: Admin for Scripts management
+            https://jans.io/oauth/config/cache.admin: Admin for Cache management
+            https://jans.io/oauth/config/message.admin: Admin for Message management
+            https://jans.io/oauth/config/smtp.admin: Admin for SMTP management
+            https://jans.io/oauth/config/logging.admin: Admin for Logging management
+            https://jans.io/oauth/config/jwks.admin: Admin for JWKS management
+            https://jans.io/oauth/config/openid/clients.admin: Admin for clients management
+            https://jans.io/oauth/config/token.admin: Admin for Token management
+            https://jans.io/oauth/config/scopes.admin: Admin for scope management
+            https://jans.io/oauth/config/stats.admin: Admin for statistic management
+            https://jans.io/oauth/config/organization.admin: Admin for organization configuration management
+            https://jans.io/oauth/config/agama.admin: Admin for Agama flow management
+            https://jans.io/oauth/jans-auth-server/session.admin: Admin for Session management
+            https://jans.io/oauth/config/uma.admin: Admin for UMA management
+            https://jans.io/oauth/config/plugin.admin: Admin for Plugin management
+            https://jans.io/oauth/config/properties.admin: Admin for Config-API management
+            https://jans.io/oauth/client/authorizations.admin: Admin for Client Authorizations management
+            https://jans.io/oauth/config/asset.admin: Admin for Jans Assets management
+            https://jans.io/auth/ssa.admin: Admin for SSA management
+            https://jans.io/oauth/config/health.admin: Admin for Health API management

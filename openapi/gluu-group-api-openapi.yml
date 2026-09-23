@@ -1,0 +1,687 @@
+openapi: 3.2.0
+info:
+  title: SCIM Group API
+  description: 'Janssen SCIM 2.0 server API. Developers can think of SCIM as a REST API with endpoints exposing CRUD functionality
+
+    (create, update, retrieve and delete) for identity management resources such as users, groups, and fido devices.'
+  contact:
+    name: Contact
+    url: https://github.com/JanssenProject/jans/discussions
+  license:
+    name: License
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: OAS Version
+servers:
+- url: https://jans.local.io/jans-scim/restv1/v2
+tags:
+- name: Group
+  description: Endpoints for management of Group resources
+paths:
+  /Groups:
+    get:
+      tags:
+      - Group
+      operationId: get-groups
+      description: Query Group resources (see section 3.4.2 of RFC 7644)
+      security:
+      - scim_oauth:
+        - https://jans.io/scim/groups.read
+      parameters:
+      - name: attributes
+        in: query
+        description: A comma-separated list of attribute names to return in the response
+        schema:
+          type: string
+      - name: excludedAttributes
+        in: query
+        description: When specified, the response will contain a default set of attributes minus those listed here (as a comma-separated list)
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: An expression specifying the search criteria. See section 3.4.2.2 of RFC 7644
+        schema:
+          type: string
+        example: displayName co "Audit"
+      - name: startIndex
+        in: query
+        description: The 1-based index of the first query result
+        schema:
+          type: integer
+      - name: count
+        in: query
+        description: Specifies the desired maximum number of query results per page
+        schema:
+          type: integer
+      - name: sortBy
+        in: query
+        description: The attribute whose value will be used to order the returned responses
+        schema:
+          type: string
+      - name: sortOrder
+        in: query
+        description: Order in which the sortBy param is applied. Allowed values are "ascending" and "descending"
+        schema:
+          type: string
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/GroupListResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupListResponse'
+        400:
+          description: Parameter count exceeds the maximum allowed value or the filter supplied was unparsable
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: There was an unexpected failure executing the operation
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      summary: Get groups
+      x-summary-source: derived
+    post:
+      tags:
+      - Group
+      operationId: create-group
+      description: Allows creating a Group resource via POST (see section 3.3 of RFC 7644)
+      security:
+      - scim_oauth:
+        - https://jans.io/scim/groups.write
+      parameters:
+      - name: attributes
+        in: query
+        description: A comma-separated list of attribute names to return in the response
+        schema:
+          type: string
+      - name: excludedAttributes
+        in: query
+        description: When specified, the response will contain a default set of attributes minus those listed here (as a comma-separated list)
+        schema:
+          type: string
+      requestBody:
+        description: Payload that represents the Group to create
+        content:
+          application/scim+json:
+            schema:
+              $ref: '#/components/schemas/GroupResource'
+            examples:
+              samplePayload:
+                externalValue: https://raw.githubusercontent.com/JanssenProject/jans/main/jans-scim/client/src/test/resources/single/group_minimal_create.json
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupResource'
+            examples:
+              samplePayload:
+                externalValue: https://raw.githubusercontent.com/JanssenProject/jans/main/jans-scim/client/src/test/resources/single/group_minimal_create.json
+        required: true
+      responses:
+        201:
+          description: Successful operation
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/GroupResource'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResource'
+        400:
+          description: An invalid value was passed in the payload
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        409:
+          description: There is a conflict with an already existing group. Uniqueness is assumed over displayName
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: There was an unexpected failure executing the operation
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-codegen-request-body-name: group
+      summary: Create group
+      x-summary-source: derived
+  /Groups/{id}:
+    get:
+      tags:
+      - Group
+      operationId: get-group-by-id
+      description: Retrieves a Group resource by Id (see section 3.4.1 of RFC 7644)
+      security:
+      - scim_oauth:
+        - https://jans.io/scim/groups.read
+      parameters:
+      - name: attributes
+        in: query
+        description: A comma-separated list of attribute names to return in the response
+        schema:
+          type: string
+      - name: excludedAttributes
+        in: query
+        description: When specified, the response will contain a default set of attributes minus those listed here (as a comma-separated list)
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/GroupResource'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResource'
+        404:
+          description: Id passed unknown
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: There was an unexpected failure executing the operation
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      summary: Get group by id
+      x-summary-source: derived
+    put:
+      tags:
+      - Group
+      operationId: update-group-by-id
+      description: 'Updates a Group resource (see section 3.5.1 of RFC 7644). Update works in a replacement fashion&#58; every
+
+        attribute value found in the payload sent will replace the one in the existing resource representation. Attributes
+
+        not passed in the payload will be left intact.'
+      security:
+      - scim_oauth:
+        - https://jans.io/scim/groups.write
+      parameters:
+      - name: attributes
+        in: query
+        description: A comma-separated list of attribute names to return in the response
+        schema:
+          type: string
+      - name: excludedAttributes
+        in: query
+        description: When specified, the response will contain a default set of attributes minus those listed here (as a comma-separated list)
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Payload with the data to replace in the existing group identified by the id param
+        content:
+          application/scim+json:
+            schema:
+              $ref: '#/components/schemas/GroupResource'
+            examples:
+              samplePayload:
+                externalValue: https://raw.githubusercontent.com/JanssenProject/jans/main/jans-scim/client/src/test/resources/single/group_minimal_update.json
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupResource'
+            examples:
+              samplePayload:
+                externalValue: https://raw.githubusercontent.com/JanssenProject/jans/main/jans-scim/client/src/test/resources/single/group_minimal_update.json
+        required: true
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/GroupResource'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResource'
+        400:
+          description: 'An invalid value was passed in the payload or there was an attempt to update an immutable attribute
+
+            '
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        404:
+          description: Id passed unknown
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        409:
+          description: There is a conflict with an already existing group. Uniqueness is assumed over displayName
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: There was an unexpected failure executing the operation
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-codegen-request-body-name: group
+      summary: Update group by id
+      x-summary-source: derived
+    delete:
+      tags:
+      - Group
+      operationId: delete-group-by-id
+      description: Deletes a group resource (see section 3.6 of RFC 7644)
+      security:
+      - scim_oauth:
+        - https://jans.io/scim/groups.write
+      parameters:
+      - name: id
+        in: path
+        description: Identifier of the resource to delete
+        required: true
+        schema:
+          type: string
+      responses:
+        204:
+          description: Successful operation. Empty response
+          content: {}
+        404:
+          description: Id passed unknown
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: There was an unexpected failure executing the operation
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      summary: Delete group by id
+      x-summary-source: derived
+    patch:
+      tags:
+      - Group
+      operationId: patch-group-by-id
+      description: Updates one or more attributes of a Group resource using a sequence of additions, removals, and replacements operations. See section 3.5.2 of RFC 7644
+      security:
+      - scim_oauth:
+        - https://jans.io/scim/groups.write
+      parameters:
+      - name: attributes
+        in: query
+        description: A comma-separated list of attribute names to return in the response
+        schema:
+          type: string
+      - name: excludedAttributes
+        in: query
+        description: When specified, the response will contain a default set of attributes minus those listed here (as a comma-separated list)
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Payload describing the patch operations to apply upon the resource identified by param id
+        content:
+          application/scim+json:
+            schema:
+              $ref: '#/components/schemas/PatchRequest'
+            examples:
+              samplePayload:
+                externalValue: https://raw.githubusercontent.com/JanssenProject/jans/main/jans-scim/client/src/test/resources/single/patch/group_patch.json
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchRequest'
+            examples:
+              samplePayload:
+                externalValue: https://raw.githubusercontent.com/JanssenProject/jans/main/jans-scim/client/src/test/resources/single/patch/group_patch.json
+        required: true
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/GroupResource'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResource'
+        400:
+          description: 'One or more operations supplied in the request are specified incorrectly, there were attempts to
+
+            modify immutable attributes, or the resulting resource cannot pass intrinsic validations
+
+            '
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: There was an unexpected failure executing the operation
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-codegen-request-body-name: request
+      summary: Patch group by id
+      x-summary-source: derived
+  /Groups/.search:
+    post:
+      tags:
+      - Group
+      operationId: search-group
+      description: Query Group resources (see section 3.4.2 of RFC 7644)
+      security:
+      - scim_oauth:
+        - https://jans.io/scim/groups.read
+      requestBody:
+        description: Payload that represents the search criteria
+        content:
+          application/scim+json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+            examples:
+              samplePayload:
+                externalValue: https://raw.githubusercontent.com/JanssenProject/jans/main/jans-scim/client/src/test/resources/multiple/search_post_1.json
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+            examples:
+              samplePayload:
+                externalValue: https://raw.githubusercontent.com/JanssenProject/jans/main/jans-scim/client/src/test/resources/multiple/search_post_1.json
+        required: true
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/GroupListResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupListResponse'
+        400:
+          description: 'Parameter count exceeds the maximum allowed value, the filter supplied was unparsable,
+
+            or invalid schema in search request
+
+            '
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: There was an unexpected failure executing the operation
+          content:
+            application/scim+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-codegen-request-body-name: searchRequest
+      summary: Search group
+      x-summary-source: derived
+components:
+  schemas:
+    Meta:
+      type: object
+      properties:
+        resourceType:
+          type: string
+        created:
+          type: string
+        lastModified:
+          type: string
+        location:
+          type: string
+      description: Descriptive information about a resource. See section 3.1 of RFC 7643
+    PatchOperation:
+      required:
+      - op
+      type: object
+      properties:
+        op:
+          type: string
+          description: The kind of operation to perform
+          enum:
+          - add
+          - remove
+          - replace
+        path:
+          type: string
+          description: Required when op is remove, optional otherwise
+        value:
+          $ref: '#/components/schemas/AnyValue'
+          description: Only required when op is add or replace
+      description: See section 3.5.2 of RFC 7644
+    SearchRequest:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:api:messages:2.0:SearchRequest
+        attributes:
+          type: array
+          description: A list of attribute names to return in the response
+          items:
+            type: string
+        excludedAttributes:
+          type: array
+          description: When specified, the response will contain a default set of attributes minus those listed here
+          items:
+            type: string
+        filter:
+          type: string
+          description: An expression specifying the search criteria. See section 3.4.2.2 of RFC 7644
+          example: userName eq "jhon" and meta.lastModified gt "2011-05-13T04:42:34Z"
+        sortBy:
+          type: string
+          description: The attribute whose value will be used to order the returned responses
+        sortOrder:
+          type: string
+          description: Order in which the sortBy param is applied. Allowed values are "ascending" and "descending"
+        startIndex:
+          type: integer
+          description: The 1-based index of the first query result
+        count:
+          type: integer
+          description: Specifies the desired maximum number of query results per page
+      description: See section 3.4.3 of RFC 7644
+    BasicListResponse:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:api:messages:2.0:ListResponse
+        totalResults:
+          type: integer
+          description: Total number of results returned by the search. The value may be larger than the number of resources returned due to pagination
+        startIndex:
+          type: integer
+          description: The 1-based index of the first result in the current set of search results
+        itemsPerPage:
+          type: integer
+          description: The number of resources returned in a results page
+    PatchRequest:
+      description: Stores one or more patch operations
+      required:
+      - Operations
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:api:messages:2.0:PatchOp
+        Operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/PatchOperation'
+    AnyValue:
+      description: Can be any value - string, number, boolean, array or object
+    GroupListResponse:
+      description: Results for groups search. See section 3.4.2.4 of RFC 7644
+      allOf:
+      - $ref: '#/components/schemas/BasicListResponse'
+      - type: object
+        properties:
+          Resources:
+            type: array
+            items:
+              $ref: '#/components/schemas/GroupResource'
+    BaseResource:
+      type: object
+      properties:
+        schemas:
+          type: array
+          description: URIs that are used to indicate the namespaces of the SCIM schemas that define the attributes present in the current structure
+          items:
+            type: string
+        id:
+          type: string
+          description: A unique identifier for a SCIM resource. See section 3.1 of RFC 7643
+        meta:
+          $ref: '#/components/schemas/Meta'
+    ErrorResponse:
+      required:
+      - status
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:api:messages:2.0:Error
+        status:
+          type: string
+          description: HTTP status code as string
+        scimType:
+          type: string
+          description: A detail error keyword. See table 9 of RFC 7644
+        detail:
+          type: string
+          description: A detailed human-readable message of the error
+      description: See section 3.12 of RFC 7644
+    GroupResource:
+      description: Represents a group resource. See section 4.2 of RFC 7643
+      allOf:
+      - $ref: '#/components/schemas/BaseResource'
+      - type: object
+        properties:
+          displayName:
+            type: string
+            description: Group name suitable for display to end-users
+          members:
+            type: array
+            items:
+              $ref: '#/components/schemas/Member'
+    Member:
+      type: object
+      description: Represents a member of a Group resource
+      properties:
+        $ref:
+          type: string
+          description: URI of the SCIM resource
+        type:
+          type: string
+          description: The type of member. Only "User" is allowed
+        display:
+          type: string
+          description: A human readable name, primarily used for display purposes
+        value:
+          type: string
+          description: Identifier (ID) of the resource
+  securitySchemes:
+    scim_oauth:
+      type: oauth2
+      description: Endpoints protected by a bearer token passed in the Authorization header.
+      flows:
+        clientCredentials:
+          tokenUrl: https://localhost/jans-auth/restv1/token
+          scopes:
+            https://jans.io/scim/users.read: Query user resources
+            https://jans.io/scim/users.write: Modify user resources
+            https://jans.io/scim/groups.read: Query group resources
+            https://jans.io/scim/groups.write: Modify group resources
+            https://jans.io/scim/fido.read: Query fido resources
+            https://jans.io/scim/fido.write: Modify fido resources
+            https://jans.io/scim/fido2.read: Query fido 2 resources
+            https://jans.io/scim/fido2.write: Modify fido 2 resources
+            https://jans.io/scim/all-resources.search: Access the root .search endpoint
+            https://jans.io/scim/bulk: Send requests to the bulk endpoint
+            https://jans.io/scim/tokens: List and revoke user tokens

@@ -1,0 +1,382 @@
+openapi: 3.2.0
+info:
+  title: Jans Config API - Admin-UI Admin UI - Cedarling API
+  contact:
+    name: Gluu Support
+    url: https://support.gluu.org
+    email: xxx@gluu.org
+  license:
+    name: Apache 2.0
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: 1.0.0
+servers:
+- url: https://jans.io/
+  description: The Jans server
+tags:
+- name: Admin UI - Cedarling
+paths:
+  /admin-ui/security/policyStore:
+    get:
+      tags:
+      - Admin UI - Cedarling
+      summary: Get Admin UI policy store
+      operationId: get-adminui-policy-store
+      parameters:
+      - name: limit
+        in: query
+        description: Search size - max size of the results to return
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - name: pattern
+        in: query
+        description: Search pattern
+        schema:
+          type: string
+          default: ''
+      - name: startIndex
+        in: query
+        description: The 1-based index of the first query result
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: sortBy
+        in: query
+        description: Attribute whose value will be used to order the returned response
+        schema:
+          type: string
+          default: inum
+      - name: sortOrder
+        in: query
+        description: Order in which the sortBy param is applied. Allowed values are "ascending" and "descending"
+        schema:
+          type: string
+          default: ascending
+      - name: fieldValuePair
+        in: query
+        description: Field and value pair for seraching
+        schema:
+          type: string
+          default: ''
+        examples:
+          Field value example:
+            description: Field value example
+            value: scopeType=spontaneous,defaultScope=true
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AdminUIPolicyStore'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: "{\n  \"start\": 0,\n  \"totalEntriesCount\": 1,\n  \"entriesCount\": 1,\n  \"entries\": [\n    {\n      \"dn\": \"inum=e1a2b3c4-1234-5678-9abc-def012345678,ou=adminUIPolicyStore,ou=admin-ui,o=jans\",\n      \"inum\": \"e1a2b3c4-1234-5678-9abc-def012345678\",\n      \"displayname\": \"Admin UI Cedarling Policy Store\",\n      \"description\": \"Cedarling policy store used to derive Admin UI role-to-scope mappings\",\n      \"policyStore\": \"UEsDBBQACAgIAABb...==\",\n      \"jansUsrDN\": \"inum=abc123,ou=people,o=jans\",\n      \"jansStatus\": \"active\",\n      \"creationDate\": \"2026-07-14T10:15:30.000Z\",\n      \"jansLastUpd\": \"2026-07-14T11:20:45.000Z\"\n    }\n  ]\n}\n"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/security.readonly
+    post:
+      tags:
+      - Admin UI - Cedarling
+      summary: Create Admin UI Policy Store
+      operationId: create-adminui-policy-store
+      requestBody:
+        description: Policy Store Object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminUIPolicyStore'
+            examples:
+              Request json example:
+                description: Request json example
+                value: "{\n  \"displayname\": \"Admin UI Cedarling Policy Store\",\n  \"description\": \"Cedarling policy store used to derive Admin UI role-to-scope mappings\",\n  \"policyStore\": \"UEsDBBQACAgIAABb...==\",\n  \"jansStatus\": \"inactive\"\n}\n"
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GenericResponse'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: "{\n  \"success\": true,\n  \"responseCode\": 200,\n  \"responseMessage\": \"Policy store saved successfully.\"\n}\n"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/security.write
+  /admin-ui/security/policyStore/{INUM}:
+    put:
+      tags:
+      - Admin UI - Cedarling
+      summary: Edit Admin UI Policy Store
+      operationId: edit-adminui-policy-store
+      parameters:
+      - name: INUM
+        in: path
+        description: Policy store inum
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Policy Store Object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminUIPolicyStore'
+            examples:
+              Request json example:
+                description: Request json example
+                value: "{\n  \"displayname\": \"Admin UI Cedarling Policy Store (updated)\",\n  \"description\": \"Updated description for the Admin UI policy store\",\n  \"jansStatus\": \"inactive\"\n}\n"
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GenericResponse'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: "{\n  \"success\": true,\n  \"responseCode\": 200,\n  \"responseMessage\": \"Policy store updated successfully.\"\n}\n"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/security.write
+    delete:
+      tags:
+      - Admin UI - Cedarling
+      summary: Delete Admin UI Policy Store
+      operationId: delete-adminui-policy-store
+      parameters:
+      - name: INUM
+        in: path
+        description: Policy store inum
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GenericResponse'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: "{\n  \"success\": true,\n  \"responseCode\": 200,\n  \"responseMessage\": \"Policy store deleted successfully.\"\n}\n"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/security.delete
+  /admin-ui/security/syncRoleScopesMapping:
+    post:
+      tags:
+      - Admin UI - Cedarling
+      summary: Sync role-to-scope mappings from the policy store
+      description: Sync the role-to-scope mappings from the policy store. If a remote policy store URL is configured and enabled, the mappings will be generated from the remote policy store; otherwise, they will be generated from the default policy store.
+      operationId: sync-role-to-scopes-mappings
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GenericResponse'
+              examples:
+                Response json example:
+                  description: Response json example
+                  value: "{\n  \"success\": true,\n  \"responseCode\": 200,\n  \"responseMessage\": \"Sync of role-to-scope mappings from the policy store completed successfully.\"\n}\n"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericResponse'
+      security:
+      - oauth2:
+        - https://jans.io/oauth/jans-auth-server/config/adminui/security.write
+components:
+  schemas:
+    JsonNode:
+      type: object
+    GenericResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        responseMessage:
+          type: string
+        responseCode:
+          type: integer
+          format: int32
+        responseObject:
+          $ref: '#/components/schemas/JsonNode'
+        responseBytes:
+          type: string
+          format: byte
+    AdminUIPolicyStore:
+      type: object
+      properties:
+        dn:
+          type: string
+          description: Distinguished Name (DN) of the policy store entry. Server-generated on create; read-only and ignored on edit.
+          readOnly: true
+          example: inum=e1a2b3c4-1234-5678-9abc-def012345678,ou=policy-stores,ou=admin-ui,o=jans
+        inum:
+          type: string
+          description: Unique identifier (inum) of the policy store. Server-generated on create; read-only and ignored on edit.
+          readOnly: true
+          example: e1a2b3c4-1234-5678-9abc-def012345678
+        displayname:
+          type: string
+          description: Human-readable display name of the policy store.
+          example: Admin UI Cedarling Policy Store
+        description:
+          type: string
+          description: Free-text description of the policy store and its purpose.
+          example: Cedarling policy store used to derive Admin UI role-to-scope mappings
+        policyStore:
+          type: string
+          description: Base64-encoded Cedar policy store archive (.cjar zip). Required on create; immutable and ignored on edit.
+          example: UEsDBBQACAgIAABb...==
+        jansUsrDN:
+          type: string
+          description: DN of the user who owns the policy store. Set at create time; cannot be reassigned via edit.
+          example: inum=abc123,ou=people,o=jans
+        jansStatus:
+          type: string
+          description: Status of the policy store. Only one store should be 'active' at a time; newly created stores default to 'inactive'.
+          example: active
+          enum:
+          - active
+          - inactive
+        creationDate:
+          type: string
+          description: Timestamp when the policy store was created. Server-managed and fixed at create time.
+          format: date-time
+          readOnly: true
+          example: 2026-07-14 10:15:30+00:00
+        jansLastUpd:
+          type: string
+          description: Timestamp of the last update. Server-managed and overwritten on every create/edit; any client-supplied value is ignored.
+          format: date-time
+          readOnly: true
+          example: 2026-07-14 11:20:45+00:00
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://{op-hostname}/.../token
+          scopes:
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/role.readonly: View admin user role related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/role.write: Manage admin user role related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/role.delete: Delete admin user role related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.readonly: View admin permission related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.write: Manage admin permission related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.delete: Delete admin permission related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.readonly: View role-permission mapping related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.write: Manage role-permission mapping related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.delete: Delete role-permission mapping related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/license.readonly: View admin-ui license related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/license.write: Manage admin-ui license related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/license.admin: Full administrative access to license related information (super-user level)
+            https://jans.io/oauth/jans-auth-server/config/adminui/security.readonly: View Admin UI security related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/security.write: Edit Admin UI security related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/security.delete: Delete Admin UI security related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/properties.readonly: View Admin UI configuration properties related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/properties.write: Manage Admin UI configuration properties related information
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/role.admin: Full administrative access to admin user roles (super-user level)
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/permission.admin: Full administrative access to admin permissions (super-user level)
+            https://jans.io/oauth/jans-auth-server/config/adminui/user/rolePermissionMapping.admin: Full administrative access to role-permission mappings (super-user level)
+            https://jans.io/oauth/config/read-all: Super admin read access to all configuration resources
+            https://jans.io/oauth/config/write-all: Super admin write access to all configuration resources
+            https://jans.io/oauth/config/delete-all: Super admin delete access to all configuration resources

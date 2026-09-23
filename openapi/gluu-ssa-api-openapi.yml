@@ -1,0 +1,460 @@
+openapi: 3.2.0
+info:
+  title: Janssen Authorization Server SSA API
+  description: Janssen Authorization Server - OAuth 2.0 server; OpenID Connect Provider (OP) & UMA Authorization Server (AS)
+  contact:
+    name: Contact
+    url: https://github.com/JanssenProject/jans/discussions
+  license:
+    name: License
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: OAS Version
+servers:
+- url: https://jans.local.io/jans-auth
+tags:
+- name: SSA
+paths:
+  /restv1/ssa:
+    post:
+      tags:
+      - SSA
+      summary: Create SSA
+      description: '# Create SSA for the organization with `expiration` (optional).
+
+        ----
+
+
+        **Security: Bearer Auth**
+
+
+        Provide your bearer token in the Authorization header when making requests to protected resources.
+
+
+        Example: `Authorization: Bearer {{your-access-token}}`
+
+
+        **Security: OAuth 2.0**
+
+
+        Scopes:
+
+        - `https://jans.io/auth/ssa.admin` - **SSA Admin**, You can create `SSA`.'
+      operationId: post-register-ssa
+      security:
+      - bearer: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - org_id
+              - software_id
+              - software_roles
+              - grant_types
+              - one_time_use
+              - rotate_ssa
+              type: object
+              properties:
+                org_id:
+                  type: string
+                  description: The `org_id` is used for organization identification.
+                  example: 1
+                description:
+                  type: string
+                  description: Description SSA.
+                  example: Your description of SSA
+                expiration:
+                  type: number
+                  description: Expiration date. If this field is not sent, it will take days to expire, according to how it has been configured.
+                  example: 1660832042
+                software_id:
+                  type: string
+                  description: The `software_id` is used for software identification.
+                  example: gluu-scan-api
+                software_roles:
+                  type: array
+                  description: List of string values, fixed value ["password", "notify"].
+                  items:
+                    type: string
+                  example:
+                  - password
+                grant_types:
+                  type: array
+                  description: Fixed value ["client_credentials"].
+                  items:
+                    type: string
+                  example:
+                  - client_credentials
+                one_time_use:
+                  type: boolean
+                  description: Defined whether the SSA will be used only once or can be used multiple times.
+                  default: true
+                rotate_ssa:
+                  type: boolean
+                  description: TODO - Will be used to rotate expiration of the SSA, currently is only saved as part of the SSA.
+                  default: true
+                lifetime:
+                  type: integer
+                  description: SSA lifetime in seconds.
+                  example: 86400
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ssa:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3BvcnRhbC5nbHV1Lm9yZyIsImlhdCI6IjE2NTUzMTkyNjgiLCJqdGkiOiJmN2I1OTkxYy00YzE4LTRjODEtYTY2NC1lNmY4NjcwZjVkNTEiLCJzb2Z0d2FyZV9pZCI6ImdsdXUtc2Nhbi1hcGkiLCJvcmdfaWQiOjEsInNvZnR3YXJlX3JvbGVzIjpbInBhc3N3dXJkIl0sImp3a3NfdXJpIjoiaHR0cHM6Ly9jbG91ZC1kZXYuZ2x1dS5jbG91ZC9wb3J0YWwvandrcyIsImdyYW50X3R5cGVzIjpbImNsaWVudF9jcmVkZW50aWFscyJdLCJleHAiOjE2NTkzMTkyNjh9.MkE-47SvBshmazBfyhAcHsqPpFIbg5CpA8k2TxDWhxc
+        400:
+          $ref: '#/components/responses/InvalidSSAMetadata'
+        401:
+          $ref: '#/components/responses/UnauthorizedSSA'
+        500:
+          $ref: '#/components/responses/InternalServerErrorSSA'
+    get:
+      tags:
+      - SSA
+      summary: Get list of SSAs
+      description: '# Get all SSA list based on `jti` or `org_id`.
+
+        ----
+
+
+        **Security: Bearer Auth**
+
+
+        Provide your bearer token in the Authorization header when making requests to protected resources.
+
+
+        Example: `Authorization: Bearer {{your-access-token}}`
+
+
+        **Security: OAuth 2.0**
+
+
+        Scopes:
+
+        - `https://jans.io/auth/ssa.admin` - **SSA Adm
+
+        .in**, Retrieves all `SSA`
+
+        - `https://jans.io/auth/ssa.portal` - **SSA Portal**, Retrieves all `SSA`
+
+        - `https://jans.io/auth/ssa.developer` - **SSA Developer**, Retrieves the `SSA` created by the same client'
+      operationId: get-ssa
+      security:
+      - bearer: []
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: jti
+        description: Unique Identifier
+      - schema:
+          type: string
+        in: query
+        name: org_id
+        description: Organization ID
+      responses:
+        200:
+          description: The response will return the list of SSAs.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    created_at:
+                      type: integer
+                    expiration:
+                      type: integer
+                    issuer:
+                      type: string
+                    jti:
+                      type: string
+                    status:
+                      type: string
+                    ssa:
+                      type: object
+                      properties:
+                        iss:
+                          type: string
+                        iat:
+                          type: integer
+                        jti:
+                          type: string
+                        software_id:
+                          type: string
+                        org_id:
+                          type: string
+                        software_roles:
+                          type: array
+                          items:
+                            type: string
+                        grant_types:
+                          type: array
+                          items:
+                            type: string
+                        exp:
+                          type: integer
+                        lifetime:
+                          type: integer
+              examples:
+                example-1:
+                  value:
+                  - created_at: 1655319268
+                    expiration: 1656319268
+                    issuer: 04d7af18-f69c-4cf9-8b17-9872315a8f17
+                    jti: 1527324c-b5a3-4d7d-8953-8c1874600ec1
+                    status: ACTIVE
+                    ssa:
+                      iss: https://jans.io
+                      iat: 1655319268
+                      jti: f7b5991c-4c18-4c81-a664-e6f8670f5d51
+                      software_id: gluu-scan-api
+                      org_id: org-id-1000
+                      software_roles:
+                      - password
+                      grant_types:
+                      - client_credentials
+                      exp: 1655419268
+                      lifetime: 86400
+        400:
+          description: Invalid client.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_client:
+                  value:
+                    error: invalid_client
+                    error_description: Invalid client.
+        401:
+          $ref: '#/components/responses/UnauthorizedSSA'
+        500:
+          $ref: '#/components/responses/InternalServerErrorSSA'
+    delete:
+      tags:
+      - SSA
+      summary: Revoke SSA
+      description: '# Revokes existing active SSA based on `jti` or `org_id`
+
+        ----
+
+
+        - `jti` - for delete only one SSA, the specified by `jti`
+
+        - `org_id` - for delete all SSA of the specified organization.
+
+
+        **Security: Bearer Auth**
+
+
+        Provide your bearer token in the Authorization header when making requests to protected resources.
+
+
+        Example: `Authorization: Bearer {{your-access-token}}`
+
+
+        **Security: OAuth 2.0**
+
+
+        Scopes:
+
+        - `https://jans.io/auth/ssa.admin` - **SSA Admin**, You can revoke `SSA`.'
+      operationId: delete-ssa
+      security:
+      - bearer: []
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: jti
+        description: A unique identifier for the token, which can be used to prevent reuse of the token.
+      - schema:
+          type: string
+        in: query
+        name: org_id
+        description: Delete all SSAs of the specified organization.
+      responses:
+        200:
+          description: Success.
+        400:
+          description: Invalid client.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_client:
+                  value:
+                    error: invalid_client
+                    error_description: Invalid client.
+        401:
+          $ref: '#/components/responses/UnauthorizedSSA'
+        406:
+          description: Not Acceptable. Check the query params. (When `jti` or `org_id` is not sent in the query param)
+        422:
+          description: Not found.
+        500:
+          $ref: '#/components/responses/InternalServerErrorSSA'
+  /restv1/ssa/validation:
+    post:
+      tags:
+      - SSA
+      summary: Validate SSA
+      description: '# Validates that a given SSA `jti` exists and is valid
+
+        ----
+
+
+        This endpoint does not have any security, it is an open endpoint.'
+      operationId: validate-ssa
+      parameters:
+      - schema:
+          type: string
+        in: header
+        name: jti
+        description: Unique Identifier
+        required: true
+      responses:
+        200:
+          description: The API returns `200` status code, when token is valid.
+        400:
+          description: When jti does not exist, is invalid or state is in (expired, used or revoked),
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalida_jti:
+                  value:
+                    error: invalid_jti
+                    error_description: Invalid JTI or not exists.
+        500:
+          $ref: '#/components/responses/InternalServerErrorSSA'
+  /restv1/ssa/jwt:
+    get:
+      tags:
+      - SSA
+      summary: Get JWT of SSA based on JTI
+      description: '# Get JWT of SSA based on `jti`.
+
+        ----
+
+
+        **Security: Bearer Auth**
+
+
+        Provide your bearer token in the Authorization header when making requests to protected resources.
+
+
+        Example: `Authorization: Bearer {{your-access-token}}`
+
+
+        **Security: OAuth 2.0**
+
+
+        Scopes:
+
+        - `https://jans.io/auth/ssa.admin` - **SSA Admin**, Retrieve `JWT` of `SSA`'
+      operationId: get-jwt-ssa
+      security:
+      - bearer: []
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: jti
+        description: Unique Identifier.
+      responses:
+        200:
+          description: The response will return the `JWT` of `SSA`.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ssa:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3BvcnRhbC5nbHV1Lm9yZyIsImlhdCI6IjE2NTUzMTkyNjgiLCJqdGkiOiJmN2I1OTkxYy00YzE4LTRjODEtYTY2NC1lNmY4NjcwZjVkNTEiLCJzb2Z0d2FyZV9pZCI6ImdsdXUtc2Nhbi1hcGkiLCJvcmdfaWQiOjEsInNvZnR3YXJlX3JvbGVzIjpbInBhc3N3dXJkIl0sImp3a3NfdXJpIjoiaHR0cHM6Ly9jbG91ZC1kZXYuZ2x1dS5jbG91ZC9wb3J0YWwvandrcyIsImdyYW50X3R5cGVzIjpbImNsaWVudF9jcmVkZW50aWFscyJdLCJleHAiOjE2NTkzMTkyNjh9.MkE-47SvBshmazBfyhAcHsqPpFIbg5CpA8k2TxDWhxc
+        400:
+          description: When jti does not exist, is invalid or state is in (expired, used or revoked), or when client is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_jti:
+                  value:
+                    error: invalid_jti
+                    error_description: Invalid JTI or not exists.
+                invalid_client:
+                  value:
+                    error: invalid_client
+                    error_description: Invalid client.
+        401:
+          $ref: '#/components/responses/UnauthorizedSSA'
+        500:
+          $ref: '#/components/responses/InternalServerErrorSSA'
+components:
+  responses:
+    UnauthorizedSSA:
+      description: Unauthorized access request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            unauthorized_client:
+              value:
+                error: unauthorized_client
+                error_description: The Client is not authorized to use this authentication flow.
+            invalid_client:
+              value:
+                error: invalid_client
+                error_description: Client authentication failed (e.g. unknown client, no client authentication included, or unsupported authentication method).
+    InvalidSSAMetadata:
+      description: Invalid SSA Metadata.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            invalid_ssa_metadata:
+              value:
+                error: invalid_ssa_metadata
+                error_description: The value of one of the SSA Metadata fields is invalid and the server has rejected this request. Note that an Authorization Server MAY choose to substitute a valid value for any requested parameter of a SSA's Metadata.
+    InternalServerErrorSSA:
+      description: Internal error occured. Please check log file for details.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            unknown_error:
+              value:
+                error: unknown_error
+                error_description: Unknown or not found error.
+  schemas:
+    ErrorResponse:
+      required:
+      - error
+      - error_description
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        details:
+          type: string
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer

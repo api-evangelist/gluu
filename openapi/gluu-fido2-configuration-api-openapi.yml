@@ -1,0 +1,307 @@
+openapi: 3.2.0
+info:
+  title: Gluu Fido2 - Configuration API
+  version: '1.0'
+  description: 'Operations tagged Fido2 - Configuration across 2 of this provider''s published API definitions: gluu-jans-config-api-fido2-plugin-openapi.yml, gluu-jans-fido2-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://jans.io/
+  description: The Jans server
+- url: https://jans.local.io
+tags:
+- name: Fido2 - Configuration
+paths:
+  /fido2/fido2-config:
+    get:
+      tags:
+      - Fido2 - Configuration
+      summary: Gets Jans Authorization Server Fido2 configuration properties
+      operationId: get-properties-fido2
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppConfiguration'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.write
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+    put:
+      tags:
+      - Fido2 - Configuration
+      summary: Updates Fido2 configuration properties
+      operationId: put-properties-fido2
+      requestBody:
+        description: Fido2Config
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppConfiguration'
+      responses:
+        '200':
+          description: Fido2Config
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppConfiguration'
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.write
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.admin
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    servers:
+    - url: https://jans.io/
+      description: The Jans server
+  /jans-fido2/restv1/configuration:
+    get:
+      tags:
+      - Fido2 - Configuration
+      summary: FIDO2 configuration
+      operationId: get-fido2-configuration
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: FIDO2 configuration
+                description: FIDO2 configuration.
+                required:
+                - version
+                - issuer
+                - attestation
+                properties:
+                  version:
+                    type: string
+                    description: The version of the FIDO2 U2F core protocol to which this server conforms. The value MUST be the string 1.0.
+                  issuer:
+                    type: string
+                    description: A URI indicating the party operating the FIDO U2F server.
+                  attestation:
+                    type: array
+                    items:
+                      type: object
+                      description: list of fido2 attestation endpoints
+                      properties:
+                        base_path:
+                          type: string
+                          description: fido2 attestation endpoint
+                        options_endpoint:
+                          type: string
+                          description: fido2 attestation options endpoint
+                        result_endpoint:
+                          type: string
+                          description: fido2 attestation result endpoint
+                  assertion:
+                    type: array
+                    items:
+                      type: object
+                      description: list of fido2 assertion endpoints
+                      properties:
+                        base_path:
+                          type: string
+                          description: fido2 assertion endpoint
+                        options_endpoint:
+                          type: string
+                          description: fido2 assertion options endpoint
+                        result_endpoint:
+                          type: string
+                          description: fido2 assertion result endpoint
+        403:
+          $ref: '#/components/responses/AccessDenied'
+        406:
+          $ref: '#/components/responses/NotAcceptable'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    servers:
+    - url: https://jans.local.io
+components:
+  schemas:
+    AppConfiguration:
+      type: object
+      properties:
+        issuer:
+          type: string
+        baseEndpoint:
+          type: string
+        cleanServiceInterval:
+          type: integer
+          format: int32
+        cleanServiceBatchChunkSize:
+          type: integer
+          format: int32
+        useLocalCache:
+          type: boolean
+        disableJdkLogger:
+          type: boolean
+        disableExternalLoggerConfiguration:
+          type: boolean
+        loggingLevel:
+          type: string
+        loggingLayout:
+          type: string
+        externalLoggerConfiguration:
+          type: string
+        metricReporterInterval:
+          type: integer
+          format: int32
+        metricReporterKeepDataDays:
+          type: integer
+          format: int32
+        metricReporterEnabled:
+          type: boolean
+        fido2MetricsEnabled:
+          type: boolean
+        fido2MetricsRetentionDays:
+          type: integer
+          format: int32
+        fido2DeviceInfoCollection:
+          type: boolean
+        fido2ErrorCategorization:
+          type: boolean
+        fido2PerformanceMetrics:
+          type: boolean
+        fido2MetricsAggregationEnabled:
+          type: boolean
+        personCustomObjectClassList:
+          type: array
+          items:
+            type: string
+        fido2Configuration:
+          $ref: '#/components/schemas/Fido2Configuration'
+    MetadataServer:
+      type: object
+      properties:
+        url:
+          type: string
+        rootCert:
+          type: string
+    RequestedParty:
+      type: object
+      properties:
+        id:
+          type: string
+        origins:
+          type: array
+          items:
+            type: string
+    Fido2Configuration:
+      type: object
+      properties:
+        authenticatorCertsFolder:
+          type: string
+        mdsCertsFolder:
+          type: string
+        mdsTocsFolder:
+          type: string
+        userAutoEnrollment:
+          type: boolean
+        unfinishedRequestExpiration:
+          type: integer
+          format: int32
+        authenticationHistoryExpiration:
+          type: integer
+          format: int32
+        recordAbandonedAssertions:
+          type: boolean
+        abandonedRequestExpiration:
+          type: integer
+          format: int32
+        abandonedRequestSweepInterval:
+          type: integer
+          format: int32
+        serverMetadataFolder:
+          type: string
+        enabledFidoAlgorithms:
+          type: array
+          items:
+            type: string
+        metadataServers:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataServer'
+        disableMetadataService:
+          type: boolean
+        mdsDownloadStartupRetries:
+          type: integer
+          format: int32
+        mdsDownloadStartupRetryInterval:
+          type: integer
+          format: int32
+        hints:
+          type: array
+          items:
+            type: string
+        enterpriseAttestation:
+          type: boolean
+        attestationMode:
+          type: string
+        rp:
+          type: array
+          items:
+            $ref: '#/components/schemas/RequestedParty'
+    ErrorResponse:
+      required:
+      - error
+      - error_description
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        details:
+          type: string
+  responses:
+    InternalServerError:
+      description: Internal error occured. Please check log file for details.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotAcceptable:
+      description: Request Not Acceptable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    AccessDenied:
+      description: Invalid details provided hence access denied.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://{op-hostname}/.../token
+          scopes:
+            https://jans.io/oauth/config/fido2.readonly: View fido2 config related information
+            https://jans.io/oauth/config/fido2.write: Manage fido2 config related information
+            https://jans.io/oauth/config/fido2.delete: Delete fido2 config related information
+            https://jans.io/oauth/config/fido2-metrics.readonly: View fido2 metrics related information
+            https://jans.io/oauth/config/fido2.admin: Admin to manage fido2 related information
+            https://jans.io/oauth/config/read-all: Super admin for viewing application resource information
+            https://jans.io/oauth/config/write-all: Super admin for updating application resource information
+            https://jans.io/oauth/config/delete-all: Super admin for deleting application resource information
+x-refined-from:
+- gluu-jans-config-api-fido2-plugin-openapi.yml
+- gluu-jans-fido2-openapi.yml

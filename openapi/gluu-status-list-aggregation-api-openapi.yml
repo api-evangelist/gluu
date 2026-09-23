@@ -1,0 +1,84 @@
+openapi: 3.2.0
+info:
+  title: Janssen Authorization Server Status List Aggregation API
+  description: Janssen Authorization Server - OAuth 2.0 server; OpenID Connect Provider (OP) & UMA Authorization Server (AS)
+  contact:
+    name: Contact
+    url: https://github.com/JanssenProject/jans/discussions
+  license:
+    name: License
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: OAS Version
+servers:
+- url: https://jans.local.io/jans-auth
+tags:
+- name: Status List Aggregation
+paths:
+  /restv1/status_list_aggregation:
+    get:
+      tags:
+      - Status List Aggregation
+      summary: The Status List Aggregatiojn Endpoint
+      description: The Status List Aggregation Endpoint.
+      operationId: get-status-list-aggregation
+      parameters:
+      - name: Accept
+        in: header
+        required: true
+        description: Indicates the requested response type. Possible value is application/json.
+        schema:
+          type: string
+        example: application/json
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: StatusListAggregationResponseJson
+                description: Status list aggregation response as JSON Array.
+                type: object
+                required:
+                - status_lists
+                properties:
+                  status_lists:
+                    type: array
+                    description: List of URIs linking to Status List Tokens issued by this issuer.
+                    items:
+                      type: string
+                      format: uri
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+components:
+  responses:
+    InternalServerError:
+      description: Internal error occured. Please check log file for details.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized access request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      required:
+      - error
+      - error_description
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        details:
+          type: string
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer

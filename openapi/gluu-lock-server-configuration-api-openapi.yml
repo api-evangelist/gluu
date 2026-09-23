@@ -1,0 +1,79 @@
+openapi: 3.2.0
+info:
+  title: Jans Lock Lock - Server Configuration API
+  contact:
+    name: Contact
+    url: https://github.com/JanssenProject/jans/discussions
+  license:
+    name: License
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: OAS Version
+servers:
+- url: https://jans.local.io
+  description: The Jans server
+tags:
+- name: Lock - Server Configuration
+paths:
+  /api/v1/configuration:
+    get:
+      tags:
+      - Lock - Server Configuration
+      summary: Request .well-known data
+      description: Request .well-know Lock server configuration
+      operationId: getConfiguration
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LockApiError'
+  /.well-known/lock-server-configuration:
+    get:
+      tags:
+      - Lock - Server Configuration
+      summary: Request .well-known data
+      description: Request .well-know Lock server configuration
+      operationId: doGet
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: InternalServerError
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LockApiError'
+components:
+  schemas:
+    LockApiError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://{op-hostname}/.../token
+          scopes:
+            https://jans.io/oauth/lock/policy.readonly: View policy related information
+            https://jans.io/oauth/lock/health.write: Write audit health entries
+            https://jans.io/oauth/lock/log.write: Write audit log entries
+            https://jans.io/oauth/lock/telemetry.write: Write telemetry health entries
+            https://jans.io/oauth/lock/stat.readonly: View stat related information

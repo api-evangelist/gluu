@@ -1,0 +1,1937 @@
+openapi: 3.2.0
+info:
+  title: Gluu Fido2 - Metrics API
+  version: '1.0'
+  description: 'Operations tagged Fido2 - Metrics across 2 of this provider''s published API definitions: gluu-jans-config-api-fido2-plugin-openapi.yml, gluu-jans-fido2-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://jans.io/
+  description: The Jans server
+- url: https://jans.local.io
+tags:
+- name: Fido2 - Metrics
+paths:
+  /fido2/metrics/analytics/adoption:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get Fido2 adoption metrics by time range
+      description: Get Fido2 adoption metrics by time range.
+      operationId: get-fido2-adoption-metrics
+      parameters:
+      - name: start_date
+        in: query
+        description: Start date/time for the log entries report. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        description: End date/time for the log entries. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonNode'
+              examples:
+                Response example:
+                  description: Response example
+                  value: "{\n    \"newUsers\": 1,\n    \"returningUsers\": 0,\n    \"adoptionRate\": 1,\n    \"totalUniqueUsers\": 1\n}\n"
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/fido2-metrics.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.write
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    servers:
+    - url: https://jans.io/
+      description: The Jans server
+  /fido2/metrics/analytics/attestation-rejections:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get Fido2 attestation rejection analytics by time range
+      description: Get Fido2 attestation rejections broken down by trust diagnostic code.
+      operationId: get-fido2-metrics-analytics-attestation-rejections
+      parameters:
+      - name: start_date
+        in: query
+        description: Start date/time for the log entries report. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        description: End date/time for the log entries. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonNode'
+              examples:
+                Response example:
+                  description: Response example
+                  value: "{\n    \"totalRejections\": 37,\n    \"registrationAttempts\": 412,\n    \"rejectionRate\": 0.0898,\n    \"reasonCodes\": {\n        \"JFS_AAGUID_NOT_IN_MDS\": 21,\n        \"JFS_AUTHENTICATOR_STATUS_UNACCEPTABLE\": 9,\n        \"JFS_ROOT_CERT_NOT_TRUSTED\": 5,\n        \"JFS_ATTESTATION_FORMAT_NOT_PERMITTED\": 2\n    },\n    \"topRejectedAaguids\": {\n        \"d8522d9f-575b-4866-88a9-ba99fa02f35b\": 14,\n        \"cb69481e-8ff7-4039-93ec-0a2729a154a8\": 9,\n        \"2fc0579f-8113-47ea-b116-bb5a8db9202a\": 7\n    }\n}\n"
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/fido2-metrics.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.write
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    servers:
+    - url: https://jans.io/
+      description: The Jans server
+  /fido2/metrics/analytics/devices:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get Fido2 devices analytics metrics by time range
+      description: Get Fido2 devices analytics metrics by time range.
+      operationId: get-fido2-metrics-analytics-devices
+      parameters:
+      - name: start_date
+        in: query
+        description: Start date/time for the log entries report. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        description: End date/time for the log entries. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonNode'
+              examples:
+                Response example:
+                  description: Response example
+                  value: "{\n    \"operatingSystems\": {},\n    \"deviceTypes\": {},\n    \"authenticatorTypes\": {\n        \"cross-platform\": 1\n    },\n    \"browsers\": {}\n}\n"
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/fido2-metrics.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.write
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    servers:
+    - url: https://jans.io/
+      description: The Jans server
+  /fido2/metrics/analytics/errors:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get Fido2 error analysis metrics by time range
+      description: Get Fido2 error analysis metrics by time range.
+      operationId: get-fido2-metrics-analytics-errors
+      parameters:
+      - name: start_date
+        in: query
+        description: Start date/time for the log entries report. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        description: End date/time for the log entries. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      - name: operationType
+        in: query
+        description: 'Operation type to report on: REGISTRATION or AUTHENTICATION. Omit to report both together, in which case every rate covers registration and authentication combined.'
+        schema:
+          type: string
+          enum:
+          - REGISTRATION
+          - AUTHENTICATION
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonNode'
+              examples:
+                Response example:
+                  description: Response example
+                  value: "{\n    \"errorCategories\": {},\n    \"failureRate\": 0.75,\n    \"successRate\": 0.25,\n\t\"completionRate\": 0.48,\n\t\"dropOffRate\": 0.52,\n    \"topErrors\": {}\n}\n"
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/fido2-metrics.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.write
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    servers:
+    - url: https://jans.io/
+      description: The Jans server
+  /fido2/metrics/aggregations/{aggregationType}:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get a list of Fido2 aggregated metrics by time range
+      description: Get a list of Fido2 aggregated metrics by time range.
+      operationId: get-fido2-metrics-aggregated
+      parameters:
+      - name: limit
+        in: query
+        description: Search size - max size of the results to return
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - name: startIndex
+        in: query
+        description: The 0-based index of the first query result
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: aggregationType
+        in: path
+        description: ' Aggregation Type'
+        required: true
+        schema:
+          type: string
+          default: ''
+      - name: start_date
+        in: query
+        description: Start date/time for the log entries report. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        description: End date/time for the log entries. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fido2MetricsAggregationPagedResult'
+              examples:
+                Response example:
+                  description: Response example
+                  value: "{\n    \"start\": 0,\n    \"totalEntriesCount\": 1,\n    \"entriesCount\": 1,\n    \"entries\": [\n        {\n            \"dn\": \"jansId=HOURLY_2026-02-20-15,ou=fido2-aggregations,o=jans\",\n            \"id\": \"HOURLY_2026-02-20-15\",\n            \"aggregationType\": \"HOURLY\",\n            \"startTime\": \"2026-02-20T15:00:00\",\n            \"endTime\": \"2026-02-20T16:00:00\",\n            \"uniqueUsers\": 1,\n            \"lastUpdated\": \"2026-02-20T16:05:00\",\n            \"fallbackEvents\": 0,\n            \"registrationSuccessRate\": 0.25,\n            \"authenticationAttempts\": 0,\n            \"metricsData\": {\n                \"deviceTypes\": {\n                    \"cross-platform\": 1\n                },\n                \"fallbackEvents\": 0,\n                \"registrationAttempts\": 4,\n                \"registrationFailures\": 3,\n                \"registrationSuccesses\": 1,\n                \"authenticationAttempts\": 0,\n                \"authenticationFailures\": 0,\n                \"authenticationSuccesses\": 0,\n                \"registrationAvgDuration\": 471.0,\n                \"registrationSuccessRate\": 0.25\n            },\n            \"period\": \"2026-02-20-15\",\n            \"registrationAttempts\": 4,\n            \"registrationSuccesses\": 1,\n            \"registrationFailures\": 3,\n            \"authenticationSuccesses\": 0,\n            \"authenticationFailures\": 0,\n            \"registrationAvgDuration\": 471.0,\n            \"deviceTypes\": {\n                \"cross-platform\": 1\n            },\n            \"baseDn\": \"jansId=HOURLY_2026-02-20-15,ou=fido2-aggregations,o=jans\"\n        }\n    ]\n}\n"
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/fido2-metrics.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.write
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    servers:
+    - url: https://jans.io/
+      description: The Jans server
+  /fido2/metrics/aggregations/{aggregationType}/summary:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get Fido2 aggregation summary by time range
+      description: Get Fido2 aggregation summary by time range.
+      operationId: get-fido2-aggregation-summary-metrics
+      parameters:
+      - name: aggregationType
+        in: path
+        description: Metrics Aggregation Type
+        required: true
+        schema:
+          type: string
+          default: ''
+      - name: start_date
+        in: query
+        description: Start date/time for the log entries report. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        description: End date/time for the log entries. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonNode'
+              examples:
+                Response example:
+                  description: Response example
+                  value: "{\n    \"totalRegistrations\": 4,\n    \"totalOperations\": 4,\n    \"totalFallbacks\": 0,\n    \"totalAuthentications\": 0,\n    \"avgRegistrationSuccessRate\": 0.25,\n    \"avgAuthenticationSuccessRate\": 0\n}\n"
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/fido2-metrics.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.write
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    servers:
+    - url: https://jans.io/
+      description: The Jans server
+  /fido2/metrics/entries:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get a list of Fido2 Metrics by time range
+      description: Get a list of Fido2 Metrics by time range.
+      operationId: get-fido2-metrics
+      parameters:
+      - name: limit
+        in: query
+        description: Search size - max size of the results to return
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - name: startIndex
+        in: query
+        description: The 0-based index of the first query result
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: start_date
+        in: query
+        description: Start date/time for entries report. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        description: End date/time for the log entries. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fido2MetricsEntryPagedResult'
+              examples:
+                Response example:
+                  description: Response example
+                  value: "{\n    \"start\": 1,\n    \"totalEntriesCount\": 10,\n    \"entriesCount\": 2,\n    \"entries\": [\n        {\n            \"dn\": \"jansId=086088ff-7a03-4e63-94b9-f4ab760edce2,ou=fido2-metrics,o=jans\",\n            \"id\": \"086088ff-7a03-4e63-94b9-f4ab760edce2\",\n            \"timestamp\": \"2026-02-17T06:26:39\",\n            \"userId\": \"e9e63718-7909-49c6-9feb-eeadd0c839b9\",\n            \"username\": \"test\",\n            \"operationType\": \"AUTHENTICATION\",\n            \"status\": \"ATTEMPT\",\n            \"nodeId\": \"12-63-57-5A-C8-E1\",\n            \"baseDn\": \"jansId=086088ff-7a03-4e63-94b9-f4ab760edce2,ou=fido2-metrics,o=jans\"\n        },\n        {\n            \"dn\": \"jansId=9655ee6b-eaf3-43e4-930f-b19478dc0dad,ou=fido2-metrics,o=jans\",\n            \"id\": \"9655ee6b-eaf3-43e4-930f-b19478dc0dad\",\n            \"timestamp\": \"2026-02-17T06:26:45\",\n            \"userId\": \"e9e63718-7909-49c6-9feb-eeadd0c839b9\",\n            \"username\": \"test\",\n            \"operationType\": \"AUTHENTICATION\",\n            \"status\": \"SUCCESS\",\n            \"durationMs\": 109,\n            \"authenticatorType\": \"platform\",\n            \"nodeId\": \"12-63-57-5A-C8-E1\",\n            \"baseDn\": \"jansId=9655ee6b-eaf3-43e4-930f-b19478dc0dad,ou=fido2-metrics,o=jans\"\n        }\n    ]\n}\n"
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/fido2-metrics.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.write
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    servers:
+    - url: https://jans.io/
+      description: The Jans server
+  /fido2/metrics/entries/user/{userId}:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get a list of Fido2 metrics for a specific user by time range
+      description: Get a list of Fido2 metrics for a specific user by time range.
+      operationId: get-fido2-metrics-by-user
+      parameters:
+      - name: limit
+        in: query
+        description: Search size - max size of the results to return
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - name: startIndex
+        in: query
+        description: The 0-based index of the first query result
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: userId
+        in: path
+        description: user Id
+        required: true
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        description: Start date/time for entries report. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        description: End date/time for the log entries. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fido2MetricsEntryPagedResult'
+              examples:
+                Response example:
+                  description: Response example
+                  value: "{\n    \"start\": 0,\n    \"totalEntriesCount\": 4,\n    \"entriesCount\": 2,\n    \"entries\": [\n        {\n            \"dn\": \"jansId=0053a54e-5bf9-414f-b436-fcfcc9b1b440,ou=fido2-metrics,o=jans\",\n            \"id\": \"0053a54e-5bf9-414f-b436-fcfcc9b1b440\",\n            \"timestamp\": \"2026-02-20T15:53:39\",\n            \"userId\": \"e1f32d71-2954-4248-a7c5-a2d68ce39f8d\",\n            \"username\": \"admin\",\n            \"operationType\": \"REGISTRATION\",\n            \"status\": \"ATTEMPT\",\n            \"nodeId\": \"12-63-57-5A-C8-E1\",\n            \"baseDn\": \"jansId=0053a54e-5bf9-414f-b436-fcfcc9b1b440,ou=fido2-metrics,o=jans\"\n        },\n        {\n            \"dn\": \"jansId=ff17dfa5-aaa1-4395-817e-b1f537c2b5ce,ou=fido2-metrics,o=jans\",\n            \"id\": \"ff17dfa5-aaa1-4395-817e-b1f537c2b5ce\",\n            \"timestamp\": \"2026-02-20T15:53:59\",\n            \"userId\": \"e1f32d71-2954-4248-a7c5-a2d68ce39f8d\",\n            \"username\": \"admin\",\n            \"operationType\": \"REGISTRATION\",\n            \"status\": \"ATTEMPT\",\n            \"nodeId\": \"12-63-57-5A-C8-E1\",\n            \"baseDn\": \"jansId=ff17dfa5-aaa1-4395-817e-b1f537c2b5ce,ou=fido2-metrics,o=jans\"\n        }\n    ]\n}\n"
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/fido2-metrics.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.write
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    servers:
+    - url: https://jans.io/
+      description: The Jans server
+  /fido2/metrics/config:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get Fido2 metrics configuration
+      description: Get Fido2 metrics configuration.
+      operationId: get-fido2-metrics-configuration
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonNode'
+              examples:
+                Response example:
+                  description: Response example
+                  value: "{\n    \"metricsEnabled\": true,\n    \"supportedAggregationTypes\": [\n        \"HOURLY\",\n        \"DAILY\",\n        \"WEEKLY\",\n        \"MONTHLY\"\n    ],\n    \"retentionDays\": 90,\n    \"performanceMetrics\": true,\n    \"deviceInfoCollection\": true,\n    \"aggregationEnabled\": true,\n    \"errorCategorization\": true\n}\n"
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/fido2-metrics.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.write
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    servers:
+    - url: https://jans.io/
+      description: The Jans server
+  /fido2/metrics/entries/operation/{operationType}:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get a list of Fido2 metrics for a operation type by time range
+      description: Get a list of Fido2 metrics for a operation type by time range.
+      operationId: get-fido2-metrics-by-operation
+      parameters:
+      - name: limit
+        in: query
+        description: Search size - max size of the results to return
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - name: startIndex
+        in: query
+        description: The 0-based index of the first query result
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: operationType
+        in: path
+        description: Operation Type
+        required: true
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        description: Start date/time for entries report. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        description: End date/time for the log entries. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fido2MetricsEntryPagedResult'
+              examples:
+                Response example:
+                  description: Response example
+                  value: "{\n    \"start\": 0,\n    \"totalEntriesCount\": 4,\n    \"entriesCount\": 4,\n    \"entries\": [\n        {\n            \"dn\": \"jansId=0053a54e-5bf9-414f-b436-fcfcc9b1b440,ou=fido2-metrics,o=jans\",\n            \"id\": \"0053a54e-5bf9-414f-b436-fcfcc9b1b440\",\n            \"timestamp\": \"2026-02-20T15:53:39\",\n            \"userId\": \"e1f32d71-2954-4248-a7c5-a2d68ce39f8d\",\n            \"username\": \"admin\",\n            \"operationType\": \"REGISTRATION\",\n            \"status\": \"ATTEMPT\",\n            \"nodeId\": \"12-63-57-5A-C8-E1\",\n            \"baseDn\": \"jansId=0053a54e-5bf9-414f-b436-fcfcc9b1b440,ou=fido2-metrics,o=jans\"\n        },\n        {\n            \"dn\": \"jansId=ff17dfa5-aaa1-4395-817e-b1f537c2b5ce,ou=fido2-metrics,o=jans\",\n            \"id\": \"ff17dfa5-aaa1-4395-817e-b1f537c2b5ce\",\n            \"timestamp\": \"2026-02-20T15:53:59\",\n            \"userId\": \"e1f32d71-2954-4248-a7c5-a2d68ce39f8d\",\n            \"username\": \"admin\",\n            \"operationType\": \"REGISTRATION\",\n            \"status\": \"ATTEMPT\",\n            \"nodeId\": \"12-63-57-5A-C8-E1\",\n            \"baseDn\": \"jansId=ff17dfa5-aaa1-4395-817e-b1f537c2b5ce,ou=fido2-metrics,o=jans\"\n        },\n        {\n            \"dn\": \"jansId=eadd61b1-0ecf-43c8-863c-693470a001f7,ou=fido2-metrics,o=jans\",\n            \"id\": \"eadd61b1-0ecf-43c8-863c-693470a001f7\",\n            \"timestamp\": \"2026-02-20T15:54:26\",\n            \"userId\": \"e1f32d71-2954-4248-a7c5-a2d68ce39f8d\",\n            \"username\": \"admin\",\n            \"operationType\": \"REGISTRATION\",\n            \"status\": \"ATTEMPT\",\n            \"nodeId\": \"12-63-57-5A-C8-E1\",\n            \"baseDn\": \"jansId=eadd61b1-0ecf-43c8-863c-693470a001f7,ou=fido2-metrics,o=jans\"\n        },\n        {\n            \"dn\": \"jansId=4000d3e0-a18b-4e1c-8184-d43263561a6a,ou=fido2-metrics,o=jans\",\n            \"id\": \"4000d3e0-a18b-4e1c-8184-d43263561a6a\",\n            \"timestamp\": \"2026-02-20T15:54:50\",\n            \"userId\": \"e1f32d71-2954-4248-a7c5-a2d68ce39f8d\",\n            \"username\": \"admin\",\n            \"operationType\": \"REGISTRATION\",\n            \"status\": \"SUCCESS\",\n            \"durationMs\": 471,\n            \"authenticatorType\": \"cross-platform\",\n            \"nodeId\": \"12-63-57-5A-C8-E1\",\n            \"baseDn\": \"jansId=4000d3e0-a18b-4e1c-8184-d43263561a6a,ou=fido2-metrics,o=jans\"\n        }\n    ]\n}\n"
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/fido2-metrics.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.write
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    servers:
+    - url: https://jans.io/
+      description: The Jans server
+  /fido2/metrics/health:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get Fido2 metrics health check endpoint
+      description: Get Fido2 metrics health check endpoint.
+      operationId: get-fido2-metrics-health-check
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonNode'
+              examples:
+                Response example:
+                  description: Response example
+                  value: "{\n    \"metricsEnabled\": true,\n    \"aggregationEnabled\": true,\n    \"serviceAvailable\": true,\n    \"status\": \"UP\",\n    \"timestamp\": \"2026-03-12T12:11:06.79409705\"\n}\n"
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/fido2-metrics.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.write
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    servers:
+    - url: https://jans.io/
+      description: The Jans server
+  /fido2/metrics/analytics/performance:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get Fido2 analytics performance metrics by time range
+      description: Get Fido2 analytics performance metrics by time range.
+      operationId: get-fido2-analytics-performance-metrics
+      parameters:
+      - name: start_date
+        in: query
+        description: Start date/time for the log entries report. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        description: End date/time for the log entries. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonNode'
+              examples:
+                Response example:
+                  description: Response example
+                  value: "{\n    \"registrationAvgDuration\": 420,\n    \"registrationMaxDuration\": 890,\n    \"registrationMinDuration\": 210\n}\n"
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/fido2-metrics.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.write
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    servers:
+    - url: https://jans.io/
+      description: The Jans server
+  /fido2/metrics/analytics/comparison/{aggregationType}:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get Fido2 period-over-period comparison
+      description: Get Fido2 period-over-period comparison.
+      operationId: get-fido2-period-over-period-comparison
+      parameters:
+      - name: aggregationType
+        in: path
+        description: ' Aggregation Type'
+        required: true
+        schema:
+          type: string
+          default: ''
+      - name: periods
+        in: query
+        description: periods
+        schema:
+          type: integer
+          format: int32
+          default: 2
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonNode'
+              examples:
+                Response example:
+                  description: Response example
+                  value: "{\n    \"previousPeriod\": {},\n    \"comparison\": {\n        \"totalOperationsChange\": 0\n    },\n    \"currentPeriod\": {}\n}\n"
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/fido2-metrics.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.write
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    servers:
+    - url: https://jans.io/
+      description: The Jans server
+  /fido2/metrics/analytics/trends/{aggregationType}:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get Fido2 analytics trends by aggregationType for metrics over time
+      description: Get Fido2 analytics trends by aggregationType for metrics over time.
+      operationId: get-fido2-analytics-trends-aggregationType
+      parameters:
+      - name: aggregationType
+        in: path
+        description: Aggregation Type
+        required: true
+        schema:
+          type: string
+          default: ''
+      - name: start_date
+        in: query
+        description: Start date/time for the log entries report. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      - name: end_date
+        in: query
+        description: End date/time for the log entries. Accepted format dd-MM-yyyy or ISO-8601 date-time like yyyy-MM-ddTHH:mm:ssZ, for example, 31-12-2025 and 2025-12-31T23:59:59Z.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonNode'
+              examples:
+                Response example:
+                  description: Response example
+                  value: "{\n  \"insights\": {\n    \"avgRegistrationSuccessRate\": 0.25,\n    \"avgAuthenticationSuccessRate\": 0.67,\n    \"peakUsage\": {\n      \"period\": \"2026-02-20\",\n      \"totalOperations\": 7\n    }\n  },\n  \"growthRate\": 0.1,\n  \"trendDirection\": \"STABLE\",\n  \"dataPoints\": [\n    {\n      \"period\": \"2026-02-20\",\n      \"metrics\": {\n        \"deviceTypes\": {\n          \"cross-platform\": 1\n        },\n        \"errorCounts\": {},\n        \"fallbackEvents\": 1,\n        \"registrationAttempts\": 4,\n        \"registrationFailures\": 3,\n        \"registrationSuccesses\": 1,\n        \"authenticationAttempts\": 3,\n        \"authenticationFailures\": 1,\n        \"authenticationSuccesses\": 2,\n        \"registrationAvgDuration\": 420,\n        \"registrationMinDuration\": 210,\n        \"registrationMaxDuration\": 880,\n        \"registrationSuccessRate\": 0.25\n      },\n      \"timestamp\": 1771545600000\n    }\n  ]\n}\n"
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: InternalServerError
+      security:
+      - oauth2:
+        - https://jans.io/oauth/config/fido2-metrics.readonly
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.write
+      - oauth2:
+        - https://jans.io/oauth/config/fido2.admin
+      - oauth2:
+        - https://jans.io/oauth/config/read-all
+      - oauth2:
+        - https://jans.io/oauth/config/write-all
+    servers:
+    - url: https://jans.io/
+      description: The Jans server
+  /jans-fido2/restv1/metrics/entries:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get metrics entries
+      description: Returns all raw metric entries between startTime and endTime (ISO 8601 UTC). Use for event-level detail or custom analysis.
+      operationId: get-metrics-entries
+      parameters:
+      - name: startTime
+        in: query
+        required: true
+        schema:
+          type: string
+          example: '2026-01-01T00:00:00'
+        description: Start time (ISO 8601, UTC).
+      - name: endTime
+        in: query
+        required: true
+        schema:
+          type: string
+          example: '2026-01-01T23:59:59'
+        description: End time (ISO 8601, UTC).
+      responses:
+        200:
+          description: List of metric entries.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MetricsEntry'
+        400:
+          $ref: '#/components/responses/InvalidRequest'
+        403:
+          $ref: '#/components/responses/AccessDenied'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    servers:
+    - url: https://jans.local.io
+  /jans-fido2/restv1/metrics/entries/user/{userId}:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get metrics entries for a user
+      description: Returns metric entries for a single user (by userId/inum) in the given time range. Unknown or invalid userId returns 200 with an empty array (consistent with other metrics endpoints); 404 is not used.
+      operationId: get-metrics-entries-by-user
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: User internal ID (inum).
+      - name: startTime
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Start time (ISO 8601, UTC).
+      - name: endTime
+        in: query
+        required: true
+        schema:
+          type: string
+        description: End time (ISO 8601, UTC).
+      responses:
+        200:
+          description: List of metric entries for the user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MetricsEntry'
+        400:
+          $ref: '#/components/responses/InvalidRequest'
+        403:
+          $ref: '#/components/responses/AccessDenied'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    servers:
+    - url: https://jans.local.io
+  /jans-fido2/restv1/metrics/entries/operation/{operationType}:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get metrics entries by operation type
+      description: Returns metric entries filtered by operation type (REGISTRATION or AUTHENTICATION).
+      operationId: get-metrics-entries-by-operation
+      parameters:
+      - name: operationType
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - REGISTRATION
+          - AUTHENTICATION
+        description: Operation type filter.
+      - name: startTime
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Start time (ISO 8601, UTC).
+      - name: endTime
+        in: query
+        required: true
+        schema:
+          type: string
+        description: End time (ISO 8601, UTC).
+      responses:
+        200:
+          description: List of metric entries for the operation type.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MetricsEntry'
+        400:
+          $ref: '#/components/responses/InvalidRequest'
+        403:
+          $ref: '#/components/responses/AccessDenied'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    servers:
+    - url: https://jans.local.io
+  /jans-fido2/restv1/metrics/aggregations/{aggregationType}:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get aggregations
+      description: Returns pre-computed aggregation records (one per period) that overlap the given time range.
+      operationId: get-metrics-aggregations
+      parameters:
+      - name: aggregationType
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - HOURLY
+          - DAILY
+          - WEEKLY
+          - MONTHLY
+        description: Aggregation granularity.
+      - name: startTime
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Start time (ISO 8601, UTC).
+      - name: endTime
+        in: query
+        required: true
+        schema:
+          type: string
+        description: End time (ISO 8601, UTC).
+      responses:
+        200:
+          description: List of aggregation records.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MetricsAggregation'
+        400:
+          $ref: '#/components/responses/InvalidRequest'
+        403:
+          $ref: '#/components/responses/AccessDenied'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    servers:
+    - url: https://jans.local.io
+  /jans-fido2/restv1/metrics/aggregations/{aggregationType}/summary:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get aggregation summary
+      description: Returns a single summary over all aggregations in the time range (totals and average success rates). Reads stored aggregations, which are computed once for their period and never recalculated, so periods aggregated before 2.4.0 still carry the duration and device figures computed at the time. Read current latency from analytics/performance, which is computed live from entries.
+      operationId: get-metrics-aggregation-summary
+      parameters:
+      - name: aggregationType
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - HOURLY
+          - DAILY
+          - WEEKLY
+          - MONTHLY
+      - name: startTime
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Start time (ISO 8601, UTC).
+      - name: endTime
+        in: query
+        required: true
+        schema:
+          type: string
+        description: End time (ISO 8601, UTC).
+      responses:
+        200:
+          description: Summary statistics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricsAggregationSummary'
+        400:
+          $ref: '#/components/responses/InvalidRequest'
+        403:
+          $ref: '#/components/responses/AccessDenied'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    servers:
+    - url: https://jans.local.io
+  /jans-fido2/restv1/metrics/analytics/adoption:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get adoption analytics
+      description: Returns user adoption metrics (new users, returning users, adoption rate).
+      operationId: get-metrics-analytics-adoption
+      parameters:
+      - name: startTime
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Start time (ISO 8601, UTC).
+      - name: endTime
+        in: query
+        required: true
+        schema:
+          type: string
+        description: End time (ISO 8601, UTC).
+      responses:
+        200:
+          description: Adoption analytics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricsAdoption'
+        400:
+          $ref: '#/components/responses/InvalidRequest'
+        403:
+          $ref: '#/components/responses/AccessDenied'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    servers:
+    - url: https://jans.local.io
+  /jans-fido2/restv1/metrics/analytics/performance:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get performance analytics
+      description: Returns performance statistics (average, min, max durations in milliseconds for registration and authentication). Durations cover only ceremonies that completed - SUCCESS or FAILURE. An abandoned ceremony's recorded duration is how long it stayed open before the sweep claimed it, which measures unfinishedRequestExpiration rather than user-perceived latency, so including it would make these figures track the configured window instead of the server. The keys for an operation type are absent when nothing completed in the range.
+      operationId: get-metrics-analytics-performance
+      parameters:
+      - name: startTime
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Start time (ISO 8601, UTC).
+      - name: endTime
+        in: query
+        required: true
+        schema:
+          type: string
+        description: End time (ISO 8601, UTC).
+      responses:
+        200:
+          description: Performance analytics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricsPerformance'
+        400:
+          $ref: '#/components/responses/InvalidRequest'
+        403:
+          $ref: '#/components/responses/AccessDenied'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    servers:
+    - url: https://jans.local.io
+  /jans-fido2/restv1/metrics/analytics/devices:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get device analytics
+      description: 'Returns device analytics (device types, OS, browsers, authenticator types). Counts are per completed ceremony, not per recorded entry: a ceremony writes an ATTEMPT when it starts and a terminal entry when it resolves, so counting entries reported one sign-in more than once. Abandoned ceremonies do not appear - abandonment is recorded off a request thread, which has no device details to read. Still approximate in multi-node deployments, where a ceremony can be recorded more than once.'
+      operationId: get-metrics-analytics-devices
+      parameters:
+      - name: startTime
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Start time (ISO 8601, UTC).
+      - name: endTime
+        in: query
+        required: true
+        schema:
+          type: string
+        description: End time (ISO 8601, UTC).
+      responses:
+        200:
+          description: Device analytics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricsDeviceAnalytics'
+        400:
+          $ref: '#/components/responses/InvalidRequest'
+        403:
+          $ref: '#/components/responses/AccessDenied'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    servers:
+    - url: https://jans.local.io
+  /jans-fido2/restv1/metrics/analytics/errors:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get error analytics
+      description: Returns error analysis (categories, top errors, success/failure rates). Without operationType the tally covers registration and authentication together, which cannot distinguish a deployment with healthy sign-in and poor enrolment from the reverse - pass operationType to report one ceremony at a time.
+      operationId: get-metrics-analytics-errors
+      parameters:
+      - name: startTime
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Start time (ISO 8601, UTC).
+      - name: endTime
+        in: query
+        required: true
+        schema:
+          type: string
+        description: End time (ISO 8601, UTC).
+      - name: operationType
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - REGISTRATION
+          - AUTHENTICATION
+        description: Report this ceremony alone. Omit to report both together, which is the long-standing behaviour of this endpoint.
+      responses:
+        200:
+          description: Error analytics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricsErrorAnalytics'
+        400:
+          $ref: '#/components/responses/InvalidRequest'
+        403:
+          $ref: '#/components/responses/AccessDenied'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    servers:
+    - url: https://jans.local.io
+  /jans-fido2/restv1/metrics/analytics/attestation-rejections:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get attestation rejection analytics
+      description: Returns attestation rejections broken down by trust diagnostic code. An unknown AAGUID, an authenticator blocked by an MDS status report and an untrusted root certificate are otherwise indistinguishable from each other, and from any other registration failure. Reads the same metrics store as the error analytics endpoint.
+      operationId: get-metrics-analytics-attestation-rejections
+      parameters:
+      - name: startTime
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Start time (ISO 8601, UTC).
+      - name: endTime
+        in: query
+        required: true
+        schema:
+          type: string
+        description: End time (ISO 8601, UTC).
+      responses:
+        200:
+          description: Attestation rejection analytics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttestationRejectionAnalytics'
+        400:
+          $ref: '#/components/responses/InvalidRequest'
+        403:
+          $ref: '#/components/responses/AccessDenied'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    servers:
+    - url: https://jans.local.io
+  /jans-fido2/restv1/metrics/analytics/trends/{aggregationType}:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get trend analysis
+      description: Returns trend data over time for the chosen aggregation granularity, with insights (e.g. direction, growth rate). Built from stored aggregations rather than recomputed, so periods aggregated before 2.4.0 still carry the duration and device figures computed at the time and should be read as legacy data.
+      operationId: get-metrics-analytics-trends
+      parameters:
+      - name: aggregationType
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - HOURLY
+          - DAILY
+          - WEEKLY
+          - MONTHLY
+      - name: startTime
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Start time (ISO 8601, UTC).
+      - name: endTime
+        in: query
+        required: true
+        schema:
+          type: string
+        description: End time (ISO 8601, UTC).
+      responses:
+        200:
+          description: Trend analysis.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricsTrends'
+        400:
+          $ref: '#/components/responses/InvalidRequest'
+        403:
+          $ref: '#/components/responses/AccessDenied'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    servers:
+    - url: https://jans.local.io
+  /jans-fido2/restv1/metrics/analytics/comparison/{aggregationType}:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get period-over-period comparison
+      description: Compares the current period with previous periods (e.g. this month vs last). The time range is calculated internally from the aligned current period boundary (UTC) and the number of periods; API consumers do not provide startTime or endTime. Optional query parameter periods (2–12, default 2) specifies how many consecutive periods to compare.
+      operationId: get-metrics-analytics-comparison
+      parameters:
+      - name: aggregationType
+        in: path
+        required: true
+        schema:
+          type: string
+          enum:
+          - HOURLY
+          - DAILY
+          - WEEKLY
+          - MONTHLY
+      - name: periods
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 2
+          maximum: 12
+          default: 2
+        description: Number of consecutive periods to compare.
+      responses:
+        200:
+          description: Period comparison data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricsPeriodComparison'
+        400:
+          $ref: '#/components/responses/InvalidRequest'
+        403:
+          $ref: '#/components/responses/AccessDenied'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    servers:
+    - url: https://jans.local.io
+  /jans-fido2/restv1/metrics/config:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Get metrics configuration
+      description: Returns current metrics configuration (enabled, retention, device info, error categorization, supported aggregation types).
+      operationId: get-metrics-config
+      responses:
+        200:
+          description: Metrics configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricsConfig'
+        403:
+          $ref: '#/components/responses/AccessDenied'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    servers:
+    - url: https://jans.local.io
+  /jans-fido2/restv1/metrics/health:
+    get:
+      tags:
+      - Fido2 - Metrics
+      summary: Metrics health check
+      description: Returns health status. HTTP 200 when UP, 503 when DOWN (e.g. database unavailable).
+      operationId: get-metrics-health
+      responses:
+        200:
+          description: Service is UP.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricsHealth'
+        503:
+          description: Service is DOWN (e.g. database unavailable).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetricsHealth'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    servers:
+    - url: https://jans.local.io
+components:
+  schemas:
+    Fido2MetricsAggregation:
+      type: object
+      properties:
+        dn:
+          type: string
+        id:
+          type: string
+        aggregationType:
+          type: string
+        startTime:
+          type: string
+          format: date-time
+        endTime:
+          type: string
+          format: date-time
+        uniqueUsers:
+          type: integer
+          format: int64
+        lastUpdated:
+          type: string
+          format: date-time
+        performanceMetrics:
+          type: object
+          additionalProperties:
+            type: object
+        metricsData:
+          type: object
+          additionalProperties:
+            type: object
+        period:
+          type: string
+        registrationAttempts:
+          type: integer
+          format: int64
+        registrationSuccesses:
+          type: integer
+          format: int64
+        registrationFailures:
+          type: integer
+          format: int64
+        authenticationAttempts:
+          type: integer
+          format: int64
+        authenticationSuccesses:
+          type: integer
+          format: int64
+        authenticationFailures:
+          type: integer
+          format: int64
+        fallbackEvents:
+          type: integer
+          format: int64
+        registrationSuccessRate:
+          type: number
+          format: double
+        authenticationSuccessRate:
+          type: number
+          format: double
+        registrationAvgDuration:
+          type: number
+          format: double
+        authenticationAvgDuration:
+          type: number
+          format: double
+        deviceTypes:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        errorCounts:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        baseDn:
+          type: string
+    JsonNode:
+      type: object
+    Fido2MetricsAggregationPagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Fido2MetricsAggregation'
+    Fido2MetricsEntry:
+      type: object
+      properties:
+        dn:
+          type: string
+        id:
+          type: string
+        metricType:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        userId:
+          type: string
+        username:
+          type: string
+        operationType:
+          type: string
+        status:
+          type: string
+        durationMs:
+          type: integer
+          format: int64
+        authenticatorType:
+          type: string
+        deviceInfo:
+          $ref: '#/components/schemas/DeviceInfo'
+        errorReason:
+          type: string
+        errorCategory:
+          type: string
+        fallbackMethod:
+          type: string
+        fallbackReason:
+          type: string
+        userAgent:
+          type: string
+        ipAddress:
+          type: string
+        sessionId:
+          type: string
+        nodeId:
+          type: string
+        applicationType:
+          type: string
+        additionalData:
+          type: object
+          additionalProperties:
+            type: object
+        baseDn:
+          type: string
+    Fido2MetricsEntryPagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Fido2MetricsEntry'
+    DeviceInfo:
+      type: object
+      properties:
+        browser:
+          type: string
+        browser_version:
+          type: string
+        os:
+          type: string
+        os_version:
+          type: string
+        device_type:
+          type: string
+        platform:
+          type: string
+        user_agent:
+          type: string
+    MetricsAdoption:
+      type: object
+      description: User adoption metrics (new users, returning users, adoption rate) for the given time range.
+      properties:
+        newUsers:
+          type: integer
+        returningUsers:
+          type: integer
+        totalUniqueUsers:
+          type: integer
+        adoptionRate:
+          type: number
+          description: newUsers / totalUniqueUsers (0.0–1.0).
+    MetricsPeriodComparison:
+      type: object
+      description: Period-over-period comparison (current vs previous period metrics and percentage change).
+      properties:
+        currentPeriod:
+          type: object
+          description: Summary for the most recent period(s).
+        previousPeriod:
+          type: object
+          description: Summary for the preceding period(s).
+        comparison:
+          type: object
+          description: Percentage changes between periods (e.g. totalOperationsChange).
+    MetricsAggregationSummary:
+      type: object
+      description: Summary over all aggregations in a time range.
+      properties:
+        totalRegistrations:
+          type: integer
+          description: Total registration operations across all periods in the range.
+        totalAuthentications:
+          type: integer
+          description: Total authentication operations across all periods in the range.
+        totalOperations:
+          type: integer
+          description: Sum of totalRegistrations and totalAuthentications.
+        totalFallbacks:
+          type: integer
+          description: Count of fallback events (user chose alternative to passkey) in the range.
+        avgRegistrationSuccessRate:
+          type: number
+          description: Average of registration success rates across periods (0.0–1.0).
+        avgAuthenticationSuccessRate:
+          type: number
+          description: Average of authentication success rates across periods (0.0–1.0).
+    MetricsConfig:
+      type: object
+      description: Current metrics configuration as seen by the server.
+      properties:
+        metricsEnabled:
+          type: boolean
+          description: Whether metrics collection is enabled.
+        aggregationEnabled:
+          type: boolean
+          description: Whether automatic aggregation jobs are enabled.
+        retentionDays:
+          type: integer
+          description: Number of days metrics data is retained before cleanup.
+        deviceInfoCollection:
+          type: boolean
+          description: Whether device info (browser, OS) is collected.
+        errorCategorization:
+          type: boolean
+          description: Whether errors are categorized for analytics.
+        performanceMetrics:
+          type: boolean
+          description: Whether durations are tracked.
+        supportedAggregationTypes:
+          type: array
+          items:
+            type: string
+          example:
+          - HOURLY
+          - DAILY
+          - WEEKLY
+          - MONTHLY
+          description: List of available aggregation granularities.
+    MetricsErrorAnalytics:
+      type: object
+      description: Error analysis (categories, top errors, success/failure rates).
+      properties:
+        errorCategories:
+          type: object
+          additionalProperties:
+            type: integer
+          description: Count of errors by category.
+        topErrors:
+          type: object
+          additionalProperties:
+            type: integer
+          description: Count of errors by message.
+        successRate:
+          type:
+          - number
+          - 'null'
+          description: Ratio of started operations that succeeded. Based on ATTEMPT count as denominator, and reported as observed, so it can exceed 1.0 when completions in the range belong to starts outside it. Null when nothing was recorded. Where no ATTEMPT entries exist at all it is the share of completed ceremonies that succeeded instead — see rateNote.
+        failureRate:
+          type:
+          - number
+          - 'null'
+          description: Ratio of started operations that failed. Same denominator and same caveats as successRate.
+        completionRate:
+          type:
+          - number
+          - 'null'
+          description: Ratio of started operations that completed (success or failure), 0.0–1.0. Capped at 1.0 when completions outnumber recorded starts, and null when no starts were recorded at all, since it then has no denominator — see rateNote.
+        dropOffRate:
+          type:
+          - number
+          - 'null'
+          description: Ratio of started operations that did not complete (user dropped off). Equals 1 - completionRate (0.0–1.0). Inferred as a residual, so it also absorbs ceremonies still in flight at the edge of the query window, and is null when there is no residual to infer it from — see rateNote.
+        abandonedOperations:
+          type: integer
+          description: Count of authentication ceremonies observed to have lapsed without ever being completed. Unlike dropOffRate this is counted from ceremonies actually relabelled as abandoned, not inferred. Approximate in multi-node deployments, where a ceremony may be counted more than once.
+        abandonmentRate:
+          type:
+          - number
+          - 'null'
+          description: Ratio of started operations observed to have been abandoned (0.0–1.0). Based on ATTEMPT count as denominator. Reported alongside dropOffRate, not instead of it. Null when no starts were recorded — see rateNote.
+        rateNote:
+          type: string
+          description: Present only when a rate in this response is null, capped, or measured against a different denominator, and explains which and why. An unknown rate must not be rendered as a zero.
+    MetricsEntry:
+      type: object
+      description: A single raw metric entry (one registration or authentication event).
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the entry.
+        timestamp:
+          type: integer
+          format: int64
+          description: Event time in milliseconds since epoch (UTC).
+        userId:
+          type: string
+          description: User internal ID (inum).
+        username:
+          type: string
+          description: Human-readable username at time of operation; use userId for stable tracking.
+        operationType:
+          type: string
+          enum:
+          - REGISTRATION
+          - AUTHENTICATION
+          - FALLBACK
+          description: REGISTRATION (passkey enrollment), AUTHENTICATION (sign-in), or FALLBACK (alternative method).
+        status:
+          type: string
+          enum:
+          - SUCCESS
+          - FAILURE
+          - ATTEMPT
+          - ABANDONED
+          description: ATTEMPT (started), SUCCESS (completed), FAILURE (completed with error), or ABANDONED (authentication ceremony started but never completed). ABANDONED is not a completion and is excluded from the attempt total that failures are derived from.
+        durationMs:
+          type: integer
+          description: Operation duration in milliseconds.
+        authenticatorType:
+          type: string
+          description: e.g. cross-platform, platform, security-key.
+        nodeId:
+          type: string
+          description: Cluster node identifier (when in cluster).
+        ipAddress:
+          type: string
+          description: Client IP address (when available from request headers). Useful for geo-analysis or security.
+        userAgent:
+          type: string
+          description: Full browser user-agent string; used to derive deviceInfo.
+        deviceInfo:
+          type: object
+          description: Parsed device details (browser, os, deviceType). Present when deviceInfoCollection is enabled.
+        errorReason:
+          type: string
+          description: Human-readable error message. Present only when status is FAILURE.
+        errorCategory:
+          type: string
+          description: Categorized error type (e.g. USER_CANCELLED, TIMEOUT, INVALID_CREDENTIAL). Present only when status is FAILURE.
+        sessionId:
+          type: string
+          description: Session identifier linking this operation to a user session.
+        applicationType:
+          type: string
+          description: Application or relying party identifier (when multiple apps share the FIDO2 server).
+    MetricsDeviceAnalytics:
+      type: object
+      description: Device analytics (device types, OS, browsers, authenticator types).
+      properties:
+        deviceTypes:
+          type: object
+          additionalProperties:
+            type: integer
+          description: Counts by device type (e.g. desktop, mobile).
+        authenticatorTypes:
+          type: object
+          additionalProperties:
+            type: integer
+          description: Counts by authenticator type (platform, cross-platform).
+        browsers:
+          type: object
+          additionalProperties:
+            type: integer
+          description: Counts by browser.
+        operatingSystems:
+          type: object
+          additionalProperties:
+            type: integer
+          description: Counts by operating system.
+    MetricsPerformance:
+      type: object
+      description: Performance statistics (avg/min/max durations in milliseconds for registration and authentication).
+      properties:
+        registrationAvgDuration:
+          type: number
+          description: Average registration duration (ms).
+        registrationMinDuration:
+          type: integer
+          description: Minimum registration duration (ms).
+        registrationMaxDuration:
+          type: integer
+          description: Maximum registration duration (ms).
+        authenticationAvgDuration:
+          type: number
+          description: Average authentication duration (ms).
+        authenticationMinDuration:
+          type: integer
+          description: Minimum authentication duration (ms).
+        authenticationMaxDuration:
+          type: integer
+          description: Maximum authentication duration (ms).
+    AttestationRejectionAnalytics:
+      type: object
+      description: Attestation rejections in a time range, broken down by cause. A rejection is a registration failure recorded with the ATTESTATION_TRUST error category.
+      properties:
+        totalRejections:
+          type: integer
+          example: 37
+          description: Attestation rejections recorded in the range.
+        registrationAttempts:
+          type: integer
+          example: 412
+          description: Registration attempts recorded in the range — the denominator of rejectionRate.
+        rejectionRate:
+          type:
+          - number
+          - 'null'
+          format: double
+          example: 0.0898
+          description: Rejections as a proportion of registration attempts in the range. Null when no attempts were recorded, since a rate cannot be computed without a denominator — see rejectionRateNote. Capped at 1.0 when rejections belong to attempts recorded before the range started.
+        rejectionRateNote:
+          type: string
+          description: Present only when the rate is null or capped, explaining why. Absent when the rate is exact.
+        reasonCodes:
+          type: object
+          additionalProperties:
+            type: integer
+          example:
+            JFS_AAGUID_NOT_IN_MDS: 21
+            JFS_ROOT_CERT_NOT_TRUSTED: 5
+          description: 'Count per diagnostic code. The codes a rejection can currently be reported under are JFS_AAGUID_NOT_IN_MDS, JFS_MDS_UNAVAILABLE, JFS_ATTESTATION_FORMAT_NOT_PERMITTED, JFS_ROOT_CERT_NOT_TRUSTED, JFS_APPLE_ROOT_CA_MISSING and JFS_AUTHENTICATOR_STATUS_UNACCEPTABLE. JFS_MDS_METADATA_EXPIRED is reserved and is not emitted yet: an expired blob is discarded when it is loaded, so expiry surfaces as JFS_AAGUID_NOT_IN_MDS.'
+        topRejectedAaguids:
+          type: object
+          additionalProperties:
+            type: integer
+          example:
+            d8522d9f-575b-4866-88a9-ba99fa02f35b: 14
+          description: Count per AAGUID. Rejections that are not tied to an authenticator model — an attestation format the mode does not permit, for instance — are counted in reasonCodes only.
+    ErrorResponse:
+      required:
+      - error
+      - error_description
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        details:
+          type: string
+    MetricsHealth:
+      type: object
+      description: Health status of the metrics service (200 = UP, 503 = DOWN).
+      properties:
+        status:
+          type: string
+          enum:
+          - UP
+          - DOWN
+          description: Overall health; UP returns 200, DOWN returns 503.
+        metricsEnabled:
+          type: boolean
+          description: Whether metrics collection is enabled in configuration.
+        aggregationEnabled:
+          type: boolean
+          description: Whether automatic aggregation is enabled.
+        timestamp:
+          type: string
+          description: Current server time (ISO format, UTC).
+        serviceAvailable:
+          type: boolean
+          description: True if metrics backend (e.g. DB) is reachable.
+    MetricsTrends:
+      type: object
+      description: Trend analysis over time with data points, growth rate, direction, and insights.
+      properties:
+        dataPoints:
+          type: array
+          description: One data point per aggregation period (timestamp, period, metrics).
+        growthRate:
+          type: number
+          description: Overall growth rate (e.g. 0.15 = 15% growth).
+        trendDirection:
+          type: string
+          description: INCREASING, DECREASING, or STABLE.
+        insights:
+          type: object
+          description: Peak period, peak operations, average operations.
+    MetricsAggregation:
+      type: object
+      description: Pre-computed aggregation for one period (e.g. one hour or one day).
+      properties:
+        id:
+          type: string
+          description: e.g. HOURLY_2026-01-01-12 or WEEKLY_2026-W07.
+        aggregationType:
+          type: string
+          enum:
+          - HOURLY
+          - DAILY
+          - WEEKLY
+          - MONTHLY
+        startTime:
+          type: integer
+          format: int64
+          description: Period start in milliseconds since epoch (UTC), inclusive.
+        endTime:
+          type: integer
+          format: int64
+          description: Period end in milliseconds since epoch (UTC), exclusive.
+        period:
+          type: string
+          description: Period identifier (e.g. 2026-01-01-12 for hour, 2026-W07 for week).
+        uniqueUsers:
+          type: integer
+          description: Count of distinct users with activity in this period.
+        registrationAttempts:
+          type: integer
+          description: Total registration operations (SUCCESS or FAILURE) in this period.
+        registrationSuccesses:
+          type: integer
+          description: Successful registrations in this period.
+        registrationFailures:
+          type: integer
+          description: Failed registrations in this period.
+        registrationSuccessRate:
+          type: number
+          format: double
+          description: registrationSuccesses / registrationAttempts (0.0–1.0).
+        registrationAvgDuration:
+          type: number
+          description: Milliseconds.
+        authenticationAttempts:
+          type: integer
+          description: Total authentication operations (SUCCESS or FAILURE) in this period.
+        authenticationSuccesses:
+          type: integer
+          description: Successful authentications in this period.
+        authenticationFailures:
+          type: integer
+          description: Failed authentications in this period.
+        authenticationSuccessRate:
+          type: number
+          description: authenticationSuccesses / authenticationAttempts (0.0–1.0).
+        authenticationAvgDuration:
+          type: number
+          description: Milliseconds.
+        deviceTypes:
+          type: object
+          additionalProperties:
+            type: integer
+          description: Counts by device type (e.g. platform, cross-platform).
+        errorCounts:
+          type: object
+          additionalProperties:
+            type: integer
+          description: Counts by error category (e.g. USER_CANCELLED, TIMEOUT).
+  responses:
+    AccessDenied:
+      description: Invalid details provided hence access denied.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal error occured. Please check log file for details.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InvalidRequest:
+      description: Invalid parameters are provided to endpoint.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://{op-hostname}/.../token
+          scopes:
+            https://jans.io/oauth/config/fido2.readonly: View fido2 config related information
+            https://jans.io/oauth/config/fido2.write: Manage fido2 config related information
+            https://jans.io/oauth/config/fido2.delete: Delete fido2 config related information
+            https://jans.io/oauth/config/fido2-metrics.readonly: View fido2 metrics related information
+            https://jans.io/oauth/config/fido2.admin: Admin to manage fido2 related information
+            https://jans.io/oauth/config/read-all: Super admin for viewing application resource information
+            https://jans.io/oauth/config/write-all: Super admin for updating application resource information
+            https://jans.io/oauth/config/delete-all: Super admin for deleting application resource information
+x-refined-from:
+- gluu-jans-config-api-fido2-plugin-openapi.yml
+- gluu-jans-fido2-openapi.yml

@@ -1,0 +1,92 @@
+openapi: 3.2.0
+info:
+  title: Janssen Authorization Server Status List API
+  description: Janssen Authorization Server - OAuth 2.0 server; OpenID Connect Provider (OP) & UMA Authorization Server (AS)
+  contact:
+    name: Contact
+    url: https://github.com/JanssenProject/jans/discussions
+  license:
+    name: License
+    url: https://github.com/JanssenProject/jans/blob/main/LICENSE
+  version: OAS Version
+servers:
+- url: https://jans.local.io/jans-auth
+tags:
+- name: Status List
+paths:
+  /restv1/status_list:
+    get:
+      tags:
+      - Status List
+      summary: The Status List Endpoint
+      description: The Status List Endpoint.
+      operationId: get-status-list
+      parameters:
+      - name: Accept
+        in: header
+        required: true
+        description: Indicates the requested response type. Possible values are application/statuslist+json and application/statuslist+jwt. Defaults to application/statuslist+jwt if not specified.
+        schema:
+          type: string
+        example: application/statuslist+jwt or application/statuslist+json
+      responses:
+        200:
+          description: OK
+          content:
+            application/statuslist+json:
+              schema:
+                title: StatusListResponseJson
+                description: Status list response as JSON (depending on request's "Accept" header value).
+                type: object
+                required:
+                - bits
+                - lst
+                properties:
+                  bits:
+                    type: integer
+                    description: JSON Integer specifying the number of bits per Referenced Token in the Status List (lst). The allowed values for bits are 1,2,4 and 8.
+                    example: 2
+                  lst:
+                    type: string
+                    description: JSON String that contains the status values for all the Referenced Tokens it conveys statuses for. The value MUST be the base64url-encoded
+                    example: eNrbuRgAAhcBXQ
+            application/statuslist+jwt:
+              schema:
+                title: StatusListResponseJwt
+                description: Status list response as JWT.
+                type: object
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+components:
+  responses:
+    InternalServerError:
+      description: Internal error occured. Please check log file for details.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized access request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      required:
+      - error
+      - error_description
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        details:
+          type: string
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
