@@ -219,13 +219,31 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    UserAuthenticatorList:
+    SessionIdAccessMap:
       type: object
       properties:
-        authenticators:
+        permissionGranted:
+          type: object
+          additionalProperties:
+            type: boolean
+          xml:
+            name: map
+    SessionPagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
           type: array
           items:
-            $ref: '#/components/schemas/UserAuthenticator'
+            $ref: '#/components/schemas/SessionId'
     SessionId:
       type: object
       properties:
@@ -279,21 +297,6 @@ components:
           format: int32
         opbrowserState:
           type: string
-    SessionIdAccessMap:
-      type: object
-      properties:
-        permissionGranted:
-          type: object
-          additionalProperties:
-            type: boolean
-          xml:
-            name: map
-    SessionIdPredefinedAttributes:
-      type: object
-      properties:
-        index:
-          type: integer
-          format: int32
     UserAuthenticator:
       type: object
       properties:
@@ -305,22 +308,34 @@ components:
           type: object
           additionalProperties:
             type: object
-    SessionPagedResult:
+    UserAuthenticatorList:
       type: object
       properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
+        authenticators:
           type: array
           items:
-            $ref: '#/components/schemas/SessionId'
+            $ref: '#/components/schemas/UserAuthenticator'
+    CustomObjectAttribute:
+      type: object
+      properties:
+        name:
+          type: string
+        multiValued:
+          type: boolean
+        values:
+          type: array
+          items:
+            type: object
+        value:
+          type: object
+        displayValue:
+          type: string
+    SessionIdPredefinedAttributes:
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
     User:
       type: object
       properties:
@@ -360,21 +375,6 @@ components:
           items:
             type: string
         baseDn:
-          type: string
-    CustomObjectAttribute:
-      type: object
-      properties:
-        name:
-          type: string
-        multiValued:
-          type: boolean
-        values:
-          type: array
-          items:
-            type: object
-        value:
-          type: object
-        displayValue:
           type: string
   securitySchemes:
     oauth2:

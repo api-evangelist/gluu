@@ -81,117 +81,28 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    AuditLogConf:
+    AssetDirMapping:
       type: object
       properties:
-        enabled:
-          type: boolean
-          description: Flag to enable and disable audit log.
-        logData:
-          type: boolean
-          description: Flag to enable and disable loggin g data.
-        ignoreHttpMethod:
-          type: array
-          description: HTTP methods for which audit is disabled.
-          items:
-            type: string
-            description: HTTP methods for which audit is disabled.
-        ignoreAnnotation:
-          type: array
-          description: Annotation for which audit is disabled.
-          items:
-            type: string
-            description: Annotation for which audit is disabled.
-        ignoreObjectMapping:
-          type: array
-          description: Object for which audit is disabled.
-          items:
-            $ref: '#/components/schemas/ObjectDetails'
-        headerAttributes:
-          type: array
-          description: List of header HTTP attributes whose value is to be logged.
-          items:
-            type: string
-            description: List of header HTTP attributes whose value is to be logged.
-        auditLogFilePath:
+        directory:
           type: string
-          description: Audit log file location.
-        auditLogFileName:
-          type: string
-          description: Audit log file name.
-        auditLogDateFormat:
-          type: string
-          description: Date format in audit log file.
-      description: Audit Log configuration details.
-    ObjectDetails:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the object.
-        text:
+          description: Relative path to asset base directory.
+        type:
           type: array
-          description: List of string text that is to be ignored .
+          description: List of file extention that are stored in directory.
           items:
             type: string
-            description: List of string text that is to be ignored .
-      description: Object for which audit is disabled.
-    AssetMgtConfiguration:
-      type: object
-      properties:
-        assetMgtEnabled:
-          type: boolean
-          description: Flag indicating if asset management functionality is enabled.
-        assetServerUploadEnabled:
-          type: boolean
-          description: Flag indicating if asset upload to server is enabled.
-        fileExtensionValidationEnabled:
-          type: boolean
-          description: Flag indicating if file extension validation is enabled.
-        moduleNameValidationEnabled:
-          type: boolean
-          description: Flag indicating if service module name extension validation is enabled.
-        assetDirMapping:
-          type: array
-          description: Asset type mapped to server directory.
-          items:
-            $ref: '#/components/schemas/AssetDirMapping'
-      description: Asset management configuration details.
-    AgamaConfiguration:
-      type: object
-      properties:
-        allowedDomain:
-          type: array
-          description: List of allowed domains to download Agama Project.
-          items:
-            type: string
-            description: List of allowed domains to download Agama Project.
-        mandatoryAttributes:
-          type: array
-          description: List of attributes required to create the Agama Flow.
-          items:
-            type: string
-            description: List of attributes required to create the Agama Flow.
-        optionalAttributes:
-          type: array
-          description: List of attributes that are optional.
-          items:
-            type: string
-            description: List of attributes that are optional.
-      description: Agama configuration details.
-    PolicySource:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: Specify if policy source is enabled
-        authorizationToken:
+            description: List of file extention that are stored in directory.
+        description:
           type: string
-          description: Authorization token to access URI
-        policyStoreUri:
-          type: string
-          description: URI to policy store. Policy store can be either json/zip
-      description: List of Policy Sources
+          description: Description of assets stored in directory.
+        jansServiceModule:
+          type: array
+          description: List of supported service module where asset can be uploaded.
+          items:
+            type: string
+            description: List of supported service module where asset can be uploaded.
+      description: Asset type mapped to server directory.
     CedarlingConfiguration:
       type: object
       properties:
@@ -228,67 +139,28 @@ components:
           description: maximum number of entries in policy store file
           format: int32
       description: Cedar Configuration for authorization.
-    AssetDirMapping:
+    AgamaConfiguration:
       type: object
       properties:
-        directory:
-          type: string
-          description: Relative path to asset base directory.
-        type:
+        allowedDomain:
           type: array
-          description: List of file extention that are stored in directory.
+          description: List of allowed domains to download Agama Project.
           items:
             type: string
-            description: List of file extention that are stored in directory.
-        description:
-          type: string
-          description: Description of assets stored in directory.
-        jansServiceModule:
+            description: List of allowed domains to download Agama Project.
+        mandatoryAttributes:
           type: array
-          description: List of supported service module where asset can be uploaded.
+          description: List of attributes required to create the Agama Flow.
           items:
             type: string
-            description: List of supported service module where asset can be uploaded.
-      description: Asset type mapped to server directory.
-    PluginConf:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the plugin.
-        description:
-          type: string
-          description: Description of the plugin.
-        className:
-          type: string
-          description: Plugin application class.
-    CorsConfigurationFilter:
-      type: object
-      properties:
-        filterName:
-          type: string
-        corsEnabled:
-          type: boolean
-        corsAllowedOrigins:
-          type: string
-        corsAllowedMethods:
-          type: string
-        corsAllowedHeaders:
-          type: string
-        corsExposedHeaders:
-          type: string
-        corsSupportCredentials:
-          type: boolean
-        corsLoggingEnabled:
-          type: boolean
-        corsPreflightMaxAge:
-          type: integer
-          format: int32
-        corsRequestDecorate:
-          type: boolean
-      description: CORS configuration filter properties.
-    JsonPatch:
-      type: object
+            description: List of attributes required to create the Agama Flow.
+        optionalAttributes:
+          type: array
+          description: List of attributes that are optional.
+          items:
+            type: string
+            description: List of attributes that are optional.
+      description: Agama configuration details.
     ApiAppConfiguration:
       type: object
       properties:
@@ -416,6 +288,39 @@ components:
             $ref: '#/components/schemas/PluginConf'
         assetMgtConfiguration:
           $ref: '#/components/schemas/AssetMgtConfiguration'
+    PluginConf:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the plugin.
+        description:
+          type: string
+          description: Description of the plugin.
+        className:
+          type: string
+          description: Plugin application class.
+    AssetMgtConfiguration:
+      type: object
+      properties:
+        assetMgtEnabled:
+          type: boolean
+          description: Flag indicating if asset management functionality is enabled.
+        assetServerUploadEnabled:
+          type: boolean
+          description: Flag indicating if asset upload to server is enabled.
+        fileExtensionValidationEnabled:
+          type: boolean
+          description: Flag indicating if file extension validation is enabled.
+        moduleNameValidationEnabled:
+          type: boolean
+          description: Flag indicating if service module name extension validation is enabled.
+        assetDirMapping:
+          type: array
+          description: Asset type mapped to server directory.
+          items:
+            $ref: '#/components/schemas/AssetDirMapping'
+      description: Asset management configuration details.
     DataFormatConversionConf:
       type: object
       properties:
@@ -429,6 +334,101 @@ components:
             type: string
             description: HTTP methods for which data conversion is to be disabled.
       description: Configuration for data-type converstion.
+    CorsConfigurationFilter:
+      type: object
+      properties:
+        filterName:
+          type: string
+        corsEnabled:
+          type: boolean
+        corsAllowedOrigins:
+          type: string
+        corsAllowedMethods:
+          type: string
+        corsAllowedHeaders:
+          type: string
+        corsExposedHeaders:
+          type: string
+        corsSupportCredentials:
+          type: boolean
+        corsLoggingEnabled:
+          type: boolean
+        corsPreflightMaxAge:
+          type: integer
+          format: int32
+        corsRequestDecorate:
+          type: boolean
+      description: CORS configuration filter properties.
+    AuditLogConf:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Flag to enable and disable audit log.
+        logData:
+          type: boolean
+          description: Flag to enable and disable loggin g data.
+        ignoreHttpMethod:
+          type: array
+          description: HTTP methods for which audit is disabled.
+          items:
+            type: string
+            description: HTTP methods for which audit is disabled.
+        ignoreAnnotation:
+          type: array
+          description: Annotation for which audit is disabled.
+          items:
+            type: string
+            description: Annotation for which audit is disabled.
+        ignoreObjectMapping:
+          type: array
+          description: Object for which audit is disabled.
+          items:
+            $ref: '#/components/schemas/ObjectDetails'
+        headerAttributes:
+          type: array
+          description: List of header HTTP attributes whose value is to be logged.
+          items:
+            type: string
+            description: List of header HTTP attributes whose value is to be logged.
+        auditLogFilePath:
+          type: string
+          description: Audit log file location.
+        auditLogFileName:
+          type: string
+          description: Audit log file name.
+        auditLogDateFormat:
+          type: string
+          description: Date format in audit log file.
+      description: Audit Log configuration details.
+    ObjectDetails:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the object.
+        text:
+          type: array
+          description: List of string text that is to be ignored .
+          items:
+            type: string
+            description: List of string text that is to be ignored .
+      description: Object for which audit is disabled.
+    JsonPatch:
+      type: object
+    PolicySource:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Specify if policy source is enabled
+        authorizationToken:
+          type: string
+          description: Authorization token to access URI
+        policyStoreUri:
+          type: string
+          description: URI to policy store. Policy store can be either json/zip
+      description: List of Policy Sources
   securitySchemes:
     oauth2:
       type: oauth2

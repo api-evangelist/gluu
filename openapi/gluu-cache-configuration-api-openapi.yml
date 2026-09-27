@@ -88,31 +88,6 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    MemcachedConfiguration:
-      type: object
-      properties:
-        servers:
-          type: string
-        maxOperationQueueLength:
-          type: integer
-          format: int32
-        bufferSize:
-          type: integer
-          format: int32
-        defaultPutExpiration:
-          type: integer
-          format: int32
-        connectionFactoryType:
-          type: string
-          enum:
-          - DEFAULT
-          - BINARY
-    InMemoryConfiguration:
-      type: object
-      properties:
-        defaultPutExpiration:
-          type: integer
-          format: int32
     RedisConfiguration:
       type: object
       properties:
@@ -159,6 +134,25 @@ components:
         maxRetryAttempts:
           type: integer
           format: int32
+    MemcachedConfiguration:
+      type: object
+      properties:
+        servers:
+          type: string
+        maxOperationQueueLength:
+          type: integer
+          format: int32
+        bufferSize:
+          type: integer
+          format: int32
+        defaultPutExpiration:
+          type: integer
+          format: int32
+        connectionFactoryType:
+          type: string
+          enum:
+          - DEFAULT
+          - BINARY
     NativePersistenceConfiguration:
       type: object
       properties:
@@ -172,8 +166,6 @@ components:
           type: boolean
         disableAttemptUpdateBeforeInsert:
           type: boolean
-    JsonPatch:
-      type: object
     CacheConfiguration:
       type: object
       properties:
@@ -194,6 +186,14 @@ components:
           $ref: '#/components/schemas/NativePersistenceConfiguration'
         keyPrefix:
           type: string
+    InMemoryConfiguration:
+      type: object
+      properties:
+        defaultPutExpiration:
+          type: integer
+          format: int32
+    JsonPatch:
+      type: object
   securitySchemes:
     oauth2:
       type: oauth2

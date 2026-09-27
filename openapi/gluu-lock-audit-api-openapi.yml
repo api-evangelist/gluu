@@ -386,6 +386,104 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
+    ApiError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+    TelemetryEntry:
+      type: object
+      properties:
+        dn:
+          type: string
+        baseDn:
+          type: string
+        inum:
+          type: string
+        creationDate:
+          type: string
+          description: Creation date of the entry
+          format: date-time
+          example: 2026-07-24 15:33:06.872000+00:00
+        service:
+          type: string
+          description: Service name
+          example: Lock Server
+        nodeName:
+          type: string
+          description: Node name or identifier
+          example: 04bbe9ef-a853-417c-a2b8-5328b62936e2
+        status:
+          type: string
+          description: Service status
+          example: running
+        policyStats:
+          type: object
+          additionalProperties:
+            type: integer
+            description: Per-policy evaluation counters as key-value pairs
+            format: int64
+          description: Per-policy evaluation counters as key-value pairs
+        errorCounters:
+          type: object
+          additionalProperties:
+            type: integer
+            description: Error counters broken down by error type
+            format: int64
+          description: Error counters broken down by error type
+        operationalStats:
+          type: object
+          additionalProperties:
+            type: integer
+            description: Operational statistics (requests, decisions, eval times) as key-value pairs
+            format: int64
+          description: Operational statistics (requests, decisions, eval times) as key-value pairs
+        intervalSecs:
+          type: integer
+          description: Telemetry collection interval in seconds
+          format: int64
+          example: 5
+      description: Telemetry audit entry
+    HealthEntry:
+      type: object
+      properties:
+        dn:
+          type: string
+        baseDn:
+          type: string
+        inum:
+          type: string
+        creationDate:
+          type: string
+          description: Creation date of the entry
+          format: date-time
+          example: 2026-07-24 15:33:06.875000+00:00
+        eventTime:
+          type: string
+          description: Time when the event occurred
+          format: date-time
+          example: 2026-07-24 15:33:06.875000+00:00
+        service:
+          type: string
+          description: Service name
+          example: Lock Server
+        nodeName:
+          type: string
+          description: Node name or identifier
+          example: 04bbe9ef-a853-417c-a2b8-5328b62936e2
+        status:
+          type: string
+          description: Health status
+          example: running
+        engineStatus:
+          type: object
+          additionalProperties:
+            type: string
+      description: Health audit entry
     LogEntry:
       type: object
       properties:
@@ -460,104 +558,6 @@ components:
             description: Additional context information as key-value pairs
           description: Additional context information as key-value pairs
       description: Log audit entry
-    TelemetryEntry:
-      type: object
-      properties:
-        dn:
-          type: string
-        baseDn:
-          type: string
-        inum:
-          type: string
-        creationDate:
-          type: string
-          description: Creation date of the entry
-          format: date-time
-          example: 2026-07-24 15:33:06.872000+00:00
-        service:
-          type: string
-          description: Service name
-          example: Lock Server
-        nodeName:
-          type: string
-          description: Node name or identifier
-          example: 04bbe9ef-a853-417c-a2b8-5328b62936e2
-        status:
-          type: string
-          description: Service status
-          example: running
-        policyStats:
-          type: object
-          additionalProperties:
-            type: integer
-            description: Per-policy evaluation counters as key-value pairs
-            format: int64
-          description: Per-policy evaluation counters as key-value pairs
-        errorCounters:
-          type: object
-          additionalProperties:
-            type: integer
-            description: Error counters broken down by error type
-            format: int64
-          description: Error counters broken down by error type
-        operationalStats:
-          type: object
-          additionalProperties:
-            type: integer
-            description: Operational statistics (requests, decisions, eval times) as key-value pairs
-            format: int64
-          description: Operational statistics (requests, decisions, eval times) as key-value pairs
-        intervalSecs:
-          type: integer
-          description: Telemetry collection interval in seconds
-          format: int64
-          example: 5
-      description: Telemetry audit entry
-    ApiError:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        description:
-          type: string
-    HealthEntry:
-      type: object
-      properties:
-        dn:
-          type: string
-        baseDn:
-          type: string
-        inum:
-          type: string
-        creationDate:
-          type: string
-          description: Creation date of the entry
-          format: date-time
-          example: 2026-07-24 15:33:06.875000+00:00
-        eventTime:
-          type: string
-          description: Time when the event occurred
-          format: date-time
-          example: 2026-07-24 15:33:06.875000+00:00
-        service:
-          type: string
-          description: Service name
-          example: Lock Server
-        nodeName:
-          type: string
-          description: Node name or identifier
-          example: 04bbe9ef-a853-417c-a2b8-5328b62936e2
-        status:
-          type: string
-          description: Health status
-          example: running
-        engineStatus:
-          type: object
-          additionalProperties:
-            type: string
-      description: Health audit entry
   securitySchemes:
     oauth2:
       type: oauth2

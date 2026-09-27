@@ -84,8 +84,6 @@ paths:
         - https://jans.io/oauth/jans-auth-server/config/adminui/properties.write
 components:
   schemas:
-    JsonNode:
-      type: object
     GenericResponse:
       type: object
       properties:
@@ -101,13 +99,8 @@ components:
         responseBytes:
           type: string
           format: byte
-    KeyValuePair:
+    JsonNode:
       type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
     AppConfigResponse:
       type: object
       properties:
@@ -168,6 +161,13 @@ components:
           enum:
           - 'off'
           - std_out
+    KeyValuePair:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
   securitySchemes:
     oauth2:
       type: oauth2

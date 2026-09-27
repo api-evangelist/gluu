@@ -382,6 +382,68 @@ components:
           displayName:
             type: string
             description: Device name suitable for display to end-users
+    ErrorResponse:
+      required:
+      - status
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:api:messages:2.0:Error
+        status:
+          type: string
+          description: HTTP status code as string
+        scimType:
+          type: string
+          description: A detail error keyword. See table 9 of RFC 7644
+        detail:
+          type: string
+          description: A detailed human-readable message of the error
+      description: See section 3.12 of RFC 7644
+    BaseResource:
+      type: object
+      properties:
+        schemas:
+          type: array
+          description: URIs that are used to indicate the namespaces of the SCIM schemas that define the attributes present in the current structure
+          items:
+            type: string
+        id:
+          type: string
+          description: A unique identifier for a SCIM resource. See section 3.1 of RFC 7643
+        meta:
+          $ref: '#/components/schemas/Meta'
+    Meta:
+      type: object
+      properties:
+        resourceType:
+          type: string
+        created:
+          type: string
+        lastModified:
+          type: string
+        location:
+          type: string
+      description: Descriptive information about a resource. See section 3.1 of RFC 7643
+    BasicListResponse:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:api:messages:2.0:ListResponse
+        totalResults:
+          type: integer
+          description: Total number of results returned by the search. The value may be larger than the number of resources returned due to pagination
+        startIndex:
+          type: integer
+          description: The 1-based index of the first result in the current set of search results
+        itemsPerPage:
+          type: integer
+          description: The number of resources returned in a results page
     SearchRequest:
       type: object
       properties:
@@ -417,23 +479,6 @@ components:
           type: integer
           description: Specifies the desired maximum number of query results per page
       description: See section 3.4.3 of RFC 7644
-    BasicListResponse:
-      type: object
-      properties:
-        schemas:
-          type: array
-          items:
-            type: string
-            example: urn:ietf:params:scim:api:messages:2.0:ListResponse
-        totalResults:
-          type: integer
-          description: Total number of results returned by the search. The value may be larger than the number of resources returned due to pagination
-        startIndex:
-          type: integer
-          description: The 1-based index of the first result in the current set of search results
-        itemsPerPage:
-          type: integer
-          description: The number of resources returned in a results page
     Fido2ListResponse:
       description: Results for fido 2 devices search
       allOf:
@@ -444,51 +489,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Fido2DeviceResource'
-    BaseResource:
-      type: object
-      properties:
-        schemas:
-          type: array
-          description: URIs that are used to indicate the namespaces of the SCIM schemas that define the attributes present in the current structure
-          items:
-            type: string
-        id:
-          type: string
-          description: A unique identifier for a SCIM resource. See section 3.1 of RFC 7643
-        meta:
-          $ref: '#/components/schemas/Meta'
-    ErrorResponse:
-      required:
-      - status
-      type: object
-      properties:
-        schemas:
-          type: array
-          items:
-            type: string
-            example: urn:ietf:params:scim:api:messages:2.0:Error
-        status:
-          type: string
-          description: HTTP status code as string
-        scimType:
-          type: string
-          description: A detail error keyword. See table 9 of RFC 7644
-        detail:
-          type: string
-          description: A detailed human-readable message of the error
-      description: See section 3.12 of RFC 7644
-    Meta:
-      type: object
-      properties:
-        resourceType:
-          type: string
-        created:
-          type: string
-        lastModified:
-          type: string
-        location:
-          type: string
-      description: Descriptive information about a resource. See section 3.1 of RFC 7643
   securitySchemes:
     scim_oauth:
       type: oauth2

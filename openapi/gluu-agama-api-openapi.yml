@@ -379,29 +379,6 @@ components:
             type: string
         projectMetadata:
           $ref: '#/components/schemas/ProjectMetadata'
-    ProjectMetadata:
-      type: object
-      properties:
-        projectName:
-          type: string
-        author:
-          type: string
-        type:
-          type: string
-        description:
-          type: string
-        version:
-          type: string
-        configs:
-          type: object
-          additionalProperties:
-            type: object
-            additionalProperties:
-              type: object
-        noDirectLaunch:
-          type: array
-          items:
-            type: string
     JsonNode:
       type: object
     Deployment:
@@ -425,6 +402,29 @@ components:
           $ref: '#/components/schemas/DeploymentDetails'
         baseDn:
           type: string
+    ProjectMetadata:
+      type: object
+      properties:
+        projectName:
+          type: string
+        author:
+          type: string
+        type:
+          type: string
+        description:
+          type: string
+        version:
+          type: string
+        configs:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: object
+        noDirectLaunch:
+          type: array
+          items:
+            type: string
     PagedResult:
       type: object
       properties:

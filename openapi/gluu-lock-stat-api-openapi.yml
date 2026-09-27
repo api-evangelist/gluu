@@ -130,6 +130,13 @@ paths:
         - https://jans.io/oauth/lock/stat.readonly
 components:
   schemas:
+    FlatStatResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatResponseItem'
     StatResponseItem:
       type: object
       properties:
@@ -157,13 +164,6 @@ components:
           type: string
         description:
           type: string
-    FlatStatResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/StatResponseItem'
   securitySchemes:
     oauth2:
       type: oauth2

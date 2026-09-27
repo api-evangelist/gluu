@@ -720,22 +720,6 @@ components:
           type: string
         details:
           type: string
-    TokenEntityPagedResult:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
-          type: array
-          items:
-            $ref: '#/components/schemas/TokenEntity'
     TokenAttributes:
       type: object
       properties:
@@ -756,6 +740,22 @@ components:
         statusListIndex:
           type: integer
           format: int32
+    TokenEntityPagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenEntity'
     TokenEntity:
       type: object
       properties:

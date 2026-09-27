@@ -96,16 +96,15 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    ClientAuth:
+    ScopeAttributes:
       type: object
       properties:
-        clientAuths:
-          type: object
-          additionalProperties:
-            uniqueItems: true
-            type: array
-            items:
-              $ref: '#/components/schemas/Scope'
+        spontaneousClientScopes:
+          type: array
+          items:
+            type: string
+        showInConfigurationEndpoint:
+          type: boolean
     Scope:
       type: object
       properties:
@@ -172,15 +171,16 @@ components:
           type: boolean
         baseDn:
           type: string
-    ScopeAttributes:
+    ClientAuth:
       type: object
       properties:
-        spontaneousClientScopes:
-          type: array
-          items:
-            type: string
-        showInConfigurationEndpoint:
-          type: boolean
+        clientAuths:
+          type: object
+          additionalProperties:
+            uniqueItems: true
+            type: array
+            items:
+              $ref: '#/components/schemas/Scope'
   securitySchemes:
     oauth2:
       type: oauth2

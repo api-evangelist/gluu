@@ -250,6 +250,86 @@ paths:
         - https://jans.io/oauth/config/read-all
 components:
   schemas:
+    MetricDataEntry:
+      type: object
+      properties:
+        dn:
+          type: string
+        id:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        applicationType:
+          type: string
+        metricType:
+          type: string
+        metricSubType:
+          type: string
+        creationDate:
+          type: string
+          format: date-time
+        nodeIdentifier:
+          type: string
+        expirationDate:
+          type: string
+          format: date-time
+        ttl:
+          type: integer
+          format: int32
+        deletable:
+          type: boolean
+        data:
+          $ref: '#/components/schemas/JsonNode'
+    MetricEntryPagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricDataEntry'
+    MetricTypeInfo:
+      type: object
+      properties:
+        appType:
+          type: string
+        metricType:
+          type: string
+        subTypes:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    JsonNode:
+      type: object
+    MetricAggregationPagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricAggregationEntry'
     MetricAggregationEntry:
       type: object
       properties:
@@ -291,86 +371,6 @@ components:
           format: int32
         deletable:
           type: boolean
-    MetricDataEntry:
-      type: object
-      properties:
-        dn:
-          type: string
-        id:
-          type: string
-        startDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
-        applicationType:
-          type: string
-        metricType:
-          type: string
-        metricSubType:
-          type: string
-        creationDate:
-          type: string
-          format: date-time
-        nodeIdentifier:
-          type: string
-        expirationDate:
-          type: string
-          format: date-time
-        ttl:
-          type: integer
-          format: int32
-        deletable:
-          type: boolean
-        data:
-          $ref: '#/components/schemas/JsonNode'
-    MetricTypeInfo:
-      type: object
-      properties:
-        appType:
-          type: string
-        metricType:
-          type: string
-        subTypes:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-    JsonNode:
-      type: object
-    MetricAggregationPagedResult:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricAggregationEntry'
-    MetricEntryPagedResult:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricDataEntry'
   securitySchemes:
     oauth2:
       type: oauth2

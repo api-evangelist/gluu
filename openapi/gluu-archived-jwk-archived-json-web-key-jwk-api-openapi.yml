@@ -60,26 +60,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
 components:
-  responses:
-    InternalServerError:
-      description: Internal error occured. Please check log file for details.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ErrorResponse:
-      required:
-      - error
-      - error_description
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
-        details:
-          type: string
     JsonWebKey:
       required:
       - alg
@@ -115,6 +96,25 @@ components:
           type: string
         y:
           type: string
+    ErrorResponse:
+      required:
+      - error
+      - error_description
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        details:
+          type: string
+  responses:
+    InternalServerError:
+      description: Internal error occured. Please check log file for details.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     bearer:
       type: http

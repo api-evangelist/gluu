@@ -133,74 +133,6 @@ paths:
     - url: https://jans.local.io
 components:
   schemas:
-    AppConfiguration:
-      type: object
-      properties:
-        issuer:
-          type: string
-        baseEndpoint:
-          type: string
-        cleanServiceInterval:
-          type: integer
-          format: int32
-        cleanServiceBatchChunkSize:
-          type: integer
-          format: int32
-        useLocalCache:
-          type: boolean
-        disableJdkLogger:
-          type: boolean
-        disableExternalLoggerConfiguration:
-          type: boolean
-        loggingLevel:
-          type: string
-        loggingLayout:
-          type: string
-        externalLoggerConfiguration:
-          type: string
-        metricReporterInterval:
-          type: integer
-          format: int32
-        metricReporterKeepDataDays:
-          type: integer
-          format: int32
-        metricReporterEnabled:
-          type: boolean
-        fido2MetricsEnabled:
-          type: boolean
-        fido2MetricsRetentionDays:
-          type: integer
-          format: int32
-        fido2DeviceInfoCollection:
-          type: boolean
-        fido2ErrorCategorization:
-          type: boolean
-        fido2PerformanceMetrics:
-          type: boolean
-        fido2MetricsAggregationEnabled:
-          type: boolean
-        personCustomObjectClassList:
-          type: array
-          items:
-            type: string
-        fido2Configuration:
-          $ref: '#/components/schemas/Fido2Configuration'
-    MetadataServer:
-      type: object
-      properties:
-        url:
-          type: string
-        rootCert:
-          type: string
-    RequestedParty:
-      type: object
-      properties:
-        id:
-          type: string
-        origins:
-          type: array
-          items:
-            type: string
     Fido2Configuration:
       type: object
       properties:
@@ -256,6 +188,74 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RequestedParty'
+    RequestedParty:
+      type: object
+      properties:
+        id:
+          type: string
+        origins:
+          type: array
+          items:
+            type: string
+    MetadataServer:
+      type: object
+      properties:
+        url:
+          type: string
+        rootCert:
+          type: string
+    AppConfiguration:
+      type: object
+      properties:
+        issuer:
+          type: string
+        baseEndpoint:
+          type: string
+        cleanServiceInterval:
+          type: integer
+          format: int32
+        cleanServiceBatchChunkSize:
+          type: integer
+          format: int32
+        useLocalCache:
+          type: boolean
+        disableJdkLogger:
+          type: boolean
+        disableExternalLoggerConfiguration:
+          type: boolean
+        loggingLevel:
+          type: string
+        loggingLayout:
+          type: string
+        externalLoggerConfiguration:
+          type: string
+        metricReporterInterval:
+          type: integer
+          format: int32
+        metricReporterKeepDataDays:
+          type: integer
+          format: int32
+        metricReporterEnabled:
+          type: boolean
+        fido2MetricsEnabled:
+          type: boolean
+        fido2MetricsRetentionDays:
+          type: integer
+          format: int32
+        fido2DeviceInfoCollection:
+          type: boolean
+        fido2ErrorCategorization:
+          type: boolean
+        fido2PerformanceMetrics:
+          type: boolean
+        fido2MetricsAggregationEnabled:
+          type: boolean
+        personCustomObjectClassList:
+          type: array
+          items:
+            type: string
+        fido2Configuration:
+          $ref: '#/components/schemas/Fido2Configuration'
     ErrorResponse:
       required:
       - error
@@ -269,6 +269,12 @@ components:
         details:
           type: string
   responses:
+    AccessDenied:
+      description: Invalid details provided hence access denied.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     InternalServerError:
       description: Internal error occured. Please check log file for details.
       content:
@@ -277,12 +283,6 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     NotAcceptable:
       description: Request Not Acceptable.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    AccessDenied:
-      description: Invalid details provided hence access denied.
       content:
         application/json:
           schema:

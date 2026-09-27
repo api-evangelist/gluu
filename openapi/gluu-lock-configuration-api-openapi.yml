@@ -120,19 +120,6 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    PolicySource:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: Specify if policy source is enabled
-        authorizationToken:
-          type: string
-          description: Authorization token to access URI
-        policyStoreUri:
-          type: string
-          description: URI to policy store. Policy store can be either json/zip
-      description: List of Policy Sources
     GrpcConfiguration:
       type: object
       properties:
@@ -194,6 +181,8 @@ components:
           description: maximum number of entries in policy store file
           format: int32
       description: Cedarling configuration
+    JsonPatch:
+      type: object
     AppConfiguration:
       type: object
       properties:
@@ -279,8 +268,19 @@ components:
           type: integer
           description: Each clean up iteration fetches chunk of expired data per base dn and removes it from storage
           format: int32
-    JsonPatch:
+    PolicySource:
       type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Specify if policy source is enabled
+        authorizationToken:
+          type: string
+          description: Authorization token to access URI
+        policyStoreUri:
+          type: string
+          description: URI to policy store. Policy store can be either json/zip
+      description: List of Policy Sources
   securitySchemes:
     oauth2:
       type: oauth2

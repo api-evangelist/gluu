@@ -419,17 +419,6 @@ components:
               value:
                 error: invalid_client
                 error_description: Client authentication failed (e.g. unknown client, no client authentication included, or unsupported authentication method).
-    InvalidSSAMetadata:
-      description: Invalid SSA Metadata.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            invalid_ssa_metadata:
-              value:
-                error: invalid_ssa_metadata
-                error_description: The value of one of the SSA Metadata fields is invalid and the server has rejected this request. Note that an Authorization Server MAY choose to substitute a valid value for any requested parameter of a SSA's Metadata.
     InternalServerErrorSSA:
       description: Internal error occured. Please check log file for details.
       content:
@@ -441,6 +430,17 @@ components:
               value:
                 error: unknown_error
                 error_description: Unknown or not found error.
+    InvalidSSAMetadata:
+      description: Invalid SSA Metadata.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            invalid_ssa_metadata:
+              value:
+                error: invalid_ssa_metadata
+                error_description: The value of one of the SSA Metadata fields is invalid and the server has rejected this request. Note that an Authorization Server MAY choose to substitute a valid value for any requested parameter of a SSA's Metadata.
   schemas:
     ErrorResponse:
       required:

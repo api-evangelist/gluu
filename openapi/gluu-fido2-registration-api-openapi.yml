@@ -210,31 +210,6 @@ paths:
         - https://jans.io/oauth/config/read-all
 components:
   schemas:
-    ApiError:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        description:
-          type: string
-    Fido2RegistrationEntryPagedResult:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
-          type: array
-          items:
-            $ref: '#/components/schemas/Fido2RegistrationEntry'
     Fido2RegistrationData:
       type: object
       properties:
@@ -305,30 +280,6 @@ components:
           type: array
           items:
             type: string
-    Fido2DeviceData:
-      type: object
-      properties:
-        uuid:
-          type: string
-        token:
-          type: string
-          writeOnly: true
-        type:
-          type: string
-        platform:
-          type: string
-        name:
-          type: string
-        os_name:
-          type: string
-        os_version:
-          type: string
-        custom_data:
-          type: object
-          additionalProperties:
-            type: string
-        push_token:
-          type: string
     Fido2RegistrationEntry:
       type: object
       properties:
@@ -387,6 +338,22 @@ components:
           writeOnly: true
         baseDn:
           type: string
+    Fido2RegistrationEntryPagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Fido2RegistrationEntry'
     Fido2DeviceNotificationConf:
       type: object
       properties:
@@ -398,6 +365,39 @@ components:
           type: array
           items:
             type: string
+    Fido2DeviceData:
+      type: object
+      properties:
+        uuid:
+          type: string
+        token:
+          type: string
+          writeOnly: true
+        type:
+          type: string
+        platform:
+          type: string
+        name:
+          type: string
+        os_name:
+          type: string
+        os_version:
+          type: string
+        custom_data:
+          type: object
+          additionalProperties:
+            type: string
+        push_token:
+          type: string
+    ApiError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
   securitySchemes:
     oauth2:
       type: oauth2

@@ -531,42 +531,6 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    PagedResult:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
-          type: array
-          items:
-            type: object
-    ApiError:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        description:
-          type: string
-    AssetForm:
-      required:
-      - assetFile
-      - document
-      type: object
-      properties:
-        document:
-          $ref: '#/components/schemas/Document'
-        assetFile:
-          type: string
-          format: binary
     AssetDirMapping:
       type: object
       properties:
@@ -589,22 +553,15 @@ components:
             type: string
             description: List of supported service module where asset can be uploaded.
       description: Asset type mapped to server directory.
-    DocumentPagedResult:
+    ApiError:
       type: object
       properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
-          type: array
-          items:
-            $ref: '#/components/schemas/Document'
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
     Document:
       type: object
       properties:
@@ -635,6 +592,49 @@ components:
           type: boolean
         baseDn:
           type: string
+    AssetForm:
+      required:
+      - assetFile
+      - document
+      type: object
+      properties:
+        document:
+          $ref: '#/components/schemas/Document'
+        assetFile:
+          type: string
+          format: binary
+    PagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            type: object
+    DocumentPagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Document'
   securitySchemes:
     oauth2:
       type: oauth2

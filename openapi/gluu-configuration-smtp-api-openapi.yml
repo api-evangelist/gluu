@@ -178,6 +178,15 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
+    SmtpTest:
+      type: object
+      properties:
+        sign:
+          type: boolean
+        subject:
+          type: string
+        message:
+          type: string
     SmtpConfiguration:
       type: object
       properties:
@@ -213,15 +222,6 @@ components:
         key_store_alias:
           type: string
         signing_algorithm:
-          type: string
-    SmtpTest:
-      type: object
-      properties:
-        sign:
-          type: boolean
-        subject:
-          type: string
-        message:
           type: string
   securitySchemes:
     oauth2:

@@ -327,6 +327,22 @@ components:
   schemas:
     JsonPatch:
       type: object
+    PagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            type: object
     UmaResource:
       required:
       - name
@@ -373,22 +389,6 @@ components:
         ttl:
           type: integer
           format: int32
-    PagedResult:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
-          type: array
-          items:
-            type: object
   securitySchemes:
     oauth2:
       type: oauth2

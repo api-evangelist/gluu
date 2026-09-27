@@ -331,73 +331,6 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    UserAuthenticatorList:
-      type: object
-      properties:
-        authenticators:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserAuthenticator'
-    UserPagedResult:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomUser'
-    ApiError:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        description:
-          type: string
-    UserAuthenticator:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-        custom:
-          type: object
-          additionalProperties:
-            type: object
-    UserPatchRequest:
-      type: object
-      properties:
-        jsonPatchString:
-          type: string
-        customAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomObjectAttribute'
-    CustomObjectAttribute:
-      type: object
-      properties:
-        name:
-          type: string
-        multiValued:
-          type: boolean
-        values:
-          type: array
-          items:
-            type: object
-        value:
-          type: object
-        displayValue:
-          type: string
     CustomUser:
       type: object
       properties:
@@ -447,6 +380,73 @@ components:
         userPassword:
           type: string
         baseDn:
+          type: string
+    UserPatchRequest:
+      type: object
+      properties:
+        jsonPatchString:
+          type: string
+        customAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomObjectAttribute'
+    UserAuthenticator:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        custom:
+          type: object
+          additionalProperties:
+            type: object
+    ApiError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+    UserAuthenticatorList:
+      type: object
+      properties:
+        authenticators:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserAuthenticator'
+    UserPagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomUser'
+    CustomObjectAttribute:
+      type: object
+      properties:
+        name:
+          type: string
+        multiValued:
+          type: boolean
+        values:
+          type: array
+          items:
+            type: object
+        value:
+          type: object
+        displayValue:
           type: string
   securitySchemes:
     oauth2:

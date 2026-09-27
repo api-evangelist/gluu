@@ -97,26 +97,6 @@ components:
         status:
           type: string
       description: See section 3.7 of RFC 7644
-    BulkData:
-      type: object
-      description: Used to encapsulate one or more succesive SCIM operations in a single request
-      properties:
-        schemas:
-          type: array
-          items:
-            type: string
-        Operations:
-          type: array
-          items:
-            $ref: '#/components/schemas/BulkOperation'
-    BulkRequest:
-      allOf:
-      - $ref: '#/components/schemas/BulkData'
-      - type: object
-        properties:
-          failOnErrors:
-            type: integer
-            description: The number of errors that can be accepted before the Bulk request is terminated and a response is returned
     ErrorResponse:
       required:
       - status
@@ -137,6 +117,26 @@ components:
           type: string
           description: A detailed human-readable message of the error
       description: See section 3.12 of RFC 7644
+    BulkRequest:
+      allOf:
+      - $ref: '#/components/schemas/BulkData'
+      - type: object
+        properties:
+          failOnErrors:
+            type: integer
+            description: The number of errors that can be accepted before the Bulk request is terminated and a response is returned
+    BulkData:
+      type: object
+      description: Used to encapsulate one or more succesive SCIM operations in a single request
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+        Operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/BulkOperation'
   securitySchemes:
     scim_oauth:
       type: oauth2

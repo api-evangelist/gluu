@@ -8,17 +8,21 @@ description: Gluu is a technology company that specializes in providing identity
   are the components Gluu packages commercially as Gluu Flex and hosts as Gluu Solo.
 type: Index
 deliveryModel:
-  model: unknown
+  model: saas
+  license_evidence:
+    not_product:
+    - gluufederation/flex
+    - janssenproject/jans
   open_source: unknown
   commercial: true
-  callable_host: false
-  label: Delivery model not determined — needs a product licence on record
+  callable_host: true
+  label: Hosted service · you call their endpoint
   confidence: low
   source:
   - openapi
   - pricing
-  - repository-unlicensed
-  generated: '2026-08-28'
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium
@@ -47,7 +51,7 @@ tags:
 - FIDO2
 - Identity and Access Management
 - Identities
-- Open-Source
+- Open Source
 - OpenID Connect
 - SCIM
 - Identity Federation
@@ -64,6 +68,7 @@ tags_raw:
 - OpenID Connect
 - SCIM
 - Identity Federation
+- Open-Source
 url: https://raw.githubusercontent.com/api-evangelist/gluu/refs/heads/main/apis.yml
 specificationVersion: '0.23'
 apis:
@@ -128,7 +133,7 @@ apis:
   - Authentication
   - Authorization
   - Linux Foundation
-  - Open-Source
+  - Open Source
   - OpenID Connect
   tags_raw:
   - Authentication
@@ -137,6 +142,7 @@ apis:
   - OAuth
   - Open Source
   - OpenID Connect
+  - Open-Source
   properties:
   - type: Documentation
     url: https://docs.jans.io/stable/

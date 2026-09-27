@@ -134,6 +134,29 @@ components:
   schemas:
     JsonNode:
       type: object
+    ErrorResponse:
+      required:
+      - error
+      - error_description
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        details:
+          type: string
+    MetadataServerStatus:
+      type: object
+      description: A configured MDS endpoint.
+      properties:
+        url:
+          type: string
+          example: https://mds.fidoalliance.org/
+          description: The configured metadata endpoint URL.
+        rootCertConfigured:
+          type: boolean
+          description: Whether a per-endpoint trust anchor (MetadataServer.rootCert) is configured. Reported as a presence flag only — the certificate itself never leaves the server.
     MdsHealth:
       type: object
       description: State of the FIDO Metadata Service data used for attestation validation. Read-only; assembled entirely from in-memory state.
@@ -179,17 +202,6 @@ components:
           format: date-time
           example: '2026-08-07T09:31:04.118Z'
           description: When this health snapshot was taken, as an ISO-8601 date-time with a UTC offset.
-    MetadataServerStatus:
-      type: object
-      description: A configured MDS endpoint.
-      properties:
-        url:
-          type: string
-          example: https://mds.fidoalliance.org/
-          description: The configured metadata endpoint URL.
-        rootCertConfigured:
-          type: boolean
-          description: Whether a per-endpoint trust anchor (MetadataServer.rootCert) is configured. Reported as a presence flag only — the certificate itself never leaves the server.
     AttestationTrustConfig:
       type: object
       description: Effective attestation policy. Read-only view of the FIDO2 configuration; changing it is out of scope for this endpoint.
@@ -230,27 +242,15 @@ components:
           - client-device
           - hybrid
           description: Configured RP hints.
-    ErrorResponse:
-      required:
-      - error
-      - error_description
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
-        details:
-          type: string
   responses:
-    AccessDenied:
-      description: Invalid details provided hence access denied.
+    InternalServerError:
+      description: Internal error occured. Please check log file for details.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal error occured. Please check log file for details.
+    AccessDenied:
+      description: Invalid details provided hence access denied.
       content:
         application/json:
           schema:

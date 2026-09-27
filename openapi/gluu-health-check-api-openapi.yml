@@ -154,6 +154,8 @@ components:
           format: date-time
         facterData:
           $ref: '#/components/schemas/FacterData'
+    JsonNode:
+      type: object
     Status:
       type: object
       properties:
@@ -163,8 +165,6 @@ components:
           type: string
         error:
           type: string
-    JsonNode:
-      type: object
     FacterData:
       type: object
       properties:

@@ -94,6 +94,15 @@ paths:
         - https://jans.io/oauth/lock/log.write
 components:
   schemas:
+    LockApiError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
     LogEntry:
       type: object
       properties:
@@ -168,15 +177,6 @@ components:
             description: Additional context information as key-value pairs
           description: Additional context information as key-value pairs
       description: Log audit entry
-    LockApiError:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        description:
-          type: string
   securitySchemes:
     oauth2:
       type: oauth2

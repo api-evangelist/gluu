@@ -224,8 +224,6 @@ paths:
         - https://jans.io/oauth/jans-auth-server/config/adminui/delete-all
 components:
   schemas:
-    JsonNode:
-      type: object
     GenericResponse:
       type: object
       properties:
@@ -241,6 +239,8 @@ components:
         responseBytes:
           type: string
           format: byte
+    JsonNode:
+      type: object
     RolePermissionMapping:
       type: object
       properties:
