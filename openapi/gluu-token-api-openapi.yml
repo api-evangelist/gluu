@@ -720,42 +720,6 @@ components:
           type: string
         details:
           type: string
-    TokenAttributes:
-      type: object
-      properties:
-        x5cs256:
-          type: string
-        online_access:
-          type: boolean
-        authorization_challenge:
-          type: boolean
-        attributes:
-          type: object
-          additionalProperties:
-            type: string
-        dpopJkt:
-          type: string
-        authorizationDetails:
-          type: string
-        statusListIndex:
-          type: integer
-          format: int32
-    TokenEntityPagedResult:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
-          type: array
-          items:
-            $ref: '#/components/schemas/TokenEntity'
     TokenEntity:
       type: object
       properties:
@@ -831,6 +795,42 @@ components:
           type: boolean
         logoutStatusJwt:
           type: boolean
+    TokenAttributes:
+      type: object
+      properties:
+        x5cs256:
+          type: string
+        online_access:
+          type: boolean
+        authorization_challenge:
+          type: boolean
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+        dpopJkt:
+          type: string
+        authorizationDetails:
+          type: string
+        statusListIndex:
+          type: integer
+          format: int32
+    TokenEntityPagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/TokenEntity'
   securitySchemes:
     bearer:
       type: http

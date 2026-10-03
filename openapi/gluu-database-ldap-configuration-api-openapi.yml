@@ -285,8 +285,6 @@ paths:
         - https://jans.io/oauth/config/read-all
 components:
   schemas:
-    JsonPatch:
-      type: object
     GluuLdapConfiguration:
       type: object
       properties:
@@ -323,6 +321,8 @@ components:
         level:
           type: integer
           format: int32
+    JsonPatch:
+      type: object
   securitySchemes:
     oauth2:
       type: oauth2

@@ -125,8 +125,6 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    JsonPatch:
-      type: object
     NativePersistenceConfiguration:
       type: object
       properties:
@@ -140,6 +138,8 @@ components:
           type: boolean
         disableAttemptUpdateBeforeInsert:
           type: boolean
+    JsonPatch:
+      type: object
   securitySchemes:
     oauth2:
       type: oauth2

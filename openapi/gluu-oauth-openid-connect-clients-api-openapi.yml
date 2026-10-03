@@ -294,13 +294,6 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    LocalizedString:
-      type: object
-      properties:
-        values:
-          type: object
-          additionalProperties:
-            type: string
     Client:
       type: object
       properties:
@@ -542,6 +535,46 @@ components:
           type: string
         inum:
           type: string
+    JsonPatch:
+      type: object
+    PagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            type: object
+    LocalizedString:
+      type: object
+      properties:
+        values:
+          type: object
+          additionalProperties:
+            type: string
+    CustomObjectAttribute:
+      type: object
+      properties:
+        name:
+          type: string
+        multiValued:
+          type: boolean
+        values:
+          type: array
+          items:
+            type: object
+        value:
+          type: object
+        displayValue:
+          type: string
     ClientAttributes:
       type: object
       properties:
@@ -697,39 +730,6 @@ components:
           type: string
         spiffeBundleEndpoint:
           type: string
-    JsonPatch:
-      type: object
-    CustomObjectAttribute:
-      type: object
-      properties:
-        name:
-          type: string
-        multiValued:
-          type: boolean
-        values:
-          type: array
-          items:
-            type: object
-        value:
-          type: object
-        displayValue:
-          type: string
-    PagedResult:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
-          type: array
-          items:
-            type: object
   securitySchemes:
     oauth2:
       type: oauth2

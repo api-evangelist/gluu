@@ -120,31 +120,8 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    GrpcConfiguration:
+    JsonPatch:
       type: object
-      properties:
-        serverMode:
-          type: string
-          description: gRPC server mode
-          enum:
-          - disabled
-          - bridge
-          - plain_server
-          - tls_server
-        grpcPort:
-          type: integer
-          description: Specify grpc port
-          format: int32
-        useTls:
-          type: boolean
-          description: Use TLS for gRPC communication
-        tlsCertChainFilePath:
-          type: string
-          description: TLS Cert Chain File Path
-        tlsPrivateKeyFilePath:
-          type: string
-          description: TLS Private Key File Path
-      description: gRPC server configuration
     CedarlingConfiguration:
       type: object
       properties:
@@ -181,8 +158,19 @@ components:
           description: maximum number of entries in policy store file
           format: int32
       description: Cedarling configuration
-    JsonPatch:
+    PolicySource:
       type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Specify if policy source is enabled
+        authorizationToken:
+          type: string
+          description: Authorization token to access URI
+        policyStoreUri:
+          type: string
+          description: URI to policy store. Policy store can be either json/zip
+      description: List of Policy Sources
     AppConfiguration:
       type: object
       properties:
@@ -268,19 +256,31 @@ components:
           type: integer
           description: Each clean up iteration fetches chunk of expired data per base dn and removes it from storage
           format: int32
-    PolicySource:
+    GrpcConfiguration:
       type: object
       properties:
-        enabled:
+        serverMode:
+          type: string
+          description: gRPC server mode
+          enum:
+          - disabled
+          - bridge
+          - plain_server
+          - tls_server
+        grpcPort:
+          type: integer
+          description: Specify grpc port
+          format: int32
+        useTls:
           type: boolean
-          description: Specify if policy source is enabled
-        authorizationToken:
+          description: Use TLS for gRPC communication
+        tlsCertChainFilePath:
           type: string
-          description: Authorization token to access URI
-        policyStoreUri:
+          description: TLS Cert Chain File Path
+        tlsPrivateKeyFilePath:
           type: string
-          description: URI to policy store. Policy store can be either json/zip
-      description: List of Policy Sources
+          description: TLS Private Key File Path
+      description: gRPC server configuration
   securitySchemes:
     oauth2:
       type: oauth2

@@ -52,19 +52,6 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
 components:
-  schemas:
-    ErrorResponse:
-      required:
-      - error
-      - error_description
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
-        details:
-          type: string
   responses:
     InternalServerError:
       description: Internal error occured. Please check log file for details.
@@ -78,6 +65,19 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      required:
+      - error
+      - error_description
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        details:
+          type: string
   securitySchemes:
     bearer:
       type: http

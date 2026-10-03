@@ -127,8 +127,6 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    JsonPatch:
-      type: object
     MemcachedConfiguration:
       type: object
       properties:
@@ -148,6 +146,8 @@ components:
           enum:
           - DEFAULT
           - BINARY
+    JsonPatch:
+      type: object
   securitySchemes:
     oauth2:
       type: oauth2

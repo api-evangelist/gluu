@@ -79,201 +79,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    GenericResource:
-      oneOf:
-      - $ref: '#/components/schemas/GroupResource'
-      - $ref: '#/components/schemas/UserResource'
-      - $ref: '#/components/schemas/Fido2DeviceResource'
-    GenericListResponse:
-      allOf:
-      - $ref: '#/components/schemas/BasicListResponse'
-      - type: object
-        properties:
-          Resources:
-            type: array
-            items:
-              $ref: '#/components/schemas/GenericResource'
-    Name:
-      type: object
-      properties:
-        familyName:
-          type: string
-        givenName:
-          type: string
-        middleName:
-          type: string
-        honorificPrefix:
-          type: string
-          description: A "title" like "Ms.", "Mrs."
-        honorificSuffix:
-          type: string
-          description: Name suffix, like "Junior", "The great", "III"
-        formatted:
-          type: string
-          description: Full name, including all middle names, titles, and suffixes as appropriate
-      description: See section 4.1.1 of RFC 7643
-    BasicListResponse:
-      type: object
-      properties:
-        schemas:
-          type: array
-          items:
-            type: string
-            example: urn:ietf:params:scim:api:messages:2.0:ListResponse
-        totalResults:
-          type: integer
-          description: Total number of results returned by the search. The value may be larger than the number of resources returned due to pagination
-        startIndex:
-          type: integer
-          description: The 1-based index of the first result in the current set of search results
-        itemsPerPage:
-          type: integer
-          description: The number of resources returned in a results page
-    Role:
-      type: object
-      properties:
-        value:
-          type: string
-          example: Project manager
-        display:
-          type: string
-        type:
-          type: string
-        primary:
-          type: boolean
-          description: Denotes if this is the preferred role among others, if any
-      description: See section 4.1.2 of RFC 7643
-    Group:
-      type: object
-      properties:
-        value:
-          type: string
-          description: Group identifier
-          example: 180ee84f0671b1
-        $ref:
-          type: string
-          description: URI associated to the group
-          example: https://nsfw.com/scim/restv1/v2/Groups/180ee84f0671b1
-        display:
-          type: string
-          example: Cult managers
-        type:
-          type: string
-          description: Describes how the group membership was derived
-          example: direct
-      description: See section 4.1.2 of RFC 7643
-    BaseResource:
-      type: object
-      properties:
-        schemas:
-          type: array
-          description: URIs that are used to indicate the namespaces of the SCIM schemas that define the attributes present in the current structure
-          items:
-            type: string
-        id:
-          type: string
-          description: A unique identifier for a SCIM resource. See section 3.1 of RFC 7643
-        meta:
-          $ref: '#/components/schemas/Meta'
-    Entitlement:
-      type: object
-      properties:
-        value:
-          type: string
-          example: Stakeholder
-        display:
-          type: string
-        type:
-          type: string
-        primary:
-          type: boolean
-          description: Denotes if this is the preferred entitlement among others, if any
-      description: Entitlements represent things a user has, like rights. See section 4.1.2 of RFC 7643
-    X509Certificate:
-      type: object
-      properties:
-        value:
-          type: string
-          description: DER-encoded X.509 certificate
-        display:
-          type: string
-        type:
-          type: string
-        primary:
-          type: boolean
-          description: Denotes if this is the preferred certificate among others, if any
-      description: A certificate associated with the user. See section 4.1.2 of RFC 7643
-    Address:
-      type: object
-      properties:
-        formatted:
-          type: string
-          description: Full mailing address, formatted for display or use with a mailing label
-        streetAddress:
-          type: string
-          example: 56 Acacia Avenue
-        locality:
-          type: string
-          description: City or locality of the address
-        region:
-          type: string
-          description: State or region of the address
-        postalCode:
-          type: string
-          description: Zip code
-        country:
-          type: string
-          description: Country expressed in ISO 3166-1 "alpha-2" code format
-          example: UK
-        type:
-          type: string
-          example: home
-        primary:
-          type: boolean
-          description: Denotes if this is the preferred address among others, if any
-      description: Physical mailing address for this user. See section 4.1.2 of RFC 7643
-    GroupResource:
-      description: Represents a group resource. See section 4.2 of RFC 7643
-      allOf:
-      - $ref: '#/components/schemas/BaseResource'
-      - type: object
-        properties:
-          displayName:
-            type: string
-            description: Group name suitable for display to end-users
-          members:
-            type: array
-            items:
-              $ref: '#/components/schemas/Member'
-    PhoneNumber:
-      type: object
-      properties:
-        value:
-          type: string
-          example: +1-555-555-8377
-        display:
-          type: string
-        type:
-          type: string
-          example: fax
-        primary:
-          type: boolean
-          description: Denotes if this is the preferred phone number among others, if any
-      description: See section 4.1.2 of RFC 7643
-    InstantMessagingAddress:
-      type: object
-      properties:
-        value:
-          type: string
-        display:
-          type: string
-        type:
-          type: string
-          example: gtalk
-        primary:
-          type: boolean
-          description: Denotes if this is the preferred messaging addressed among others, if any
-      description: See section 4.1.2 of RFC 7643
     Fido2DeviceResource:
       description: Represents a Fido 2 device enrollment
       allOf:
@@ -300,6 +105,53 @@ components:
           displayName:
             type: string
             description: Device name suitable for display to end-users
+    Name:
+      type: object
+      properties:
+        familyName:
+          type: string
+        givenName:
+          type: string
+        middleName:
+          type: string
+        honorificPrefix:
+          type: string
+          description: A "title" like "Ms.", "Mrs."
+        honorificSuffix:
+          type: string
+          description: Name suffix, like "Junior", "The great", "III"
+        formatted:
+          type: string
+          description: Full name, including all middle names, titles, and suffixes as appropriate
+      description: See section 4.1.1 of RFC 7643
+    InstantMessagingAddress:
+      type: object
+      properties:
+        value:
+          type: string
+        display:
+          type: string
+        type:
+          type: string
+          example: gtalk
+        primary:
+          type: boolean
+          description: Denotes if this is the preferred messaging addressed among others, if any
+      description: See section 4.1.2 of RFC 7643
+    Entitlement:
+      type: object
+      properties:
+        value:
+          type: string
+          example: Stakeholder
+        display:
+          type: string
+        type:
+          type: string
+        primary:
+          type: boolean
+          description: Denotes if this is the preferred entitlement among others, if any
+      description: Entitlements represent things a user has, like rights. See section 4.1.2 of RFC 7643
     ErrorResponse:
       required:
       - status
@@ -320,34 +172,144 @@ components:
           type: string
           description: A detailed human-readable message of the error
       description: See section 3.12 of RFC 7644
-    Meta:
+    Role:
       type: object
       properties:
-        resourceType:
-          type: string
-        created:
-          type: string
-        lastModified:
-          type: string
-        location:
-          type: string
-      description: Descriptive information about a resource. See section 3.1 of RFC 7643
-    Member:
-      type: object
-      description: Represents a member of a Group resource
-      properties:
-        $ref:
-          type: string
-          description: URI of the SCIM resource
-        type:
-          type: string
-          description: The type of member. Only "User" is allowed
-        display:
-          type: string
-          description: A human readable name, primarily used for display purposes
         value:
           type: string
-          description: Identifier (ID) of the resource
+          example: Project manager
+        display:
+          type: string
+        type:
+          type: string
+        primary:
+          type: boolean
+          description: Denotes if this is the preferred role among others, if any
+      description: See section 4.1.2 of RFC 7643
+    Email:
+      type: object
+      properties:
+        value:
+          type: string
+          example: gossow@nsfw.com
+        display:
+          type: string
+        type:
+          type: string
+          example: work
+        primary:
+          type: boolean
+          description: Denotes if this is the preferred e-mail among others, if any
+      description: See section 4.1.2 of RFC 7643
+    GroupResource:
+      description: Represents a group resource. See section 4.2 of RFC 7643
+      allOf:
+      - $ref: '#/components/schemas/BaseResource'
+      - type: object
+        properties:
+          displayName:
+            type: string
+            description: Group name suitable for display to end-users
+          members:
+            type: array
+            items:
+              $ref: '#/components/schemas/Member'
+    SearchRequest:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            type: string
+            example: urn:ietf:params:scim:api:messages:2.0:SearchRequest
+        attributes:
+          type: array
+          description: A list of attribute names to return in the response
+          items:
+            type: string
+        excludedAttributes:
+          type: array
+          description: When specified, the response will contain a default set of attributes minus those listed here
+          items:
+            type: string
+        filter:
+          type: string
+          description: An expression specifying the search criteria. See section 3.4.2.2 of RFC 7644
+          example: userName eq "jhon" and meta.lastModified gt "2011-05-13T04:42:34Z"
+        sortBy:
+          type: string
+          description: The attribute whose value will be used to order the returned responses
+        sortOrder:
+          type: string
+          description: Order in which the sortBy param is applied. Allowed values are "ascending" and "descending"
+        startIndex:
+          type: integer
+          description: The 1-based index of the first query result
+        count:
+          type: integer
+          description: Specifies the desired maximum number of query results per page
+      description: See section 3.4.3 of RFC 7644
+    BaseResource:
+      type: object
+      properties:
+        schemas:
+          type: array
+          description: URIs that are used to indicate the namespaces of the SCIM schemas that define the attributes present in the current structure
+          items:
+            type: string
+        id:
+          type: string
+          description: A unique identifier for a SCIM resource. See section 3.1 of RFC 7643
+        meta:
+          $ref: '#/components/schemas/Meta'
+    Group:
+      type: object
+      properties:
+        value:
+          type: string
+          description: Group identifier
+          example: 180ee84f0671b1
+        $ref:
+          type: string
+          description: URI associated to the group
+          example: https://nsfw.com/scim/restv1/v2/Groups/180ee84f0671b1
+        display:
+          type: string
+          example: Cult managers
+        type:
+          type: string
+          description: Describes how the group membership was derived
+          example: direct
+      description: See section 4.1.2 of RFC 7643
+    X509Certificate:
+      type: object
+      properties:
+        value:
+          type: string
+          description: DER-encoded X.509 certificate
+        display:
+          type: string
+        type:
+          type: string
+        primary:
+          type: boolean
+          description: Denotes if this is the preferred certificate among others, if any
+      description: A certificate associated with the user. See section 4.1.2 of RFC 7643
+    Photo:
+      type: object
+      properties:
+        value:
+          type: string
+          example: https://pics.nsfw.com/gossow.png
+        display:
+          type: string
+        type:
+          type: string
+          example: thumbnail
+        primary:
+          type: boolean
+          description: Denotes if this is the preferred photo among others, if any
+      description: Points to a resource location representing the user's image. See section 4.1.2 of RFC 7643
     UserResource:
       description: Represents a user resource. See section 4.1 of RFC 7643
       allOf:
@@ -433,71 +395,109 @@ components:
             type: object
             properties: {}
             description: Extended attributes
-    Email:
-      type: object
-      properties:
-        value:
-          type: string
-          example: gossow@nsfw.com
-        display:
-          type: string
-        type:
-          type: string
-          example: work
-        primary:
-          type: boolean
-          description: Denotes if this is the preferred e-mail among others, if any
-      description: See section 4.1.2 of RFC 7643
-    Photo:
-      type: object
-      properties:
-        value:
-          type: string
-          example: https://pics.nsfw.com/gossow.png
-        display:
-          type: string
-        type:
-          type: string
-          example: thumbnail
-        primary:
-          type: boolean
-          description: Denotes if this is the preferred photo among others, if any
-      description: Points to a resource location representing the user's image. See section 4.1.2 of RFC 7643
-    SearchRequest:
+    BasicListResponse:
       type: object
       properties:
         schemas:
           type: array
           items:
             type: string
-            example: urn:ietf:params:scim:api:messages:2.0:SearchRequest
-        attributes:
-          type: array
-          description: A list of attribute names to return in the response
-          items:
-            type: string
-        excludedAttributes:
-          type: array
-          description: When specified, the response will contain a default set of attributes minus those listed here
-          items:
-            type: string
-        filter:
-          type: string
-          description: An expression specifying the search criteria. See section 3.4.2.2 of RFC 7644
-          example: userName eq "jhon" and meta.lastModified gt "2011-05-13T04:42:34Z"
-        sortBy:
-          type: string
-          description: The attribute whose value will be used to order the returned responses
-        sortOrder:
-          type: string
-          description: Order in which the sortBy param is applied. Allowed values are "ascending" and "descending"
+            example: urn:ietf:params:scim:api:messages:2.0:ListResponse
+        totalResults:
+          type: integer
+          description: Total number of results returned by the search. The value may be larger than the number of resources returned due to pagination
         startIndex:
           type: integer
-          description: The 1-based index of the first query result
-        count:
+          description: The 1-based index of the first result in the current set of search results
+        itemsPerPage:
           type: integer
-          description: Specifies the desired maximum number of query results per page
-      description: See section 3.4.3 of RFC 7644
+          description: The number of resources returned in a results page
+    GenericResource:
+      oneOf:
+      - $ref: '#/components/schemas/GroupResource'
+      - $ref: '#/components/schemas/UserResource'
+      - $ref: '#/components/schemas/Fido2DeviceResource'
+    Meta:
+      type: object
+      properties:
+        resourceType:
+          type: string
+        created:
+          type: string
+        lastModified:
+          type: string
+        location:
+          type: string
+      description: Descriptive information about a resource. See section 3.1 of RFC 7643
+    GenericListResponse:
+      allOf:
+      - $ref: '#/components/schemas/BasicListResponse'
+      - type: object
+        properties:
+          Resources:
+            type: array
+            items:
+              $ref: '#/components/schemas/GenericResource'
+    Address:
+      type: object
+      properties:
+        formatted:
+          type: string
+          description: Full mailing address, formatted for display or use with a mailing label
+        streetAddress:
+          type: string
+          example: 56 Acacia Avenue
+        locality:
+          type: string
+          description: City or locality of the address
+        region:
+          type: string
+          description: State or region of the address
+        postalCode:
+          type: string
+          description: Zip code
+        country:
+          type: string
+          description: Country expressed in ISO 3166-1 "alpha-2" code format
+          example: UK
+        type:
+          type: string
+          example: home
+        primary:
+          type: boolean
+          description: Denotes if this is the preferred address among others, if any
+      description: Physical mailing address for this user. See section 4.1.2 of RFC 7643
+    PhoneNumber:
+      type: object
+      properties:
+        value:
+          type: string
+          example: +1-555-555-8377
+        display:
+          type: string
+        type:
+          type: string
+          example: fax
+        primary:
+          type: boolean
+          description: Denotes if this is the preferred phone number among others, if any
+      description: See section 4.1.2 of RFC 7643
+    Member:
+      type: object
+      description: Represents a member of a Group resource
+      properties:
+        $ref:
+          type: string
+          description: URI of the SCIM resource
+        type:
+          type: string
+          description: The type of member. Only "User" is allowed
+        display:
+          type: string
+          description: A human readable name, primarily used for display purposes
+        value:
+          type: string
+          description: Identifier (ID) of the resource
   securitySchemes:
     scim_oauth:
       type: oauth2

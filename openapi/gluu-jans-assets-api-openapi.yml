@@ -553,15 +553,49 @@ components:
             type: string
             description: List of supported service module where asset can be uploaded.
       description: Asset type mapped to server directory.
-    ApiError:
+    DocumentPagedResult:
       type: object
       properties:
-        code:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Document'
+    AssetForm:
+      required:
+      - assetFile
+      - document
+      type: object
+      properties:
+        document:
+          $ref: '#/components/schemas/Document'
+        assetFile:
           type: string
-        message:
-          type: string
-        description:
-          type: string
+          format: binary
+    PagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            type: object
     Document:
       type: object
       properties:
@@ -592,49 +626,15 @@ components:
           type: boolean
         baseDn:
           type: string
-    AssetForm:
-      required:
-      - assetFile
-      - document
+    ApiError:
       type: object
       properties:
-        document:
-          $ref: '#/components/schemas/Document'
-        assetFile:
+        code:
           type: string
-          format: binary
-    PagedResult:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
-          type: array
-          items:
-            type: object
-    DocumentPagedResult:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
-          type: array
-          items:
-            $ref: '#/components/schemas/Document'
+        message:
+          type: string
+        description:
+          type: string
   securitySchemes:
     oauth2:
       type: oauth2

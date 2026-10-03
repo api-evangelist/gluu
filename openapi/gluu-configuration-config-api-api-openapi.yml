@@ -81,6 +81,40 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
+    AssetMgtConfiguration:
+      type: object
+      properties:
+        assetMgtEnabled:
+          type: boolean
+          description: Flag indicating if asset management functionality is enabled.
+        assetServerUploadEnabled:
+          type: boolean
+          description: Flag indicating if asset upload to server is enabled.
+        fileExtensionValidationEnabled:
+          type: boolean
+          description: Flag indicating if file extension validation is enabled.
+        moduleNameValidationEnabled:
+          type: boolean
+          description: Flag indicating if service module name extension validation is enabled.
+        assetDirMapping:
+          type: array
+          description: Asset type mapped to server directory.
+          items:
+            $ref: '#/components/schemas/AssetDirMapping'
+      description: Asset management configuration details.
+    DataFormatConversionConf:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Flag to enable and disable data conversion.
+        ignoreHttpMethod:
+          type: array
+          description: HTTP methods for which data conversion is to be disabled.
+          items:
+            type: string
+            description: HTTP methods for which data conversion is to be disabled.
+      description: Configuration for data-type converstion.
     AssetDirMapping:
       type: object
       properties:
@@ -103,64 +137,21 @@ components:
             type: string
             description: List of supported service module where asset can be uploaded.
       description: Asset type mapped to server directory.
-    CedarlingConfiguration:
+    JsonPatch:
+      type: object
+    ObjectDetails:
       type: object
       properties:
-        enabled:
-          type: boolean
-          description: Specify if Cedraling is enabled
-        policySources:
+        name:
+          type: string
+          description: Name of the object.
+        text:
           type: array
-          description: List of Policy Sources
-          items:
-            $ref: '#/components/schemas/PolicySource'
-        logType:
-          type: string
-          description: 'Log type: off, memory, std_out'
-          enum:
-          - 'OFF'
-          - MEMORY
-          - STD_OUT
-        logLevel:
-          type: string
-          description: System Log Level
-          enum:
-          - FATAL
-          - ERROR
-          - WARN
-          - INFO
-          - DEBUG
-          - TRACE
-        externalPolicyStoreUri:
-          type: string
-          description: External policy store URI
-        maxEntries:
-          type: integer
-          description: maximum number of entries in policy store file
-          format: int32
-      description: Cedar Configuration for authorization.
-    AgamaConfiguration:
-      type: object
-      properties:
-        allowedDomain:
-          type: array
-          description: List of allowed domains to download Agama Project.
+          description: List of string text that is to be ignored .
           items:
             type: string
-            description: List of allowed domains to download Agama Project.
-        mandatoryAttributes:
-          type: array
-          description: List of attributes required to create the Agama Flow.
-          items:
-            type: string
-            description: List of attributes required to create the Agama Flow.
-        optionalAttributes:
-          type: array
-          description: List of attributes that are optional.
-          items:
-            type: string
-            description: List of attributes that are optional.
-      description: Agama configuration details.
+            description: List of string text that is to be ignored .
+      description: Object for which audit is disabled.
     ApiAppConfiguration:
       type: object
       properties:
@@ -288,77 +279,6 @@ components:
             $ref: '#/components/schemas/PluginConf'
         assetMgtConfiguration:
           $ref: '#/components/schemas/AssetMgtConfiguration'
-    PluginConf:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the plugin.
-        description:
-          type: string
-          description: Description of the plugin.
-        className:
-          type: string
-          description: Plugin application class.
-    AssetMgtConfiguration:
-      type: object
-      properties:
-        assetMgtEnabled:
-          type: boolean
-          description: Flag indicating if asset management functionality is enabled.
-        assetServerUploadEnabled:
-          type: boolean
-          description: Flag indicating if asset upload to server is enabled.
-        fileExtensionValidationEnabled:
-          type: boolean
-          description: Flag indicating if file extension validation is enabled.
-        moduleNameValidationEnabled:
-          type: boolean
-          description: Flag indicating if service module name extension validation is enabled.
-        assetDirMapping:
-          type: array
-          description: Asset type mapped to server directory.
-          items:
-            $ref: '#/components/schemas/AssetDirMapping'
-      description: Asset management configuration details.
-    DataFormatConversionConf:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: Flag to enable and disable data conversion.
-        ignoreHttpMethod:
-          type: array
-          description: HTTP methods for which data conversion is to be disabled.
-          items:
-            type: string
-            description: HTTP methods for which data conversion is to be disabled.
-      description: Configuration for data-type converstion.
-    CorsConfigurationFilter:
-      type: object
-      properties:
-        filterName:
-          type: string
-        corsEnabled:
-          type: boolean
-        corsAllowedOrigins:
-          type: string
-        corsAllowedMethods:
-          type: string
-        corsAllowedHeaders:
-          type: string
-        corsExposedHeaders:
-          type: string
-        corsSupportCredentials:
-          type: boolean
-        corsLoggingEnabled:
-          type: boolean
-        corsPreflightMaxAge:
-          type: integer
-          format: int32
-        corsRequestDecorate:
-          type: boolean
-      description: CORS configuration filter properties.
     AuditLogConf:
       type: object
       properties:
@@ -401,21 +321,64 @@ components:
           type: string
           description: Date format in audit log file.
       description: Audit Log configuration details.
-    ObjectDetails:
+    AgamaConfiguration:
       type: object
       properties:
-        name:
-          type: string
-          description: Name of the object.
-        text:
+        allowedDomain:
           type: array
-          description: List of string text that is to be ignored .
+          description: List of allowed domains to download Agama Project.
           items:
             type: string
-            description: List of string text that is to be ignored .
-      description: Object for which audit is disabled.
-    JsonPatch:
+            description: List of allowed domains to download Agama Project.
+        mandatoryAttributes:
+          type: array
+          description: List of attributes required to create the Agama Flow.
+          items:
+            type: string
+            description: List of attributes required to create the Agama Flow.
+        optionalAttributes:
+          type: array
+          description: List of attributes that are optional.
+          items:
+            type: string
+            description: List of attributes that are optional.
+      description: Agama configuration details.
+    CedarlingConfiguration:
       type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Specify if Cedraling is enabled
+        policySources:
+          type: array
+          description: List of Policy Sources
+          items:
+            $ref: '#/components/schemas/PolicySource'
+        logType:
+          type: string
+          description: 'Log type: off, memory, std_out'
+          enum:
+          - 'OFF'
+          - MEMORY
+          - STD_OUT
+        logLevel:
+          type: string
+          description: System Log Level
+          enum:
+          - FATAL
+          - ERROR
+          - WARN
+          - INFO
+          - DEBUG
+          - TRACE
+        externalPolicyStoreUri:
+          type: string
+          description: External policy store URI
+        maxEntries:
+          type: integer
+          description: maximum number of entries in policy store file
+          format: int32
+      description: Cedar Configuration for authorization.
     PolicySource:
       type: object
       properties:
@@ -429,6 +392,43 @@ components:
           type: string
           description: URI to policy store. Policy store can be either json/zip
       description: List of Policy Sources
+    CorsConfigurationFilter:
+      type: object
+      properties:
+        filterName:
+          type: string
+        corsEnabled:
+          type: boolean
+        corsAllowedOrigins:
+          type: string
+        corsAllowedMethods:
+          type: string
+        corsAllowedHeaders:
+          type: string
+        corsExposedHeaders:
+          type: string
+        corsSupportCredentials:
+          type: boolean
+        corsLoggingEnabled:
+          type: boolean
+        corsPreflightMaxAge:
+          type: integer
+          format: int32
+        corsRequestDecorate:
+          type: boolean
+      description: CORS configuration filter properties.
+    PluginConf:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the plugin.
+        description:
+          type: string
+          description: Description of the plugin.
+        className:
+          type: string
+          description: Plugin application class.
   securitySchemes:
     oauth2:
       type: oauth2

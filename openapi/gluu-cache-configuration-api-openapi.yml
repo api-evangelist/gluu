@@ -88,6 +88,46 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
+    JsonPatch:
+      type: object
+    MemcachedConfiguration:
+      type: object
+      properties:
+        servers:
+          type: string
+        maxOperationQueueLength:
+          type: integer
+          format: int32
+        bufferSize:
+          type: integer
+          format: int32
+        defaultPutExpiration:
+          type: integer
+          format: int32
+        connectionFactoryType:
+          type: string
+          enum:
+          - DEFAULT
+          - BINARY
+    NativePersistenceConfiguration:
+      type: object
+      properties:
+        defaultPutExpiration:
+          type: integer
+          format: int32
+        defaultCleanupBatchSize:
+          type: integer
+          format: int32
+        deleteExpiredOnGetRequest:
+          type: boolean
+        disableAttemptUpdateBeforeInsert:
+          type: boolean
+    InMemoryConfiguration:
+      type: object
+      properties:
+        defaultPutExpiration:
+          type: integer
+          format: int32
     RedisConfiguration:
       type: object
       properties:
@@ -134,38 +174,6 @@ components:
         maxRetryAttempts:
           type: integer
           format: int32
-    MemcachedConfiguration:
-      type: object
-      properties:
-        servers:
-          type: string
-        maxOperationQueueLength:
-          type: integer
-          format: int32
-        bufferSize:
-          type: integer
-          format: int32
-        defaultPutExpiration:
-          type: integer
-          format: int32
-        connectionFactoryType:
-          type: string
-          enum:
-          - DEFAULT
-          - BINARY
-    NativePersistenceConfiguration:
-      type: object
-      properties:
-        defaultPutExpiration:
-          type: integer
-          format: int32
-        defaultCleanupBatchSize:
-          type: integer
-          format: int32
-        deleteExpiredOnGetRequest:
-          type: boolean
-        disableAttemptUpdateBeforeInsert:
-          type: boolean
     CacheConfiguration:
       type: object
       properties:
@@ -186,14 +194,6 @@ components:
           $ref: '#/components/schemas/NativePersistenceConfiguration'
         keyPrefix:
           type: string
-    InMemoryConfiguration:
-      type: object
-      properties:
-        defaultPutExpiration:
-          type: integer
-          format: int32
-    JsonPatch:
-      type: object
   securitySchemes:
     oauth2:
       type: oauth2

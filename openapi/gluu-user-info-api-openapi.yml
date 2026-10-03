@@ -233,6 +233,13 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
 components:
+  responses:
+    InternalServerError:
+      description: Internal error occured. Please check log file for details.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     ErrorResponse:
       required:
@@ -246,13 +253,6 @@ components:
           type: string
         details:
           type: string
-  responses:
-    InternalServerError:
-      description: Internal error occured. Please check log file for details.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     bearer:
       type: http

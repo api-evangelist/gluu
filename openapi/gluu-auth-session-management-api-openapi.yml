@@ -219,31 +219,6 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    SessionIdAccessMap:
-      type: object
-      properties:
-        permissionGranted:
-          type: object
-          additionalProperties:
-            type: boolean
-          xml:
-            name: map
-    SessionPagedResult:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
-          type: array
-          items:
-            $ref: '#/components/schemas/SessionId'
     SessionId:
       type: object
       properties:
@@ -297,17 +272,15 @@ components:
           format: int32
         opbrowserState:
           type: string
-    UserAuthenticator:
+    SessionIdAccessMap:
       type: object
       properties:
-        id:
-          type: string
-        type:
-          type: string
-        custom:
+        permissionGranted:
           type: object
           additionalProperties:
-            type: object
+            type: boolean
+          xml:
+            name: map
     UserAuthenticatorList:
       type: object
       properties:
@@ -315,27 +288,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/UserAuthenticator'
-    CustomObjectAttribute:
-      type: object
-      properties:
-        name:
-          type: string
-        multiValued:
-          type: boolean
-        values:
-          type: array
-          items:
-            type: object
-        value:
-          type: object
-        displayValue:
-          type: string
-    SessionIdPredefinedAttributes:
-      type: object
-      properties:
-        index:
-          type: integer
-          format: int32
     User:
       type: object
       properties:
@@ -376,6 +328,54 @@ components:
             type: string
         baseDn:
           type: string
+    SessionPagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/SessionId'
+    SessionIdPredefinedAttributes:
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
+    CustomObjectAttribute:
+      type: object
+      properties:
+        name:
+          type: string
+        multiValued:
+          type: boolean
+        values:
+          type: array
+          items:
+            type: object
+        value:
+          type: object
+        displayValue:
+          type: string
+    UserAuthenticator:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        custom:
+          type: object
+          additionalProperties:
+            type: object
   securitySchemes:
     oauth2:
       type: oauth2

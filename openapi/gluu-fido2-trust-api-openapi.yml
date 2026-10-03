@@ -134,6 +134,57 @@ components:
   schemas:
     JsonNode:
       type: object
+    AttestationTrustConfig:
+      type: object
+      description: Effective attestation policy. Read-only view of the FIDO2 configuration; changing it is out of scope for this endpoint.
+      properties:
+        attestationMode:
+          type: string
+          example: monitor
+          description: 'The configured attestation mode, reported verbatim (default "monitor"). The supported values are "disabled", "monitor" and "enforced", but this field is deliberately not constrained to them: an unsupported value is returned as-is rather than normalised, so a typo is visible — see attestationModeRecognized.'
+        attestationModeRecognized:
+          type: boolean
+          description: Whether the configured value matches one of the supported modes. When false the server falls back to lenient behaviour, which is otherwise invisible to an administrator.
+        unattestedAuthenticatorsAllowed:
+          type: boolean
+          description: Whether an authenticator that fails attestation validation is still accepted. True for every mode except "enforced" — only that mode applies the stricter MDS trust rules, so the default "monitor" still accepts such an authenticator.
+        enterpriseAttestation:
+          type: boolean
+          description: Whether enterprise attestation is enabled.
+        metadataServiceDisabled:
+          type: boolean
+          description: Whether MDS download and validation are switched off. When true, attestation cannot be validated against FIDO metadata.
+        appleRootCaPresent:
+          type: boolean
+          description: Whether the Apple WebAuthn root CA certificate was loaded at startup. When false, Apple anonymous attestation cannot be validated.
+        enabledFidoAlgorithms:
+          type: array
+          items:
+            type: string
+          example:
+          - RS256
+          - ES256
+          description: Signature algorithms the server accepts.
+        hints:
+          type: array
+          items:
+            type: string
+          example:
+          - security-key
+          - client-device
+          - hybrid
+          description: Configured RP hints.
+    MetadataServerStatus:
+      type: object
+      description: A configured MDS endpoint.
+      properties:
+        url:
+          type: string
+          example: https://mds.fidoalliance.org/
+          description: The configured metadata endpoint URL.
+        rootCertConfigured:
+          type: boolean
+          description: Whether a per-endpoint trust anchor (MetadataServer.rootCert) is configured. Reported as a presence flag only — the certificate itself never leaves the server.
     ErrorResponse:
       required:
       - error
@@ -146,17 +197,6 @@ components:
           type: string
         details:
           type: string
-    MetadataServerStatus:
-      type: object
-      description: A configured MDS endpoint.
-      properties:
-        url:
-          type: string
-          example: https://mds.fidoalliance.org/
-          description: The configured metadata endpoint URL.
-        rootCertConfigured:
-          type: boolean
-          description: Whether a per-endpoint trust anchor (MetadataServer.rootCert) is configured. Reported as a presence flag only — the certificate itself never leaves the server.
     MdsHealth:
       type: object
       description: State of the FIDO Metadata Service data used for attestation validation. Read-only; assembled entirely from in-memory state.
@@ -202,46 +242,6 @@ components:
           format: date-time
           example: '2026-08-07T09:31:04.118Z'
           description: When this health snapshot was taken, as an ISO-8601 date-time with a UTC offset.
-    AttestationTrustConfig:
-      type: object
-      description: Effective attestation policy. Read-only view of the FIDO2 configuration; changing it is out of scope for this endpoint.
-      properties:
-        attestationMode:
-          type: string
-          example: monitor
-          description: 'The configured attestation mode, reported verbatim (default "monitor"). The supported values are "disabled", "monitor" and "enforced", but this field is deliberately not constrained to them: an unsupported value is returned as-is rather than normalised, so a typo is visible — see attestationModeRecognized.'
-        attestationModeRecognized:
-          type: boolean
-          description: Whether the configured value matches one of the supported modes. When false the server falls back to lenient behaviour, which is otherwise invisible to an administrator.
-        unattestedAuthenticatorsAllowed:
-          type: boolean
-          description: Whether an authenticator that fails attestation validation is still accepted. True for every mode except "enforced" — only that mode applies the stricter MDS trust rules, so the default "monitor" still accepts such an authenticator.
-        enterpriseAttestation:
-          type: boolean
-          description: Whether enterprise attestation is enabled.
-        metadataServiceDisabled:
-          type: boolean
-          description: Whether MDS download and validation are switched off. When true, attestation cannot be validated against FIDO metadata.
-        appleRootCaPresent:
-          type: boolean
-          description: Whether the Apple WebAuthn root CA certificate was loaded at startup. When false, Apple anonymous attestation cannot be validated.
-        enabledFidoAlgorithms:
-          type: array
-          items:
-            type: string
-          example:
-          - RS256
-          - ES256
-          description: Signature algorithms the server accepts.
-        hints:
-          type: array
-          items:
-            type: string
-          example:
-          - security-key
-          - client-device
-          - hybrid
-          description: Configured RP hints.
   responses:
     InternalServerError:
       description: Internal error occured. Please check log file for details.

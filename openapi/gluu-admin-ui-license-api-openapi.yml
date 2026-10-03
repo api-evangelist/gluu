@@ -311,6 +311,33 @@ paths:
         - https://jans.io/oauth/jans-auth-server/config/adminui/read-all
 components:
   schemas:
+    LicenseRequest:
+      type: object
+      properties:
+        licenseKey:
+          type: string
+    JsonNode:
+      type: object
+    GenericResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        responseMessage:
+          type: string
+        responseCode:
+          type: integer
+          format: int32
+        responseObject:
+          $ref: '#/components/schemas/JsonNode'
+        responseBytes:
+          type: string
+          format: byte
+    SSARequest:
+      type: object
+      properties:
+        ssa:
+          type: string
     LicenseResponse:
       type: object
       properties:
@@ -344,33 +371,6 @@ components:
           format: int64
         licenseExpired:
           type: boolean
-    JsonNode:
-      type: object
-    GenericResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        responseMessage:
-          type: string
-        responseCode:
-          type: integer
-          format: int32
-        responseObject:
-          $ref: '#/components/schemas/JsonNode'
-        responseBytes:
-          type: string
-          format: byte
-    LicenseRequest:
-      type: object
-      properties:
-        licenseKey:
-          type: string
-    SSARequest:
-      type: object
-      properties:
-        ssa:
-          type: string
   securitySchemes:
     oauth2:
       type: oauth2

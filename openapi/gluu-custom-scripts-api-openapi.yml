@@ -527,25 +527,24 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    SimpleExtendedCustomProperty:
+    JsonPatch:
+      type: object
+    PagedResult:
       type: object
       properties:
-        value1:
-          type: string
-        value2:
-          type: string
-        hide:
-          type: boolean
-        description:
-          type: string
-    ScriptError:
-      type: object
-      properties:
-        raisedAt:
-          type: string
-          format: date-time
-        stackTrace:
-          type: string
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            type: object
     SimpleCustomProperty:
       type: object
       properties:
@@ -555,8 +554,6 @@ components:
           type: string
         description:
           type: string
-    JsonPatch:
-      type: object
     CustomScript:
       type: object
       properties:
@@ -654,22 +651,25 @@ components:
           - db
         baseDn:
           type: string
-    PagedResult:
+    SimpleExtendedCustomProperty:
       type: object
       properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
-          type: array
-          items:
-            type: object
+        value1:
+          type: string
+        value2:
+          type: string
+        hide:
+          type: boolean
+        description:
+          type: string
+    ScriptError:
+      type: object
+      properties:
+        raisedAt:
+          type: string
+          format: date-time
+        stackTrace:
+          type: string
   securitySchemes:
     oauth2:
       type: oauth2

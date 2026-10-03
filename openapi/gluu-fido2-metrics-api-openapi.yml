@@ -1331,6 +1331,8 @@ paths:
     - url: https://jans.local.io
 components:
   schemas:
+    JsonNode:
+      type: object
     Fido2MetricsEntryPagedResult:
       type: object
       properties:
@@ -1347,6 +1349,57 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Fido2MetricsEntry'
+    Fido2MetricsEntry:
+      type: object
+      properties:
+        dn:
+          type: string
+        id:
+          type: string
+        metricType:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        userId:
+          type: string
+        username:
+          type: string
+        operationType:
+          type: string
+        status:
+          type: string
+        durationMs:
+          type: integer
+          format: int64
+        authenticatorType:
+          type: string
+        deviceInfo:
+          $ref: '#/components/schemas/DeviceInfo'
+        errorReason:
+          type: string
+        errorCategory:
+          type: string
+        fallbackMethod:
+          type: string
+        fallbackReason:
+          type: string
+        userAgent:
+          type: string
+        ipAddress:
+          type: string
+        sessionId:
+          type: string
+        nodeId:
+          type: string
+        applicationType:
+          type: string
+        additionalData:
+          type: object
+          additionalProperties:
+            type: object
+        baseDn:
+          type: string
     Fido2MetricsAggregationPagedResult:
       type: object
       properties:
@@ -1363,8 +1416,23 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Fido2MetricsAggregation'
-    JsonNode:
+    DeviceInfo:
       type: object
+      properties:
+        browser:
+          type: string
+        browser_version:
+          type: string
+        os:
+          type: string
+        os_version:
+          type: string
+        device_type:
+          type: string
+        platform:
+          type: string
+        user_agent:
+          type: string
     Fido2MetricsAggregation:
       type: object
       properties:
@@ -1441,74 +1509,75 @@ components:
             format: int64
         baseDn:
           type: string
-    Fido2MetricsEntry:
+    MetricsErrorAnalytics:
       type: object
+      description: Error analysis (categories, top errors, success/failure rates).
       properties:
-        dn:
-          type: string
-        id:
-          type: string
-        metricType:
-          type: string
-        timestamp:
-          type: string
-          format: date-time
-        userId:
-          type: string
-        username:
-          type: string
-        operationType:
-          type: string
-        status:
-          type: string
-        durationMs:
-          type: integer
-          format: int64
-        authenticatorType:
-          type: string
-        deviceInfo:
-          $ref: '#/components/schemas/DeviceInfo'
-        errorReason:
-          type: string
-        errorCategory:
-          type: string
-        fallbackMethod:
-          type: string
-        fallbackReason:
-          type: string
-        userAgent:
-          type: string
-        ipAddress:
-          type: string
-        sessionId:
-          type: string
-        nodeId:
-          type: string
-        applicationType:
-          type: string
-        additionalData:
+        errorCategories:
           type: object
           additionalProperties:
-            type: object
-        baseDn:
+            type: integer
+          description: Count of errors by category.
+        topErrors:
+          type: object
+          additionalProperties:
+            type: integer
+          description: Count of errors by message.
+        successRate:
+          type:
+          - number
+          - 'null'
+          description: Ratio of started operations that succeeded. Based on ATTEMPT count as denominator, and reported as observed, so it can exceed 1.0 when completions in the range belong to starts outside it. Null when nothing was recorded. Where no ATTEMPT entries exist at all it is the share of completed ceremonies that succeeded instead — see rateNote.
+        failureRate:
+          type:
+          - number
+          - 'null'
+          description: Ratio of started operations that failed. Same denominator and same caveats as successRate.
+        completionRate:
+          type:
+          - number
+          - 'null'
+          description: Ratio of started operations that completed (success or failure), 0.0–1.0. Capped at 1.0 when completions outnumber recorded starts, and null when no starts were recorded at all, since it then has no denominator — see rateNote.
+        dropOffRate:
+          type:
+          - number
+          - 'null'
+          description: Ratio of started operations that did not complete (user dropped off). Equals 1 - completionRate (0.0–1.0). Inferred as a residual, so it also absorbs ceremonies still in flight at the edge of the query window, and is null when there is no residual to infer it from — see rateNote.
+        abandonedOperations:
+          type: integer
+          description: Count of authentication ceremonies observed to have lapsed without ever being completed. Unlike dropOffRate this is counted from ceremonies actually relabelled as abandoned, not inferred. Approximate in multi-node deployments, where a ceremony may be counted more than once.
+        abandonmentRate:
+          type:
+          - number
+          - 'null'
+          description: Ratio of started operations observed to have been abandoned (0.0–1.0). Based on ATTEMPT count as denominator. Reported alongside dropOffRate, not instead of it. Null when no starts were recorded — see rateNote.
+        rateNote:
           type: string
-    DeviceInfo:
+          description: Present only when a rate in this response is null, capped, or measured against a different denominator, and explains which and why. An unknown rate must not be rendered as a zero.
+    MetricsDeviceAnalytics:
       type: object
+      description: Device analytics (device types, OS, browsers, authenticator types).
       properties:
-        browser:
-          type: string
-        browser_version:
-          type: string
-        os:
-          type: string
-        os_version:
-          type: string
-        device_type:
-          type: string
-        platform:
-          type: string
-        user_agent:
-          type: string
+        deviceTypes:
+          type: object
+          additionalProperties:
+            type: integer
+          description: Counts by device type (e.g. desktop, mobile).
+        authenticatorTypes:
+          type: object
+          additionalProperties:
+            type: integer
+          description: Counts by authenticator type (platform, cross-platform).
+        browsers:
+          type: object
+          additionalProperties:
+            type: integer
+          description: Counts by browser.
+        operatingSystems:
+          type: object
+          additionalProperties:
+            type: integer
+          description: Counts by operating system.
     AttestationRejectionAnalytics:
       type: object
       description: Attestation rejections in a time range, broken down by cause. A rejection is a registration failure recorded with the ATTESTATION_TRUST error category.
@@ -1546,177 +1615,28 @@ components:
           example:
             d8522d9f-575b-4866-88a9-ba99fa02f35b: 14
           description: Count per AAGUID. Rejections that are not tied to an authenticator model — an attestation format the mode does not permit, for instance — are counted in reasonCodes only.
-    MetricsPerformance:
+    MetricsAggregationSummary:
       type: object
-      description: Performance statistics (avg/min/max durations in milliseconds for registration and authentication).
+      description: Summary over all aggregations in a time range.
       properties:
-        registrationAvgDuration:
+        totalRegistrations:
+          type: integer
+          description: Total registration operations across all periods in the range.
+        totalAuthentications:
+          type: integer
+          description: Total authentication operations across all periods in the range.
+        totalOperations:
+          type: integer
+          description: Sum of totalRegistrations and totalAuthentications.
+        totalFallbacks:
+          type: integer
+          description: Count of fallback events (user chose alternative to passkey) in the range.
+        avgRegistrationSuccessRate:
           type: number
-          description: Average registration duration (ms).
-        registrationMinDuration:
-          type: integer
-          description: Minimum registration duration (ms).
-        registrationMaxDuration:
-          type: integer
-          description: Maximum registration duration (ms).
-        authenticationAvgDuration:
+          description: Average of registration success rates across periods (0.0–1.0).
+        avgAuthenticationSuccessRate:
           type: number
-          description: Average authentication duration (ms).
-        authenticationMinDuration:
-          type: integer
-          description: Minimum authentication duration (ms).
-        authenticationMaxDuration:
-          type: integer
-          description: Maximum authentication duration (ms).
-    ErrorResponse:
-      required:
-      - error
-      - error_description
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
-        details:
-          type: string
-    MetricsHealth:
-      type: object
-      description: Health status of the metrics service (200 = UP, 503 = DOWN).
-      properties:
-        status:
-          type: string
-          enum:
-          - UP
-          - DOWN
-          description: Overall health; UP returns 200, DOWN returns 503.
-        metricsEnabled:
-          type: boolean
-          description: Whether metrics collection is enabled in configuration.
-        aggregationEnabled:
-          type: boolean
-          description: Whether automatic aggregation is enabled.
-        timestamp:
-          type: string
-          description: Current server time (ISO format, UTC).
-        serviceAvailable:
-          type: boolean
-          description: True if metrics backend (e.g. DB) is reachable.
-    MetricsDeviceAnalytics:
-      type: object
-      description: Device analytics (device types, OS, browsers, authenticator types).
-      properties:
-        deviceTypes:
-          type: object
-          additionalProperties:
-            type: integer
-          description: Counts by device type (e.g. desktop, mobile).
-        authenticatorTypes:
-          type: object
-          additionalProperties:
-            type: integer
-          description: Counts by authenticator type (platform, cross-platform).
-        browsers:
-          type: object
-          additionalProperties:
-            type: integer
-          description: Counts by browser.
-        operatingSystems:
-          type: object
-          additionalProperties:
-            type: integer
-          description: Counts by operating system.
-    MetricsPeriodComparison:
-      type: object
-      description: Period-over-period comparison (current vs previous period metrics and percentage change).
-      properties:
-        currentPeriod:
-          type: object
-          description: Summary for the most recent period(s).
-        previousPeriod:
-          type: object
-          description: Summary for the preceding period(s).
-        comparison:
-          type: object
-          description: Percentage changes between periods (e.g. totalOperationsChange).
-    MetricsTrends:
-      type: object
-      description: Trend analysis over time with data points, growth rate, direction, and insights.
-      properties:
-        dataPoints:
-          type: array
-          description: One data point per aggregation period (timestamp, period, metrics).
-        growthRate:
-          type: number
-          description: Overall growth rate (e.g. 0.15 = 15% growth).
-        trendDirection:
-          type: string
-          description: INCREASING, DECREASING, or STABLE.
-        insights:
-          type: object
-          description: Peak period, peak operations, average operations.
-    MetricsEntry:
-      type: object
-      description: A single raw metric entry (one registration or authentication event).
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the entry.
-        timestamp:
-          type: integer
-          format: int64
-          description: Event time in milliseconds since epoch (UTC).
-        userId:
-          type: string
-          description: User internal ID (inum).
-        username:
-          type: string
-          description: Human-readable username at time of operation; use userId for stable tracking.
-        operationType:
-          type: string
-          enum:
-          - REGISTRATION
-          - AUTHENTICATION
-          - FALLBACK
-          description: REGISTRATION (passkey enrollment), AUTHENTICATION (sign-in), or FALLBACK (alternative method).
-        status:
-          type: string
-          enum:
-          - SUCCESS
-          - FAILURE
-          - ATTEMPT
-          - ABANDONED
-          description: ATTEMPT (started), SUCCESS (completed), FAILURE (completed with error), or ABANDONED (authentication ceremony started but never completed). ABANDONED is not a completion and is excluded from the attempt total that failures are derived from.
-        durationMs:
-          type: integer
-          description: Operation duration in milliseconds.
-        authenticatorType:
-          type: string
-          description: e.g. cross-platform, platform, security-key.
-        nodeId:
-          type: string
-          description: Cluster node identifier (when in cluster).
-        ipAddress:
-          type: string
-          description: Client IP address (when available from request headers). Useful for geo-analysis or security.
-        userAgent:
-          type: string
-          description: Full browser user-agent string; used to derive deviceInfo.
-        deviceInfo:
-          type: object
-          description: Parsed device details (browser, os, deviceType). Present when deviceInfoCollection is enabled.
-        errorReason:
-          type: string
-          description: Human-readable error message. Present only when status is FAILURE.
-        errorCategory:
-          type: string
-          description: Categorized error type (e.g. USER_CANCELLED, TIMEOUT, INVALID_CREDENTIAL). Present only when status is FAILURE.
-        sessionId:
-          type: string
-          description: Session identifier linking this operation to a user session.
-        applicationType:
-          type: string
-          description: Application or relying party identifier (when multiple apps share the FIDO2 server).
+          description: Average of authentication success rates across periods (0.0–1.0).
     MetricsAggregation:
       type: object
       description: Pre-computed aggregation for one period (e.g. one hour or one day).
@@ -1818,73 +1738,153 @@ components:
           - WEEKLY
           - MONTHLY
           description: List of available aggregation granularities.
-    MetricsErrorAnalytics:
+    MetricsTrends:
       type: object
-      description: Error analysis (categories, top errors, success/failure rates).
+      description: Trend analysis over time with data points, growth rate, direction, and insights.
       properties:
-        errorCategories:
-          type: object
-          additionalProperties:
-            type: integer
-          description: Count of errors by category.
-        topErrors:
-          type: object
-          additionalProperties:
-            type: integer
-          description: Count of errors by message.
-        successRate:
-          type:
-          - number
-          - 'null'
-          description: Ratio of started operations that succeeded. Based on ATTEMPT count as denominator, and reported as observed, so it can exceed 1.0 when completions in the range belong to starts outside it. Null when nothing was recorded. Where no ATTEMPT entries exist at all it is the share of completed ceremonies that succeeded instead — see rateNote.
-        failureRate:
-          type:
-          - number
-          - 'null'
-          description: Ratio of started operations that failed. Same denominator and same caveats as successRate.
-        completionRate:
-          type:
-          - number
-          - 'null'
-          description: Ratio of started operations that completed (success or failure), 0.0–1.0. Capped at 1.0 when completions outnumber recorded starts, and null when no starts were recorded at all, since it then has no denominator — see rateNote.
-        dropOffRate:
-          type:
-          - number
-          - 'null'
-          description: Ratio of started operations that did not complete (user dropped off). Equals 1 - completionRate (0.0–1.0). Inferred as a residual, so it also absorbs ceremonies still in flight at the edge of the query window, and is null when there is no residual to infer it from — see rateNote.
-        abandonedOperations:
-          type: integer
-          description: Count of authentication ceremonies observed to have lapsed without ever being completed. Unlike dropOffRate this is counted from ceremonies actually relabelled as abandoned, not inferred. Approximate in multi-node deployments, where a ceremony may be counted more than once.
-        abandonmentRate:
-          type:
-          - number
-          - 'null'
-          description: Ratio of started operations observed to have been abandoned (0.0–1.0). Based on ATTEMPT count as denominator. Reported alongside dropOffRate, not instead of it. Null when no starts were recorded — see rateNote.
-        rateNote:
+        dataPoints:
+          type: array
+          description: One data point per aggregation period (timestamp, period, metrics).
+        growthRate:
+          type: number
+          description: Overall growth rate (e.g. 0.15 = 15% growth).
+        trendDirection:
           type: string
-          description: Present only when a rate in this response is null, capped, or measured against a different denominator, and explains which and why. An unknown rate must not be rendered as a zero.
-    MetricsAggregationSummary:
+          description: INCREASING, DECREASING, or STABLE.
+        insights:
+          type: object
+          description: Peak period, peak operations, average operations.
+    MetricsEntry:
       type: object
-      description: Summary over all aggregations in a time range.
+      description: A single raw metric entry (one registration or authentication event).
       properties:
-        totalRegistrations:
+        id:
+          type: string
+          description: Unique identifier for the entry.
+        timestamp:
           type: integer
-          description: Total registration operations across all periods in the range.
-        totalAuthentications:
+          format: int64
+          description: Event time in milliseconds since epoch (UTC).
+        userId:
+          type: string
+          description: User internal ID (inum).
+        username:
+          type: string
+          description: Human-readable username at time of operation; use userId for stable tracking.
+        operationType:
+          type: string
+          enum:
+          - REGISTRATION
+          - AUTHENTICATION
+          - FALLBACK
+          description: REGISTRATION (passkey enrollment), AUTHENTICATION (sign-in), or FALLBACK (alternative method).
+        status:
+          type: string
+          enum:
+          - SUCCESS
+          - FAILURE
+          - ATTEMPT
+          - ABANDONED
+          description: ATTEMPT (started), SUCCESS (completed), FAILURE (completed with error), or ABANDONED (authentication ceremony started but never completed). ABANDONED is not a completion and is excluded from the attempt total that failures are derived from.
+        durationMs:
           type: integer
-          description: Total authentication operations across all periods in the range.
-        totalOperations:
-          type: integer
-          description: Sum of totalRegistrations and totalAuthentications.
-        totalFallbacks:
-          type: integer
-          description: Count of fallback events (user chose alternative to passkey) in the range.
-        avgRegistrationSuccessRate:
+          description: Operation duration in milliseconds.
+        authenticatorType:
+          type: string
+          description: e.g. cross-platform, platform, security-key.
+        nodeId:
+          type: string
+          description: Cluster node identifier (when in cluster).
+        ipAddress:
+          type: string
+          description: Client IP address (when available from request headers). Useful for geo-analysis or security.
+        userAgent:
+          type: string
+          description: Full browser user-agent string; used to derive deviceInfo.
+        deviceInfo:
+          type: object
+          description: Parsed device details (browser, os, deviceType). Present when deviceInfoCollection is enabled.
+        errorReason:
+          type: string
+          description: Human-readable error message. Present only when status is FAILURE.
+        errorCategory:
+          type: string
+          description: Categorized error type (e.g. USER_CANCELLED, TIMEOUT, INVALID_CREDENTIAL). Present only when status is FAILURE.
+        sessionId:
+          type: string
+          description: Session identifier linking this operation to a user session.
+        applicationType:
+          type: string
+          description: Application or relying party identifier (when multiple apps share the FIDO2 server).
+    MetricsPeriodComparison:
+      type: object
+      description: Period-over-period comparison (current vs previous period metrics and percentage change).
+      properties:
+        currentPeriod:
+          type: object
+          description: Summary for the most recent period(s).
+        previousPeriod:
+          type: object
+          description: Summary for the preceding period(s).
+        comparison:
+          type: object
+          description: Percentage changes between periods (e.g. totalOperationsChange).
+    ErrorResponse:
+      required:
+      - error
+      - error_description
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        details:
+          type: string
+    MetricsHealth:
+      type: object
+      description: Health status of the metrics service (200 = UP, 503 = DOWN).
+      properties:
+        status:
+          type: string
+          enum:
+          - UP
+          - DOWN
+          description: Overall health; UP returns 200, DOWN returns 503.
+        metricsEnabled:
+          type: boolean
+          description: Whether metrics collection is enabled in configuration.
+        aggregationEnabled:
+          type: boolean
+          description: Whether automatic aggregation is enabled.
+        timestamp:
+          type: string
+          description: Current server time (ISO format, UTC).
+        serviceAvailable:
+          type: boolean
+          description: True if metrics backend (e.g. DB) is reachable.
+    MetricsPerformance:
+      type: object
+      description: Performance statistics (avg/min/max durations in milliseconds for registration and authentication).
+      properties:
+        registrationAvgDuration:
           type: number
-          description: Average of registration success rates across periods (0.0–1.0).
-        avgAuthenticationSuccessRate:
+          description: Average registration duration (ms).
+        registrationMinDuration:
+          type: integer
+          description: Minimum registration duration (ms).
+        registrationMaxDuration:
+          type: integer
+          description: Maximum registration duration (ms).
+        authenticationAvgDuration:
           type: number
-          description: Average of authentication success rates across periods (0.0–1.0).
+          description: Average authentication duration (ms).
+        authenticationMinDuration:
+          type: integer
+          description: Minimum authentication duration (ms).
+        authenticationMaxDuration:
+          type: integer
+          description: Maximum authentication duration (ms).
     MetricsAdoption:
       type: object
       description: User adoption metrics (new users, returning users, adoption rate) for the given time range.
@@ -1899,14 +1899,14 @@ components:
           type: number
           description: newUsers / totalUniqueUsers (0.0–1.0).
   responses:
-    InvalidRequest:
-      description: Invalid parameters are provided to endpoint.
+    InternalServerError:
+      description: Internal error occured. Please check log file for details.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal error occured. Please check log file for details.
+    InvalidRequest:
+      description: Invalid parameters are provided to endpoint.
       content:
         application/json:
           schema:

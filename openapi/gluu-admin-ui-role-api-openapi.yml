@@ -239,8 +239,6 @@ components:
         responseBytes:
           type: string
           format: byte
-    JsonNode:
-      type: object
     AdminRole:
       type: object
       properties:
@@ -250,6 +248,8 @@ components:
           type: string
         deletable:
           type: boolean
+    JsonNode:
+      type: object
   securitySchemes:
     oauth2:
       type: oauth2

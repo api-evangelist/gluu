@@ -74,6 +74,42 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
+    GluuLdapConfiguration:
+      type: object
+      properties:
+        configId:
+          type: string
+        bindDN:
+          type: string
+        bindPassword:
+          type: string
+        servers:
+          type: array
+          items:
+            type: string
+        maxConnections:
+          type: integer
+          format: int32
+        useSSL:
+          type: boolean
+        baseDNs:
+          type: array
+          items:
+            type: string
+        primaryKey:
+          type: string
+        localPrimaryKey:
+          type: string
+        useAnonymousBind:
+          type: boolean
+        enabled:
+          type: boolean
+        version:
+          type: integer
+          format: int32
+        level:
+          type: integer
+          format: int32
     LinkAttributeMapping:
       type: object
       properties:
@@ -180,42 +216,6 @@ components:
           type: string
         useLocalCache:
           type: boolean
-    GluuLdapConfiguration:
-      type: object
-      properties:
-        configId:
-          type: string
-        bindDN:
-          type: string
-        bindPassword:
-          type: string
-        servers:
-          type: array
-          items:
-            type: string
-        maxConnections:
-          type: integer
-          format: int32
-        useSSL:
-          type: boolean
-        baseDNs:
-          type: array
-          items:
-            type: string
-        primaryKey:
-          type: string
-        localPrimaryKey:
-          type: string
-        useAnonymousBind:
-          type: boolean
-        enabled:
-          type: boolean
-        version:
-          type: integer
-          format: int32
-        level:
-          type: integer
-          format: int32
   securitySchemes:
     oauth2:
       type: oauth2

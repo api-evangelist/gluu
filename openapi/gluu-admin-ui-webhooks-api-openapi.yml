@@ -384,22 +384,13 @@ paths:
         - https://jans.io/oauth/jans-auth-server/config/adminui/webhook.readonly
 components:
   schemas:
-    PagedResult:
+    KeyValuePair:
       type: object
       properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
-          type: array
-          items:
-            type: object
+        key:
+          type: string
+        value:
+          type: string
     JsonNode:
       type: object
     GenericResponse:
@@ -417,21 +408,78 @@ components:
         responseBytes:
           type: string
           format: byte
-    ScopeAttributes:
+    PagedResult:
       type: object
       properties:
-        spontaneousClientScopes:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            type: object
+    AuiFeature:
+      type: object
+      properties:
+        dn:
+          type: string
+        auiFeatureId:
+          type: string
+        displayName:
+          type: string
+        jansScope:
+          type: string
+        webhookIdsMapped:
           type: array
           items:
             type: string
-        showInConfigurationEndpoint:
-          type: boolean
-    KeyValuePair:
+        baseDn:
+          type: string
+    WebhookEntry:
+      required:
+      - displayName
+      - url
       type: object
       properties:
-        key:
+        dn:
           type: string
-        value:
+        inum:
+          type: string
+        displayName:
+          maxLength: 60
+          minLength: 2
+          pattern: ^[a-zA-Z0-9_\-\:\/\.]+$
+          type: string
+        description:
+          type: string
+        url:
+          type: string
+        httpRequestBodyString:
+          type: string
+        httpMethod:
+          type: string
+        jansEnabled:
+          type: boolean
+        httpHeaders:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValuePair'
+        auiFeatureIds:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        httpRequestBody:
+          type: object
+          additionalProperties:
+            type: object
+        baseDn:
           type: string
     ShortCodeRequest:
       required:
@@ -444,6 +492,15 @@ components:
           type: object
           additionalProperties:
             type: object
+    ScopeAttributes:
+      type: object
+      properties:
+        spontaneousClientScopes:
+          type: array
+          items:
+            type: string
+        showInConfigurationEndpoint:
+          type: boolean
     Scope:
       type: object
       properties:
@@ -508,63 +565,6 @@ components:
             type: string
         umaType:
           type: boolean
-        baseDn:
-          type: string
-    WebhookEntry:
-      required:
-      - displayName
-      - url
-      type: object
-      properties:
-        dn:
-          type: string
-        inum:
-          type: string
-        displayName:
-          maxLength: 60
-          minLength: 2
-          pattern: ^[a-zA-Z0-9_\-\:\/\.]+$
-          type: string
-        description:
-          type: string
-        url:
-          type: string
-        httpRequestBodyString:
-          type: string
-        httpMethod:
-          type: string
-        jansEnabled:
-          type: boolean
-        httpHeaders:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyValuePair'
-        auiFeatureIds:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
-        httpRequestBody:
-          type: object
-          additionalProperties:
-            type: object
-        baseDn:
-          type: string
-    AuiFeature:
-      type: object
-      properties:
-        dn:
-          type: string
-        auiFeatureId:
-          type: string
-        displayName:
-          type: string
-        jansScope:
-          type: string
-        webhookIdsMapped:
-          type: array
-          items:
-            type: string
         baseDn:
           type: string
   securitySchemes:

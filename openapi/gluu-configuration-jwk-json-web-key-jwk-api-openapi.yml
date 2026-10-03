@@ -279,15 +279,6 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    JsonPatch:
-      type: object
-    WebKeysConfiguration:
-      type: object
-      properties:
-        keys:
-          type: array
-          items:
-            $ref: '#/components/schemas/JSONWebKey'
     JSONWebKey:
       type: object
       properties:
@@ -372,6 +363,15 @@ components:
             - KeyOps{value='connect'} CONNECT
             - KeyOps{value='ssa'} SSA
             - KeyOps{value='all'} ALL
+    WebKeysConfiguration:
+      type: object
+      properties:
+        keys:
+          type: array
+          items:
+            $ref: '#/components/schemas/JSONWebKey'
+    JsonPatch:
+      type: object
   securitySchemes:
     oauth2:
       type: oauth2

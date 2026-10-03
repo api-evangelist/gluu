@@ -331,6 +331,13 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
+    UserAuthenticatorList:
+      type: object
+      properties:
+        authenticators:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserAuthenticator'
     CustomUser:
       type: object
       properties:
@@ -381,42 +388,6 @@ components:
           type: string
         baseDn:
           type: string
-    UserPatchRequest:
-      type: object
-      properties:
-        jsonPatchString:
-          type: string
-        customAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomObjectAttribute'
-    UserAuthenticator:
-      type: object
-      properties:
-        id:
-          type: string
-        type:
-          type: string
-        custom:
-          type: object
-          additionalProperties:
-            type: object
-    ApiError:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        description:
-          type: string
-    UserAuthenticatorList:
-      type: object
-      properties:
-        authenticators:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserAuthenticator'
     UserPagedResult:
       type: object
       properties:
@@ -433,6 +404,35 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CustomUser'
+    UserPatchRequest:
+      type: object
+      properties:
+        jsonPatchString:
+          type: string
+        customAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomObjectAttribute'
+    ApiError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+    UserAuthenticator:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        custom:
+          type: object
+          additionalProperties:
+            type: object
     CustomObjectAttribute:
       type: object
       properties:

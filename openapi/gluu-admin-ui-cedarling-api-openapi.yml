@@ -300,8 +300,6 @@ components:
         responseBytes:
           type: string
           format: byte
-    JsonNode:
-      type: object
     AdminUIPolicyStore:
       type: object
       properties:
@@ -350,6 +348,8 @@ components:
           format: date-time
           readOnly: true
           example: 2026-07-14 11:20:45+00:00
+    JsonNode:
+      type: object
   securitySchemes:
     oauth2:
       type: oauth2

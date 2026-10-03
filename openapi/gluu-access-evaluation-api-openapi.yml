@@ -53,32 +53,6 @@ paths:
           description: Internal server error
 components:
   schemas:
-    EvaluationResponse:
-      type: object
-      properties:
-        decision:
-          type: boolean
-          description: Result of the access evaluation (true for allow, false for deny)
-        context:
-          $ref: '#/components/schemas/Context'
-      required:
-      - decision
-    Context:
-      type: object
-      additionalProperties: true
-      description: Environmental or contextual attributes for the request
-    Action:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the action (e.g., read, write)
-        properties:
-          type: object
-          additionalProperties: true
-          description: Additional attributes of the action
-      required:
-      - name
     Subject:
       type: object
       properties:
@@ -95,6 +69,16 @@ components:
       required:
       - type
       - id
+    EvaluationResponse:
+      type: object
+      properties:
+        decision:
+          type: boolean
+          description: Result of the access evaluation (true for allow, false for deny)
+        context:
+          $ref: '#/components/schemas/Context'
+      required:
+      - decision
     Resource:
       type: object
       properties:
@@ -111,6 +95,22 @@ components:
       required:
       - type
       - id
+    Context:
+      type: object
+      additionalProperties: true
+      description: Environmental or contextual attributes for the request
+    Action:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the action (e.g., read, write)
+        properties:
+          type: object
+          additionalProperties: true
+          description: Additional attributes of the action
+      required:
+      - name
   securitySchemes:
     bearer:
       type: http

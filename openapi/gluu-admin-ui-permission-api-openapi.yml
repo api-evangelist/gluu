@@ -238,8 +238,6 @@ components:
         responseBytes:
           type: string
           format: byte
-    JsonNode:
-      type: object
     AdminPermission:
       type: object
       properties:
@@ -253,6 +251,8 @@ components:
           type: boolean
         essentialPermissionInAdminUI:
           type: boolean
+    JsonNode:
+      type: object
   securitySchemes:
     oauth2:
       type: oauth2

@@ -269,6 +269,12 @@ components:
         details:
           type: string
   responses:
+    NotAcceptable:
+      description: Request Not Acceptable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
     AccessDenied:
       description: Invalid details provided hence access denied.
       content:
@@ -277,12 +283,6 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     InternalServerError:
       description: Internal error occured. Please check log file for details.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    NotAcceptable:
-      description: Request Not Acceptable.
       content:
         application/json:
           schema:

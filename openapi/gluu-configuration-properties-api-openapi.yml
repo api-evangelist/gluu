@@ -155,34 +155,24 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    PersistenceConfiguration:
+    TrustedIssuerConfig:
       type: object
       properties:
-        databaseName:
-          type: string
-          description: Connection object's current catalog name.
-        schemaName:
-          type: string
-          description: Schema name.
-        productName:
-          type: string
-          description: Name of database product.
-        productVersion:
-          type: string
-          description: Version number of this database product.
-        driverName:
-          type: string
-          description: Name of this JDBC driver.
-        driverVersion:
-          type: string
-          description: JDBC driver version number.
-    LockMessageConfig:
+        automaticallyGrantedScopes:
+          type: array
+          items:
+            type: string
+    JsonPatch:
+      type: object
+    RateLimitConfig:
       type: object
       properties:
-        enableTokenMessages:
+        rateLimitRules:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateLimitRule'
+        rateLoggingEnabled:
           type: boolean
-        tokenMessagesChannel:
-          type: string
     KeyExtractor:
       type: object
       properties:
@@ -199,6 +189,75 @@ components:
             type: string
         wellFormed:
           type: boolean
+    SsaConfiguration:
+      type: object
+      properties:
+        ssaEndpoint:
+          type: string
+        ssaCustomAttributes:
+          type: array
+          items:
+            type: string
+        ssaSigningAlg:
+          type: string
+        ssaExpirationInDays:
+          type: integer
+          format: int32
+        ssaMapSoftwareRolesToScopes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    SpiffeTrustDomainConfiguration:
+      type: object
+      properties:
+        trustDomain:
+          type: string
+        bundleEndpointUrl:
+          type: string
+        bundleCacheLifetimeInMinutes:
+          type: integer
+          format: int32
+    SsaValidationConfig:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - NONE
+          - SSA
+          - DCR
+        displayName:
+          type: string
+        description:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        allowedClaims:
+          type: array
+          items:
+            type: string
+        jwks:
+          type: string
+        jwksUri:
+          type: string
+        issuers:
+          type: array
+          items:
+            type: string
+        configurationEndpoint:
+          type: string
+        configurationEndpointClaim:
+          type: string
+        sharedSecret:
+          type: string
+    JsonNode:
+      type: object
     CIBAEndUserNotificationConfig:
       type: object
       properties:
@@ -222,27 +281,6 @@ components:
           type: string
         publicVapidKey:
           type: string
-    RateLimitConfig:
-      type: object
-      properties:
-        rateLimitRules:
-          type: array
-          items:
-            $ref: '#/components/schemas/RateLimitRule'
-        rateLoggingEnabled:
-          type: boolean
-    ConnectionServiceConfiguration:
-      type: object
-      properties:
-        maxTotal:
-          type: integer
-          format: int32
-        maxPerRoute:
-          type: integer
-          format: int32
-        validateAfterInactivity:
-          type: integer
-          format: int32
     AuthenticationFilter:
       required:
       - baseDn
@@ -261,47 +299,6 @@ components:
           type: string
           xml:
             name: base-dn
-    SsaConfiguration:
-      type: object
-      properties:
-        ssaEndpoint:
-          type: string
-        ssaCustomAttributes:
-          type: array
-          items:
-            type: string
-        ssaSigningAlg:
-          type: string
-        ssaExpirationInDays:
-          type: integer
-          format: int32
-        ssaMapSoftwareRolesToScopes:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-    RateLimitRule:
-      type: object
-      properties:
-        path:
-          type: string
-        methods:
-          type: array
-          items:
-            type: string
-        requestCount:
-          type: integer
-          format: int32
-        periodInSeconds:
-          type: integer
-          format: int32
-        keyExtractors:
-          type: array
-          items:
-            $ref: '#/components/schemas/KeyExtractor'
-        wellFormed:
-          type: boolean
     EngineConfig:
       type: object
       properties:
@@ -340,36 +337,6 @@ components:
           type: object
           additionalProperties:
             type: string
-    JsonPatch:
-      type: object
-    SpiffeTrustDomainConfiguration:
-      type: object
-      properties:
-        trustDomain:
-          type: string
-        bundleEndpointUrl:
-          type: string
-        bundleCacheLifetimeInMinutes:
-          type: integer
-          format: int32
-    ClientAuthenticationFilter:
-      required:
-      - baseDn
-      - filter
-      type: object
-      properties:
-        filter:
-          type: string
-        bind:
-          type: boolean
-        bindPasswordAttribute:
-          type: string
-          xml:
-            name: bind-password-attribute
-        baseDn:
-          type: string
-          xml:
-            name: base-dn
     AppConfiguration:
       type: object
       properties:
@@ -1324,66 +1291,85 @@ components:
             - code
             - token
             - id_token
-    JsonNode:
-      type: object
-    AuthenticationProtectionConfiguration:
+    ClientAuthenticationFilter:
+      required:
+      - baseDn
+      - filter
       type: object
       properties:
-        attemptExpiration:
-          type: integer
-          format: int32
-        maximumAllowedAttemptsWithoutDelay:
-          type: integer
-          format: int32
-        delayTime:
-          type: integer
-          format: int32
-        bruteForceProtectionEnabled:
+        filter:
+          type: string
+        bind:
           type: boolean
-    SsaValidationConfig:
+        bindPasswordAttribute:
+          type: string
+          xml:
+            name: bind-password-attribute
+        baseDn:
+          type: string
+          xml:
+            name: base-dn
+    ConnectionServiceConfiguration:
       type: object
       properties:
-        id:
-          type: string
-        type:
-          type: string
-          enum:
-          - NONE
-          - SSA
-          - DCR
-        displayName:
-          type: string
-        description:
-          type: string
-        scopes:
-          type: array
-          items:
-            type: string
-        allowedClaims:
-          type: array
-          items:
-            type: string
-        jwks:
-          type: string
-        jwksUri:
-          type: string
-        issuers:
-          type: array
-          items:
-            type: string
-        configurationEndpoint:
-          type: string
-        configurationEndpointClaim:
-          type: string
-        sharedSecret:
-          type: string
-    TrustedIssuerConfig:
+        maxTotal:
+          type: integer
+          format: int32
+        maxPerRoute:
+          type: integer
+          format: int32
+        validateAfterInactivity:
+          type: integer
+          format: int32
+    LockMessageConfig:
       type: object
       properties:
-        automaticallyGrantedScopes:
+        enableTokenMessages:
+          type: boolean
+        tokenMessagesChannel:
+          type: string
+    RateLimitRule:
+      type: object
+      properties:
+        path:
+          type: string
+        methods:
           type: array
           items:
             type: string
+        requestCount:
+          type: integer
+          format: int32
+        periodInSeconds:
+          type: integer
+          format: int32
+        keyExtractors:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyExtractor'
+        wellFormed:
+          type: boolean
+    PersistenceConfiguration:
+      type: object
+      properties:
+        databaseName:
+          type: string
+          description: Connection object's current catalog name.
+        schemaName:
+          type: string
+          description: Schema name.
+        productName:
+          type: string
+          description: Name of database product.
+        productVersion:
+          type: string
+          description: Version number of this database product.
+        driverName:
+          type: string
+          description: Name of this JDBC driver.
+        driverVersion:
+          type: string
+          description: JDBC driver version number.
     CorsConfigurationFilter:
       type: object
       properties:
@@ -1415,6 +1401,20 @@ components:
         paramName:
           type: string
         returnInResponse:
+          type: boolean
+    AuthenticationProtectionConfiguration:
+      type: object
+      properties:
+        attemptExpiration:
+          type: integer
+          format: int32
+        maximumAllowedAttemptsWithoutDelay:
+          type: integer
+          format: int32
+        delayTime:
+          type: integer
+          format: int32
+        bruteForceProtectionEnabled:
           type: boolean
   securitySchemes:
     oauth2:

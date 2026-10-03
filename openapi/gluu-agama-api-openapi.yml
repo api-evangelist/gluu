@@ -358,50 +358,6 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    DeploymentDetails:
-      type: object
-      properties:
-        folders:
-          type: array
-          items:
-            type: string
-        libs:
-          type: array
-          items:
-            type: string
-        error:
-          type: string
-        autoconfigure:
-          type: boolean
-        flowsError:
-          type: object
-          additionalProperties:
-            type: string
-        projectMetadata:
-          $ref: '#/components/schemas/ProjectMetadata'
-    JsonNode:
-      type: object
-    Deployment:
-      type: object
-      properties:
-        dn:
-          type: string
-        id:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-        taskActive:
-          type: boolean
-        finishedAt:
-          type: string
-          format: date-time
-        assets:
-          type: string
-        details:
-          $ref: '#/components/schemas/DeploymentDetails'
-        baseDn:
-          type: string
     ProjectMetadata:
       type: object
       properties:
@@ -425,6 +381,8 @@ components:
           type: array
           items:
             type: string
+    JsonNode:
+      type: object
     PagedResult:
       type: object
       properties:
@@ -441,6 +399,48 @@ components:
           type: array
           items:
             type: object
+    DeploymentDetails:
+      type: object
+      properties:
+        folders:
+          type: array
+          items:
+            type: string
+        libs:
+          type: array
+          items:
+            type: string
+        error:
+          type: string
+        autoconfigure:
+          type: boolean
+        flowsError:
+          type: object
+          additionalProperties:
+            type: string
+        projectMetadata:
+          $ref: '#/components/schemas/ProjectMetadata'
+    Deployment:
+      type: object
+      properties:
+        dn:
+          type: string
+        id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        taskActive:
+          type: boolean
+        finishedAt:
+          type: string
+          format: date-time
+        assets:
+          type: string
+        details:
+          $ref: '#/components/schemas/DeploymentDetails'
+        baseDn:
+          type: string
   securitySchemes:
     oauth2:
       type: oauth2
