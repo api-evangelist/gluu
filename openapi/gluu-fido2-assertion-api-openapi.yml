@@ -165,14 +165,14 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   responses:
-    AccessDenied:
-      description: Invalid details provided hence access denied.
+    InternalServerError:
+      description: Internal error occured. Please check log file for details.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal error occured. Please check log file for details.
+    AccessDenied:
+      description: Invalid details provided hence access denied.
       content:
         application/json:
           schema:

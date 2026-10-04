@@ -250,6 +250,36 @@ paths:
         - https://jans.io/oauth/config/read-all
 components:
   schemas:
+    MetricTypeInfo:
+      type: object
+      properties:
+        appType:
+          type: string
+        metricType:
+          type: string
+        subTypes:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    MetricAggregationPagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricAggregationEntry'
+    JsonNode:
+      type: object
     MetricAggregationEntry:
       type: object
       properties:
@@ -291,20 +321,6 @@ components:
           format: int32
         deletable:
           type: boolean
-    JsonNode:
-      type: object
-    MetricTypeInfo:
-      type: object
-      properties:
-        appType:
-          type: string
-        metricType:
-          type: string
-        subTypes:
-          uniqueItems: true
-          type: array
-          items:
-            type: string
     MetricEntryPagedResult:
       type: object
       properties:
@@ -355,22 +371,6 @@ components:
           type: boolean
         data:
           $ref: '#/components/schemas/JsonNode'
-    MetricAggregationPagedResult:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricAggregationEntry'
   securitySchemes:
     oauth2:
       type: oauth2

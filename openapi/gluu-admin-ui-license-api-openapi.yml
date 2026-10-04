@@ -311,13 +311,13 @@ paths:
         - https://jans.io/oauth/jans-auth-server/config/adminui/read-all
 components:
   schemas:
+    JsonNode:
+      type: object
     LicenseRequest:
       type: object
       properties:
         licenseKey:
           type: string
-    JsonNode:
-      type: object
     GenericResponse:
       type: object
       properties:
@@ -333,11 +333,6 @@ components:
         responseBytes:
           type: string
           format: byte
-    SSARequest:
-      type: object
-      properties:
-        ssa:
-          type: string
     LicenseResponse:
       type: object
       properties:
@@ -371,6 +366,11 @@ components:
           format: int64
         licenseExpired:
           type: boolean
+    SSARequest:
+      type: object
+      properties:
+        ssa:
+          type: string
   securitySchemes:
     oauth2:
       type: oauth2

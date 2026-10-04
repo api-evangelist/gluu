@@ -331,13 +331,48 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    UserAuthenticatorList:
+    UserPagedResult:
       type: object
       properties:
-        authenticators:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
           type: array
           items:
-            $ref: '#/components/schemas/UserAuthenticator'
+            $ref: '#/components/schemas/CustomUser'
+    UserAuthenticator:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+        custom:
+          type: object
+          additionalProperties:
+            type: object
+    CustomObjectAttribute:
+      type: object
+      properties:
+        name:
+          type: string
+        multiValued:
+          type: boolean
+        values:
+          type: array
+          items:
+            type: object
+        value:
+          type: object
+        displayValue:
+          type: string
     CustomUser:
       type: object
       properties:
@@ -388,31 +423,13 @@ components:
           type: string
         baseDn:
           type: string
-    UserPagedResult:
+    UserAuthenticatorList:
       type: object
       properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
+        authenticators:
           type: array
           items:
-            $ref: '#/components/schemas/CustomUser'
-    UserPatchRequest:
-      type: object
-      properties:
-        jsonPatchString:
-          type: string
-        customAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomObjectAttribute'
+            $ref: '#/components/schemas/UserAuthenticator'
     ApiError:
       type: object
       properties:
@@ -422,32 +439,15 @@ components:
           type: string
         description:
           type: string
-    UserAuthenticator:
+    UserPatchRequest:
       type: object
       properties:
-        id:
+        jsonPatchString:
           type: string
-        type:
-          type: string
-        custom:
-          type: object
-          additionalProperties:
-            type: object
-    CustomObjectAttribute:
-      type: object
-      properties:
-        name:
-          type: string
-        multiValued:
-          type: boolean
-        values:
+        customAttributes:
           type: array
           items:
-            type: object
-        value:
-          type: object
-        displayValue:
-          type: string
+            $ref: '#/components/schemas/CustomObjectAttribute'
   securitySchemes:
     oauth2:
       type: oauth2

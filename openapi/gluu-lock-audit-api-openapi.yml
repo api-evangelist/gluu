@@ -513,15 +513,6 @@ components:
             description: Additional context information as key-value pairs
           description: Additional context information as key-value pairs
       description: Log audit entry
-    ApiError:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        description:
-          type: string
     HealthEntry:
       type: object
       properties:
@@ -558,6 +549,15 @@ components:
           additionalProperties:
             type: string
       description: Health audit entry
+    ApiError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
   securitySchemes:
     oauth2:
       type: oauth2

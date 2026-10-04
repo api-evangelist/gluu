@@ -527,24 +527,14 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    JsonPatch:
-      type: object
-    PagedResult:
+    ScriptError:
       type: object
       properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
-          type: array
-          items:
-            type: object
+        raisedAt:
+          type: string
+          format: date-time
+        stackTrace:
+          type: string
     SimpleCustomProperty:
       type: object
       properties:
@@ -662,14 +652,24 @@ components:
           type: boolean
         description:
           type: string
-    ScriptError:
+    JsonPatch:
+      type: object
+    PagedResult:
       type: object
       properties:
-        raisedAt:
-          type: string
-          format: date-time
-        stackTrace:
-          type: string
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            type: object
   securitySchemes:
     oauth2:
       type: oauth2

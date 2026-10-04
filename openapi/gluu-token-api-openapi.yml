@@ -689,12 +689,6 @@ paths:
       description: The Jans server
 components:
   responses:
-    AccessDenied:
-      description: Invalid details provided hence access denied.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     InternalServerError:
       description: Internal error occured. Please check log file for details.
       content:
@@ -703,6 +697,12 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Unauthorized access request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    AccessDenied:
+      description: Invalid details provided hence access denied.
       content:
         application/json:
           schema:

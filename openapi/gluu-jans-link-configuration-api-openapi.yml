@@ -74,6 +74,13 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
+    LinkAttributeMapping:
+      type: object
+      properties:
+        source:
+          type: string
+        destination:
+          type: string
     GluuLdapConfiguration:
       type: object
       properties:
@@ -110,13 +117,6 @@ components:
         level:
           type: integer
           format: int32
-    LinkAttributeMapping:
-      type: object
-      properties:
-        source:
-          type: string
-        destination:
-          type: string
     AppConfiguration:
       type: object
       properties:

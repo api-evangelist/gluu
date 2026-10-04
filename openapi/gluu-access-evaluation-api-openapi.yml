@@ -53,22 +53,6 @@ paths:
           description: Internal server error
 components:
   schemas:
-    Subject:
-      type: object
-      properties:
-        type:
-          type: string
-          description: Type of the subject (e.g., user, service)
-        id:
-          type: string
-          description: Unique identifier of the subject
-        properties:
-          type: object
-          additionalProperties: true
-          description: Additional attributes of the subject
-      required:
-      - type
-      - id
     EvaluationResponse:
       type: object
       properties:
@@ -111,6 +95,22 @@ components:
           description: Additional attributes of the action
       required:
       - name
+    Subject:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of the subject (e.g., user, service)
+        id:
+          type: string
+          description: Unique identifier of the subject
+        properties:
+          type: object
+          additionalProperties: true
+          description: Additional attributes of the subject
+      required:
+      - type
+      - id
   securitySchemes:
     bearer:
       type: http

@@ -88,8 +88,26 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    JsonPatch:
+    CacheConfiguration:
       type: object
+      properties:
+        cacheProviderType:
+          type: string
+          enum:
+          - IN_MEMORY
+          - MEMCACHED
+          - REDIS
+          - NATIVE_PERSISTENCE
+        memcachedConfiguration:
+          $ref: '#/components/schemas/MemcachedConfiguration'
+        inMemoryConfiguration:
+          $ref: '#/components/schemas/InMemoryConfiguration'
+        redisConfiguration:
+          $ref: '#/components/schemas/RedisConfiguration'
+        nativePersistenceConfiguration:
+          $ref: '#/components/schemas/NativePersistenceConfiguration'
+        keyPrefix:
+          type: string
     MemcachedConfiguration:
       type: object
       properties:
@@ -109,25 +127,6 @@ components:
           enum:
           - DEFAULT
           - BINARY
-    NativePersistenceConfiguration:
-      type: object
-      properties:
-        defaultPutExpiration:
-          type: integer
-          format: int32
-        defaultCleanupBatchSize:
-          type: integer
-          format: int32
-        deleteExpiredOnGetRequest:
-          type: boolean
-        disableAttemptUpdateBeforeInsert:
-          type: boolean
-    InMemoryConfiguration:
-      type: object
-      properties:
-        defaultPutExpiration:
-          type: integer
-          format: int32
     RedisConfiguration:
       type: object
       properties:
@@ -174,26 +173,27 @@ components:
         maxRetryAttempts:
           type: integer
           format: int32
-    CacheConfiguration:
+    InMemoryConfiguration:
       type: object
       properties:
-        cacheProviderType:
-          type: string
-          enum:
-          - IN_MEMORY
-          - MEMCACHED
-          - REDIS
-          - NATIVE_PERSISTENCE
-        memcachedConfiguration:
-          $ref: '#/components/schemas/MemcachedConfiguration'
-        inMemoryConfiguration:
-          $ref: '#/components/schemas/InMemoryConfiguration'
-        redisConfiguration:
-          $ref: '#/components/schemas/RedisConfiguration'
-        nativePersistenceConfiguration:
-          $ref: '#/components/schemas/NativePersistenceConfiguration'
-        keyPrefix:
-          type: string
+        defaultPutExpiration:
+          type: integer
+          format: int32
+    JsonPatch:
+      type: object
+    NativePersistenceConfiguration:
+      type: object
+      properties:
+        defaultPutExpiration:
+          type: integer
+          format: int32
+        defaultCleanupBatchSize:
+          type: integer
+          format: int32
+        deleteExpiredOnGetRequest:
+          type: boolean
+        disableAttemptUpdateBeforeInsert:
+          type: boolean
   securitySchemes:
     oauth2:
       type: oauth2

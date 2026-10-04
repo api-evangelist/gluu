@@ -120,57 +120,6 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    JsonPatch:
-      type: object
-    CedarlingConfiguration:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: Specify if Cedraling is enabled
-        policySources:
-          type: array
-          description: List of Policy Sources
-          items:
-            $ref: '#/components/schemas/PolicySource'
-        logType:
-          type: string
-          description: 'Log type: off, memory, std_out'
-          enum:
-          - 'OFF'
-          - MEMORY
-          - STD_OUT
-        logLevel:
-          type: string
-          description: System Log Level
-          enum:
-          - FATAL
-          - ERROR
-          - WARN
-          - INFO
-          - DEBUG
-          - TRACE
-        externalPolicyStoreUri:
-          type: string
-          description: External policy store URI
-        maxEntries:
-          type: integer
-          description: maximum number of entries in policy store file
-          format: int32
-      description: Cedarling configuration
-    PolicySource:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          description: Specify if policy source is enabled
-        authorizationToken:
-          type: string
-          description: Authorization token to access URI
-        policyStoreUri:
-          type: string
-          description: URI to policy store. Policy store can be either json/zip
-      description: List of Policy Sources
     AppConfiguration:
       type: object
       properties:
@@ -256,6 +205,19 @@ components:
           type: integer
           description: Each clean up iteration fetches chunk of expired data per base dn and removes it from storage
           format: int32
+    PolicySource:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Specify if policy source is enabled
+        authorizationToken:
+          type: string
+          description: Authorization token to access URI
+        policyStoreUri:
+          type: string
+          description: URI to policy store. Policy store can be either json/zip
+      description: List of Policy Sources
     GrpcConfiguration:
       type: object
       properties:
@@ -281,6 +243,44 @@ components:
           type: string
           description: TLS Private Key File Path
       description: gRPC server configuration
+    JsonPatch:
+      type: object
+    CedarlingConfiguration:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Specify if Cedraling is enabled
+        policySources:
+          type: array
+          description: List of Policy Sources
+          items:
+            $ref: '#/components/schemas/PolicySource'
+        logType:
+          type: string
+          description: 'Log type: off, memory, std_out'
+          enum:
+          - 'OFF'
+          - MEMORY
+          - STD_OUT
+        logLevel:
+          type: string
+          description: System Log Level
+          enum:
+          - FATAL
+          - ERROR
+          - WARN
+          - INFO
+          - DEBUG
+          - TRACE
+        externalPolicyStoreUri:
+          type: string
+          description: External policy store URI
+        maxEntries:
+          type: integer
+          description: maximum number of entries in policy store file
+          format: int32
+      description: Cedarling configuration
   securitySchemes:
     oauth2:
       type: oauth2

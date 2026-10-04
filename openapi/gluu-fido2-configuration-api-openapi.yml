@@ -133,6 +133,15 @@ paths:
     - url: https://jans.local.io
 components:
   schemas:
+    RequestedParty:
+      type: object
+      properties:
+        id:
+          type: string
+        origins:
+          type: array
+          items:
+            type: string
     Fido2Configuration:
       type: object
       properties:
@@ -188,22 +197,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RequestedParty'
-    RequestedParty:
-      type: object
-      properties:
-        id:
-          type: string
-        origins:
-          type: array
-          items:
-            type: string
-    MetadataServer:
-      type: object
-      properties:
-        url:
-          type: string
-        rootCert:
-          type: string
     AppConfiguration:
       type: object
       properties:
@@ -256,6 +249,13 @@ components:
             type: string
         fido2Configuration:
           $ref: '#/components/schemas/Fido2Configuration'
+    MetadataServer:
+      type: object
+      properties:
+        url:
+          type: string
+        rootCert:
+          type: string
     ErrorResponse:
       required:
       - error
@@ -269,8 +269,8 @@ components:
         details:
           type: string
   responses:
-    NotAcceptable:
-      description: Request Not Acceptable.
+    InternalServerError:
+      description: Internal error occured. Please check log file for details.
       content:
         application/json:
           schema:
@@ -281,8 +281,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal error occured. Please check log file for details.
+    NotAcceptable:
+      description: Request Not Acceptable.
       content:
         application/json:
           schema:

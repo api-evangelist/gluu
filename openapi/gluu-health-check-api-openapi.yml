@@ -144,15 +144,6 @@ paths:
         - https://jans.io/oauth/config/read-all
 components:
   schemas:
-    Status:
-      type: object
-      properties:
-        name:
-          type: string
-        status:
-          type: string
-        error:
-          type: string
     JsonNode:
       type: object
     StatsData:
@@ -174,6 +165,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Status'
+    Status:
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+        error:
+          type: string
     FacterData:
       type: object
       properties:

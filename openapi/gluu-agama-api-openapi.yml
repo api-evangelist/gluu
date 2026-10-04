@@ -358,6 +358,8 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
+    JsonNode:
+      type: object
     ProjectMetadata:
       type: object
       properties:
@@ -381,45 +383,6 @@ components:
           type: array
           items:
             type: string
-    JsonNode:
-      type: object
-    PagedResult:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
-          type: array
-          items:
-            type: object
-    DeploymentDetails:
-      type: object
-      properties:
-        folders:
-          type: array
-          items:
-            type: string
-        libs:
-          type: array
-          items:
-            type: string
-        error:
-          type: string
-        autoconfigure:
-          type: boolean
-        flowsError:
-          type: object
-          additionalProperties:
-            type: string
-        projectMetadata:
-          $ref: '#/components/schemas/ProjectMetadata'
     Deployment:
       type: object
       properties:
@@ -441,6 +404,43 @@ components:
           $ref: '#/components/schemas/DeploymentDetails'
         baseDn:
           type: string
+    DeploymentDetails:
+      type: object
+      properties:
+        folders:
+          type: array
+          items:
+            type: string
+        libs:
+          type: array
+          items:
+            type: string
+        error:
+          type: string
+        autoconfigure:
+          type: boolean
+        flowsError:
+          type: object
+          additionalProperties:
+            type: string
+        projectMetadata:
+          $ref: '#/components/schemas/ProjectMetadata'
+    PagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            type: object
   securitySchemes:
     oauth2:
       type: oauth2

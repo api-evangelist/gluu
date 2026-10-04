@@ -210,22 +210,6 @@ paths:
         - https://jans.io/oauth/config/read-all
 components:
   schemas:
-    Fido2RegistrationEntryPagedResult:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
-          type: array
-          items:
-            $ref: '#/components/schemas/Fido2RegistrationEntry'
     Fido2DeviceData:
       type: object
       properties:
@@ -308,6 +292,22 @@ components:
           writeOnly: true
         baseDn:
           type: string
+    Fido2RegistrationEntryPagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/Fido2RegistrationEntry'
     Fido2DeviceNotificationConf:
       type: object
       properties:

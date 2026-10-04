@@ -88,6 +88,47 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
+    MessageConfiguration:
+      type: object
+      properties:
+        messageProviderType:
+          type: string
+          enum:
+          - DISABLED
+          - REDIS
+          - POSTGRES
+        redisConfiguration:
+          $ref: '#/components/schemas/RedisMessageConfiguration'
+        postgresConfiguration:
+          $ref: '#/components/schemas/PostgresMessageConfiguration'
+    PostgresMessageConfiguration:
+      type: object
+      properties:
+        driverClassName:
+          type: string
+        dbSchemaName:
+          type: string
+        connectionUri:
+          type: string
+        authUserName:
+          type: string
+        authUserPassword:
+          type: string
+        connectionPoolMaxTotal:
+          type: integer
+          format: int32
+        connectionPoolMaxIdle:
+          type: integer
+          format: int32
+        connectionPoolMinIdle:
+          type: integer
+          format: int32
+        messageWaitMillis:
+          type: integer
+          format: int32
+        messageSleepThreadTime:
+          type: integer
+          format: int32
     RedisMessageConfiguration:
       type: object
       properties:
@@ -132,47 +173,6 @@ components:
           type: integer
           format: int32
         maxRetryAttempts:
-          type: integer
-          format: int32
-    MessageConfiguration:
-      type: object
-      properties:
-        messageProviderType:
-          type: string
-          enum:
-          - DISABLED
-          - REDIS
-          - POSTGRES
-        redisConfiguration:
-          $ref: '#/components/schemas/RedisMessageConfiguration'
-        postgresConfiguration:
-          $ref: '#/components/schemas/PostgresMessageConfiguration'
-    PostgresMessageConfiguration:
-      type: object
-      properties:
-        driverClassName:
-          type: string
-        dbSchemaName:
-          type: string
-        connectionUri:
-          type: string
-        authUserName:
-          type: string
-        authUserPassword:
-          type: string
-        connectionPoolMaxTotal:
-          type: integer
-          format: int32
-        connectionPoolMaxIdle:
-          type: integer
-          format: int32
-        connectionPoolMinIdle:
-          type: integer
-          format: int32
-        messageWaitMillis:
-          type: integer
-          format: int32
-        messageSleepThreadTime:
           type: integer
           format: int32
     JsonPatch:

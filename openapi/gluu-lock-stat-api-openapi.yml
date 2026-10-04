@@ -130,6 +130,22 @@ paths:
         - https://jans.io/oauth/lock/stat.readonly
 components:
   schemas:
+    FlatStatResponse:
+      type: object
+      properties:
+        response:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatResponseItem'
+    LockApiError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
     StatResponseItem:
       type: object
       properties:
@@ -148,22 +164,6 @@ components:
             additionalProperties:
               type: integer
               format: int64
-    LockApiError:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        description:
-          type: string
-    FlatStatResponse:
-      type: object
-      properties:
-        response:
-          type: array
-          items:
-            $ref: '#/components/schemas/StatResponseItem'
   securitySchemes:
     oauth2:
       type: oauth2

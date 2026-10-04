@@ -294,6 +294,161 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
+    ClientAttributes:
+      type: object
+      properties:
+        cimdExpired:
+          type: boolean
+        tlsClientAuthSubjectDn:
+          type: string
+        runIntrospectionScriptBeforeJwtCreation:
+          type: boolean
+        keepClientAuthorizationAfterExpiration:
+          type: boolean
+        allowSpontaneousScopes:
+          type: boolean
+        spontaneousScopes:
+          type: array
+          items:
+            type: string
+        spontaneousScopeScriptDns:
+          type: array
+          items:
+            type: string
+        updateTokenScriptDns:
+          type: array
+          items:
+            type: string
+        logoutStatusJwtScriptDns:
+          type: array
+          items:
+            type: string
+        parScriptDns:
+          type: array
+          items:
+            type: string
+        txTokenScriptDns:
+          type: array
+          items:
+            type: string
+        backchannelLogoutUri:
+          type: array
+          items:
+            type: string
+        backchannelLogoutSessionRequired:
+          type: boolean
+        additionalAudience:
+          type: array
+          items:
+            type: string
+        postAuthnScripts:
+          type: array
+          items:
+            type: string
+        tokenExchangeScripts:
+          type: array
+          items:
+            type: string
+        idJagScripts:
+          type: array
+          items:
+            type: string
+        consentGatheringScripts:
+          type: array
+          items:
+            type: string
+        introspectionScripts:
+          type: array
+          items:
+            type: string
+        rptClaimsScripts:
+          type: array
+          items:
+            type: string
+        ropcScripts:
+          type: array
+          items:
+            type: string
+        parLifetime:
+          type: integer
+          format: int32
+        requirePar:
+          type: boolean
+        dpopBoundAccessToken:
+          type: boolean
+        jansAuthSignedRespAlg:
+          type: string
+        jansAuthEncRespAlg:
+          type: string
+        jansAuthEncRespEnc:
+          type: string
+        jansSubAttr:
+          type: string
+        redirectUrisRegex:
+          type: string
+        jansAuthorizedAcr:
+          type: array
+          items:
+            type: string
+        jansDefaultPromptLogin:
+          type: boolean
+        txTokenLifetime:
+          type: integer
+          format: int32
+        idTokenLifetime:
+          type: integer
+          format: int32
+        allowOfflineAccessWithoutConsent:
+          type: boolean
+        requirePkce:
+          type: boolean
+        minimumAcrLevel:
+          type: integer
+          format: int32
+        minimumAcrLevelAutoresolve:
+          type: boolean
+        additionalTokenEndpointAuthMethods:
+          type: array
+          items:
+            type: string
+        minimumAcrPriorityList:
+          type: array
+          items:
+            type: string
+        requestedLifetime:
+          type: integer
+          format: int32
+        evidence:
+          type: string
+        introspectionSignedResponseAlg:
+          type: string
+        introspectionEncryptedResponseAlg:
+          type: string
+        introspectionEncryptedResponseEnc:
+          type: string
+        txTokenSignedResponseAlg:
+          type: string
+        txTokenEncryptedResponseAlg:
+          type: string
+        txTokenEncryptedResponseEnc:
+          type: string
+        logoutStatusJwtSignedResponseAlg:
+          type: string
+        authorizationDetailsTypes:
+          type: array
+          items:
+            type: string
+        cimdClient:
+          type: boolean
+        cimdOriginalClientId:
+          type: string
+        cimdExpiresAt:
+          type: integer
+          format: int64
+        spiffeId:
+          type: string
+        spiffeBundleEndpoint:
+          type: string
     Client:
       type: object
       properties:
@@ -535,6 +690,21 @@ components:
           type: string
         inum:
           type: string
+    CustomObjectAttribute:
+      type: object
+      properties:
+        name:
+          type: string
+        multiValued:
+          type: boolean
+        values:
+          type: array
+          items:
+            type: object
+        value:
+          type: object
+        displayValue:
+          type: string
     JsonPatch:
       type: object
     PagedResult:
@@ -560,176 +730,6 @@ components:
           type: object
           additionalProperties:
             type: string
-    CustomObjectAttribute:
-      type: object
-      properties:
-        name:
-          type: string
-        multiValued:
-          type: boolean
-        values:
-          type: array
-          items:
-            type: object
-        value:
-          type: object
-        displayValue:
-          type: string
-    ClientAttributes:
-      type: object
-      properties:
-        cimdExpired:
-          type: boolean
-        tlsClientAuthSubjectDn:
-          type: string
-        runIntrospectionScriptBeforeJwtCreation:
-          type: boolean
-        keepClientAuthorizationAfterExpiration:
-          type: boolean
-        allowSpontaneousScopes:
-          type: boolean
-        spontaneousScopes:
-          type: array
-          items:
-            type: string
-        spontaneousScopeScriptDns:
-          type: array
-          items:
-            type: string
-        updateTokenScriptDns:
-          type: array
-          items:
-            type: string
-        logoutStatusJwtScriptDns:
-          type: array
-          items:
-            type: string
-        parScriptDns:
-          type: array
-          items:
-            type: string
-        txTokenScriptDns:
-          type: array
-          items:
-            type: string
-        backchannelLogoutUri:
-          type: array
-          items:
-            type: string
-        backchannelLogoutSessionRequired:
-          type: boolean
-        additionalAudience:
-          type: array
-          items:
-            type: string
-        postAuthnScripts:
-          type: array
-          items:
-            type: string
-        tokenExchangeScripts:
-          type: array
-          items:
-            type: string
-        idJagScripts:
-          type: array
-          items:
-            type: string
-        consentGatheringScripts:
-          type: array
-          items:
-            type: string
-        introspectionScripts:
-          type: array
-          items:
-            type: string
-        rptClaimsScripts:
-          type: array
-          items:
-            type: string
-        ropcScripts:
-          type: array
-          items:
-            type: string
-        parLifetime:
-          type: integer
-          format: int32
-        requirePar:
-          type: boolean
-        dpopBoundAccessToken:
-          type: boolean
-        jansAuthSignedRespAlg:
-          type: string
-        jansAuthEncRespAlg:
-          type: string
-        jansAuthEncRespEnc:
-          type: string
-        jansSubAttr:
-          type: string
-        redirectUrisRegex:
-          type: string
-        jansAuthorizedAcr:
-          type: array
-          items:
-            type: string
-        jansDefaultPromptLogin:
-          type: boolean
-        txTokenLifetime:
-          type: integer
-          format: int32
-        idTokenLifetime:
-          type: integer
-          format: int32
-        allowOfflineAccessWithoutConsent:
-          type: boolean
-        requirePkce:
-          type: boolean
-        minimumAcrLevel:
-          type: integer
-          format: int32
-        minimumAcrLevelAutoresolve:
-          type: boolean
-        additionalTokenEndpointAuthMethods:
-          type: array
-          items:
-            type: string
-        minimumAcrPriorityList:
-          type: array
-          items:
-            type: string
-        requestedLifetime:
-          type: integer
-          format: int32
-        evidence:
-          type: string
-        introspectionSignedResponseAlg:
-          type: string
-        introspectionEncryptedResponseAlg:
-          type: string
-        introspectionEncryptedResponseEnc:
-          type: string
-        txTokenSignedResponseAlg:
-          type: string
-        txTokenEncryptedResponseAlg:
-          type: string
-        txTokenEncryptedResponseEnc:
-          type: string
-        logoutStatusJwtSignedResponseAlg:
-          type: string
-        authorizationDetailsTypes:
-          type: array
-          items:
-            type: string
-        cimdClient:
-          type: boolean
-        cimdOriginalClientId:
-          type: string
-        cimdExpiresAt:
-          type: integer
-          format: int64
-        spiffeId:
-          type: string
-        spiffeBundleEndpoint:
-          type: string
   securitySchemes:
     oauth2:
       type: oauth2
