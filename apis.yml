@@ -1992,6 +1992,9 @@ apis:
   - type: Protobuf
     url: grpc/gluu-jans-lock-audit.proto
 common:
+- type: CapabilityMap
+  url: capabilities/gluu-capability-edges.yml
+  name: Gluu Business Capability Map
 - type: Overlay
   url: overlays/gluu-jans-auth-server-overlay.yaml
 - type: Overlay

@@ -1,0 +1,318 @@
+slug: gluu
+provider: Gluu
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 31
+edges:
+- tag: Authorization
+  spec_file: gluu-authorization-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.95
+  evidence: GET /restv1/authorize  get_authorize  "The Authorization Endpoint performs Authentication
+    of the End-User"
+  reason: The OAuth 2.0 / OpenID Connect authorization and pushed-authorization endpoints that authenticate
+    end users and issue grants are the definitional surface of Identity & Access Management.
+- tag: Token
+  spec_file: gluu-token-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.92
+  evidence: POST /restv1/token  "To obtain an Access Token, an ID Token, and optionally a Refresh Token";
+    POST /restv1/revoke  "Revoke an Access Token or a Refresh Token"; schema TokenEntity
+  reason: Issuance, introspection, search and revocation of OAuth access/refresh/ID tokens — core authentication
+    and access-credential management, i.e. Identity & Access Management.
+- tag: Access Evaluation
+  spec_file: gluu-access-evaluation-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: POST /restv1/evaluation post_access_evaluation 'Access Evaluation AuthZEN'; schemas Subject,
+    Resource, Action, EvaluationResponse
+  reason: AuthZEN subject/resource/action authorization decision endpoint on an OAuth/OIDC authorization
+    server — core identity and access management.
+- tag: Auth - Session Management
+  spec_file: gluu-auth-session-management-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: DELETE /api/v1/jans-auth-server/session/user/{userDn}  revoke-user-session  "Revoke all sessions
+    by userDn"; schemas SessionId, UserAuthenticator
+  reason: Inspecting, searching and revoking end-user authentication sessions on the auth server is core
+    identity and access administration; no other reading of these operations fits.
+- tag: Authorization Challenge
+  spec_file: gluu-authorization-challenge-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: POST /restv1/authorize-challenge  post_authorize_challenge  "The Authorization Challenge Endpoint
+    performs Authentication of the End-User"
+  reason: A first-party authentication/authorization challenge endpoint of the OAuth server — end-user
+    authentication, i.e. Identity & Access Management.
+- tag: FIDO2 Assertion
+  spec_file: gluu-fido2-assertion-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.9
+  evidence: POST /jans-fido2/restv1/assertion/result  Parses and validates an assertion response; 'FIDO
+    2.0 is an open authentication standard'
+  reason: Assertion options/result endpoints perform passwordless user authentication — core identity
+    and access management.
+- tag: FIDO2 Attestation
+  spec_file: gluu-fido2-attestation-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.88
+  evidence: POST /jans-fido2/restv1/attestation/options  Create new registration; FIDO2 attestation result
+  reason: Registration/enrolment of FIDO2 authenticators for users is credential lifecycle within identity
+    and access management.
+- tag: Admin UI - Permission
+  spec_file: gluu-admin-ui-permission-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: GET /admin-ui/adminUIPermissions 'Get all admin ui permissions'; POST add-adminui-permission;
+    schema AdminPermission
+  reason: CRUD over administrative permissions on an IAM platform — directly identity and access management.
+- tag: Admin UI - Role
+  spec_file: gluu-admin-ui-role-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: GET /admin-ui/adminUIRoles 'Get all admin ui roles'; POST add-adminui-role; schema AdminRole
+  reason: Role definition and lifecycle for administrative access — role-based access control, i.e. identity
+    and access management.
+- tag: Admin UI - Role-Permissions Mapping
+  spec_file: gluu-admin-ui-role-permissions-mapping-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: PUT /admin-ui/adminUIRolePermissionsMapping  map-permissions-to-role  "Map permissions to
+    role"; schema RolePermissionMapping
+  reason: Operations create, read and delete mappings of permissions to roles — role-based access control
+    administration, squarely Identity & Access Management. Scoped to the vendor's own admin console, but
+    the capability realised is still access rights administration.
+- tag: Configuration – User Management
+  spec_file: gluu-configuration-user-management-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: 'GET /mgt/configuser  Gets list of users; POST /mgt/configuser  Create new User; schemas:
+    CustomUser, UserAuthenticator'
+  reason: CRUD over identity-platform user accounts with authenticators is identity and access management
+    (user account lifecycle), not HR employee records.
+- tag: Fido2 - Registration
+  spec_file: gluu-fido2-registration-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: GET /fido2/registration/entries/{username}  Get details of connected FIDO2 devices registered
+    to user; DELETE delete-fido2-data
+  reason: Administration of users' registered authenticator devices is credential/authenticator lifecycle
+    management within IAM.
+- tag: Token Introspection
+  spec_file: gluu-token-introspection-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: GET /restv1/rpt/status  get-rpt-status  The Introspection OAuth 2 Endpoint for RPT
+  reason: OAuth 2.0 introspection of requesting-party tokens — validating access credentials at runtime,
+    an IAM capability of this authorization server.
+- tag: UMA (User Managed Access)
+  spec_file: gluu-uma-user-managed-access-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: GET /restv1/uma/gather_claims  UMA Claims Gathering Endpoint; POST /restv1/host/rsrc_pr  host-rsrc_pr  Registers
+    permission
+  reason: User Managed Access claims gathering and permission registration on the UMA Authorization Server
+    — authorization/permission decisioning, squarely Identity & Access Management.
+- tag: User
+  spec_file: gluu-user-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: POST /Users  create-user; DELETE /UserTokens  revoke-tokens; "CRUD functionality ... for identity
+    management resources such as users, groups, and fido devices"
+  reason: SCIM 2.0 user provisioning CRUD plus token revocation on an identity management server — joiners/movers/leavers
+    style identity lifecycle, i.e. Identity & Access Management, not HR employee records.
+- tag: Group
+  spec_file: gluu-group-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.82
+  evidence: POST /Groups "Create group", PUT /Groups/{id} "Update group by id", schema GroupResource/Member
+  reason: SCIM group lifecycle CRUD manages the group memberships used to grant access in an IAM platform;
+    not HR organisational structure.
+- tag: OAuth - Scopes
+  spec_file: gluu-oauth-scopes-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.82
+  evidence: 'POST /api/v1/scopes  post-oauth-scopes  Create Scope; schemas: CustomScope, ScopeAttributes'
+  reason: Operations manage OAuth authorization scopes on an identity provider — defining what access
+    a client/user is granted. That is identity and access management (authorization policy objects), not
+    a business-domain noun.
+- tag: Client Authorization
+  spec_file: gluu-client-authorization-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: DELETE /api/v1/clients/authorizations/{userId}/{clientId}/{username} 'Revoke client authorization';
+    schemas ClientAuth, Scope
+  reason: Listing and revoking a user's granted authorisations (scopes) to OAuth clients is directly access-grant
+    administration, the core of Identity & Access Management for this IAM vendor.
+- tag: Default Authentication Method
+  spec_file: gluu-default-authentication-method-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: GET /api/v1/acrs  Gets default authentication method; schema AuthenticationMethod
+  reason: Setting the authentication context class / default authentication method governs how users authenticate,
+    squarely identity and access management, though it is a narrow config surface.
+- tag: Global Token Revocation
+  spec_file: gluu-global-token-revocation-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /restv1/global-token-revocation — "Global Token Revocation" on "Janssen Authorization
+    Server - OAuth 2.0 server; OpenID Connect Provider (OP)"
+  reason: Revoking a subject's OAuth/OIDC tokens globally is an access-revocation operation of the authorization
+    server — identity and access management.
+- tag: OAuth - OpenID Connect - Clients
+  spec_file: gluu-oauth-openid-connect-clients-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /api/v1/openid/clients  post-oauth-openid-client  Create new OpenId Connect client
+  reason: Full CRUD over OpenID Connect client registrations (Client, ClientAttributes) in Gluu's identity
+    provider — registration and stewardship of relying-party credentials for authentication and authorisation,
+    i.e. Identity & Access Management. Some ambiguity with developer OAuth-client credential management,
+    hence 0.8.
+- tag: UMA 2 Resource
+  spec_file: gluu-uma-2-resource-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: POST /restv1/host/rsrc/resource_set  "Adds a new resource description"; DELETE /restv1/host/rsrc/resource_set/{rsid}  "Deletes
+    a previously registered resource"
+  reason: Registration lifecycle of UMA-protected resource sets on the authorization server — the objects
+    against which access policy is enforced, an IAM function rather than any business resource.
+- tag: User Info
+  spec_file: gluu-user-info-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: GET /restv1/userinfo  get-userinfo  Returns Claims about the authenticated End-User
+  reason: OpenID Connect UserInfo endpoint returning claims about the authenticated end-user — an authentication/identity
+    assertion function of the OIDC provider.
+- tag: OAuth - UMA Resources
+  spec_file: gluu-oauth-uma-resources-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.78
+  evidence: POST /api/v1/uma/resources  post-oauth-uma-resources  Creates an UMA resource
+  reason: UMA protected-resource registration governs which resources are access-controlled by the authorization
+    server; squarely identity and access management.
+- tag: Session Management
+  spec_file: gluu-session-management-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.78
+  evidence: GET /restv1/session_status  session_status  Determine current session status; GET /restv1/end_session  end_session  End
+    current session
+  reason: Authenticated session status and logout at an OpenID Provider is core identity and access management
+    (authentication session lifecycle).
+- tag: fido2 devices
+  spec_file: gluu-fido2-devices-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.78
+  evidence: GET /Fido2Devices  get-fido2-devices; schema Fido2DeviceResource; "identity management resources
+    such as users, groups, and fido devices"
+  reason: Lifecycle management of FIDO2 authenticator devices registered to identities — strong-authentication
+    credential administration, part of Identity & Access Management.
+- tag: UMA Scope
+  spec_file: gluu-uma-scope-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: GET /restv1/uma/scopes{id}  get-uma_scopes  Provides UMA Scope description by scope id
+  reason: Retrieval of UMA authorization scope definitions — access-right metadata on the authorization
+    server. IAM is the only sensible reading, but the surface is a single read operation.
+- tag: Admin UI - Cedarling
+  spec_file: gluu-admin-ui-cedarling-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: GET /admin-ui/security/policyStore 'Get Admin UI policy store'; POST /admin-ui/security/syncRoleScopesMapping
+    'Sync role-to-scope mappings from the policy store'
+  reason: Manages the authorization policy store and role-to-scope mappings governing admin access; this
+    is access management policy administration rather than generic configuration.
+- tag: Attribute
+  spec_file: gluu-attribute-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: GET /api/v1/attributes  get-attributes  "Gets a list of Jans attributes"; schemas JansAttribute,
+    AttributeValidation
+  reason: CRUD over the identity server's attribute (claim) definitions, which govern what user data the
+    OAuth/OIDC provider stores and releases — identity schema administration within IAM. Some ambiguity
+    with generic master-data/schema management keeps confidence moderate.
+- tag: Client Registration
+  spec_file: gluu-client-registration-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: DELETE /restv1/register 'Deletes the client info for a previously registered client'
+  reason: OAuth/OIDC dynamic client registration lifecycle — managing the credentialed identities of applications
+    against the authorization server, i.e. identity and access management.
+- tag: Registration
+  spec_file: gluu-registration-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.7
+  evidence: POST /restv1/register  post-register  Registers new client dynamically
+  reason: OAuth dynamic client registration issues and maintains client credentials/metadata at the authorization
+    server — an identity and access management function. Could arguably be developer credential management,
+    hence moderate confidence.
