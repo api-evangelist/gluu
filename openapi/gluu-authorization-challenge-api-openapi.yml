@@ -106,14 +106,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized access request.
+    InvalidRequest:
+      description: Invalid parameters are provided to endpoint.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    InvalidRequest:
-      description: Invalid parameters are provided to endpoint.
+    Unauthorized:
+      description: Unauthorized access request.
       content:
         application/json:
           schema:

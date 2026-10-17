@@ -389,6 +389,87 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
+    ScopeAttributes:
+      type: object
+      properties:
+        spontaneousClientScopes:
+          type: array
+          items:
+            type: string
+        showInConfigurationEndpoint:
+          type: boolean
+    JsonPatch:
+      type: object
+    CustomScope:
+      type: object
+      properties:
+        dn:
+          type: string
+        expirationDate:
+          type: string
+          format: date-time
+        deletable:
+          type: boolean
+        inum:
+          type: string
+        displayName:
+          type: string
+        id:
+          type: string
+        iconUrl:
+          type: string
+        description:
+          type: string
+        scopeType:
+          type: string
+          enum:
+          - openid
+          - dynamic
+          - uma
+          - spontaneous
+          - oauth
+        claims:
+          type: array
+          items:
+            type: string
+        defaultScope:
+          type: boolean
+        groupClaims:
+          type: boolean
+        dynamicScopeScripts:
+          type: array
+          items:
+            type: string
+        umaAuthorizationPolicies:
+          type: array
+          items:
+            type: string
+        attributes:
+          $ref: '#/components/schemas/ScopeAttributes'
+        creatorId:
+          type: string
+        creatorType:
+          type: string
+          enum:
+          - none
+          - client
+          - user
+          - auto
+        creationDate:
+          type: string
+          format: date-time
+        creatorAttributes:
+          type: object
+          additionalProperties:
+            type: string
+        clients:
+          type: array
+          items:
+            $ref: '#/components/schemas/Client'
+        umaType:
+          type: boolean
+        baseDn:
+          type: string
     ClientAttributes:
       type: object
       properties:
@@ -785,93 +866,6 @@ components:
           type: string
         inum:
           type: string
-    CustomObjectAttribute:
-      type: object
-      properties:
-        name:
-          type: string
-        multiValued:
-          type: boolean
-        values:
-          type: array
-          items:
-            type: object
-        value:
-          type: object
-        displayValue:
-          type: string
-    CustomScope:
-      type: object
-      properties:
-        dn:
-          type: string
-        expirationDate:
-          type: string
-          format: date-time
-        deletable:
-          type: boolean
-        inum:
-          type: string
-        displayName:
-          type: string
-        id:
-          type: string
-        iconUrl:
-          type: string
-        description:
-          type: string
-        scopeType:
-          type: string
-          enum:
-          - openid
-          - dynamic
-          - uma
-          - spontaneous
-          - oauth
-        claims:
-          type: array
-          items:
-            type: string
-        defaultScope:
-          type: boolean
-        groupClaims:
-          type: boolean
-        dynamicScopeScripts:
-          type: array
-          items:
-            type: string
-        umaAuthorizationPolicies:
-          type: array
-          items:
-            type: string
-        attributes:
-          $ref: '#/components/schemas/ScopeAttributes'
-        creatorId:
-          type: string
-        creatorType:
-          type: string
-          enum:
-          - none
-          - client
-          - user
-          - auto
-        creationDate:
-          type: string
-          format: date-time
-        creatorAttributes:
-          type: object
-          additionalProperties:
-            type: string
-        clients:
-          type: array
-          items:
-            $ref: '#/components/schemas/Client'
-        umaType:
-          type: boolean
-        baseDn:
-          type: string
-    JsonPatch:
-      type: object
     Scope:
       type: object
       properties:
@@ -938,6 +932,28 @@ components:
           type: boolean
         baseDn:
           type: string
+    CustomObjectAttribute:
+      type: object
+      properties:
+        name:
+          type: string
+        multiValued:
+          type: boolean
+        values:
+          type: array
+          items:
+            type: object
+        value:
+          type: object
+        displayValue:
+          type: string
+    LocalizedString:
+      type: object
+      properties:
+        values:
+          type: object
+          additionalProperties:
+            type: string
     PagedResult:
       type: object
       properties:
@@ -954,22 +970,6 @@ components:
           type: array
           items:
             type: object
-    LocalizedString:
-      type: object
-      properties:
-        values:
-          type: object
-          additionalProperties:
-            type: string
-    ScopeAttributes:
-      type: object
-      properties:
-        spontaneousClientScopes:
-          type: array
-          items:
-            type: string
-        showInConfigurationEndpoint:
-          type: boolean
   securitySchemes:
     oauth2:
       type: oauth2

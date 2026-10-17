@@ -531,6 +531,37 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
+    ApiError:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        description:
+          type: string
+    AssetDirMapping:
+      type: object
+      properties:
+        directory:
+          type: string
+          description: Relative path to asset base directory.
+        type:
+          type: array
+          description: List of file extention that are stored in directory.
+          items:
+            type: string
+            description: List of file extention that are stored in directory.
+        description:
+          type: string
+          description: Description of assets stored in directory.
+        jansServiceModule:
+          type: array
+          description: List of supported service module where asset can be uploaded.
+          items:
+            type: string
+            description: List of supported service module where asset can be uploaded.
+      description: Asset type mapped to server directory.
     DocumentPagedResult:
       type: object
       properties:
@@ -547,6 +578,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Document'
+    AssetForm:
+      required:
+      - assetFile
+      - document
+      type: object
+      properties:
+        document:
+          $ref: '#/components/schemas/Document'
+        assetFile:
+          type: string
+          format: binary
     Document:
       type: object
       properties:
@@ -576,48 +618,6 @@ components:
         enabled:
           type: boolean
         baseDn:
-          type: string
-    AssetForm:
-      required:
-      - assetFile
-      - document
-      type: object
-      properties:
-        document:
-          $ref: '#/components/schemas/Document'
-        assetFile:
-          type: string
-          format: binary
-    AssetDirMapping:
-      type: object
-      properties:
-        directory:
-          type: string
-          description: Relative path to asset base directory.
-        type:
-          type: array
-          description: List of file extention that are stored in directory.
-          items:
-            type: string
-            description: List of file extention that are stored in directory.
-        description:
-          type: string
-          description: Description of assets stored in directory.
-        jansServiceModule:
-          type: array
-          description: List of supported service module where asset can be uploaded.
-          items:
-            type: string
-            description: List of supported service module where asset can be uploaded.
-      description: Asset type mapped to server directory.
-    ApiError:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        description:
           type: string
     PagedResult:
       type: object

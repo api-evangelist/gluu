@@ -155,22 +155,66 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    AuthenticationProtectionConfiguration:
+    KeyExtractor:
       type: object
       properties:
-        attemptExpiration:
-          type: integer
-          format: int32
-        maximumAllowedAttemptsWithoutDelay:
-          type: integer
-          format: int32
-        delayTime:
-          type: integer
-          format: int32
-        bruteForceProtectionEnabled:
+        source:
+          type: string
+          enum:
+          - body
+          - header
+          - query
+          - unknown
+        parameterNames:
+          type: array
+          items:
+            type: string
+        wellFormed:
           type: boolean
-    JsonNode:
+    SsaValidationConfig:
       type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+          - NONE
+          - SSA
+          - DCR
+        displayName:
+          type: string
+        description:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+        allowedClaims:
+          type: array
+          items:
+            type: string
+        jwks:
+          type: string
+        jwksUri:
+          type: string
+        issuers:
+          type: array
+          items:
+            type: string
+        configurationEndpoint:
+          type: string
+        configurationEndpointClaim:
+          type: string
+        sharedSecret:
+          type: string
+    TrustedIssuerConfig:
+      type: object
+      properties:
+        automaticallyGrantedScopes:
+          type: array
+          items:
+            type: string
     SsaConfiguration:
       type: object
       properties:
@@ -191,70 +235,105 @@ components:
             type: array
             items:
               type: string
-    CIBAEndUserNotificationConfig:
+    AuthenticationProtectionConfiguration:
       type: object
       properties:
-        apiKey:
-          type: string
-        authDomain:
-          type: string
-        databaseURL:
-          type: string
-        projectId:
-          type: string
-        storageBucket:
-          type: string
-        messagingSenderId:
-          type: string
-        appId:
-          type: string
-        notificationUrl:
-          type: string
-        notificationKey:
-          type: string
-        publicVapidKey:
-          type: string
-    CorsConfigurationFilter:
-      type: object
-      properties:
-        filterName:
-          type: string
-        corsEnabled:
-          type: boolean
-        corsAllowedOrigins:
-          type: string
-        corsAllowedMethods:
-          type: string
-        corsAllowedHeaders:
-          type: string
-        corsExposedHeaders:
-          type: string
-        corsSupportCredentials:
-          type: boolean
-        corsLoggingEnabled:
-          type: boolean
-        corsPreflightMaxAge:
+        attemptExpiration:
           type: integer
           format: int32
-        corsRequestDecorate:
+        maximumAllowedAttemptsWithoutDelay:
+          type: integer
+          format: int32
+        delayTime:
+          type: integer
+          format: int32
+        bruteForceProtectionEnabled:
           type: boolean
-      description: CORS configuration filter properties.
-    KeyExtractor:
+    AuthenticationFilter:
+      required:
+      - baseDn
+      - filter
       type: object
       properties:
-        source:
+        filter:
           type: string
-          enum:
-          - body
-          - header
-          - query
-          - unknown
-        parameterNames:
+        bind:
+          type: boolean
+        bindPasswordAttribute:
+          type: string
+          xml:
+            name: bind-password-attribute
+        baseDn:
+          type: string
+          xml:
+            name: base-dn
+    SpiffeTrustDomainConfiguration:
+      type: object
+      properties:
+        trustDomain:
+          type: string
+        bundleEndpointUrl:
+          type: string
+        bundleCacheLifetimeInMinutes:
+          type: integer
+          format: int32
+    LockMessageConfig:
+      type: object
+      properties:
+        enableTokenMessages:
+          type: boolean
+        tokenMessagesChannel:
+          type: string
+    PersistenceConfiguration:
+      type: object
+      properties:
+        databaseName:
+          type: string
+          description: Connection object's current catalog name.
+        schemaName:
+          type: string
+          description: Schema name.
+        productName:
+          type: string
+          description: Name of database product.
+        productVersion:
+          type: string
+          description: Version number of this database product.
+        driverName:
+          type: string
+          description: Name of this JDBC driver.
+        driverVersion:
+          type: string
+          description: JDBC driver version number.
+    JsonPatch:
+      type: object
+    RateLimitConfig:
+      type: object
+      properties:
+        rateLimitRules:
           type: array
           items:
-            type: string
-        wellFormed:
+            $ref: '#/components/schemas/RateLimitRule'
+        rateLoggingEnabled:
           type: boolean
+    ClientAuthenticationFilter:
+      required:
+      - baseDn
+      - filter
+      type: object
+      properties:
+        filter:
+          type: string
+        bind:
+          type: boolean
+        bindPasswordAttribute:
+          type: string
+          xml:
+            name: bind-password-attribute
+        baseDn:
+          type: string
+          xml:
+            name: base-dn
     ConnectionServiceConfiguration:
       type: object
       properties:
@@ -267,6 +346,44 @@ components:
         validateAfterInactivity:
           type: integer
           format: int32
+    EngineConfig:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        rootDir:
+          type: string
+        templatesPath:
+          type: string
+        scriptsPath:
+          type: string
+        maxItemsLoggedInCollections:
+          type: integer
+          format: int32
+        disableTCHV:
+          type: boolean
+        pageMismatchErrorPage:
+          type: string
+        interruptionErrorPage:
+          type: string
+        crashErrorPage:
+          type: string
+        finishedFlowPage:
+          type: string
+        startEndUrlMapping:
+          type: object
+          additionalProperties:
+            type: string
+        serializeRules:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        defaultResponseHeaders:
+          type: object
+          additionalProperties:
+            type: string
     AppConfiguration:
       type: object
       properties:
@@ -1221,68 +1338,56 @@ components:
             - code
             - token
             - id_token
-    SsaValidationConfig:
+    CorsConfigurationFilter:
       type: object
       properties:
-        id:
+        filterName:
           type: string
-        type:
-          type: string
-          enum:
-          - NONE
-          - SSA
-          - DCR
-        displayName:
-          type: string
-        description:
-          type: string
-        scopes:
-          type: array
-          items:
-            type: string
-        allowedClaims:
-          type: array
-          items:
-            type: string
-        jwks:
-          type: string
-        jwksUri:
-          type: string
-        issuers:
-          type: array
-          items:
-            type: string
-        configurationEndpoint:
-          type: string
-        configurationEndpointClaim:
-          type: string
-        sharedSecret:
-          type: string
-    AuthorizationRequestCustomParameter:
-      type: object
-      properties:
-        paramName:
-          type: string
-        returnInResponse:
+        corsEnabled:
           type: boolean
-    AuthenticationFilter:
-      required:
-      - baseDn
-      - filter
+        corsAllowedOrigins:
+          type: string
+        corsAllowedMethods:
+          type: string
+        corsAllowedHeaders:
+          type: string
+        corsExposedHeaders:
+          type: string
+        corsSupportCredentials:
+          type: boolean
+        corsLoggingEnabled:
+          type: boolean
+        corsPreflightMaxAge:
+          type: integer
+          format: int32
+        corsRequestDecorate:
+          type: boolean
+      description: CORS configuration filter properties.
+    CIBAEndUserNotificationConfig:
       type: object
       properties:
-        filter:
+        apiKey:
           type: string
-        bind:
-          type: boolean
-        bindPasswordAttribute:
+        authDomain:
           type: string
-          xml:
-            name: bind-password-attribute
-        baseDn:
+        databaseURL:
           type: string
-          xml:
-            name: base-dn
+        projectId:
+          type: string
+        storageBucket:
+          type: string
+        messagingSenderId:
+          type: string
+        appId:
+          type: string
+        notificationUrl:
+          type: string
+        notificationKey:
+          type: string
+        publicVapidKey:
+          type: string
+    JsonNode:
+      type: object
     RateLimitRule:
       type: object
       properties:
@@ -1304,118 +1409,13 @@ components:
             $ref: '#/components/schemas/KeyExtractor'
         wellFormed:
           type: boolean
-    EngineConfig:
+    AuthorizationRequestCustomParameter:
       type: object
       properties:
-        enabled:
+        paramName:
+          type: string
+        returnInResponse:
           type: boolean
-        rootDir:
-          type: string
-        templatesPath:
-          type: string
-        scriptsPath:
-          type: string
-        maxItemsLoggedInCollections:
-          type: integer
-          format: int32
-        disableTCHV:
-          type: boolean
-        pageMismatchErrorPage:
-          type: string
-        interruptionErrorPage:
-          type: string
-        crashErrorPage:
-          type: string
-        finishedFlowPage:
-          type: string
-        startEndUrlMapping:
-          type: object
-          additionalProperties:
-            type: string
-        serializeRules:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-        defaultResponseHeaders:
-          type: object
-          additionalProperties:
-            type: string
-    RateLimitConfig:
-      type: object
-      properties:
-        rateLimitRules:
-          type: array
-          items:
-            $ref: '#/components/schemas/RateLimitRule'
-        rateLoggingEnabled:
-          type: boolean
-    PersistenceConfiguration:
-      type: object
-      properties:
-        databaseName:
-          type: string
-          description: Connection object's current catalog name.
-        schemaName:
-          type: string
-          description: Schema name.
-        productName:
-          type: string
-          description: Name of database product.
-        productVersion:
-          type: string
-          description: Version number of this database product.
-        driverName:
-          type: string
-          description: Name of this JDBC driver.
-        driverVersion:
-          type: string
-          description: JDBC driver version number.
-    JsonPatch:
-      type: object
-    SpiffeTrustDomainConfiguration:
-      type: object
-      properties:
-        trustDomain:
-          type: string
-        bundleEndpointUrl:
-          type: string
-        bundleCacheLifetimeInMinutes:
-          type: integer
-          format: int32
-    TrustedIssuerConfig:
-      type: object
-      properties:
-        automaticallyGrantedScopes:
-          type: array
-          items:
-            type: string
-    ClientAuthenticationFilter:
-      required:
-      - baseDn
-      - filter
-      type: object
-      properties:
-        filter:
-          type: string
-        bind:
-          type: boolean
-        bindPasswordAttribute:
-          type: string
-          xml:
-            name: bind-password-attribute
-        baseDn:
-          type: string
-          xml:
-            name: base-dn
-    LockMessageConfig:
-      type: object
-      properties:
-        enableTokenMessages:
-          type: boolean
-        tokenMessagesChannel:
-          type: string
   securitySchemes:
     oauth2:
       type: oauth2

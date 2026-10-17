@@ -403,6 +403,19 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerErrorSSA'
 components:
+  schemas:
+    ErrorResponse:
+      required:
+      - error
+      - error_description
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        details:
+          type: string
   responses:
     InvalidSSAMetadata:
       description: Invalid SSA Metadata.
@@ -441,19 +454,6 @@ components:
               value:
                 error: invalid_client
                 error_description: Client authentication failed (e.g. unknown client, no client authentication included, or unsupported authentication method).
-  schemas:
-    ErrorResponse:
-      required:
-      - error
-      - error_description
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
-        details:
-          type: string
   securitySchemes:
     bearer:
       type: http

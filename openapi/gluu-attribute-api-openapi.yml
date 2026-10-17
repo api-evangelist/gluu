@@ -295,6 +295,31 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
+    PatchRequest:
+      type: object
+      properties:
+        op:
+          type: string
+        path:
+          type: string
+        value:
+          type: string
+    PagedResult:
+      type: object
+      properties:
+        start:
+          type: integer
+          format: int32
+        totalEntriesCount:
+          type: integer
+          format: int32
+        entriesCount:
+          type: integer
+          format: int32
+        entries:
+          type: array
+          items:
+            type: object
     JansAttribute:
       required:
       - dataType
@@ -424,31 +449,6 @@ components:
           format: int32
         regexp:
           type: string
-    PatchRequest:
-      type: object
-      properties:
-        op:
-          type: string
-        path:
-          type: string
-        value:
-          type: string
-    PagedResult:
-      type: object
-      properties:
-        start:
-          type: integer
-          format: int32
-        totalEntriesCount:
-          type: integer
-          format: int32
-        entriesCount:
-          type: integer
-          format: int32
-        entries:
-          type: array
-          items:
-            type: object
   securitySchemes:
     oauth2:
       type: oauth2

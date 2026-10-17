@@ -219,12 +219,6 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
-    SessionIdPredefinedAttributes:
-      type: object
-      properties:
-        index:
-          type: integer
-          format: int32
     UserAuthenticator:
       type: object
       properties:
@@ -236,21 +230,6 @@ components:
           type: object
           additionalProperties:
             type: object
-    CustomObjectAttribute:
-      type: object
-      properties:
-        name:
-          type: string
-        multiValued:
-          type: boolean
-        values:
-          type: array
-          items:
-            type: object
-        value:
-          type: object
-        displayValue:
-          type: string
     SessionPagedResult:
       type: object
       properties:
@@ -267,62 +246,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SessionId'
-    UserAuthenticatorList:
-      type: object
-      properties:
-        authenticators:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserAuthenticator'
-    User:
-      type: object
-      properties:
-        dn:
-          type: string
-        userId:
-          type: string
-        updatedAt:
-          type: string
-          format: date-time
-        createdAt:
-          type: string
-          format: date-time
-        oxAuthPersistentJwt:
-          type: array
-          items:
-            type: string
-        externalUid:
-          type: array
-          items:
-            type: string
-        authenticator:
-          $ref: '#/components/schemas/UserAuthenticatorList'
-        status:
-          type: string
-          enum:
-          - active
-          - inactive
-          - expired
-          - register
-        customAttributes:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomObjectAttribute'
-        customObjectClasses:
-          type: array
-          items:
-            type: string
-        baseDn:
-          type: string
-    SessionIdAccessMap:
-      type: object
-      properties:
-        permissionGranted:
-          type: object
-          additionalProperties:
-            type: boolean
-          xml:
-            name: map
     SessionId:
       type: object
       properties:
@@ -375,6 +298,83 @@ components:
           type: integer
           format: int32
         opbrowserState:
+          type: string
+    UserAuthenticatorList:
+      type: object
+      properties:
+        authenticators:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserAuthenticator'
+    SessionIdPredefinedAttributes:
+      type: object
+      properties:
+        index:
+          type: integer
+          format: int32
+    CustomObjectAttribute:
+      type: object
+      properties:
+        name:
+          type: string
+        multiValued:
+          type: boolean
+        values:
+          type: array
+          items:
+            type: object
+        value:
+          type: object
+        displayValue:
+          type: string
+    SessionIdAccessMap:
+      type: object
+      properties:
+        permissionGranted:
+          type: object
+          additionalProperties:
+            type: boolean
+          xml:
+            name: map
+    User:
+      type: object
+      properties:
+        dn:
+          type: string
+        userId:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        oxAuthPersistentJwt:
+          type: array
+          items:
+            type: string
+        externalUid:
+          type: array
+          items:
+            type: string
+        authenticator:
+          $ref: '#/components/schemas/UserAuthenticatorList'
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          - expired
+          - register
+        customAttributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomObjectAttribute'
+        customObjectClasses:
+          type: array
+          items:
+            type: string
+        baseDn:
           type: string
   securitySchemes:
     oauth2:

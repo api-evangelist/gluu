@@ -223,8 +223,19 @@ paths:
         - https://jans.io/oauth/jans-auth-server/config/adminui/read-all
 components:
   schemas:
-    JsonNode:
+    AdminPermission:
       type: object
+      properties:
+        tag:
+          type: string
+        permission:
+          type: string
+        description:
+          type: string
+        defaultPermissionInToken:
+          type: boolean
+        essentialPermissionInAdminUI:
+          type: boolean
     GenericResponse:
       type: object
       properties:
@@ -240,19 +251,8 @@ components:
         responseBytes:
           type: string
           format: byte
-    AdminPermission:
+    JsonNode:
       type: object
-      properties:
-        tag:
-          type: string
-        permission:
-          type: string
-        description:
-          type: string
-        defaultPermissionInToken:
-          type: boolean
-        essentialPermissionInAdminUI:
-          type: boolean
   securitySchemes:
     oauth2:
       type: oauth2

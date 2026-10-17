@@ -68,18 +68,6 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ErrorResponse:
-      required:
-      - error
-      - error_description
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
-        details:
-          type: string
     JsonWebKey:
       required:
       - alg
@@ -114,6 +102,18 @@ components:
         x:
           type: string
         y:
+          type: string
+    ErrorResponse:
+      required:
+      - error
+      - error_description
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        details:
           type: string
   securitySchemes:
     bearer:

@@ -133,6 +133,58 @@ paths:
     - url: https://jans.local.io
 components:
   schemas:
+    AppConfiguration:
+      type: object
+      properties:
+        issuer:
+          type: string
+        baseEndpoint:
+          type: string
+        cleanServiceInterval:
+          type: integer
+          format: int32
+        cleanServiceBatchChunkSize:
+          type: integer
+          format: int32
+        useLocalCache:
+          type: boolean
+        disableJdkLogger:
+          type: boolean
+        disableExternalLoggerConfiguration:
+          type: boolean
+        loggingLevel:
+          type: string
+        loggingLayout:
+          type: string
+        externalLoggerConfiguration:
+          type: string
+        metricReporterInterval:
+          type: integer
+          format: int32
+        metricReporterKeepDataDays:
+          type: integer
+          format: int32
+        metricReporterEnabled:
+          type: boolean
+        fido2MetricsEnabled:
+          type: boolean
+        fido2MetricsRetentionDays:
+          type: integer
+          format: int32
+        fido2DeviceInfoCollection:
+          type: boolean
+        fido2ErrorCategorization:
+          type: boolean
+        fido2PerformanceMetrics:
+          type: boolean
+        fido2MetricsAggregationEnabled:
+          type: boolean
+        personCustomObjectClassList:
+          type: array
+          items:
+            type: string
+        fido2Configuration:
+          $ref: '#/components/schemas/Fido2Configuration'
     RequestedParty:
       type: object
       properties:
@@ -142,6 +194,13 @@ components:
           type: array
           items:
             type: string
+    MetadataServer:
+      type: object
+      properties:
+        url:
+          type: string
+        rootCert:
+          type: string
     Fido2Configuration:
       type: object
       properties:
@@ -197,65 +256,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RequestedParty'
-    AppConfiguration:
-      type: object
-      properties:
-        issuer:
-          type: string
-        baseEndpoint:
-          type: string
-        cleanServiceInterval:
-          type: integer
-          format: int32
-        cleanServiceBatchChunkSize:
-          type: integer
-          format: int32
-        useLocalCache:
-          type: boolean
-        disableJdkLogger:
-          type: boolean
-        disableExternalLoggerConfiguration:
-          type: boolean
-        loggingLevel:
-          type: string
-        loggingLayout:
-          type: string
-        externalLoggerConfiguration:
-          type: string
-        metricReporterInterval:
-          type: integer
-          format: int32
-        metricReporterKeepDataDays:
-          type: integer
-          format: int32
-        metricReporterEnabled:
-          type: boolean
-        fido2MetricsEnabled:
-          type: boolean
-        fido2MetricsRetentionDays:
-          type: integer
-          format: int32
-        fido2DeviceInfoCollection:
-          type: boolean
-        fido2ErrorCategorization:
-          type: boolean
-        fido2PerformanceMetrics:
-          type: boolean
-        fido2MetricsAggregationEnabled:
-          type: boolean
-        personCustomObjectClassList:
-          type: array
-          items:
-            type: string
-        fido2Configuration:
-          $ref: '#/components/schemas/Fido2Configuration'
-    MetadataServer:
-      type: object
-      properties:
-        url:
-          type: string
-        rootCert:
-          type: string
     ErrorResponse:
       required:
       - error

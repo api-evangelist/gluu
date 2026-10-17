@@ -101,34 +101,8 @@ components:
           $ref: '#/components/schemas/RedisMessageConfiguration'
         postgresConfiguration:
           $ref: '#/components/schemas/PostgresMessageConfiguration'
-    PostgresMessageConfiguration:
+    JsonPatch:
       type: object
-      properties:
-        driverClassName:
-          type: string
-        dbSchemaName:
-          type: string
-        connectionUri:
-          type: string
-        authUserName:
-          type: string
-        authUserPassword:
-          type: string
-        connectionPoolMaxTotal:
-          type: integer
-          format: int32
-        connectionPoolMaxIdle:
-          type: integer
-          format: int32
-        connectionPoolMinIdle:
-          type: integer
-          format: int32
-        messageWaitMillis:
-          type: integer
-          format: int32
-        messageSleepThreadTime:
-          type: integer
-          format: int32
     RedisMessageConfiguration:
       type: object
       properties:
@@ -175,8 +149,34 @@ components:
         maxRetryAttempts:
           type: integer
           format: int32
-    JsonPatch:
+    PostgresMessageConfiguration:
       type: object
+      properties:
+        driverClassName:
+          type: string
+        dbSchemaName:
+          type: string
+        connectionUri:
+          type: string
+        authUserName:
+          type: string
+        authUserPassword:
+          type: string
+        connectionPoolMaxTotal:
+          type: integer
+          format: int32
+        connectionPoolMaxIdle:
+          type: integer
+          format: int32
+        connectionPoolMinIdle:
+          type: integer
+          format: int32
+        messageWaitMillis:
+          type: integer
+          format: int32
+        messageSleepThreadTime:
+          type: integer
+          format: int32
   securitySchemes:
     oauth2:
       type: oauth2

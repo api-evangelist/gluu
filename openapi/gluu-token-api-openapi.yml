@@ -695,14 +695,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized access request.
+    AccessDenied:
+      description: Invalid details provided hence access denied.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    AccessDenied:
-      description: Invalid details provided hence access denied.
+    Unauthorized:
+      description: Unauthorized access request.
       content:
         application/json:
           schema:
@@ -720,6 +720,26 @@ components:
           type: string
         details:
           type: string
+    TokenAttributes:
+      type: object
+      properties:
+        x5cs256:
+          type: string
+        online_access:
+          type: boolean
+        authorization_challenge:
+          type: boolean
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+        dpopJkt:
+          type: string
+        authorizationDetails:
+          type: string
+        statusListIndex:
+          type: integer
+          format: int32
     TokenEntity:
       type: object
       properties:
@@ -795,26 +815,6 @@ components:
           type: boolean
         logoutStatusJwt:
           type: boolean
-    TokenAttributes:
-      type: object
-      properties:
-        x5cs256:
-          type: string
-        online_access:
-          type: boolean
-        authorization_challenge:
-          type: boolean
-        attributes:
-          type: object
-          additionalProperties:
-            type: string
-        dpopJkt:
-          type: string
-        authorizationDetails:
-          type: string
-        statusListIndex:
-          type: integer
-          format: int32
     TokenEntityPagedResult:
       type: object
       properties:

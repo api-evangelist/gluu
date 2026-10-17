@@ -120,6 +120,33 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
+    JsonPatch:
+      type: object
+    GrpcConfiguration:
+      type: object
+      properties:
+        serverMode:
+          type: string
+          description: gRPC server mode
+          enum:
+          - disabled
+          - bridge
+          - plain_server
+          - tls_server
+        grpcPort:
+          type: integer
+          description: Specify grpc port
+          format: int32
+        useTls:
+          type: boolean
+          description: Use TLS for gRPC communication
+        tlsCertChainFilePath:
+          type: string
+          description: TLS Cert Chain File Path
+        tlsPrivateKeyFilePath:
+          type: string
+          description: TLS Private Key File Path
+      description: gRPC server configuration
     AppConfiguration:
       type: object
       properties:
@@ -218,33 +245,6 @@ components:
           type: string
           description: URI to policy store. Policy store can be either json/zip
       description: List of Policy Sources
-    GrpcConfiguration:
-      type: object
-      properties:
-        serverMode:
-          type: string
-          description: gRPC server mode
-          enum:
-          - disabled
-          - bridge
-          - plain_server
-          - tls_server
-        grpcPort:
-          type: integer
-          description: Specify grpc port
-          format: int32
-        useTls:
-          type: boolean
-          description: Use TLS for gRPC communication
-        tlsCertChainFilePath:
-          type: string
-          description: TLS Cert Chain File Path
-        tlsPrivateKeyFilePath:
-          type: string
-          description: TLS Private Key File Path
-      description: gRPC server configuration
-    JsonPatch:
-      type: object
     CedarlingConfiguration:
       type: object
       properties:

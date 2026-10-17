@@ -146,25 +146,6 @@ components:
   schemas:
     JsonNode:
       type: object
-    StatsData:
-      type: object
-      properties:
-        dbType:
-          type: string
-        lastUpdate:
-          type: string
-          format: date-time
-        facterData:
-          $ref: '#/components/schemas/FacterData'
-    HealthStatus:
-      type: object
-      properties:
-        status:
-          type: string
-        checks:
-          type: array
-          items:
-            $ref: '#/components/schemas/Status'
     Status:
       type: object
       properties:
@@ -191,6 +172,25 @@ components:
           type: string
         load_average:
           type: string
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/Status'
+    StatsData:
+      type: object
+      properties:
+        dbType:
+          type: string
+        lastUpdate:
+          type: string
+          format: date-time
+        facterData:
+          $ref: '#/components/schemas/FacterData'
   securitySchemes:
     oauth2:
       type: oauth2

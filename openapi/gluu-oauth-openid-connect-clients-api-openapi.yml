@@ -294,6 +294,8 @@ paths:
         - https://jans.io/oauth/config/write-all
 components:
   schemas:
+    JsonPatch:
+      type: object
     ClientAttributes:
       type: object
       properties:
@@ -705,8 +707,13 @@ components:
           type: object
         displayValue:
           type: string
-    JsonPatch:
+    LocalizedString:
       type: object
+      properties:
+        values:
+          type: object
+          additionalProperties:
+            type: string
     PagedResult:
       type: object
       properties:
@@ -723,13 +730,6 @@ components:
           type: array
           items:
             type: object
-    LocalizedString:
-      type: object
-      properties:
-        values:
-          type: object
-          additionalProperties:
-            type: string
   securitySchemes:
     oauth2:
       type: oauth2

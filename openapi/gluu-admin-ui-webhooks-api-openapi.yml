@@ -384,6 +384,17 @@ paths:
         - https://jans.io/oauth/jans-auth-server/config/adminui/webhook.readonly
 components:
   schemas:
+    ScopeAttributes:
+      type: object
+      properties:
+        spontaneousClientScopes:
+          type: array
+          items:
+            type: string
+        showInConfigurationEndpoint:
+          type: boolean
+    JsonNode:
+      type: object
     AuiFeature:
       type: object
       properties:
@@ -401,19 +412,6 @@ components:
             type: string
         baseDn:
           type: string
-    JsonNode:
-      type: object
-    ShortCodeRequest:
-      required:
-      - webhookId
-      type: object
-      properties:
-        webhookId:
-          type: string
-        shortcodeValueMap:
-          type: object
-          additionalProperties:
-            type: object
     GenericResponse:
       type: object
       properties:
@@ -429,6 +427,13 @@ components:
         responseBytes:
           type: string
           format: byte
+    KeyValuePair:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
     Scope:
       type: object
       properties:
@@ -495,6 +500,17 @@ components:
           type: boolean
         baseDn:
           type: string
+    ShortCodeRequest:
+      required:
+      - webhookId
+      type: object
+      properties:
+        webhookId:
+          type: string
+        shortcodeValueMap:
+          type: object
+          additionalProperties:
+            type: object
     PagedResult:
       type: object
       properties:
@@ -551,22 +567,6 @@ components:
             type: object
         baseDn:
           type: string
-    KeyValuePair:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-    ScopeAttributes:
-      type: object
-      properties:
-        spontaneousClientScopes:
-          type: array
-          items:
-            type: string
-        showInConfigurationEndpoint:
-          type: boolean
   securitySchemes:
     oauth2:
       type: oauth2

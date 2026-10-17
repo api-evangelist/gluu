@@ -333,6 +333,11 @@ components:
         responseBytes:
           type: string
           format: byte
+    SSARequest:
+      type: object
+      properties:
+        ssa:
+          type: string
     LicenseResponse:
       type: object
       properties:
@@ -366,11 +371,6 @@ components:
           format: int64
         licenseExpired:
           type: boolean
-    SSARequest:
-      type: object
-      properties:
-        ssa:
-          type: string
   securitySchemes:
     oauth2:
       type: oauth2
