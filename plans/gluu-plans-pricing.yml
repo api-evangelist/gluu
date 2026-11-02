@@ -1,0 +1,124 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://gluu.org/solo
+sources:
+- https://gluu.org/solo
+- https://gluu.org/solo/
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T141238
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: tiered-subscription
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-28'
+  managed_tier: Planet
+published: true
+note: 'Page also states derived cost per request: $0.000012 (Planet), $0.0000022 (Star), $0.0000012 (Galaxy).
+  Purchase requires contacting sales.'
+plan_count: 6
+currency: USD
+plans:
+- name: Planet
+  price_text: $800
+  price: 800
+  currency: USD
+  period: month
+  unit: per location
+  included_quota: Up to 25M requests per month, max 3 locations, 4 vCPU, 8 GiB RAM, 99.9% SLA
+- name: Planet (annual)
+  price_text: $8,000
+  price: 8000
+  currency: USD
+  period: year
+  unit: per location
+  included_quota: 2 months free
+- name: Star
+  price_text: $1,500
+  price: 1500
+  currency: USD
+  period: month
+  unit: per location
+  included_quota: Up to 250M requests per month, max 10 locations, 4 vCPU, 8 GiB RAM, 99.9% SLA
+- name: Star (annual)
+  price_text: $15,000
+  price: 15000
+  currency: USD
+  period: year
+  unit: per location
+  included_quota: 2 months free
+- name: Galaxy
+  price_text: $4,000
+  price: 4000
+  currency: USD
+  period: month
+  unit: per location
+  included_quota: Up to 2.5B requests per month, max 15 locations, 4 vCPU, 8 GiB RAM, 99.95% SLA
+- name: Galaxy (annual)
+  price_text: $40,000
+  price: 40000
+  currency: USD
+  period: year
+  unit: per location
+  included_quota: 2 months free
+rate_limit_statements:
+- Requests per month Up to 25M Up to 250M Up to 2.5B
+- Max locations allowed 3 10 15
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - subscription
+  units: []
+  plans:
+  - name: Planet
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Planet (annual)
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - year
+  - name: Star
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Star (annual)
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - year
+  - name: Galaxy
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - month
+  - name: Galaxy (annual)
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - year
