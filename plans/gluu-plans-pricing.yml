@@ -68,7 +68,7 @@ rate_limit_statements:
 - Requests per month Up to 25M Up to 250M Up to 2.5B
 - Max locations allowed 3 10 15
 x-canonical:
-  generated: '2026-11-01'
+  generated: '2026-11-02'
   vocabulary: engine/economics/plans-canonical.yml
   models:
   - subscription
