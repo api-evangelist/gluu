@@ -38,7 +38,7 @@ accessModel:
   - rate-limits
   - security
   - sandbox
-  generated: '2026-11-06'
+  generated: '2026-11-13'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/gluu.png
 access: 3rd-Party
@@ -2093,6 +2093,14 @@ common:
   url: security/gluu-domain-security.yml
 - type: VulnerabilityDisclosure
   url: security/gluu-vulnerability-disclosure.yml
+- type: UsageTerms
+  url: terms/gluu-terms-of-service.yml
+- type: DataProcessing
+  url: privacy/gluu-privacy-policy.yml
+- type: Eligibility
+  url: eligibility/gluu-eligibility.yml
+- type: DataLicense
+  url: data-license/gluu-data-license.yml
 integrations:
 - name: Gluu
 maintainers:
